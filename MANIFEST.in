@@ -1,0 +1,5 @@
+prune recip
+include VERSION
+include recip/*.py
+include recip/*.pyx
+
