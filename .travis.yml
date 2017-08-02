@@ -4,28 +4,28 @@ matrix:
   - env: CACHE_NAME=latest DEPLOY_DOC_FROM_BRANCH=master DEPLOY_DOC_TO_REPOSITORY=mstreng/recip
       DEPLOY_DOC_TO_DIRECTORY=doc/html SAGE_SERVER=http://mirrors.xmission.com/sage/linux/64bit/
       SAGE_AGE=0
-  - env: CACHE_NAME=older SAGE_SERVER=http://mirrors.xmission.com/sage/linux/64bit/ SAGE_AGE=1
+  - env: CACHE_NAME=older SAGE_SERVER=http://mirrors.xmission.com/sage/linux/64bit/
+      SAGE_AGE=1
   allow_failures:
-  - env: CACHE_NAME=older SAGE_SERVER=http://mirrors.xmission.com/sage/linux/64bit/ SAGE_AGE=1
-
+  - env: CACHE_NAME=older SAGE_SERVER=http://mirrors.xmission.com/sage/linux/64bit/
+      SAGE_AGE=1
 addons:
-   apt:
-     packages:
-      # On 8.0 with trusty, Fortran compiler is needed.
-      # Otherwise, numpy cannot be imported.
-      # Also, optional package installs in .travis-install.sh will trigger build of sage gcc.
-      - gfortran
+  apt:
+    packages:
+    - gfortran
 install:
-- "./.travis-install.sh"
+- ./.travis-install.sh
 script:
-- "./.travis-test.sh"
+- ./.travis-test.sh
 cache:
   directories:
-  - "$HOME/SageMath"
-  - "$HOME/.cache/matplotlib"
+  - $HOME/SageMath
+  - $HOME/.cache/matplotlib
   timeout: 1000
 before_cache:
 - rm -Rf $HOME/SageMath/logs $HOME/SageMath/.BUILDSTART
 after_success:
-- "./.travis-deploy-doc.sh"
+- ./.travis-deploy-doc.sh
 before_script:
+- openssl aes-256-cbc -K $encrypted_b349c640467b_key -iv $encrypted_b349c640467b_iv
+  -in .travis_ci_gh_pages_deploy_key.enc -out .travis_ci_gh_pages_deploy_key -d || true
