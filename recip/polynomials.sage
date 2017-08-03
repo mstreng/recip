@@ -230,7 +230,8 @@ def short_interpolation(a, b):
     where H = prod (x-a[i]).
     
     EXAMPLES::
-    
+
+        sage: from recip import *
         sage: p = short_interpolation([3],[3]); p
         3
         sage: p.parent()

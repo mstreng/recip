@@ -432,7 +432,7 @@ def _matrix_omega(g):
 
     EXAMPLE::
 
-        sage: from recip import *
+        sage: from recip import _matrix_omega
         sage: _matrix_omega(2) == Matrix([[0,0,1,0],[0,0,0,1],[-1,0,0,0],[0,-1,0,0]])
         True
     """
@@ -1333,7 +1333,8 @@ def random_period_matrix(prec=53, g=2):
     in [-1/2, 1/2] and imaginary part in [0, min(Im(diagonal entries))].
     
     EXAMPLE::
-    
+
+        sage: from recip import *
         sage: random_period_matrix(200, 2).parent()
         Full MatrixSpace of 2 by 2 dense matrices over Complex Field with 200 bits of precision
         sage: random_period_matrix().parent()

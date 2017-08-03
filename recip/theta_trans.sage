@@ -214,6 +214,7 @@ def _determine_kappa_for_gottschling():
     EXAMPLES::
     
         sage: from recip import *
+        sage: from recip import _determine_kappa_for_gottschling
         sage: gottschling_kappa == _determine_kappa_for_gottschling()
         True
     """
@@ -1573,6 +1574,7 @@ def even_theta_characteristics(dupont=False):
     
     EXAMPLE::
     
+        sage: from recip import *
         sage: even_theta_characteristics()
         [[0, 0, 0, 0], [0, 0, 1/2, 0], [0, 0, 0, 1/2], [0, 0, 1/2, 1/2], [1/2, 0, 0, 0], [1/2, 0, 0, 1/2], [0, 1/2, 0, 0], [0, 1/2, 1/2, 0], [1/2, 1/2, 0, 0], [1/2, 1/2, 1/2, 1/2]]
 

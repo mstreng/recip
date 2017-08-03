@@ -167,6 +167,7 @@ class Sp_group:
     
     EXAMPLES::
     
+        sage: from recip import *
         sage: l = Sp_group(4, 2).list() # long time, 2 seconds
         sage: len(l) # depends on previous line with long time
         720
@@ -200,6 +201,7 @@ class Sp_group:
 
         EXAMPLES::
         
+            sage: from recip import *
             sage: Sp_group(2, 2).list()
             [
             [1 0]  [0 1]  [1 1]  [1 1]  [1 0]  [0 1]
@@ -228,6 +230,7 @@ class Sp_group:
         
         EXAMPLES::
         
+            sage: from recip import *
             sage: Sp_group(2, 5).order()
             120
         """
@@ -240,6 +243,7 @@ class GSp_group:
     
     EXAMPLES::
     
+        sage: from recip import *
         sage: l = GSp_group(4, 2).list() # long time, 2 seconds
         sage: len(l) # long time
         720
@@ -260,6 +264,7 @@ class GSp_group:
         
         EXAMPLES::
         
+            sage: from recip import *
             sage: GSp_group(2, 2).list()
             [
             [1 0]  [0 1]  [1 1]  [1 1]  [1 0]  [0 1]
@@ -281,6 +286,7 @@ class GSp_group:
         
         EXAMPLES::
         
+            sage: from recip import *
             sage: GSp_group(2, 5).order() # long time, 1 second
             480
         """
