@@ -58,7 +58,7 @@ def evaluate_theta(c, z, u = None, use_magma=False):
     
     EXAMPLES::
     
-        sage: load("recip.sage")
+        sage: from recip import *
         sage: I = CC.gen()
         sage: evaluate_theta([0,0,0,0], Matrix(CC, [[I+1, 1/2+I/3], [1/2+I/3, 3/2*I+1/5]]), use_magma=True) # optional - magma
         0.933295835691982 + 0.0143249911726235*I
@@ -115,7 +115,7 @@ def evaluate_theta_interval(c, z, R=None, reduce_first=True):
 
     EXAMPLES::
     
-        sage: load("recip.sage")
+        sage: from recip import *
         sage: I = ComplexIntervalField(100).gen()
         sage: Z = Matrix([[I+1, 1/2+I/3], [1/2+I/3, 3/2*I+1/5]])
         sage: c = [0,0,0,0]
@@ -432,7 +432,7 @@ def _matrix_omega(g):
 
     EXAMPLE::
 
-        sage: load("recip.sage")
+        sage: from recip import *
         sage: _matrix_omega(2) == Matrix([[0,0,1,0],[0,0,0,1],[-1,0,0,0],[0,-1,0,0]])
         True
     """
@@ -446,7 +446,7 @@ def is_symplectic(gamma, g=None):
     
     EXAMPLES::
 
-        sage: load("recip.sage")
+        sage: from recip import *
         sage: g = gottschling_matrices()
         sage: all([is_symplectic(gamma) for gamma in g]) and len(g) == 38
         True
@@ -573,7 +573,7 @@ def is_positive_definite(m):
     
     EXAMPLES::
     
-        sage: load("recip.sage")
+        sage: from recip import *
         sage: is_positive_definite(Matrix(AA,[[2,2],[2,4]]))
         True
         sage: is_positive_definite(Matrix(AA,[[1,2],[2,4]]))
@@ -599,7 +599,7 @@ def is_period_matrix(m):
     
     EXAMPLES::
     
-        sage: load("recip.sage")
+        sage: from recip import *
         sage: i = CC.gen()
         sage: is_period_matrix(Matrix([[1+i, 2+i], [2+i, 5*i]]))
         True
@@ -766,7 +766,7 @@ class PeriodMatrix_CM(Matrix_generic_dense):
         
         EXAMPLES::
         
-            sage: load("recip.sage")
+            sage: from recip import *
             sage: U = CM_Field(x^4+5*x^2+5).period_matrices_iter().next(); U
             Period Matrix
             [ 0.30901699437...? + 0.95105651629...?*I  0.50000000000...? + 0.36327126400268?*I]
@@ -878,7 +878,7 @@ class PeriodMatrix_CM(Matrix_generic_dense):
         
         EXAMPLES::
         
-            sage: load("recip.sage")
+            sage: from recip import *
             sage: k = CM_Field((x^2+5)^2-4*5)
             sage: it = k.period_matrices_iter()
             sage: Z = it.next(); Z
@@ -1119,7 +1119,7 @@ class PeriodMatrix_CM(Matrix_generic_dense):
         
         EXAMPLES::
         
-            sage: load("recip.sage")
+            sage: from recip import *
             sage: k = CM_Field([5,13,41])
             sage: Z = k.one_period_matrix()
             sage: a = Z.CM_type().reflex_field().gen()
@@ -1194,7 +1194,7 @@ class PeriodMatrix_CM(Matrix_generic_dense):
         
         EXAMPLES::
 
-            sage: load("recip.sage")
+            sage: from recip import *
             sage: K = CM_Field(x^4+x^3+x^2+x+1, embedding=QQbar) # the embedding is not added afterwards, and the reflex field is taken to be the field itself, so this is necessary for now
             sage: Z = K.one_period_matrix()
             sage: Z.has_real_moduli()
@@ -1258,7 +1258,7 @@ def lift_ray_class_group_element(A, M, N, generator=False):
     
     EXAMPLES::
     
-        sage: load("recip.sage")
+        sage: from recip import *
         sage: P.<x> = QQ[]
         sage: k = NumberField(x^2+5,'a')
         sage: A = k.class_group().gen().ideal()

@@ -67,7 +67,7 @@ def superorders(O):
     
     EXAMPLES::
     
-        sage: load("recip.sage")
+        sage: from recip import *
         sage: K = CM_Field([5,5,5])
         sage: OK = K.maximal_order()
         sage: O = K.order([5*b for b in OK.basis()])
@@ -128,7 +128,7 @@ def superorders_stable_under_complex_conjugation(O, c=None):
 
     EXAMPLES::
     
-        sage: load("recip.sage")
+        sage: from recip import *
         sage: K = CM_Field([5,5,5])
         sage: OK = K.maximal_order()
         sage: O = K.order([5*b for b in OK.basis()])
@@ -185,7 +185,7 @@ def proper_ideal_classes(O, F):
     
     Warning: not tested much except for primitive quartic CM-fields.
     
-        sage: load("recip.sage")
+        sage: from recip import *
         sage: K = CM_Field([5,5,5])
         sage: Phi = K.CM_types()[0]
         sage: alpha = K.gen()
@@ -369,7 +369,7 @@ def polarized_ideal_classes(O, F):
     
     EXAMPLES::
     
-        sage: load("recip.sage")
+        sage: from recip import *
         sage: K = CM_Field([5,5,5])
         sage: Phi = K.CM_types()[0]
         sage: alpha = K.gen()
@@ -532,7 +532,7 @@ def mult_ideals(basis1, basis2, K):
 
     EXAMPLES::
 
-        sage: load("orders.sage")
+        sage: from recip import *
         sage: K.<a> = QuadraticField(15)
         sage: basis1 = [1, a]   # Maximal order OK
         sage: basis2 = [2, 2*a] # 2OK
@@ -558,7 +558,7 @@ def intersect_ideals(basis1, basis2, K):
 
     EXAMPLES::
 
-        sage: load("orders.sage")
+        sage: from recip import *
         sage: K.<a> = QuadraticField(15)
         sage: basis1 = [1, a]   # Maximal order OK
         sage: basis2 = [2, 2*a] # 2OK
@@ -595,7 +595,7 @@ def ideal_divide(basis1, basis2, K):
 
     EXAMPLES::
 
-        sage: load("orders.sage")
+        sage: from recip import *
         sage: K.<a> = QuadraticField(15)
         sage: basis1 = [1, a]   # Maximal order OK
         sage: basis2 = [2, 2*a] # 2OK
@@ -627,7 +627,7 @@ def ideal_order(basis, K):
 
     EXAMPLES::
 
-        sage: load("orders.sage")
+        sage: from recip import *
         sage: K.<a> = QuadraticField(15)
         sage: basis1 = [1, a]   # Maximal order OK
         sage: basis2 = [2, 2*a] # 2OK
@@ -673,7 +673,7 @@ def ideal_inverse(basis, K, O=None):
 
     EXAMPLES::
 
-        sage: load("orders.sage")
+        sage: from recip import *
         sage: K.<a> = QuadraticField(15)
         sage: basis1 = [1, a]   # Maximal order OK
         sage: basis2 = [2, 2*a] # 2OK
@@ -704,7 +704,7 @@ def ideal_inverse(basis, K, O=None):
     http://websites.math.leidenuniv.nl/algebra/ant.pdf
     ::
 
-        sage: load("orders.sage")
+        sage: from recip import *
         sage: K.<a> = NumberField(x^3+x+1)
         sage: A = K.order([1, a, a^2])
         sage: p = 7
@@ -739,7 +739,7 @@ def ideal_inverse(basis, K, O=None):
     Something from work with Sorina Ionica, Chloe Martindale
     and Damien Robert::
 
-        sage: load("recip.sage")
+        sage: from recip import *
         sage: K = CM_Field([40, 20, 90])
         sage: alpha = K.gen()
         sage: I1 = [2*alpha^3 + 2, 220/3*alpha^3 + 2/3*alpha, 3*alpha^3 + 3*alpha^2,    111*alpha^3]
@@ -869,7 +869,7 @@ def period_matrices(O, F, Phi=None, reduced=True):
     Here is a bug, some numbers are close to zero and apparently CLF's > 0
     is not to be trusted.::
     
-        sage: load('recip.sage')
+        sage: from recip import *
         sage: K = CM_Field([1837, 81, 1181])
         sage: Phi = K.CM_types()[0]
         sage: len(period_matrices(K.maximal_order(), 1, Phi)) # long time, half a minute
@@ -900,7 +900,7 @@ def are_nn_isogenous(Z1, Z2, n, F1, F2, transformation=False, double_check=False
     
     EXAMPLES::
     
-        sage: load("recip.sage")
+        sage: from recip import *
         sage: K = CM_Field([5,5,5])
         sage: Phi = K.CM_types()[0]
         sage: alpha = K.gen()
@@ -1101,7 +1101,7 @@ def is_trivial_in_shimura_group(A, alpha, O, cc=None):
     We first create a suitable order, and standard things like reflex
     fields etcetera::
     
-        sage: load("recip.sage")
+        sage: from recip import *
         sage: P.<x> = QQ[]
         sage: CM_Field(x^4+2*x^3+16*x^2+15*x+19).minimal_DAB()
         [149, 13, 5]

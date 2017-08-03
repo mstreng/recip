@@ -32,7 +32,7 @@ from it.
 To use this package, start Sage with the .sage files from this package in your
 working directory. Then type::
 
-    sage: load("recip.sage")
+    sage: from recip import *
 
 See below for some examples.
 
@@ -159,7 +159,7 @@ def reciprocity_map_image(Z, level, modulus=None):
     
     EXAMPLE::
     
-        sage: load("recip.sage")
+        sage: from recip import *
         sage: k = CM_Field((x^2+5)^2-4*5)
         sage: Z = k.one_period_matrix(); Z
         Period Matrix
@@ -211,7 +211,7 @@ def list_group(gens):
     reciprocity_map_image. The outputs are equivalent, as the following test
     shows.::
     
-        sage: load("recip.sage")
+        sage: from recip import *
         sage: k = CM_Field((x^2+5)^2-4*5)
         sage: Z = k.period_matrices_iter().next()
         sage: gens = reciprocity_map_image(Z, 6)
@@ -253,7 +253,7 @@ def table(gens, den, select_rows=None):
 
     EXAMPLE::
 
-        sage: load("recip.sage")
+        sage: from recip import *
         sage: gens = [GSp_element([[5,0,7,1],[6,6,0,7],[3,6,6,1],[6,1,7,4]],ring=Zmod(8))]
         sage: table(gens, 2, select_rows=[0,1,4,6,8])
         [            0|            1]
@@ -348,13 +348,14 @@ def _permutations(gens, den, L=None):
     
     EXAMPLES::
     
-        sage: load("recip.sage")
+        sage: from recip import *
         sage: M = []
         sage: M.append([[5,0,7,1],[6,6,0,7],[3,6,6,1],[6,1,7,4]])
         sage: M.append([[1,6,4,2],[2,3,6,4],[0,4,5,2],[4,4,6,7]])
         sage: M.append([[7,0,6,4],[2,1,0,6],[0,2,1,2],[2,2,4,3]])
         sage: M.append([[5,0,4,0],[4,1,0,4],[0,4,1,4],[4,4,0,5]])
         sage: gens = [GSp_element(m, ring=Zmod(8)) for m in M]
+        sage: from recip import _permutations
         sage: _permutations(gens, 2)      
         ([[16, 15, 9, 1, 7, 8, 14, 4, 2, 13, 11, 3, 5, 10, 12, 6], [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16], [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16], [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16]], Permutation Group with generators [(), (1,16,6,8,4)(2,15,12,3,9)(5,7,14,10,13)])
     """
@@ -379,7 +380,7 @@ def visualize(gens, den, select_rows = None):
 
     EXAMPLE::
 
-        sage: load("recip.sage")
+        sage: from recip import *
         sage: M = []
         sage: M.append([[5,0,7,1],[6,6,0,7],[3,6,6,1],[6,1,7,4]])
         sage: M.append([[1,6,4,2],[2,3,6,4],[0,4,5,2],[4,4,6,7]])

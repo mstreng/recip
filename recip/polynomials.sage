@@ -75,7 +75,7 @@ def recognize_polynomial(pol_n, K=None, N=None, M=None,
       
     EXAMPLES::
     
-        sage: load("recip.sage")
+        sage: from recip import *
         sage: Q.<y> = QQ[]
         sage: K.<a> = NumberField(y^2+y-7)
         sage: P.<x> = K[]

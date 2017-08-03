@@ -56,7 +56,7 @@ def subscript_zero(A):
     
     EXAMPLES::
     
-        sage: load("recip.sage")
+        sage: from recip import *
         sage: A = Matrix([[1,2],[3,4]])
         sage: subscript_zero(A)
         (1, 4)
@@ -72,7 +72,7 @@ def is_den_even(den):
     
     EXAMPLES::
     
-        sage: load("recip.sage")
+        sage: from recip import *
         sage: is_den_even(5)
         Traceback (most recent call last):
         ...
@@ -104,7 +104,7 @@ def sq_brackets_inverse(M, nu_inv, c):
     
     EXAMPLES::
     
-        sage: load("recip.sage")
+        sage: from recip import *
         sage: M = Matrix([[1,0,2,0],[0,1,0,0],[-2,0,-3,0],[0,0,0,1]])
         sage: c = vector([1/2, 1/2, 0, 0])
         sage: sq_brackets_inverse(M, 1, c)
@@ -131,7 +131,7 @@ def kappa(M, k = 1):
       
     EXAMPLE::
     
-        sage: load("recip.sage")
+        sage: from recip import *
         sage: kappa(Matrix([[0,5,0,1],[-1,0,-2,0],[1,4,2,1],[1,-5,1,-1]]))
         Traceback (most recent call last):
         ...
@@ -159,7 +159,7 @@ def theta_trans_k(M, nu_inv, c):
     
     EXAMPLE::
     
-        sage: load("recip.sage")
+        sage: from recip import *
         sage: M = Matrix([[1, 0, 2, 0], [0, 1, 0, 0], [-2, 0, -3, 0], [0, 0, 0, 1]])
         sage: d = vector([1/2, 1/2, 0, 0])
         sage: theta_trans_k(M, 1, d)
@@ -186,7 +186,7 @@ def theta_c_mod_Z(c):
     
     EXAMPLES::
     
-        sage: load("recip.sage")
+        sage: from recip import *
         sage: theta_c_mod_Z([7/2, 7/3, 7/4, 7/5, 7/6, 7/7, 7/8, 7/9])
         ([1/2, 1/3, 3/4, 2/5, 1/6, 0, 7/8, 7/9], 35/6)
     """
@@ -213,7 +213,7 @@ def _determine_kappa_for_gottschling():
     
     EXAMPLES::
     
-        sage: load("recip.sage")
+        sage: from recip import *
         sage: gottschling_kappa == _determine_kappa_for_gottschling()
         True
     """
@@ -296,7 +296,7 @@ def theta_action_without_kappa(M, nu_inv, d):
     
     EXAMPLES::
     
-        sage: load("recip.sage")
+        sage: from recip import *
         sage: M = Matrix([[0, 1], [-1, 0]])
         sage: theta_action_without_kappa(M, 1, [1/6, 1/2])
         ([1/2, 1/6], 1/12)
@@ -401,7 +401,7 @@ def make_theta_ring(g, den):
     
     EXAMPLE::
     
-        sage: load("recip.sage")
+        sage: from recip import *
         sage: make_theta_ring(1,6)[0]
         Multivariate Polynomial Ring in t0d6, t1d6, t2d6, t3d6, t4d6, t5d6, t6d6, t7d6, t8d6, t9d6, t10d6, t11d6, t12d6, t13d6, t14d6, t15d6, t16d6, t17d6, t18d6, t19d6, t20d6, t21d6, t22d6, t23d6, t24d6, t25d6, t26d6, t27d6, t28d6, t29d6, t30d6, t31d6, t32d6, t33d6, t34d6, t35d6 over Cyclotomic Field of order 72 and degree 24
 
@@ -449,7 +449,7 @@ def theta_ring(g, den):
     
     EXAMPLES::
     
-        sage: load("recip.sage")
+        sage: from recip import *
         sage: tr = theta_ring(3, 2); len(tr)
         3
         sage: tr[0]
@@ -471,7 +471,7 @@ def theta_ring_inclusion(g, den1, den2):
     
     EXAMPLE::
     
-        sage: load("recip.sage")
+        sage: from recip import *
         sage: theta_ring_inclusion(2,2,4)
         [t0d4, t2d4, t8d4, t10d4, t32d4, t34d4, t40d4, t42d4, t128d4, t130d4, t136d4, t138d4, t160d4, t162d4, t168d4, t170d4]
 
@@ -490,7 +490,7 @@ def c_to_num(c, den):
     
     EXAMPLE::
     
-        sage: load("recip.sage")
+        sage: from recip import *
         sage: c_to_num(num_to_c(1234, g = 5, den = 7), den = 7)
         1234
     """
@@ -518,7 +518,7 @@ def num_to_c(n, g, den):
     
     EXAMPLE::
     
-        sage: load("recip.sage")
+        sage: from recip import *
         sage: num_to_c(c_to_num([0,1/2,2/3,3/4,4/5,5/6],den=60), g=3, den=60)
         [0, 1/2, 2/3, 3/4, 4/5, 5/6]
     """
@@ -542,7 +542,7 @@ def name_to_den(name):
     
     EXAMPLE::
     
-        sage: load("recip.sage")
+        sage: from recip import *
         sage: name_to_den('t12d034')
         34
 
@@ -561,7 +561,7 @@ def name_to_den_c(name, g):
     
     EXAMPLE::
     
-        sage: load("recip.sage")
+        sage: from recip import *
         sage: name_to_den_c('t0123d45', 2)
         (45, [0, 0, 11/15, 2/45])
 
@@ -581,7 +581,7 @@ def cycl_galois_action(alpha, amodb):
     
     EXAMPLES::
     
-        sage: load("recip.sage")
+        sage: from recip import *
         sage: C = CyclotomicField(10)
         sage: amodb = Zmod(15)(7)
         sage: z = C.gen()
@@ -613,7 +613,7 @@ def cycl_galois_action_on_polynomials(x, amodb):
     
     EXAMPLES::
     
-        sage: load("recip.sage")
+        sage: from recip import *
         sage: P = theta_ring(2,6)[0]
         sage: z = P.base_ring().gen()
         sage: x = P.gens()[1]*(z+z^2+z^3)+P.gens()[3]*z^-1; x
@@ -642,7 +642,7 @@ def ThetaModForm(x, g = None, den = None):
 
     EXAMPLES:
       
-        sage: load("recip.sage")
+        sage: from recip import *
         sage: P = theta_ring(3, 2)[0]
         sage: x = sum(P.gens()[2:7])
         sage: t = ThetaModForm(x, g = 3); t
@@ -721,7 +721,7 @@ class Theta_element(Element):
         
         EXAMPLES::
         
-            sage: load("recip.sage")
+            sage: from recip import *
             sage: gens = symplectic_generators(2)
             sage: th0 = ThetaModForm(theta_ring(2,2)[0].gens()[0])
             sage: h4 = my_sum((th0^8).orbit(gens)); h4 # long time
@@ -1239,7 +1239,7 @@ class Theta_element_polynomial_ring(Theta_element):
         
         EXAMPLES:
         
-            sage: load("recip.sage")
+            sage: from recip import *
             sage: P = theta_ring(2, 2)[0]
             sage: x = sum(P.gens()[2:6])
             sage: t = ThetaModForm(x, g = 2, den = 2)
@@ -1448,7 +1448,7 @@ class Theta_element_polynomial_ring(Theta_element):
         
         EXAMPLES::
         
-            sage: load("recip.sage")
+            sage: from recip import *
             sage: M = Matrix([[I, 1/2+I/7], [1/2+I/7, 3/2*I-1/5]], ring=CC)
             sage: M.set_immutable()
             sage: P = theta_ring(2,2)[0]
@@ -1484,7 +1484,7 @@ def dup_data(g):
     
     EXAMPLES::
     
-        sage: load("recip.sage")
+        sage: from recip import *
         sage: M = Matrix([[I, 1/2+I/7], [1/2+I/7, 3/2*I-1/5]], ring=CC)
         sage: M.set_immutable()
         sage: P = theta_ring(2,2)[0]
@@ -1533,7 +1533,7 @@ def dup_formula(pol, g):
     
     EXAMPLES::
     
-        sage: load("recip.sage")
+        sage: from recip import *
         sage: M = Matrix([[I, 1/2+I/7], [1/2+I/7, 3/2*I-1/5]], ring=CC)
         sage: M.set_immutable()
         sage: P = theta_ring(2,2)[0]

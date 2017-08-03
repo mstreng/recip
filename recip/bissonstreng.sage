@@ -24,7 +24,7 @@ See the file README.txt for version information and instructions.
 To use this package, start Sage with the .sage files from this package in your
 working directory. Then type::
 
-    sage: load("recip.sage")
+    sage: from recip import *
 
 This file gives the details of computations mentioned and used in
 Bisson-Streng -- On polarised class groups of orders in quartic CM fields
@@ -42,8 +42,7 @@ are in the examples section of the documentation of
 Here are the computations for the field `K=\QQ(\zeta_5)`, that is, the second
 halve of Section 6.1.5::
 
-        sage: load("recip.sage")
-        sage: load("bissonstreng.sage")
+        sage: from recip import *
         sage: lst = wamelen_dab_list()
         sage: assert(lst[0]) == [5,5,5]
         sage: K = CM_Field(lst[0])
@@ -80,13 +79,13 @@ computations that they are optimal). But we will do something about the
 power of 5, because the following takes too long for F = 2^2*3*5^3 or even
 F = 5^3::
 
-        sage: mu = _mus(Phi, F) # not tested
+        sage: mu = CM_type_to_mus(Phi, F) # not tested
         sage: [_order_mod(m, K.ideal(F)) for m in mu] # not tested
 
 So let's reduce the power of 5::
 
         sage: F = 25
-        sage: mu = _mus(Phi, F)
+        sage: mu = CM_type_to_mus(Phi, F)
         sage: [_order_mod(m, K.ideal(F)) for m in mu] # exact output can change when different generators are used
         [50, 5, 5, 5, 5]
 
@@ -113,7 +112,7 @@ We get that `O` contains `O_2\cap Omin5 \cap O_5`. We can therefore use
 `F = 2^2*3*5`, which we do::
 
         sage: F = 4*3*5
-        sage: mu = _mus(Phi, F)
+        sage: mu = CM_type_to_mus(Phi, F)
         sage: mu = [(_order_mod(m, K.ideal(F)), m) for m in mu]
         sage: mu.sort(reverse=True)
         sage: [m[0] for m in mu]
@@ -235,7 +234,7 @@ def orders_proven_with_wamelen(latex_output=False):
     
     EXAMPLES::
     
-        sage: load("recip.sage")
+        sage: from recip import *
         sage: load("bissonstreng.sage")
         sage: orders_proven_with_wamelen()
         [([5, 5, 5], 1, 1, 1, 1, 1), ([8, 4, 2], 1, x^4 + 4*x^2 + 2, 1, 1, 1), ([13, 13, 13], 1, x^4 - x^3 + 2*x^2 + 4*x + 3, 3, 1, 1), ([5, 10, 20], 2, x^4 + 10*x^2 + 20, 4, 4, 2), ([5, 65, 845], 2, x^4 - x^3 + 16*x^2 - 16*x + 61, 19, 1, 1), ([29, 29, 29], 1, x^4 - x^3 + 4*x^2 - 20*x + 23, 7, 1, 1), ([5, 85, 1445], 2, x^4 - x^3 + 21*x^2 - 21*x + 101, 29, 1, 1), ([37, 37, 333], 1, x^4 - x^3 + 5*x^2 - 7*x + 49, 21, 3, 1), ([8, 20, 50], 2, x^4 + 20*x^2 + 50, 25, 25, 1), ([13, 65, 325], 2, x^4 - x^3 + 15*x^2 + 17*x + 29, 23, 1, 1), ([13, 26, 52], 2, x^4 + 26*x^2 + 52, 36, 36, 2), ([53, 53, 53], 1, x^4 - x^3 + 7*x^2 + 43*x + 47, 13, 1, 1), ([61, 61, 549], 1, x^4 - x^3 + 8*x^2 - 42*x + 117, 39, 3, 1)]
@@ -318,7 +317,7 @@ def minimal_orders_of_class_number_one(Phi, output_type='order'):
         
     EXAMPLES::
     
-        sage: load("recip.sage")
+        sage: from recip import *
         sage: load("bissonstreng.sage")
         sage: lst = wamelen_dab_list()
 
@@ -375,7 +374,7 @@ def minimal_order_cl_nr_one_F(Phi, F=None, output_type='order', Ostart=None):
             raise ValueError
         F = Ostart.index_in(OK)
 
-    gens = _mus(Phi, F)
+    gens = CM_type_to_mus(Phi, F)
 
 
     if K.unit_group().torsion_generator().multiplicative_order() != 2:
@@ -410,7 +409,7 @@ def minimal_order_cl_nr_one_F(Phi, F=None, output_type='order', Ostart=None):
         raise ValueError, "Unkown output_type: '%s'" % output_type
 
 
-def _mus(Phi, F):
+def CM_type_to_mus(Phi, F):
     """
     Returns mu generating N_Phir(aaa) with mu*mubar in QQ for aaa ranging
     over generators of the ray class group mod F of the reflex field of Phi.
@@ -486,7 +485,7 @@ def all_period_matrices_two(lst):
     
     EXAMPLES::
     
-        sage: load("recip.sage")
+        sage: from recip import *
         sage: load("bissonstreng.sage")
         sage: lst = wamelen_dab_list() + [[5, 15, 45], [5, 30, 180], [5, 35, 245], [5, 105, 2205], [8, 12, 18], [17, 119, 3332], [17, 255, 15300]]
         sage: Zs = all_period_matrices_two(lst) # long time, 2 minutes
@@ -791,7 +790,7 @@ def is_S_O_equal_S_OK(O):
     
     The same example as in is_trivial_in_shimura_group, but much faster::
     
-        sage: load("recip.sage")
+        sage: from recip import *
         sage: K = CM_Field([149,13,5])
         sage: P.<x> = QQ[]
         sage: [alpha1,alpha2]=(x^4+2*x^3+16*x^2+15*x+19).roots(K, multiplicities=False)
@@ -835,7 +834,7 @@ def is_S_O_equal_S_OK(O):
 
 Some additional tests of orders.sage, made possible by the code in bissonstreng.sage::
 
-        sage: load("recip.sage")
+        sage: from recip import *
         sage: load("bissonstreng.sage")
         sage: lst = wamelen_dab_list()
         sage: Phi = CM_Field(lst[3]).CM_types()[0]

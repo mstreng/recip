@@ -40,7 +40,7 @@ def diag(a):
 
     EXAMPLES::
 
-        sage: load("recip.sage")
+        sage: from recip import *
         sage: g = Matrix(Zmod(8),[(5,0,7,1),(6,6,0,7),(1,2,2,3),(2,3,5,4)])
         sage: diag(g)
         [5, 6, 2, 4]
@@ -378,7 +378,7 @@ class GSp_element:
         
         EXAMPLES::
         
-            sage: load("recip.sage")
+            sage: from recip import *
             sage: M = GSp_element([[7,0,2,6],[0,7,6,0],[0,6,5,0],[6,6,0,5]], ring=Zmod(8))
             sage: M.Sp_part()
             [7 0 2 6]
@@ -440,7 +440,7 @@ class GSp_element:
         
         EXAMPLE::
         
-            sage: load("recip.sage")
+            sage: from recip import *
             sage: M = GSp_element([[0,-1,1,1],[5,0,4,-5],[0,-2,2,1],[1,0,1,-1]])
             sage: M.transpose()
             [ 0  5  0  1]
@@ -556,7 +556,7 @@ def random_symplectic_matrix(g, n, subgroup=None, level=None):
     
     EXAMPLE::
     
-        sage: load("recip.sage")
+        sage: from recip import *
         sage: M = random_symplectic_matrix(2, 20)
         sage: M # random output
         [ 0 -1  1  1]

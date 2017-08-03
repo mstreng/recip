@@ -78,7 +78,7 @@ def CM_Field(field, name=None, relative_name=None, check=True, embedding=None):
 
     EXAMPLES::
 
-        sage: load("recip.sage")
+        sage: from recip import *
         
         sage: CM_Field([5, 165, 5445])
         CM Number Field in alpha with defining polynomial x^4 + 165*x^2 + 5445
@@ -222,7 +222,7 @@ class CM_Field_absolute(NumberField_absolute):
         
         EXAMPLES::
 
-            sage: load("recip.sage")
+            sage: from recip import *
             sage: CM_Field(x^4+5*x^2+1) # implicit doctest
             CM Number Field in alpha with defining polynomial x^4 + 5*x^2 + 1
         """
@@ -258,7 +258,7 @@ class CM_Field_absolute(NumberField_absolute):
 
         EXAMPLES::
 
-            sage: load("recip.sage")
+            sage: from recip import *
             sage: K = CM_Field(x^4+5*x^2+1)
             sage: K.abs_to_rel()
             Ring morphism:
@@ -280,7 +280,7 @@ class CM_Field_absolute(NumberField_absolute):
 
         EXAMPLES::
 
-            sage: load("recip.sage")
+            sage: from recip import *
             sage: CM_Field([5, 165, 5445]).real_field()
             Number Field in alpha1 with defining polynomial x^2 + 330*x + 21780
             sage: CM_Field(-3).real_field()
@@ -304,7 +304,7 @@ class CM_Field_absolute(NumberField_absolute):
 
         EXAMPLES::
 
-            sage: load("recip.sage")
+            sage: from recip import *
             sage: CM_Field([5, 165, 5445]).real_generator_in_self()
             [0, 0, 2, 0]
         """
@@ -320,7 +320,7 @@ class CM_Field_absolute(NumberField_absolute):
 
         EXAMPLES::
 
-            sage: load("recip.sage")
+            sage: from recip import *
             sage: K = CM_Field([5, 165, 5445])
             sage: K0 = K.real_field()
             sage: K.real_to_self(K0.gen())
@@ -356,7 +356,7 @@ class CM_Field_absolute(NumberField_absolute):
 
         EXAMPLES::
 
-            sage: load("recip.sage")
+            sage: from recip import *
             sage: CM_Field([5, 165, 5445]).complex_conjugation()
             Ring endomorphism of CM Number Field in alpha with defining polynomial x^4 + 165*x^2 + 5445
               Defn: alpha |--> -alpha
@@ -371,7 +371,7 @@ class CM_Field_absolute(NumberField_absolute):
 
         EXAMPLES::
 
-            sage: load("recip.sage")
+            sage: from recip import *
             sage: CM_Field([5, 165, 5445]).embedding() == None
             True
             sage: CM_Field(x^4+7*x^2+8, embedding = QQbar).embedding()
@@ -393,7 +393,7 @@ class CM_Field_absolute(NumberField_absolute):
 
         EXAMPLES:
 
-            sage: load("recip.sage")
+            sage: from recip import *
             sage: K = CM_Field(-7)
             sage: K.embedding()
             sage: K.embed(CC)
@@ -425,7 +425,7 @@ class CM_Field_absolute(NumberField_absolute):
 
         EXAMPLE::
 
-            sage: load("recip.sage")
+            sage: from recip import *
             sage: K = CM_Field(x^4+8*x^2+3)
             sage: K # implicit doctest
             CM Number Field in alpha with defining polynomial x^4 + 8*x^2 + 3
@@ -462,7 +462,7 @@ class CM_Field_absolute(NumberField_absolute):
 
         EXAMPLES::
 
-            sage: load("recip.sage")
+            sage: from recip import *
             sage: K = CM_Field(x^4 + 8*x^2 + 3)
             sage: K.is_galois()
             False
@@ -543,7 +543,8 @@ class CM_Field_absolute(NumberField_absolute):
         Return True if and only if a is totally imaginary.
         
         EXAMPLES::
-        
+
+            sage: from recip import *
             sage: K = CM_Field([5,5,5])
             sage: a = K.gen()
             sage: K.is_totally_imaginary_element(a)
@@ -592,7 +593,7 @@ class CM_Field_absolute(NumberField_absolute):
         
         EXAMPLES::
         
-            sage: load("recip.sage")
+            sage: from recip import *
             sage: CM_Field(-3).g()
             1
             sage: CM_Field(x^4+8*x^2+8).g()
@@ -606,7 +607,7 @@ class CM_Field_absolute(NumberField_absolute):
 
         EXAMPLE::
 
-            sage: load("recip.sage")
+            sage: from recip import *
             sage: K = CM_Field(x^4+5*x^2+1)
             sage: K.relative_field()
             Number Field in alpha0 with defining polynomial x^2 - 1/2*alpha1 over its base field
@@ -619,7 +620,7 @@ class CM_Field_absolute(NumberField_absolute):
 
         EXAMPLE::
 
-            sage: load("recip.sage")
+            sage: from recip import *
             sage: K = CM_Field(x^4+5*x^2+1)
             sage: K.rel_to_self('alpha0')
             alpha
@@ -634,7 +635,7 @@ class CM_Field_absolute(NumberField_absolute):
 
         EXAMPLE::
 
-            sage: load("recip.sage")
+            sage: from recip import *
             sage: K = CM_Field([5,5,5])
             sage: alpha = K.gen()
             sage: K.self_to_rel(alpha)
@@ -691,7 +692,7 @@ class CM_Field_absolute(NumberField_absolute):
     
         EXAMPLES::
 
-            sage: load("recip.sage")
+            sage: from recip import *
             sage: K = CM_Field(x^4 + 8*x^2 + 3)
             sage: L, m = K.galois_closure('b', map=True); L
             CM Number Field in b with defining polynomial x^8 + 80*x^6 + 2070*x^4 + 18800*x^2 + 32761
@@ -765,7 +766,7 @@ class CM_Field_absolute(NumberField_absolute):
 
         EXAMPLES::
 
-            sage: load("recip.sage")
+            sage: from recip import *
             sage: K = CM_Field(-71)
             sage: list(K._principally_polarized_ideal_class_representives_iter())
             [(Fractional ideal (1), -1/71*alpha), (Fractional ideal (1), 1/71*alpha), (Fractional ideal (2, 1/2*alpha - 1/2), -1/142*alpha), (Fractional ideal (2, 1/2*alpha - 1/2), 1/142*alpha), (Fractional ideal (4, 1/2*alpha + 3/2), -1/284*alpha), (Fractional ideal (4, 1/2*alpha + 3/2), 1/284*alpha), (Fractional ideal (3, 1/2*alpha - 1/2), -1/213*alpha), (Fractional ideal (3, 1/2*alpha - 1/2), 1/213*alpha), (Fractional ideal (3, 1/2*alpha + 1/2), -1/213*alpha), (Fractional ideal (3, 1/2*alpha + 1/2), 1/213*alpha), (Fractional ideal (4, 1/2*alpha + 5/2), -1/284*alpha), (Fractional ideal (4, 1/2*alpha + 5/2), 1/284*alpha), (Fractional ideal (2, 1/2*alpha + 1/2), -1/142*alpha), (Fractional ideal (2, 1/2*alpha + 1/2), 1/142*alpha)]
@@ -825,7 +826,7 @@ class CM_Field_absolute(NumberField_absolute):
             assert unit_gens == [root_of_unity] + fu
             reduce_by = [[root_of_unity.order()] + [0 for i in range(n-1)]]
             for u in fu:
-                reduce_by.append(unit_group(K(u)*c(K(u))).list())
+                reduce_by.append(unit_group(self(u)*c(self(u))).list())
             M = matrix(reduce_by)
             # The map ZZ^n --> O_{K}^* / N_{K/K_0}(O_{K}^*) given by unit_gens
             # has kernel exactly ZZ^n times M
@@ -841,7 +842,7 @@ class CM_Field_absolute(NumberField_absolute):
             unit_it = cartesian_product_iterator(d)
             unit_list = []
             for exps in unit_it:
-                unit_list.append(K(prod([unit_gens[i]**exps[i] for i in range(n)])))
+                unit_list.append(self(prod([unit_gens[i]**exps[i] for i in range(n)])))
             
             # We iterate over the ideal classes
             for A in self.class_group_iter():
@@ -908,7 +909,7 @@ class CM_Field_absolute(NumberField_absolute):
 
         EXAMPLES::
 
-            sage: load("recip.sage")
+            sage: from recip import *
             sage: x = var('x')
             sage: K = CM_Field(x^4+68*x^2+578)
             sage: K.one_period_matrix()
@@ -953,7 +954,7 @@ class CM_Field_absolute(NumberField_absolute):
 
         EXAMPLES::
 
-            sage: load("recip.sage")
+            sage: from recip import *
             sage: x = var('x')
             sage: K = CM_Field(x^4+68*x^2+578)
             sage: len(list(K.period_matrices_iter())) # long time, 3 seconds
@@ -1032,7 +1033,7 @@ def CM_Type(embeddings, reflex_field=None, reflex_to_codomain=None, check=True):
     
     EXAMPLES::
     
-        sage: load("recip.sage")
+        sage: from recip import *
         sage: K = CM_Field([5,5,5])
         sage: alpha = K.gen()
         sage: s = 5+2*alpha^2
@@ -1091,7 +1092,7 @@ class CM_Type_base(SageObject):
           
         EXAMPLES::
         
-            sage: load("recip.sage")
+            sage: from recip import *
             sage: x = PolynomialRing(QQ,'x').gen()
             sage: K = CM_Field(x^4+15*x^2+7)
             sage: Phi = K.CM_types()[0]
@@ -1166,7 +1167,7 @@ class CM_Type_base(SageObject):
           
         EXAMPLES::
         
-            sage: load("recip.sage")
+            sage: from recip import *
             sage: K = CM_Field(x^4+15*x^2+7)
             sage: Phi = K.CM_types()[0]
             sage: Phi.type_norm(K.gen())
@@ -1199,7 +1200,7 @@ class CM_Type_base(SageObject):
         
         EXAMPLE::
 
-            sage: load("recip.sage")
+            sage: from recip import *
             sage: k = CM_Field(x^4+15*x^2+7)
             sage: Phi = k.CM_types()[0]
             sage: list(Phi)
@@ -1257,7 +1258,7 @@ class CM_Type_xi(CM_Type_base):
         
         EXAMPLES::
 
-            sage: load("recip.sage")
+            sage: from recip import *
             sage: K = CM_Field(x^4+15*x^2+7)
             sage: Phi = K.CM_types()[0]
             sage: Phi.reflex_field()
@@ -1271,7 +1272,7 @@ class CM_Type_xi(CM_Type_base):
 
         EXAMPLES::
 
-            sage: load("recip.sage")
+            sage: from recip import *
             sage: K = CM_Field(x^4+15*x^2+7)
             sage: Phi = K.CM_types()[0]
             sage: Phi.reflex_to_codomain()
@@ -1291,7 +1292,7 @@ class CM_Type_xi(CM_Type_base):
         
         EXAMPLES::
         
-            sage: load("recip.sage")
+            sage: from recip import *
             sage: K = CM_Field(x^4+15*x^2+7)
             sage: Phi = K.CM_types()[0]
             sage: Psi = Phi.reflex(); Psi
@@ -1307,7 +1308,7 @@ class CM_Type_xi(CM_Type_base):
         """
         EXAMPLES::
         
-            sage: load("recip.sage")
+            sage: from recip import *
             sage: K = CM_Field((x^2+1)*(x^2+3)*(x^2+5)+1)
             sage: CM_Type(K.gen()) == CM_Type(K.gen()^5)
             True
@@ -1340,7 +1341,7 @@ class CM_Type_xi(CM_Type_base):
           
         EXAMPLES::
         
-            sage: load("recip.sage")
+            sage: from recip import *
             sage: K = CM_Field(x^4+15*x^2+7)
             sage: Phi = K.CM_types()[0]
             sage: Phi.type_norm(K.gen())
@@ -1354,7 +1355,7 @@ class CM_Type_xi(CM_Type_base):
 
         EXAMPLE::
         
-            sage: load("recip.sage")
+            sage: from recip import *
             sage: K = CM_Field((x^2+1)*(x^2+3)*(x^2+5)+1)
             sage: K.a_CM_type() # indirect
             CM-type of CM Number Field in alpha with defining polynomial x^6 + 9*x^4 + 23*x^2 + 16 sending alpha to the positive imaginary axis
@@ -1418,7 +1419,7 @@ class CM_Type_embeddings(CM_Type_base):
         
         EXAMPLES::
         
-            sage: load("recip.sage")
+            sage: from recip import *
             sage: K = CM_Field(-3)
             sage: CM_Type([K.hom(K)])
             CM-type of CM Number Field in alpha with defining polynomial x^2 + 3
@@ -1504,7 +1505,7 @@ class CM_Type_embeddings(CM_Type_base):
         
         EXAMPLES::
 
-            sage: load("recip.sage")
+            sage: from recip import *
             sage: K = CM_Field(x^4+15*x^2+7)
             sage: Phi = K.CM_types()[0]
             sage: Phi.reflex_field()
@@ -1553,7 +1554,7 @@ class CM_Type_embeddings(CM_Type_base):
 
         EXAMPLES::
 
-            sage: load("recip.sage")
+            sage: from recip import *
             sage: K = CM_Field(x^4+15*x^2+7)
             sage: Phi = K.CM_types()[0]
             sage: Phi.reflex_to_codomain()
@@ -1578,7 +1579,7 @@ class CM_Type_embeddings(CM_Type_base):
         
         EXAMPLES::
         
-            sage: load("recip.sage")
+            sage: from recip import *
             sage: K = CM_Field(x^4+15*x^2+7)
             sage: Phi = K.CM_types()[0]
             sage: Psi = Phi.reflex(); Psi
@@ -1609,7 +1610,7 @@ class CM_Type_embeddings(CM_Type_base):
         
         EXAMPLES::
         
-            sage: load("recip.sage")
+            sage: from recip import *
             sage: K = CM_Field(x^4+15*x^2+7)
             sage: Phi = K.CM_types()[0]
             sage: Psi = Phi.reflex(); Psi
@@ -1648,7 +1649,7 @@ class CM_Type_embeddings(CM_Type_base):
         """
         EXAMPLES::
         
-            sage: load("recip.sage")
+            sage: from recip import *
             sage: K = CM_Field([5,5,5])
             sage: l = K.CM_types()
             sage: [a == b for a in l for b in l]
@@ -1681,7 +1682,7 @@ class CM_Type_embeddings(CM_Type_base):
           
         EXAMPLES::
         
-            sage: load("recip.sage")
+            sage: from recip import *
             sage: K = CM_Field(x^4+15*x^2+7)
             sage: Phi = K.CM_types()[0]
             sage: Phi.type_norm(K.gen())
@@ -1703,7 +1704,7 @@ class CM_Type_embeddings(CM_Type_base):
 
         EXAMPLE::
         
-            sage: load("recip.sage")
+            sage: from recip import *
             sage: K = CM_Field(CyclotomicField(5))
             sage: Phi = CM_Type(K.Hom(K)[0:2])
             sage: Phi
@@ -1792,7 +1793,7 @@ class CM_Field_quartic(CM_Field_absolute):
         
         EXAMPLES::
 
-            sage: load("recip.sage")
+            sage: from recip import *
             sage: CM_Field([21, 5,1]) # indirect doctest
             CM Number Field in alpha with defining polynomial x^4 + 5*x^2 + 1
         """
@@ -1833,7 +1834,7 @@ class CM_Field_quartic(CM_Field_absolute):
 
         EXAMPLES::
 
-            sage: load("recip.sage")
+            sage: from recip import *
             sage: K = CM_Field(x^4 + 8*x^2 + 3)
             sage: K.CM_types(equivalence_classes=True)
             [CM-type Phi of CM Number Field in alpha with defining polynomial x^4 + 8*x^2 + 3, CM-type Phi' of CM Number Field in alpha with defining polynomial x^4 + 8*x^2 + 3]
@@ -1872,7 +1873,7 @@ class CM_Field_quartic(CM_Field_absolute):
         
         EXAMPLES::
         
-            sage: load("recip.sage")
+            sage: from recip import *
             sage: CM_Field(x^4+8*x^2+8).g()
             2
         """
@@ -1965,7 +1966,7 @@ class CM_Type_quartic(CM_Type_embeddings):
         
         EXAMPLES (TODO)::
         
-            sage: load("recip.sage")
+            sage: from recip import *
             
         """
         self._DAB = DAB
@@ -2026,7 +2027,7 @@ class CM_Type_quartic(CM_Type_embeddings):
         
         EXAMPLES::
 
-            sage: load("recip.sage")
+            sage: from recip import *
             sage: K = CM_Field(x^4+15*x^2+7)
             sage: Phi = K.CM_types()[0]
             sage: Phi.reflex_field()
@@ -2047,7 +2048,7 @@ class CM_Type_quartic(CM_Type_embeddings):
         
         EXAMPLES::
         
-            sage: load("recip.sage")
+            sage: from recip import *
             sage: K = CM_Field(x^4+15*x^2+7)
             sage: Phi = K.CM_types()[0]
             sage: Psi = Phi.reflex(); Psi
@@ -2088,7 +2089,7 @@ class CM_Type_quartic(CM_Type_embeddings):
           
         EXAMPLES::
         
-            sage: load("recip.sage")
+            sage: from recip import *
             sage: x = QQ['x'].gen()
             sage: K = CM_Field(x^4+5*x^2+5)
             sage: a = K.gen()
@@ -2188,7 +2189,7 @@ class CM_Type_quartic(CM_Type_embeddings):
 
         EXAMPLE::
         
-            sage: load("recip.sage")
+            sage: from recip import *
             sage: K = CM_Field(CyclotomicField(5))
             sage: Phi = CM_Type(K.Hom(K)[0:2])
             sage: Phi
@@ -2210,7 +2211,7 @@ class CM_Type_quartic(CM_Type_embeddings):
         
         EXAMPLES::
         
-            sage: load("recip.sage")
+            sage: from recip import *
             sage: K = CM_Field([5,5,5])
             sage: alpha = K.gen()
             sage: s = 5+2*alpha^2
@@ -2284,7 +2285,7 @@ def highest_root(poly, field):
 
     EXAMPLES::
 
-        sage: load("recip.sage")
+        sage: from recip import *
         sage: P.<x> = QQ[]
         sage: highest_root(x^7+1, CC)
         0.222520933956314 + 0.974927912181824*I
@@ -2306,7 +2307,7 @@ def _CM_field_data(K, check=True):
   
   EXAMPLES::
   
-      sage: load("recip.sage")
+      sage: from recip import *
       sage: K = CM_Field((x^2+10)^2-5) # indirect doctest
   """
   if check:
@@ -2347,7 +2348,7 @@ def inverse_field_hom(m, y):
 
     EXAMPLE::
 
-        sage: load("recip.sage")
+        sage: from recip import *
         sage: K.<a> = QuadraticField(2)
         sage: L.<b> = CyclotomicField(8)
         sage: m = K.hom(b+b^-1, K)

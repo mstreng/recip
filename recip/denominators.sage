@@ -66,7 +66,7 @@ def denominator_bound(K, c=2**14, k=2, d=None, Phi=None, bound='default', check=
     practical. The importance of the algorithm is in proving the asymptotic
     running time::
     
-        sage: load("recip.sage")
+        sage: from recip import *
         sage: gl = denominator_bound(CM_Field([5,5,5]), bound='gl')
         sage: gl.factor()
         2^14 * 5^36 * 19^20 * 29^18 * 59^14 * 79^14 * 89^14 * 109^12 * 139^12 * 149^12 * 179^12 * 199^12 * 229^12 * 239^12 * 269^10 * 349^10 * 359^10 * 379^10 * 389^10 * 409^10 * 419^10 * 439^10 * 449^10 * 479^10 * 499^10 * 509^10 * 569^10 * 599^10 * 619^10 * 659^10 * 709^10 * 719^10 * 739^10 * 769^10 * 809^10 * 829^10 * 839^10 * 859^10 * 919^10 * 929^10 * 1009^8 * 1019^8 * 1039^8 * 1049^8 * 1069^8 * 1109^8 * 1129^8 * 1229^8 * 1249^8 * 1259^8 * 1279^8 * 1289^8 * 1319^8 * 1399^8 * 1409^8 * 1429^8 * 1439^8 * 1459^8 * 1489^8 * 1499^8 * 1549^8 * 1559^8 * 1579^8 * 1609^8 * 1619^8 * 1669^8 * 1699^8 * 1709^8 * 1759^8 * 1789^8 * 1879^8 * 1889^8 * 1949^8 * 1979^8 * 1999^8
@@ -219,7 +219,7 @@ def bruinier_yang_applies(K, proof=True, reason=False):
     
     EXAMPLES::
     
-        sage: load("recip.sage")
+        sage: from recip import *
         sage: bruinier_yang_applies(CM_Field([5,5,5]))
         True
     """
@@ -362,7 +362,7 @@ def bruinier_yang_bound(K, check=True, proof=True):
     
     EXAMPLES::
     
-        sage: load("recip.sage")
+        sage: from recip import *
         sage: bruinier_yang_bound(CM_Field([5,5,5]))
         1
     
@@ -671,7 +671,7 @@ def lauter_viray_bound(K, safe=True, num_etas=None, implementation="bound", boun
 
     EXAMPLES::
     
-        sage: load("recip.sage")
+        sage: from recip import *
 
     The following gave output 4147360000 for an older version of Sage. I don't
     know whether that was correct too (it was a factor 5^4 lower).::
@@ -1088,7 +1088,8 @@ def count_ideals1(disc, norm):
     :func:`count_ideals3`.
     
     EXAMPLE::
-    
+
+        sage: from recip import *
         sage: count_ideals1(-183, 3)
         1
         sage: count_ideals1(-183, 3*11*13)
@@ -1136,7 +1137,7 @@ def count_ideals2(disc, norm):
     EXAMPLES:
     
     Here is an example of an ideal of norm 3::
-    
+
         sage: QuadraticField(-183,'a').ideal(3).factor()[0][0].basis()
         [3, 1/2*a + 3/2]
     
@@ -1146,7 +1147,8 @@ def count_ideals2(disc, norm):
     but by changing tau by -1, we find tau=(a-3)/6, so B=3, with the same
     A and C. Also N=n/A=1.
     This is the only ideal of norm 3, since 3 is ramified. And indeed, we get::
-    
+
+        sage: from recip import *
         sage: count_ideals2(-183, 3)
         1
 
@@ -1194,6 +1196,7 @@ def count_ideals3(disc, norm):
     
     EXAMPLES::
     
+        sage: from recip import *
         sage: count_ideals3(-400*27, 5)
         0
         sage: count_ideals3(-400*27, 7)
@@ -1318,7 +1321,8 @@ def calIp_fast(C, p, a1, a0):
     implementation.
     
     TESTS::
-    
+
+        sage: from recip import *
         sage: S = [(C, p, a1, a0) for C in srange(-1, 5) for p in [2,3,5] for a0 in srange(15) for a1 in srange(15)]
         sage: [(C, p, a1, a0) for (C, p, a1, a0) in S if calIp_enumerate(C, p, a1, a0) != calIp_fast(C, p, a1, a0)]
         []
@@ -1380,7 +1384,7 @@ def find_eta(K, how_many=None, proof=True):
     
     EXAMPLE::
     
-        sage: load('recip.sage')
+        sage: from recip import *
         sage: K = CM_Field((x^2+2)^2-3) # a biquadratic field
         sage: find_eta(K)
         [alpha]
@@ -1552,7 +1556,7 @@ def find_eta_pid(K, Krel, F, rel_diff):
     
     EXAMPLE::
     
-        sage: load('recip.sage')
+        sage: from recip import *
         sage: K = CM_Field((x^2+2)^2-3) # a biquadratic field
         sage: Krel = K.relative_field()
         sage: find_eta_pid(K, Krel, K.real_field(), Krel.relative_different())
@@ -1632,7 +1636,7 @@ def lauter_viray_win(K, eta, safe=True, verbose=False, factor_two=True, m=magma,
     
     TESTS::
     
-        sage: load("recip.sage")
+        sage: from recip import *
         sage: magma.load("gjlsvw.magma") # optional - magma gjlsvw
         'Loading "gjlsvw.magma"'
         sage: set_recip_verbose(1)
