@@ -19,7 +19,6 @@ REpository of Complex multiplication SageMath code
 .. toctree::
    :maxdepth: 1
 
-   ultimate_question
    cm_types
    basic
    polynomials

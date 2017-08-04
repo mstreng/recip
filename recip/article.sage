@@ -43,8 +43,8 @@ We first load the package, and create the CM-field
     sage: K = CM_Field([521,27,52])
     sage: Z = K.one_period_matrix('Phi'); Z
     Period Matrix
-    [-0.3803...? + 0.9248...?*I ... 0.425...? + 0.38...?*I]
-    [ 0.425...? + 0.38...?*I... 0.26...? + 1.368...?*I]
+    [ -0.3803191? + 0.9248553?*I   0.4251995? + 0.3851337?*I]
+    [0.42519943? + 0.38513368?*I 0.26063818? + 1.36829357?*I]
 
 At some point, we will need the absolute Igusa invariants (we use the small
 choice from the author's thesis), and the real quadratic subfield of the reflex
