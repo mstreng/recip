@@ -24,6 +24,7 @@ See the file README.txt for version information and instructions.
 """
 
 from os import path
+from ultimate_question import answer_to_ultimate_question
 
 directory = "/".join(path.abspath(__file__).split("/")[:-1]) + "/"
 

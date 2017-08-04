@@ -564,6 +564,7 @@ class CM_Field_absolute(NumberField_absolute):
 
         EXAMPLES::
         
+            sage: from recip import *
             sage: K = CM_Field([5,5,5])
             sage: a = K.gen()
             sage: K.is_totally_real_element(a)
@@ -761,8 +762,6 @@ class CM_Field_absolute(NumberField_absolute):
         of the maximal order of K=self and xi is a totally imaginary generator
         of (A*Abar*Different(K))^-1, up to the action of K^* given by
         x(A,xi) = (xA, xi/(x*xbar)).
-
-        Currently implemented only for g<=2.
 
         EXAMPLES::
 

@@ -80,6 +80,7 @@ power of 5, because the following takes too long for F = 2^2*3*5^3 or even
 F = 5^3::
 
         sage: mu = CM_type_to_mus(Phi, F) # not tested
+        sage: from recip import _order_mod
         sage: [_order_mod(m, K.ideal(F)) for m in mu] # not tested
 
 So let's reduce the power of 5::
@@ -235,7 +236,6 @@ def orders_proven_with_wamelen(latex_output=False):
     EXAMPLES::
     
         sage: from recip import *
-        sage: load("bissonstreng.sage")
         sage: orders_proven_with_wamelen()
         [([5, 5, 5], 1, 1, 1, 1, 1), ([8, 4, 2], 1, x^4 + 4*x^2 + 2, 1, 1, 1), ([13, 13, 13], 1, x^4 - x^3 + 2*x^2 + 4*x + 3, 3, 1, 1), ([5, 10, 20], 2, x^4 + 10*x^2 + 20, 4, 4, 2), ([5, 65, 845], 2, x^4 - x^3 + 16*x^2 - 16*x + 61, 19, 1, 1), ([29, 29, 29], 1, x^4 - x^3 + 4*x^2 - 20*x + 23, 7, 1, 1), ([5, 85, 1445], 2, x^4 - x^3 + 21*x^2 - 21*x + 101, 29, 1, 1), ([37, 37, 333], 1, x^4 - x^3 + 5*x^2 - 7*x + 49, 21, 3, 1), ([8, 20, 50], 2, x^4 + 20*x^2 + 50, 25, 25, 1), ([13, 65, 325], 2, x^4 - x^3 + 15*x^2 + 17*x + 29, 23, 1, 1), ([13, 26, 52], 2, x^4 + 26*x^2 + 52, 36, 36, 2), ([53, 53, 53], 1, x^4 - x^3 + 7*x^2 + 43*x + 47, 13, 1, 1), ([61, 61, 549], 1, x^4 - x^3 + 8*x^2 - 42*x + 117, 39, 3, 1)]
     """
@@ -318,7 +318,6 @@ def minimal_orders_of_class_number_one(Phi, output_type='order'):
     EXAMPLES::
     
         sage: from recip import *
-        sage: load("bissonstreng.sage")
         sage: lst = wamelen_dab_list()
 
         sage: K = CM_Field([5,5,5])
@@ -486,7 +485,6 @@ def all_period_matrices_two(lst):
     EXAMPLES::
     
         sage: from recip import *
-        sage: load("bissonstreng.sage")
         sage: lst = wamelen_dab_list() + [[5, 15, 45], [5, 30, 180], [5, 35, 245], [5, 105, 2205], [8, 12, 18], [17, 119, 3332], [17, 255, 15300]]
         sage: Zs = all_period_matrices_two(lst) # long time, 2 minutes
         sage: [len(l) for (K,Phi,F,l,orders) in Zs] # long time
@@ -835,7 +833,6 @@ def is_S_O_equal_S_OK(O):
 Some additional tests of orders.sage, made possible by the code in bissonstreng.sage::
 
         sage: from recip import *
-        sage: load("bissonstreng.sage")
         sage: lst = wamelen_dab_list()
         sage: Phi = CM_Field(lst[3]).CM_types()[0]
         sage: m = minimal_orders_of_class_number_one(Phi); m

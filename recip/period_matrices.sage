@@ -641,7 +641,8 @@ def PeriodMatrix(arg1, arg2=None, arg3=None, check=True):
     - `check` (default:True) -- whether to check the condition on `arg3`.
     
     Instead of an ideal of a maximal order, it is possible to give a basis
-    of any lattice in `K`. This basis does not have to be symplectic.
+    of any lattice in `K`. This basis does not have to be symplectic. For this,
+    call directly the class (it is not implemented in this constructor yet).
     
     OUTPUT:
     

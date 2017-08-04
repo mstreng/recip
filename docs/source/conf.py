@@ -35,7 +35,15 @@ except ImportError:
 # add these directories to sys.path here. If the directory is relative to the
 # documentation root, use os.path.abspath to make it absolute, like shown here.
 sys.path.append(os.path.abspath(package_folder))
+sys.path.append(os.path.abspath("../..")) #MS added this, it worked in another repository
 sys.path.append(os.path.join(SAGE_SRC, "sage_setup", "docbuild", "ext"))
+
+
+print "!!!???!!!"
+print os.path.abspath(package_folder)
+print (SAGE_SRC, "sage_setup", "docbuild", "ext")
+print (os.path.join(SAGE_SRC, "sage_setup", "docbuild", "ext"))
+print "!!!???!!!"
 
 # -- General configuration ------------------------------------------------
 

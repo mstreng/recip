@@ -1,5 +1,5 @@
 =============================
-REciprocity of Complex multiplication SageMath code
+REpository of Complex multiplication SageMath code
 =============================
 
 CM SageMath code
@@ -11,17 +11,30 @@ To use this module, you need to import it::
 This reference shows a minimal example of documentation of the
 Sage sample package following SageMath guidelines.
 
-This work is licensed under a `Creative Commons Attribution-Share Alike
-3.0 License`__.
+This work is licensed somehow, please ask the author.
 
-__ https://creativecommons.org/licenses/by-sa/3.0/
-
-REciprocity of Complex multiplication SageMath code
+REpository of Complex multiplication SageMath code
 =============================
 
 .. toctree::
    :maxdepth: 1
 
+   article
+   igusa_invariants
+   basic
+   list_fields
+   bissonstreng
+   orders
+   bls
+   period_matrices
+   class_polynomials
+   polynomials
+   cm_types
+   recip
+   denominators
+   symplectic_matrices
+   find_class_invariant
+   theta_trans
    ultimate_question
 
 

@@ -1,5 +1,5 @@
 =========================
-REciprocity of Complex multiplication SageMath code
+REpository of Complex multiplication SageMath code
 =========================
 .. image:: https://travis-ci.org/mstreng/recip.svg?branch=master
     :target: https://travis-ci.org/mstreng/recip
