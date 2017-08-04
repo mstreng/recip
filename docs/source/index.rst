@@ -19,23 +19,8 @@ REpository of Complex multiplication SageMath code
 .. toctree::
    :maxdepth: 1
 
-   article
-   igusa_invariants
-   basic
-   list_fields
-   bissonstreng
-   orders
-   bls
-   period_matrices
-   class_polynomials
-   polynomials
-   cm_types
-   recip
-   denominators
-   symplectic_matrices
-   find_class_invariant
-   theta_trans
    ultimate_question
+   cm_types
 
 
 Indices and Tables
