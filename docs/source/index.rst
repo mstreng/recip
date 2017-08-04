@@ -1,6 +1,6 @@
-=============================
+==================================================
 REpository of Complex multiplication SageMath code
-=============================
+==================================================
 
 CM SageMath code
 
@@ -14,7 +14,7 @@ Sage sample package following SageMath guidelines.
 This work is licensed somehow, please ask the author.
 
 REpository of Complex multiplication SageMath code
-=============================
+==================================================
 
 .. toctree::
    :maxdepth: 1

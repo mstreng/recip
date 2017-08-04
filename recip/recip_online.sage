@@ -24,19 +24,26 @@ See the file README.txt for version information and instructions.
 
 load_attach_mode(load_debug=True)
 
-load("basic.sage")
-load("polynomials.sage")
-load("symplectic_matrices.sage")
-load("period_matrices.sage")
-load("theta_trans.sage")
-load("cm_types.sage")
-load("find_class_invariant.sage")
-load("igusa_invariants.sage")
-load("list_fields.sage")
-load("denominators.sage")
-load("class_polynomials.sage")
-load("orders.sage")
-load("bissonstreng.sage")
+abspath = "https://raw.githubusercontent.com/mstreng/recip/master/recip/"
+#abspath = "https://bitbucket.org/mstreng/recip/raw/master/"
+
+files = [   "basic.sage",
+            "polynomials.sage",
+            "symplectic_matrices.sage",
+            "period_matrices.sage",
+            "theta_trans.sage",
+            "cm_types.sage",
+            "find_class_invariant.sage",
+            "igusa_invariants.sage",
+            "list_fields.sage",
+            "denominators.sage",
+            "class_polynomials.sage",
+            "orders.sage",
+            "bissonstreng.sage",
+            "bls.sage"]
+
+for f in files:
+    load(abspath + f)
 
 recip_verbose = 0
 

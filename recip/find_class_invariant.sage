@@ -1,6 +1,5 @@
 """
-Recip -- Sage package for using Shimura's reciprocity law
-
+RECIP -- REpository of Complex multIPlication SageMath code.
 See the file README.txt for version information and instructions.
 
 When using this package in a publication, the author would appreciate citation
