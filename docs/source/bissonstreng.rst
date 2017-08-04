@@ -1,9 +1,9 @@
 ..nodoctest
 
-CM types and CM fields
+Bisson-Streng
 ===============================
 
-.. automodule:: recip.cm_types
+.. automodule:: recip.bissonstreng
    :members:
    :undoc-members:
    :show-inheritance:

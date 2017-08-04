@@ -1,9 +1,9 @@
 ..nodoctest
 
-CM types and CM fields
+Orders
 ===============================
 
-.. automodule:: recip.cm_types
+.. automodule:: recip.orders
    :members:
    :undoc-members:
    :show-inheritance:

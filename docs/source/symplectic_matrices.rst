@@ -1,9 +1,9 @@
 ..nodoctest
 
-CM types and CM fields
+Symplectic matrices
 ===============================
 
-.. automodule:: recip.cm_types
+.. automodule:: recip.symplectic_matrices
    :members:
    :undoc-members:
    :show-inheritance:

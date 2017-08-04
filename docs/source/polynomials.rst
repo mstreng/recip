@@ -1,9 +1,9 @@
 ..nodoctest
 
-CM types and CM fields
+Polynomials
 ===============================
 
-.. automodule:: recip.cm_types
+.. automodule:: recip.polynomials
    :members:
    :undoc-members:
    :show-inheritance:

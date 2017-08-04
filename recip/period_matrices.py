@@ -7,6 +7,6 @@ directory = "/".join(path.abspath(__file__).split("/")[:-1]) + "/"
 from sage.all import *
 
 from sage.structure.sage_object import load
-files = ["cm_types.sage"]
+files = ["period_matrices.sage"]
 for f in files:
     load(directory + f)

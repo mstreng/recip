@@ -1,9 +1,9 @@
 ..nodoctest
 
-CM types and CM fields
+List of fields
 ===============================
 
-.. automodule:: recip.cm_types
+.. automodule:: recip.list_fields
    :members:
    :undoc-members:
    :show-inheritance:

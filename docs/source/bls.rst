@@ -1,9 +1,9 @@
 ..nodoctest
 
-CM types and CM fields
+Broker-Lauter-Streng
 ===============================
 
-.. automodule:: recip.cm_types
+.. automodule:: recip.bls
    :members:
    :undoc-members:
    :show-inheritance:

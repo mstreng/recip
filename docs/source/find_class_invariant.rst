@@ -1,9 +1,9 @@
 ..nodoctest
 
-CM types and CM fields
+Finding class invariants
 ===============================
 
-.. automodule:: recip.cm_types
+.. automodule:: recip.find_class_invariant
    :members:
    :undoc-members:
    :show-inheritance:

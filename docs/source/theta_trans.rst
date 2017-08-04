@@ -1,9 +1,9 @@
 ..nodoctest
 
-CM types and CM fields
+Theta transformation formulas
 ===============================
 
-.. automodule:: recip.cm_types
+.. automodule:: recip.theta_trans
    :members:
    :undoc-members:
    :show-inheritance:

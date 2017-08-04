@@ -1,9 +1,9 @@
 ..nodoctest
 
-CM types and CM fields
+Denominators
 ===============================
 
-.. automodule:: recip.cm_types
+.. automodule:: recip.denominators
    :members:
    :undoc-members:
    :show-inheritance:

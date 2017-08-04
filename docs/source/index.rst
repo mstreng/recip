@@ -21,7 +21,19 @@ REpository of Complex multiplication SageMath code
 
    ultimate_question
    cm_types
-
+   basic
+   polynomials
+   symplectic_matrices
+   period_matrices
+   theta_trans
+   find_class_invariant
+   igusa_invariants
+   list_fields
+   denominators
+   class_polynomials
+   orders
+   bissonstreng
+   bls
 
 Indices and Tables
 ==================

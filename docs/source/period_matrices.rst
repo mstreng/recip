@@ -1,9 +1,9 @@
 ..nodoctest
 
-CM types and CM fields
+Period matrices
 ===============================
 
-.. automodule:: recip.cm_types
+.. automodule:: recip.period_matrices
    :members:
    :undoc-members:
    :show-inheritance:

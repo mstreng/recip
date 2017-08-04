@@ -1,9 +1,9 @@
 ..nodoctest
 
-CM types and CM fields
+Igusa invariants
 ===============================
 
-.. automodule:: recip.cm_types
+.. automodule:: recip.igusa_invariants
    :members:
    :undoc-members:
    :show-inheritance:
