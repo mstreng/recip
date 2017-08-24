@@ -1,0 +1,466 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Bisson-Streng &#8212; CM SageMath code 3.0.1 documentation</title>
+    
+    <link rel="stylesheet" href="_static/classic.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '3.0.1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="_static/MathJax.js?config=TeX-AMS_HTML-full,../mathjax_sage.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Broker-Lauter-Streng" href="bls.html" />
+    <link rel="prev" title="Orders" href="orders.html" /> 
+  </head>
+  <body role="document">
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="bls.html" title="Broker-Lauter-Streng"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="orders.html" title="Orders"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">CM SageMath code 3.0.1 documentation</a> &#187;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <p>..nodoctest</p>
+<div class="section" id="module-recip.bissonstreng">
+<span id="bisson-streng"></span><h1>Bisson-Streng<a class="headerlink" href="#module-recip.bissonstreng" title="Permalink to this headline">¶</a></h1>
+<p>x.__init__(...) initializes x; see help(type(x)) for signature</p>
+<dl class="function">
+<dt id="recip.bissonstreng.CM_type_to_mus">
+<code class="descclassname">recip.bissonstreng.</code><code class="descname">CM_type_to_mus</code><span class="sig-paren">(</span><em>Phi</em>, <em>F</em><span class="sig-paren">)</span><a class="headerlink" href="#recip.bissonstreng.CM_type_to_mus" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns mu generating N_Phir(aaa) with mu*mubar in QQ for aaa ranging
+over generators of the ray class group mod F of the reflex field of Phi.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="recip.bissonstreng.all_period_matrices_two">
+<code class="descclassname">recip.bissonstreng.</code><code class="descname">all_period_matrices_two</code><span class="sig-paren">(</span><em>lst</em><span class="sig-paren">)</span><a class="headerlink" href="#recip.bissonstreng.all_period_matrices_two" title="Permalink to this definition">¶</a></dt>
+<dd><p>Find all period matrices with CM by an order of 2-power index in OK such
+that the field of moduli is in Kr, where K ranges over the fields given by
+lst.</p>
+<p>And tests whether for all but [5,5,5] that there are no orders with
+non-2-power index such that the field of moduli is in Kr
+(by raising an error if there is such an order).</p>
+<p>OUTPUT:</p>
+<ul class="simple">
+<li>List of triples (K, Phi, F, Zs, orders), where
+Zs[k] is a period matrix has CM by orders[k] for each k, and
+F*OK is contained in each element of orders.</li>
+</ul>
+<p>EXAMPLES:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">sage: </span><span class="kn">from</span> <span class="nn">recip</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="gp">sage: </span><span class="n">lst</span> <span class="o">=</span> <span class="n">wamelen_dab_list</span><span class="p">()</span> <span class="o">+</span> <span class="p">[[</span><span class="mi">5</span><span class="p">,</span> <span class="mi">15</span><span class="p">,</span> <span class="mi">45</span><span class="p">],</span> <span class="p">[</span><span class="mi">5</span><span class="p">,</span> <span class="mi">30</span><span class="p">,</span> <span class="mi">180</span><span class="p">],</span> <span class="p">[</span><span class="mi">5</span><span class="p">,</span> <span class="mi">35</span><span class="p">,</span> <span class="mi">245</span><span class="p">],</span> <span class="p">[</span><span class="mi">5</span><span class="p">,</span> <span class="mi">105</span><span class="p">,</span> <span class="mi">2205</span><span class="p">],</span> <span class="p">[</span><span class="mi">8</span><span class="p">,</span> <span class="mi">12</span><span class="p">,</span> <span class="mi">18</span><span class="p">],</span> <span class="p">[</span><span class="mi">17</span><span class="p">,</span> <span class="mi">119</span><span class="p">,</span> <span class="mi">3332</span><span class="p">],</span> <span class="p">[</span><span class="mi">17</span><span class="p">,</span> <span class="mi">255</span><span class="p">,</span> <span class="mi">15300</span><span class="p">]]</span>
+<span class="gp">sage: </span><span class="n">Zs</span> <span class="o">=</span> <span class="n">all_period_matrices_two</span><span class="p">(</span><span class="n">lst</span><span class="p">)</span> <span class="c1"># long time, 2 minutes</span>
+<span class="gp">sage: </span><span class="p">[</span><span class="nb">len</span><span class="p">(</span><span class="n">l</span><span class="p">)</span> <span class="k">for</span> <span class="p">(</span><span class="n">K</span><span class="p">,</span><span class="n">Phi</span><span class="p">,</span><span class="n">F</span><span class="p">,</span><span class="n">l</span><span class="p">,</span><span class="n">orders</span><span class="p">)</span> <span class="ow">in</span> <span class="n">Zs</span><span class="p">]</span> <span class="c1"># long time</span>
+<span class="go">[6, 3, 1, 6, 2, 1, 2, 1, 6, 2, 6, 1, 1, 4, 12, 4, 4, 6, 2, 4]</span>
+
+<span class="gp">sage: </span><span class="n">matr</span> <span class="o">=</span> <span class="p">[</span><span class="n">two_two_matrix</span><span class="p">(</span><span class="n">l</span><span class="p">,</span> <span class="n">F</span><span class="p">)</span> <span class="k">for</span> <span class="p">(</span><span class="n">K</span><span class="p">,</span> <span class="n">Phi</span><span class="p">,</span> <span class="n">F</span><span class="p">,</span> <span class="n">l</span><span class="p">,</span> <span class="n">orders</span><span class="p">)</span> <span class="ow">in</span> <span class="n">Zs</span><span class="p">]</span> <span class="c1"># long time</span>
+<span class="gp">sage: </span><span class="n">matr</span> <span class="c1"># long time, output is random</span>
+<span class="go">[</span>
+<span class="go">[0 1 1 1 0 0]                [0 1 1 0 1 0]</span>
+<span class="go">[1 0 0 0 1 1]                [1 0 0 1 0 1]</span>
+<span class="go">[1 0 0 0 1 1]                [1 0 0 1 0 1]</span>
+<span class="go">[1 0 0 0 1 1]  [1 1 1]       [0 1 1 0 1 0]</span>
+<span class="go">[0 1 1 1 0 0]  [1 1 1]       [1 0 0 1 0 1]  [0 0]       [0 0]</span>
+<span class="go">[0 1 1 1 0 0], [1 1 1], [0], [0 1 1 0 1 0], [0 0], [0], [0 0], [0],</span>
+
+<span class="go">[1 0 0 1 0 1]         [0 1 1 0 1 0]</span>
+<span class="go">[0 1 1 0 1 0]         [1 0 0 1 0 1]</span>
+<span class="go">[0 1 1 0 1 0]         [1 0 0 1 0 1]            [0 1 0 0]</span>
+<span class="go">[1 0 0 1 0 1]         [0 1 1 0 1 0]            [1 0 0 0]</span>
+<span class="go">[0 1 1 0 1 0]  [0 0]  [1 0 0 1 0 1]            [0 0 0 1]</span>
+<span class="go">[1 0 0 1 0 1], [0 0], [0 1 1 0 1 0], [0], [0], [0 0 1 0],</span>
+
+<span class="go">[0 0 1 0 1 0 1 0 0 0 0 0]</span>
+<span class="go">[0 0 0 1 0 1 0 1 0 0 0 0]</span>
+<span class="go">[1 0 0 0 0 0 0 0 1 0 1 0]</span>
+<span class="go">[0 1 0 0 0 0 0 0 0 1 0 1]</span>
+<span class="go">[1 0 0 0 0 0 0 0 1 0 1 0]</span>
+<span class="go">[0 1 0 0 0 0 0 0 0 1 0 1]</span>
+<span class="go">[1 0 0 0 0 0 0 0 1 0 1 0]                        [1 0 0 1 0 1]</span>
+<span class="go">[0 1 0 0 0 0 0 0 0 1 0 1]                        [0 1 1 0 1 0]</span>
+<span class="go">[0 0 1 0 1 0 1 0 0 0 0 0]  [0 0 0 1]  [0 0 0 0]  [0 1 1 0 1 0]</span>
+<span class="go">[0 0 0 1 0 1 0 1 0 0 0 0]  [0 0 1 0]  [0 0 0 0]  [1 0 0 1 0 1]</span>
+<span class="go">[0 0 1 0 1 0 1 0 0 0 0 0]  [0 1 0 0]  [0 0 0 0]  [0 1 1 0 1 0]  [0 0]</span>
+<span class="go">[0 0 0 1 0 1 0 1 0 0 0 0], [1 0 0 0], [0 0 0 0], [1 0 0 1 0 1], [0 0],</span>
+
+<span class="go">[0 0 0 0]</span>
+<span class="go">[0 0 0 0]</span>
+<span class="go">[0 0 0 0]</span>
+<span class="go">[0 0 0 0]</span>
+<span class="go">]</span>
+</pre></div>
+</div>
+<p>The output above was with an older version of Sage. We now check
+that the actual output agrees up to graph isomorphism, and then we apply
+a graph isomorphism and continue with the result after isomorphism.:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">sage: </span><span class="n">L</span> <span class="o">=</span> <span class="p">[[[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span>
+<span class="go">....:   [1, 0, 0, 0, 1, 1],</span>
+<span class="go">....:   [1, 0, 0, 0, 1, 1],</span>
+<span class="go">....:   [1, 0, 0, 0, 1, 1],</span>
+<span class="go">....:   [0, 1, 1, 1, 0, 0],</span>
+<span class="go">....:   [0, 1, 1, 1, 0, 0]],</span>
+<span class="go">....:  [[1, 1, 1], [1, 1, 1], [1, 1, 1]],</span>
+<span class="go">....:  [[0]],</span>
+<span class="go">....:  [[0, 1, 1, 0, 1, 0],</span>
+<span class="go">....:   [1, 0, 0, 1, 0, 1],</span>
+<span class="go">....:   [1, 0, 0, 1, 0, 1],</span>
+<span class="go">....:   [0, 1, 1, 0, 1, 0],</span>
+<span class="go">....:   [1, 0, 0, 1, 0, 1],</span>
+<span class="go">....:   [0, 1, 1, 0, 1, 0]],</span>
+<span class="go">....:  [[0, 0], [0, 0]],</span>
+<span class="go">....:  [[0]],</span>
+<span class="go">....:  [[0, 0], [0, 0]],</span>
+<span class="go">....:  [[0]],</span>
+<span class="go">....:  [[1, 0, 0, 1, 0, 1],</span>
+<span class="go">....:   [0, 1, 1, 0, 1, 0],</span>
+<span class="go">....:   [0, 1, 1, 0, 1, 0],</span>
+<span class="go">....:   [1, 0, 0, 1, 0, 1],</span>
+<span class="go">....:   [0, 1, 1, 0, 1, 0],</span>
+<span class="go">....:   [1, 0, 0, 1, 0, 1]],</span>
+<span class="go">....:  [[0, 0], [0, 0]],</span>
+<span class="go">....:  [[0, 1, 1, 1, 0, 0],</span>
+<span class="go">....:   [1, 0, 0, 0, 1, 1],</span>
+<span class="go">....:   [1, 0, 0, 0, 1, 1],</span>
+<span class="go">....:   [1, 0, 0, 0, 1, 1],</span>
+<span class="go">....:   [0, 1, 1, 1, 0, 0],</span>
+<span class="go">....:   [0, 1, 1, 1, 0, 0]],</span>
+<span class="go">....:  [[0]],</span>
+<span class="go">....:  [[0]],</span>
+<span class="go">....:  [[0, 1, 0, 0], [1, 0, 0, 0], [0, 0, 0, 1], [0, 0, 1, 0]],</span>
+<span class="go">....:  [[0, 0, 1, 0, 1, 0, 1, 0, 0, 0, 0, 0],</span>
+<span class="go">....:   [0, 0, 0, 1, 0, 1, 0, 1, 0, 0, 0, 0],</span>
+<span class="go">....:   [1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1, 0],</span>
+<span class="go">....:   [0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1],</span>
+<span class="go">....:   [1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1, 0],</span>
+<span class="go">....:   [0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1],</span>
+<span class="go">....:   [1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1, 0],</span>
+<span class="go">....:   [0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1],</span>
+<span class="go">....:   [0, 0, 1, 0, 1, 0, 1, 0, 0, 0, 0, 0],</span>
+<span class="go">....:   [0, 0, 0, 1, 0, 1, 0, 1, 0, 0, 0, 0],</span>
+<span class="go">....:   [0, 0, 1, 0, 1, 0, 1, 0, 0, 0, 0, 0],</span>
+<span class="go">....:   [0, 0, 0, 1, 0, 1, 0, 1, 0, 0, 0, 0]],</span>
+<span class="go">....:  [[0, 0, 0, 1], [0, 0, 1, 0], [0, 1, 0, 0], [1, 0, 0, 0]],</span>
+<span class="go">....:  [[0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0]],</span>
+<span class="go">....:  [[1, 0, 0, 1, 0, 1],</span>
+<span class="go">....:   [0, 1, 1, 0, 1, 0],</span>
+<span class="go">....:   [0, 1, 1, 0, 1, 0],</span>
+<span class="go">....:   [1, 0, 0, 1, 0, 1],</span>
+<span class="go">....:   [0, 1, 1, 0, 1, 0],</span>
+<span class="go">....:   [1, 0, 0, 1, 0, 1]],</span>
+<span class="go">....:  [[0, 0], [0, 0]],</span>
+<span class="go">....:  [[0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0]]]</span>
+<span class="gp">sage: </span><span class="n">matrL</span> <span class="o">=</span> <span class="p">[</span><span class="n">Matrix</span><span class="p">(</span><span class="n">c</span><span class="p">)</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">L</span><span class="p">]</span>
+<span class="gp">sage: </span><span class="n">matr</span> <span class="o">==</span> <span class="n">matrL</span> <span class="c1"># exact equality, was False at latest Sage version, long time</span>
+<span class="go">False</span>
+<span class="gp">sage: </span><span class="n">t</span> <span class="o">=</span> <span class="p">[(</span><span class="n">Graph</span><span class="p">(</span><span class="n">matrL</span><span class="p">[</span><span class="n">c</span><span class="p">])</span><span class="o">.</span><span class="n">is_isomorphic</span><span class="p">(</span><span class="n">Graph</span><span class="p">(</span><span class="n">matr</span><span class="p">[</span><span class="n">c</span><span class="p">]),</span> <span class="n">certificate</span><span class="o">=</span><span class="bp">True</span><span class="p">),</span> <span class="n">matr</span><span class="p">[</span><span class="n">c</span><span class="p">])</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">L</span><span class="p">))]</span> <span class="c1"># long time</span>
+<span class="gp">sage: </span><span class="nb">all</span><span class="p">([</span><span class="n">a</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="k">for</span> <span class="p">(</span><span class="n">a</span><span class="p">,</span><span class="n">b</span><span class="p">)</span> <span class="ow">in</span> <span class="n">t</span><span class="p">])</span> <span class="c1"># here is what matters, long time</span>
+<span class="go">True</span>
+<span class="gp">sage: </span><span class="n">matr</span> <span class="o">=</span> <span class="p">[</span><span class="n">Matrix</span><span class="p">([[</span><span class="n">c</span><span class="p">[</span><span class="n">a</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="n">i</span><span class="p">],</span><span class="n">a</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="n">j</span><span class="p">]]</span> <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">c</span><span class="o">.</span><span class="n">ncols</span><span class="p">())]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">c</span><span class="o">.</span><span class="n">nrows</span><span class="p">())])</span> <span class="k">for</span> <span class="p">(</span><span class="n">a</span><span class="p">,</span><span class="n">c</span><span class="p">)</span> <span class="ow">in</span> <span class="n">t</span><span class="p">]</span> <span class="c1"># long time</span>
+<span class="gp">sage: </span><span class="n">matr</span> <span class="o">==</span> <span class="n">matrL</span> <span class="c1"># now we do have the same graph as before (when forgetting the orders, so still doctests can fail at later stages in later versions of Sage). long time</span>
+<span class="go">True</span>
+<span class="gp">sage: </span><span class="n">matr</span> <span class="c1"># long time</span>
+<span class="go">[</span>
+<span class="go">[0 1 1 1 0 0]                [0 1 1 0 1 0]</span>
+<span class="go">[1 0 0 0 1 1]                [1 0 0 1 0 1]</span>
+<span class="go">[1 0 0 0 1 1]                [1 0 0 1 0 1]</span>
+<span class="go">[1 0 0 0 1 1]  [1 1 1]       [0 1 1 0 1 0]</span>
+<span class="go">[0 1 1 1 0 0]  [1 1 1]       [1 0 0 1 0 1]  [0 0]       [0 0]</span>
+<span class="go">[0 1 1 1 0 0], [1 1 1], [0], [0 1 1 0 1 0], [0 0], [0], [0 0], [0],</span>
+
+<span class="go">[1 0 0 1 0 1]         [0 1 1 1 0 0]</span>
+<span class="go">[0 1 1 0 1 0]         [1 0 0 0 1 1]</span>
+<span class="go">[0 1 1 0 1 0]         [1 0 0 0 1 1]            [0 1 0 0]</span>
+<span class="go">[1 0 0 1 0 1]         [1 0 0 0 1 1]            [1 0 0 0]</span>
+<span class="go">[0 1 1 0 1 0]  [0 0]  [0 1 1 1 0 0]            [0 0 0 1]</span>
+<span class="go">[1 0 0 1 0 1], [0 0], [0 1 1 1 0 0], [0], [0], [0 0 1 0],</span>
+
+<span class="go">[0 0 1 0 1 0 1 0 0 0 0 0]</span>
+<span class="go">[0 0 0 1 0 1 0 1 0 0 0 0]</span>
+<span class="go">[1 0 0 0 0 0 0 0 1 0 1 0]</span>
+<span class="go">[0 1 0 0 0 0 0 0 0 1 0 1]</span>
+<span class="go">[1 0 0 0 0 0 0 0 1 0 1 0]</span>
+<span class="go">[0 1 0 0 0 0 0 0 0 1 0 1]</span>
+<span class="go">[1 0 0 0 0 0 0 0 1 0 1 0]                        [1 0 0 1 0 1]</span>
+<span class="go">[0 1 0 0 0 0 0 0 0 1 0 1]                        [0 1 1 0 1 0]</span>
+<span class="go">[0 0 1 0 1 0 1 0 0 0 0 0]  [0 0 0 1]  [0 0 0 0]  [0 1 1 0 1 0]</span>
+<span class="go">[0 0 0 1 0 1 0 1 0 0 0 0]  [0 0 1 0]  [0 0 0 0]  [1 0 0 1 0 1]</span>
+<span class="go">[0 0 1 0 1 0 1 0 0 0 0 0]  [0 1 0 0]  [0 0 0 0]  [0 1 1 0 1 0]  [0 0]</span>
+<span class="go">[0 0 0 1 0 1 0 1 0 0 0 0], [1 0 0 0], [0 0 0 0], [1 0 0 1 0 1], [0 0],</span>
+
+<span class="go">[0 0 0 0]</span>
+<span class="go">[0 0 0 0]</span>
+<span class="go">[0 0 0 0]</span>
+<span class="go">[0 0 0 0]</span>
+<span class="go">]</span>
+</pre></div>
+</div>
+<p>The matrices above correspond to the (2,2)-isogeny graphs, one matrix for
+every order, one row/column for every period matrix. Next, we look at the
+orders corresponding to these period matrices. An entry a in row i and
+column j means that a is non-zero if and only if period matrices i and j
+have the same endomorphism ring, and a is the index of that endomorphism
+ring in the maximal order.:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">sage: </span><span class="n">vis</span> <span class="o">=</span> <span class="p">[</span><span class="n">visualize_orders</span><span class="p">(</span><span class="n">orders</span><span class="p">)</span> <span class="k">for</span> <span class="p">(</span><span class="n">K</span><span class="p">,</span> <span class="n">Phi</span><span class="p">,</span> <span class="n">F</span><span class="p">,</span> <span class="n">l</span><span class="p">,</span> <span class="n">orders</span><span class="p">)</span> <span class="ow">in</span> <span class="n">Zs</span><span class="p">]</span> <span class="c1"># long time</span>
+<span class="gp">sage: </span><span class="n">flatten</span><span class="p">([[</span><span class="n">Matrix</span><span class="p">(</span><span class="n">lst</span><span class="p">[</span><span class="n">k</span><span class="p">]),</span><span class="n">Matrix</span><span class="p">([[</span><span class="n">vis</span><span class="p">[</span><span class="n">k</span><span class="p">][</span><span class="n">t</span><span class="p">[</span><span class="n">k</span><span class="p">][</span><span class="mi">0</span><span class="p">][</span><span class="mi">1</span><span class="p">][</span><span class="n">i</span><span class="p">],</span><span class="n">t</span><span class="p">[</span><span class="n">k</span><span class="p">][</span><span class="mi">0</span><span class="p">][</span><span class="mi">1</span><span class="p">][</span><span class="n">j</span><span class="p">]]</span> <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">vis</span><span class="p">[</span><span class="n">k</span><span class="p">]</span><span class="o">.</span><span class="n">ncols</span><span class="p">())]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">vis</span><span class="p">[</span><span class="n">k</span><span class="p">]</span><span class="o">.</span><span class="n">nrows</span><span class="p">())]),</span> <span class="n">matr</span><span class="p">[</span><span class="n">k</span><span class="p">]]</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">matr</span><span class="p">))])</span> <span class="c1"># long time</span>
+<span class="go">[</span>
+<span class="go">         [ 1  0  0  0  0  0]  [0 1 1 1 0 0]</span>
+<span class="go">         [ 0  4  0  0  0  0]  [1 0 0 0 1 1]</span>
+<span class="go">         [ 0  0  8  8  0  0]  [1 0 0 0 1 1]</span>
+<span class="go">         [ 0  0  8  8  0  0]  [1 0 0 0 1 1]           [1 0 0]  [1 1 1]</span>
+<span class="go">         [ 0  0  0  0 16 16]  [0 1 1 1 0 0]           [0 2 2]  [1 1 1]</span>
+<span class="go">[5 5 5], [ 0  0  0  0 16 16], [0 1 1 1 0 0], [8 4 2], [0 2 2], [1 1 1],</span>
+
+<span class="go">                                  [1 1 0 0 0 0]  [0 1 1 0 1 0]</span>
+<span class="go">                                  [1 1 0 0 0 0]  [1 0 0 1 0 1]</span>
+<span class="go">                                  [0 0 4 4 4 4]  [1 0 0 1 0 1]</span>
+<span class="go">                                  [0 0 4 4 4 4]  [0 1 1 0 1 0]</span>
+<span class="go">                                  [0 0 4 4 4 4]  [1 0 0 1 0 1]</span>
+<span class="go">[13 13 13], [1], [0], [ 5 10 20], [0 0 4 4 4 4], [0 1 1 0 1 0],</span>
+
+<span class="go">               [1 1]  [0 0]</span>
+<span class="go">[  5  65 845], [1 1], [0 0], [29 29 29], [1], [0], [   5   85 1445],</span>
+
+<span class="go">                                                   [1 1 0 0 0 0]</span>
+<span class="go">                                                   [1 1 0 0 0 0]</span>
+<span class="go">                                                   [0 0 2 2 2 2]</span>
+<span class="go">                                                   [0 0 2 2 2 2]</span>
+<span class="go">[1 1]  [0 0]                                       [0 0 2 2 2 2]</span>
+<span class="go">[1 1], [0 0], [ 37  37 333], [1], [0], [ 8 20 50], [0 0 2 2 2 2],</span>
+
+<span class="go">[1 0 0 1 0 1]                                           [1 1 0 0 0 0]</span>
+<span class="go">[0 1 1 0 1 0]                                           [1 1 0 0 0 0]</span>
+<span class="go">[0 1 1 0 1 0]                                           [0 0 4 4 4 4]</span>
+<span class="go">[1 0 0 1 0 1]                                           [0 0 4 4 4 4]</span>
+<span class="go">[0 1 1 0 1 0]                 [1 1]  [0 0]              [0 0 4 4 4 4]</span>
+<span class="go">[1 0 0 1 0 1], [ 13  65 325], [1 1], [0 0], [13 26 52], [0 0 4 4 4 4],</span>
+
+<span class="go">[0 1 1 1 0 0]</span>
+<span class="go">[1 0 0 0 1 1]</span>
+<span class="go">[1 0 0 0 1 1]</span>
+<span class="go">[1 0 0 0 1 1]</span>
+<span class="go">[0 1 1 1 0 0]</span>
+<span class="go">[0 1 1 1 0 0], [53 53 53], [1], [0], [ 61  61 549], [1], [0],</span>
+
+<span class="go">            [1 1 1 1]  [0 1 0 0]</span>
+<span class="go">            [1 1 1 1]  [1 0 0 0]</span>
+<span class="go">            [1 1 1 1]  [0 0 0 1]</span>
+<span class="go">[ 5 15 45], [1 1 1 1], [0 0 1 0], [  5  30 180],</span>
+
+<span class="go">[1 1 1 1 0 0 0 0 0 0 0 0]  [0 0 1 0 1 0 1 0 0 0 0 0]</span>
+<span class="go">[1 1 1 1 0 0 0 0 0 0 0 0]  [0 0 0 1 0 1 0 1 0 0 0 0]</span>
+<span class="go">[1 1 1 1 0 0 0 0 0 0 0 0]  [1 0 0 0 0 0 0 0 1 0 1 0]</span>
+<span class="go">[1 1 1 1 0 0 0 0 0 0 0 0]  [0 1 0 0 0 0 0 0 0 1 0 1]</span>
+<span class="go">[0 0 0 0 4 4 4 4 4 4 4 4]  [1 0 0 0 0 0 0 0 1 0 1 0]</span>
+<span class="go">[0 0 0 0 4 4 4 4 4 4 4 4]  [0 1 0 0 0 0 0 0 0 1 0 1]</span>
+<span class="go">[0 0 0 0 4 4 4 4 4 4 4 4]  [1 0 0 0 0 0 0 0 1 0 1 0]</span>
+<span class="go">[0 0 0 0 4 4 4 4 4 4 4 4]  [0 1 0 0 0 0 0 0 0 1 0 1]</span>
+<span class="go">[0 0 0 0 4 4 4 4 4 4 4 4]  [0 0 1 0 1 0 1 0 0 0 0 0]</span>
+<span class="go">[0 0 0 0 4 4 4 4 4 4 4 4]  [0 0 0 1 0 1 0 1 0 0 0 0]</span>
+<span class="go">[0 0 0 0 4 4 4 4 4 4 4 4]  [0 0 1 0 1 0 1 0 0 0 0 0]</span>
+<span class="go">[0 0 0 0 4 4 4 4 4 4 4 4], [0 0 0 1 0 1 0 1 0 0 0 0], [  5  35 245],</span>
+
+<span class="go">[1 1 1 1]  [0 0 0 1]                    [1 1 1 1]  [0 0 0 0]</span>
+<span class="go">[1 1 1 1]  [0 0 1 0]                    [1 1 1 1]  [0 0 0 0]</span>
+<span class="go">[1 1 1 1]  [0 1 0 0]                    [1 1 1 1]  [0 0 0 0]</span>
+<span class="go">[1 1 1 1], [1 0 0 0], [   5  105 2205], [1 1 1 1], [0 0 0 0],</span>
+
+<span class="go">            [1 1 0 0 0 0]  [1 0 0 1 0 1]</span>
+<span class="go">            [1 1 0 0 0 0]  [0 1 1 0 1 0]</span>
+<span class="go">            [0 0 2 2 2 2]  [0 1 1 0 1 0]</span>
+<span class="go">            [0 0 2 2 2 2]  [1 0 0 1 0 1]</span>
+<span class="go">            [0 0 2 2 2 2]  [0 1 1 0 1 0]                    [1 1]</span>
+<span class="go">[ 8 12 18], [0 0 2 2 2 2], [1 0 0 1 0 1], [  17  119 3332], [1 1],</span>
+
+<span class="go">                            [1 1 1 1]  [0 0 0 0]</span>
+<span class="go">                            [1 1 1 1]  [0 0 0 0]</span>
+<span class="go">[0 0]                       [1 1 1 1]  [0 0 0 0]</span>
+<span class="go">[0 0], [   17   255 15300], [1 1 1 1], [0 0 0 0]</span>
+<span class="go">]</span>
+</pre></div>
+</div>
+<p>The first matrix is for <span class="math">\(\QQ[\zeta_5]\)</span>, and from the others, we conclude
+Lemma 6.6. For <span class="math">\(\QQ[\zeta_5]\)</span>, we see that the graph is connected.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="recip.bissonstreng.is_S_O_equal_S_OK">
+<code class="descclassname">recip.bissonstreng.</code><code class="descname">is_S_O_equal_S_OK</code><span class="sig-paren">(</span><em>O</em><span class="sig-paren">)</span><a class="headerlink" href="#recip.bissonstreng.is_S_O_equal_S_OK" title="Permalink to this definition">¶</a></dt>
+<dd><p>Given an order O in a non-biquadratic quartic CM-field O, returns True if
+and only if S_O = S_{O_K}, in the notation of Bisson-Streng.</p>
+<p>EXAMPLES:</p>
+<p>The same example as in is_trivial_in_shimura_group, but much faster:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">sage: </span><span class="kn">from</span> <span class="nn">recip</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="gp">sage: </span><span class="n">K</span> <span class="o">=</span> <span class="n">CM_Field</span><span class="p">([</span><span class="mi">149</span><span class="p">,</span><span class="mi">13</span><span class="p">,</span><span class="mi">5</span><span class="p">])</span>
+<span class="gp">sage: </span><span class="n">P</span><span class="o">.&lt;</span><span class="n">x</span><span class="o">&gt;</span> <span class="o">=</span> <span class="n">QQ</span><span class="p">[]</span>
+<span class="gp">sage: </span><span class="p">[</span><span class="n">alpha1</span><span class="p">,</span><span class="n">alpha2</span><span class="p">]</span><span class="o">=</span><span class="p">(</span><span class="n">x</span><span class="o">^</span><span class="mi">4</span><span class="o">+</span><span class="mi">2</span><span class="o">*</span><span class="n">x</span><span class="o">^</span><span class="mi">3</span><span class="o">+</span><span class="mi">16</span><span class="o">*</span><span class="n">x</span><span class="o">^</span><span class="mi">2</span><span class="o">+</span><span class="mi">15</span><span class="o">*</span><span class="n">x</span><span class="o">+</span><span class="mi">19</span><span class="p">)</span><span class="o">.</span><span class="n">roots</span><span class="p">(</span><span class="n">K</span><span class="p">,</span> <span class="n">multiplicities</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
+<span class="gp">sage: </span><span class="n">O</span> <span class="o">=</span> <span class="n">K</span><span class="o">.</span><span class="n">order</span><span class="p">(</span><span class="n">alpha1</span><span class="p">)</span>
+<span class="gp">sage: </span><span class="n">is_S_O_equal_S_OK</span><span class="p">(</span><span class="n">O</span><span class="p">)</span>
+<span class="go">False</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="recip.bissonstreng.minimal_order_cl_nr_one_F">
+<code class="descclassname">recip.bissonstreng.</code><code class="descname">minimal_order_cl_nr_one_F</code><span class="sig-paren">(</span><em>Phi</em>, <em>F=None</em>, <em>output_type='order'</em>, <em>Ostart=None</em><span class="sig-paren">)</span><a class="headerlink" href="#recip.bissonstreng.minimal_order_cl_nr_one_F" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns an order O in the domain K of Phi such that for any order O&#8217; in K
+containing ZZ+F*OK,
+if the image of I_Kr(F) in CCC(O) is trivial,
+then O contains O&#8217;.</p>
+<p>Returns None every O&#8217; satisfies this property, i.e., if O does not exist.</p>
+<p>If K is not QQ(zeta_5), then actually the &#8220;if&#8221; in the first paragraph
+is an &#8220;if and only if&#8221;.</p>
+<p>Here F is an integer.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="recip.bissonstreng.minimal_orders_of_class_number_one">
+<code class="descclassname">recip.bissonstreng.</code><code class="descname">minimal_orders_of_class_number_one</code><span class="sig-paren">(</span><em>Phi</em>, <em>output_type='order'</em><span class="sig-paren">)</span><a class="headerlink" href="#recip.bissonstreng.minimal_orders_of_class_number_one" title="Permalink to this definition">¶</a></dt>
+<dd><p>Let K be the domain of the input CM-type Phi. If K is not <span class="math">\(\QQ(\zeta_5)\)</span>,
+returns the list of tuples (p, k, i, O), where p ranges over all primes
+such that there is an order that is not p-maximal, but does have
+Shimura class
+number one. Here O is the smallest such order of index a power i of p, and
+<span class="math">\(p^k\)</span> is the exponent of the additive group OK/O.</p>
+<p>If K is <span class="math">\(\QQ(\zeta_5)\)</span>, then the output is as above, except that the list
+may contain too many primes p, and the orders O may be too small
+(in other words, for a classification, the output will be on the safe
+side).</p>
+<p>EXAMPLES:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">sage: </span><span class="kn">from</span> <span class="nn">recip</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="gp">sage: </span><span class="n">lst</span> <span class="o">=</span> <span class="n">wamelen_dab_list</span><span class="p">()</span>
+
+<span class="gp">sage: </span><span class="n">K</span> <span class="o">=</span> <span class="n">CM_Field</span><span class="p">([</span><span class="mi">5</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span><span class="mi">5</span><span class="p">])</span>
+<span class="gp">sage: </span><span class="n">Phi</span> <span class="o">=</span> <span class="n">K</span><span class="o">.</span><span class="n">CM_types</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span>
+<span class="gp">sage: </span><span class="n">minorders</span> <span class="o">=</span> <span class="n">minimal_orders_of_class_number_one</span><span class="p">(</span><span class="n">Phi</span><span class="p">);</span> <span class="n">minorders</span> <span class="c1"># long time 1 second</span>
+<span class="go">[(2, 2, 16, Order in CM Number Field in alpha with defining polynomial x^4 + 5*x^2 + 5), (3, 1, 9, Order in CM Number Field in alpha with defining polynomial x^4 + 5*x^2 + 5), (5, 3, 15625, Order in CM Number Field in alpha with defining polynomial x^4 + 5*x^2 + 5)]</span>
+
+<span class="gp">sage: </span><span class="n">Phi</span> <span class="o">=</span> <span class="n">CM_Field</span><span class="p">(</span><span class="n">lst</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span><span class="o">.</span><span class="n">CM_types</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span>
+<span class="gp">sage: </span><span class="n">m</span> <span class="o">=</span> <span class="n">minimal_orders_of_class_number_one</span><span class="p">(</span><span class="n">Phi</span><span class="p">);</span> <span class="n">m</span>
+<span class="go">[(2, 1, 4, Order in CM Number Field in alpha with defining polynomial x^4 + 4*x^2 + 2)]</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="recip.bissonstreng.orders_proven_with_wamelen">
+<code class="descclassname">recip.bissonstreng.</code><code class="descname">orders_proven_with_wamelen</code><span class="sig-paren">(</span><em>latex_output=False</em><span class="sig-paren">)</span><a class="headerlink" href="#recip.bissonstreng.orders_proven_with_wamelen" title="Permalink to this definition">¶</a></dt>
+<dd><p>Compute the orders O&#8217;&#8216;&#8217; in the article, and prove that the non-maximal
+O&#8217;&#8216;&#8217; have index 2 in the maximal order and no proper polarized ideal
+classes. Then output Table 1 of the article.</p>
+<p>EXAMPLES:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">sage: </span><span class="kn">from</span> <span class="nn">recip</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="gp">sage: </span><span class="n">orders_proven_with_wamelen</span><span class="p">()</span>
+<span class="go">[([5, 5, 5], 1, 1, 1, 1, 1), ([8, 4, 2], 1, x^4 + 4*x^2 + 2, 1, 1, 1), ([13, 13, 13], 1, x^4 - x^3 + 2*x^2 + 4*x + 3, 3, 1, 1), ([5, 10, 20], 2, x^4 + 10*x^2 + 20, 4, 4, 2), ([5, 65, 845], 2, x^4 - x^3 + 16*x^2 - 16*x + 61, 19, 1, 1), ([29, 29, 29], 1, x^4 - x^3 + 4*x^2 - 20*x + 23, 7, 1, 1), ([5, 85, 1445], 2, x^4 - x^3 + 21*x^2 - 21*x + 101, 29, 1, 1), ([37, 37, 333], 1, x^4 - x^3 + 5*x^2 - 7*x + 49, 21, 3, 1), ([8, 20, 50], 2, x^4 + 20*x^2 + 50, 25, 25, 1), ([13, 65, 325], 2, x^4 - x^3 + 15*x^2 + 17*x + 29, 23, 1, 1), ([13, 26, 52], 2, x^4 + 26*x^2 + 52, 36, 36, 2), ([53, 53, 53], 1, x^4 - x^3 + 7*x^2 + 43*x + 47, 13, 1, 1), ([61, 61, 549], 1, x^4 - x^3 + 8*x^2 - 42*x + 117, 39, 3, 1)]</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="recip.bissonstreng.two_two_matrix">
+<code class="descclassname">recip.bissonstreng.</code><code class="descname">two_two_matrix</code><span class="sig-paren">(</span><em>Zs</em>, <em>F</em><span class="sig-paren">)</span><a class="headerlink" href="#recip.bissonstreng.two_two_matrix" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns an n x n matrix A (where n=len(Zs)) with
+A[k,l] = 1 if Zs[k] and Zs[l] are (2,2)-isogenous, and A[k,l] = 0 otherwise</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="recip.bissonstreng.visualize_orders">
+<code class="descclassname">recip.bissonstreng.</code><code class="descname">visualize_orders</code><span class="sig-paren">(</span><em>orders</em><span class="sig-paren">)</span><a class="headerlink" href="#recip.bissonstreng.visualize_orders" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns an n x n matrix A (where n=len(Zs)) with
+A[k,l] = [OK:orders[k]] if orders[k]=orders[l], and A[k,l] = 0 otherwise</p>
+</dd></dl>
+
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="orders.html"
+                        title="previous chapter">Orders</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="bls.html"
+                        title="next chapter">Broker-Lauter-Streng</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/bissonstreng.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="bls.html" title="Broker-Lauter-Streng"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="orders.html" title="Orders"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">CM SageMath code 3.0.1 documentation</a> &#187;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2017, Marco Streng.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.5.3.
+    </div>
+  </body>
+</html>

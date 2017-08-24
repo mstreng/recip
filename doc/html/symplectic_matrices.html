@@ -1,0 +1,391 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Symplectic matrices &#8212; CM SageMath code 3.0.1 documentation</title>
+    
+    <link rel="stylesheet" href="_static/classic.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '3.0.1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="_static/MathJax.js?config=TeX-AMS_HTML-full,../mathjax_sage.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Period matrices" href="period_matrices.html" />
+    <link rel="prev" title="Polynomials" href="polynomials.html" /> 
+  </head>
+  <body role="document">
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="period_matrices.html" title="Period matrices"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="polynomials.html" title="Polynomials"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">CM SageMath code 3.0.1 documentation</a> &#187;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <p>..nodoctest</p>
+<div class="section" id="module-recip.symplectic_matrices">
+<span id="symplectic-matrices"></span><h1>Symplectic matrices<a class="headerlink" href="#module-recip.symplectic_matrices" title="Permalink to this headline">¶</a></h1>
+<p>x.__init__(...) initializes x; see help(type(x)) for signature</p>
+<dl class="function">
+<dt id="recip.symplectic_matrices.ABCD">
+<code class="descclassname">recip.symplectic_matrices.</code><code class="descname">ABCD</code><span class="sig-paren">(</span><em>M</em>, <em>m=None</em>, <em>n=None</em><span class="sig-paren">)</span><a class="headerlink" href="#recip.symplectic_matrices.ABCD" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns matrices A, B, C, D such that M equals
+( A B )
+( C D )
+and A is mxn.
+If m (resp. n) is not specified, then it is half the number
+of rows (resp. columns) of M.</p>
+</dd></dl>
+
+<dl class="class">
+<dt id="recip.symplectic_matrices.GSp_element">
+<em class="property">class </em><code class="descclassname">recip.symplectic_matrices.</code><code class="descname">GSp_element</code><span class="sig-paren">(</span><em>arg1</em>, <em>arg2=None</em>, <em>ring=None</em><span class="sig-paren">)</span><a class="headerlink" href="#recip.symplectic_matrices.GSp_element" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="docutils">
+<dt>A matrix</dt>
+<dd>M = iota(nu^-1) * S</dd>
+</dl>
+<p>where iota(t) = diag(1,1,...,1,t^-1,t^-1,...,t^-1) and S is in Sp_{2g}
+It acts from the right on theta_ring, where iota(t) acts as t on
+coefficients, and S acts via the usual action.</p>
+<dl class="method">
+<dt id="recip.symplectic_matrices.GSp_element.Sp_part">
+<code class="descname">Sp_part</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#recip.symplectic_matrices.GSp_element.Sp_part" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="recip.symplectic_matrices.GSp_element.action_on_theta_generators">
+<code class="descname">action_on_theta_generators</code><span class="sig-paren">(</span><em>den</em><span class="sig-paren">)</span><a class="headerlink" href="#recip.symplectic_matrices.GSp_element.action_on_theta_generators" title="Permalink to this definition">¶</a></dt>
+<dd><p>EXAMPLES:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">sage: </span><span class="k">class</span> <span class="nc">Foo</span><span class="p">:</span>
+<span class="go">....:     def __init__(self, x):</span>
+<span class="go">....:         self._x = x</span>
+<span class="go">....:     @cached_method</span>
+<span class="go">....:     def f(self,*args):</span>
+<span class="go">....:         return self._x^2</span>
+<span class="gp">sage: </span><span class="n">a</span> <span class="o">=</span> <span class="n">Foo</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+<span class="gp">sage: </span><span class="n">a</span><span class="o">.</span><span class="n">f</span><span class="o">.</span><span class="n">cache</span>
+<span class="go">{}</span>
+<span class="gp">sage: </span><span class="n">a</span><span class="o">.</span><span class="n">f</span><span class="p">()</span>
+<span class="go">4</span>
+<span class="gp">sage: </span><span class="n">a</span><span class="o">.</span><span class="n">f</span><span class="o">.</span><span class="n">cache</span>
+<span class="go">{((), ()): 4}</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="recip.symplectic_matrices.GSp_element.base_ring">
+<code class="descname">base_ring</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#recip.symplectic_matrices.GSp_element.base_ring" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the base ring of self.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="recip.symplectic_matrices.GSp_element.g">
+<code class="descname">g</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#recip.symplectic_matrices.GSp_element.g" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="recip.symplectic_matrices.GSp_element.matrix">
+<code class="descname">matrix</code><span class="sig-paren">(</span><em>base_ring=None</em><span class="sig-paren">)</span><a class="headerlink" href="#recip.symplectic_matrices.GSp_element.matrix" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="recip.symplectic_matrices.GSp_element.nu">
+<code class="descname">nu</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#recip.symplectic_matrices.GSp_element.nu" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="recip.symplectic_matrices.GSp_element.parent">
+<code class="descname">parent</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#recip.symplectic_matrices.GSp_element.parent" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="recip.symplectic_matrices.GSp_element.transpose">
+<code class="descname">transpose</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#recip.symplectic_matrices.GSp_element.transpose" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the transpose of self.</p>
+<p>EXAMPLE:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">sage: </span><span class="kn">from</span> <span class="nn">recip</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="gp">sage: </span><span class="n">M</span> <span class="o">=</span> <span class="n">GSp_element</span><span class="p">([[</span><span class="mi">0</span><span class="p">,</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">],[</span><span class="mi">5</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="o">-</span><span class="mi">5</span><span class="p">],[</span><span class="mi">0</span><span class="p">,</span><span class="o">-</span><span class="mi">2</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">1</span><span class="p">],[</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="o">-</span><span class="mi">1</span><span class="p">]])</span>
+<span class="gp">sage: </span><span class="n">M</span><span class="o">.</span><span class="n">transpose</span><span class="p">()</span>
+<span class="go">[ 0  5  0  1]</span>
+<span class="go">[-1  0 -2  0]</span>
+<span class="go">[ 1  4  2  1]</span>
+<span class="go">[ 1 -5  1 -1]</span>
+</pre></div>
+</div>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="recip.symplectic_matrices.GSp_group">
+<em class="property">class </em><code class="descclassname">recip.symplectic_matrices.</code><code class="descname">GSp_group</code><span class="sig-paren">(</span><em>n</em>, <em>m</em><span class="sig-paren">)</span><a class="headerlink" href="#recip.symplectic_matrices.GSp_group" title="Permalink to this definition">¶</a></dt>
+<dd><p>The group GSp(n, R) for R = Zmod(m).</p>
+<p>EXAMPLES:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">sage: </span><span class="kn">from</span> <span class="nn">recip</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="gp">sage: </span><span class="n">l</span> <span class="o">=</span> <span class="n">GSp_group</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span><span class="o">.</span><span class="n">list</span><span class="p">()</span> <span class="c1"># long time, 2 seconds</span>
+<span class="gp">sage: </span><span class="nb">len</span><span class="p">(</span><span class="n">l</span><span class="p">)</span> <span class="c1"># long time</span>
+<span class="go">720</span>
+</pre></div>
+</div>
+<dl class="method">
+<dt id="recip.symplectic_matrices.GSp_group.list">
+<code class="descname">list</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#recip.symplectic_matrices.GSp_group.list" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a list of all elements of self. Slow!</p>
+<p>EXAMPLES:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">sage: </span><span class="kn">from</span> <span class="nn">recip</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="gp">sage: </span><span class="n">GSp_group</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span><span class="o">.</span><span class="n">list</span><span class="p">()</span>
+<span class="go">[</span>
+<span class="go">[1 0]  [0 1]  [1 1]  [1 1]  [1 0]  [0 1]</span>
+<span class="go">[0 1], [1 0], [0 1], [1 0], [1 1], [1 1]</span>
+<span class="go">]</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="recip.symplectic_matrices.GSp_group.order">
+<code class="descname">order</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#recip.symplectic_matrices.GSp_group.order" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the order of self. Way too slow!!</p>
+<p>EXAMPLES:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">sage: </span><span class="kn">from</span> <span class="nn">recip</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="gp">sage: </span><span class="n">GSp_group</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">5</span><span class="p">)</span><span class="o">.</span><span class="n">order</span><span class="p">()</span> <span class="c1"># long time, 1 second</span>
+<span class="go">480</span>
+</pre></div>
+</div>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="function">
+<dt id="recip.symplectic_matrices.Omega">
+<code class="descclassname">recip.symplectic_matrices.</code><code class="descname">Omega</code><span class="sig-paren">(</span><em>g</em><span class="sig-paren">)</span><a class="headerlink" href="#recip.symplectic_matrices.Omega" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the 2g x 2g matrix given in terms of gxg blocks as
+((0, -1) (1, 0))</p>
+</dd></dl>
+
+<dl class="class">
+<dt id="recip.symplectic_matrices.Sp_group">
+<em class="property">class </em><code class="descclassname">recip.symplectic_matrices.</code><code class="descname">Sp_group</code><span class="sig-paren">(</span><em>n</em>, <em>m</em><span class="sig-paren">)</span><a class="headerlink" href="#recip.symplectic_matrices.Sp_group" title="Permalink to this definition">¶</a></dt>
+<dd><p>The group Sp(n, R) for R = Zmod(m).</p>
+<p>EXAMPLES:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">sage: </span><span class="kn">from</span> <span class="nn">recip</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="gp">sage: </span><span class="n">l</span> <span class="o">=</span> <span class="n">Sp_group</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span><span class="o">.</span><span class="n">list</span><span class="p">()</span> <span class="c1"># long time, 2 seconds</span>
+<span class="gp">sage: </span><span class="nb">len</span><span class="p">(</span><span class="n">l</span><span class="p">)</span> <span class="c1"># depends on previous line with long time</span>
+<span class="go">720</span>
+</pre></div>
+</div>
+<dl class="method">
+<dt id="recip.symplectic_matrices.Sp_group.list">
+<code class="descname">list</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#recip.symplectic_matrices.Sp_group.list" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a list of all elements of self. Slow!</p>
+<p>This uses that Sp_2n(ZZ) maps surjectively to Sp_2n(ZZ/mZZ),
+hence the generators of Sp_2n(ZZ) generate Sp_2n(ZZ/mZZ)</p>
+<p>EXAMPLES:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">sage: </span><span class="kn">from</span> <span class="nn">recip</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="gp">sage: </span><span class="n">Sp_group</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span><span class="o">.</span><span class="n">list</span><span class="p">()</span>
+<span class="go">[</span>
+<span class="go">[1 0]  [0 1]  [1 1]  [1 1]  [1 0]  [0 1]</span>
+<span class="go">[0 1], [1 0], [0 1], [1 0], [1 1], [1 1]</span>
+<span class="go">]</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="recip.symplectic_matrices.Sp_group.order">
+<code class="descname">order</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#recip.symplectic_matrices.Sp_group.order" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the order of self. Way too slow!!</p>
+<p>EXAMPLES:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">sage: </span><span class="kn">from</span> <span class="nn">recip</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="gp">sage: </span><span class="n">Sp_group</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">5</span><span class="p">)</span><span class="o">.</span><span class="n">order</span><span class="p">()</span>
+<span class="go">120</span>
+</pre></div>
+</div>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="function">
+<dt id="recip.symplectic_matrices.Zmod_to_SL">
+<code class="descclassname">recip.symplectic_matrices.</code><code class="descname">Zmod_to_SL</code><span class="sig-paren">(</span><em>a</em><span class="sig-paren">)</span><a class="headerlink" href="#recip.symplectic_matrices.Zmod_to_SL" title="Permalink to this definition">¶</a></dt>
+<dd><p>Given a in (ZZ/mu*ZZ)^*, outputs A in SL_2(ZZ) with
+A = ((a 0) (0 a^-1)) mod mu</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="recip.symplectic_matrices.diag">
+<code class="descclassname">recip.symplectic_matrices.</code><code class="descname">diag</code><span class="sig-paren">(</span><em>a</em><span class="sig-paren">)</span><a class="headerlink" href="#recip.symplectic_matrices.diag" title="Permalink to this definition">¶</a></dt>
+<dd><p>Given a square matrix a, returns the list of diagonal entries of a.</p>
+<p>EXAMPLES:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">sage: </span><span class="kn">from</span> <span class="nn">recip</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="gp">sage: </span><span class="n">g</span> <span class="o">=</span> <span class="n">Matrix</span><span class="p">(</span><span class="n">Zmod</span><span class="p">(</span><span class="mi">8</span><span class="p">),[(</span><span class="mi">5</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">7</span><span class="p">,</span><span class="mi">1</span><span class="p">),(</span><span class="mi">6</span><span class="p">,</span><span class="mi">6</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">7</span><span class="p">),(</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">),(</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span><span class="mi">4</span><span class="p">)])</span>
+<span class="gp">sage: </span><span class="n">diag</span><span class="p">(</span><span class="n">g</span><span class="p">)</span>
+<span class="go">[5, 6, 2, 4]</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="recip.symplectic_matrices.group_generators_to_list">
+<code class="descclassname">recip.symplectic_matrices.</code><code class="descname">group_generators_to_list</code><span class="sig-paren">(</span><em>gens</em>, <em>G=None</em><span class="sig-paren">)</span><a class="headerlink" href="#recip.symplectic_matrices.group_generators_to_list" title="Permalink to this definition">¶</a></dt>
+<dd><p>Given a finite list <span class="math">\(gens\)</span> of elements of a group <span class="math">\(G\)</span>,
+assuming <span class="math">\(gens\)</span> generates a finite subgroup <span class="math">\(H\)</span> of <span class="math">\(G\)</span>,
+returns a list of all elements of <span class="math">\(H\)</span>.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="recip.symplectic_matrices.matrix_from_blocks">
+<code class="descclassname">recip.symplectic_matrices.</code><code class="descname">matrix_from_blocks</code><span class="sig-paren">(</span><em>A</em>, <em>B</em>, <em>C</em>, <em>D</em><span class="sig-paren">)</span><a class="headerlink" href="#recip.symplectic_matrices.matrix_from_blocks" title="Permalink to this definition">¶</a></dt>
+<dd><p>Given matrices A,B,C,D, returns a single matrix
+( A B )
+( C D )</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="recip.symplectic_matrices.minimal_generating_subset">
+<code class="descclassname">recip.symplectic_matrices.</code><code class="descname">minimal_generating_subset</code><span class="sig-paren">(</span><em>gens</em>, <em>G=None</em>, <em>order=None</em>, <em>k=0</em><span class="sig-paren">)</span><a class="headerlink" href="#recip.symplectic_matrices.minimal_generating_subset" title="Permalink to this definition">¶</a></dt>
+<dd><p>Given a finite list <span class="math">\(gens\)</span> of elements of a group <span class="math">\(G\)</span>,
+assuming <span class="math">\(gens\)</span> generates a finite subgroup <span class="math">\(H\)</span> of <span class="math">\(G\)</span>,
+returns a minimal subset <span class="math">\(s\)</span> of <span class="math">\(gens\)</span> that generates <span class="math">\(H\)</span>.</p>
+<p>Here minimal is with respect to inclusion, so it may
+not be the smallest such subset.</p>
+<p><span class="math">\(order\)</span> is the order of <span class="math">\(H\)</span>, and <span class="math">\(s\)</span> must gens[:k]</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="recip.symplectic_matrices.nu">
+<code class="descclassname">recip.symplectic_matrices.</code><code class="descname">nu</code><span class="sig-paren">(</span><em>m</em><span class="sig-paren">)</span><a class="headerlink" href="#recip.symplectic_matrices.nu" title="Permalink to this definition">¶</a></dt>
+<dd><p>Given a 2g x 2g matrix m, returns a scalar nu such that
+m.transpose() * Omega(g) * m = nu * Omega(g) if it exists.
+Otherwise returns None.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="recip.symplectic_matrices.random_symplectic_matrix">
+<code class="descclassname">recip.symplectic_matrices.</code><code class="descname">random_symplectic_matrix</code><span class="sig-paren">(</span><em>g</em>, <em>n</em>, <em>subgroup=None</em>, <em>level=None</em><span class="sig-paren">)</span><a class="headerlink" href="#recip.symplectic_matrices.random_symplectic_matrix" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the product of n random elements of symplectic_generators(g)
+and inverses of such.</p>
+<p>See symplectic_generators for which subgroups are possible.</p>
+<p>EXAMPLE:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">sage: </span><span class="kn">from</span> <span class="nn">recip</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="gp">sage: </span><span class="n">M</span> <span class="o">=</span> <span class="n">random_symplectic_matrix</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">20</span><span class="p">)</span>
+<span class="gp">sage: </span><span class="n">M</span> <span class="c1"># random output</span>
+<span class="go">[ 0 -1  1  1]</span>
+<span class="go">[ 5  0  4 -5]</span>
+<span class="go">[ 0 -2  2  1]</span>
+<span class="go">[ 1  0  1 -1]</span>
+<span class="gp">sage: </span><span class="n">is_symplectic</span><span class="p">(</span><span class="n">Matrix</span><span class="p">(</span><span class="n">M</span><span class="p">))</span>
+<span class="go">True</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="recip.symplectic_matrices.symplectic_generators">
+<code class="descclassname">recip.symplectic_matrices.</code><code class="descname">symplectic_generators</code><span class="sig-paren">(</span><em>g</em>, <em>subgroup=None</em>, <em>level=None</em><span class="sig-paren">)</span><a class="headerlink" href="#recip.symplectic_matrices.symplectic_generators" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a set of generators of Sp_2g(ZZ)</p>
+<p>WARNING: I doubt the correctness of this function, I don&#8217;t get all the
+invariants that I expected to get.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="recip.symplectic_matrices.zero_matrix">
+<code class="descclassname">recip.symplectic_matrices.</code><code class="descname">zero_matrix</code><span class="sig-paren">(</span><em>m</em>, <em>n=None</em>, <em>base_ring=Integer Ring</em><span class="sig-paren">)</span><a class="headerlink" href="#recip.symplectic_matrices.zero_matrix" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the m x n matrix with all zero coefficients over base_ring.</p>
+<p>If n is unspecified, then n=m,
+if base_ring is unspecified, then base_ring = ZZ.</p>
+</dd></dl>
+
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="polynomials.html"
+                        title="previous chapter">Polynomials</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="period_matrices.html"
+                        title="next chapter">Period matrices</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/symplectic_matrices.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="period_matrices.html" title="Period matrices"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="polynomials.html" title="Polynomials"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">CM SageMath code 3.0.1 documentation</a> &#187;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2017, Marco Streng.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.5.3.
+    </div>
+  </body>
+</html>

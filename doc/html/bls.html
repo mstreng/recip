@@ -1,0 +1,215 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Broker-Lauter-Streng &#8212; CM SageMath code 3.0.1 documentation</title>
+    
+    <link rel="stylesheet" href="_static/classic.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '3.0.1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="_static/MathJax.js?config=TeX-AMS_HTML-full,../mathjax_sage.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="prev" title="Bisson-Streng" href="bissonstreng.html" /> 
+  </head>
+  <body role="document">
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="bissonstreng.html" title="Bisson-Streng"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">CM SageMath code 3.0.1 documentation</a> &#187;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <p>..nodoctest</p>
+<div class="section" id="module-recip.bls">
+<span id="broker-lauter-streng"></span><h1>Broker-Lauter-Streng<a class="headerlink" href="#module-recip.bls" title="Permalink to this headline">¶</a></h1>
+<p>x.__init__(...) initializes x; see help(type(x)) for signature</p>
+<dl class="function">
+<dt id="recip.bls.cosets_of_GammaN_iter">
+<code class="descclassname">recip.bls.</code><code class="descname">cosets_of_GammaN_iter</code><span class="sig-paren">(</span><em>p</em><span class="sig-paren">)</span><a class="headerlink" href="#recip.bls.cosets_of_GammaN_iter" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns exactly one representative of every left coset of Gamma_0(N)
+in Sp_4(ZZ).</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="recip.bls.count_nn_endomorphisms">
+<code class="descclassname">recip.bls.</code><code class="descname">count_nn_endomorphisms</code><span class="sig-paren">(</span><em>Z</em>, <em>p</em><span class="sig-paren">)</span><a class="headerlink" href="#recip.bls.count_nn_endomorphisms" title="Permalink to this definition">¶</a></dt>
+<dd><p>Gives a lower bound (hopefully tight) on the number of (p,p)-endomorphisms
+for the input prime p.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="recip.bls.humbert8">
+<code class="descclassname">recip.bls.</code><code class="descname">humbert8</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#recip.bls.humbert8" title="Permalink to this definition">¶</a></dt>
+<dd><p>Gives an equation for the Humbert surface of discriminant 8, due to
+David Gruenewald.</p>
+<p>See also <a class="reference external" href="http://echidna.maths.usyd.edu.au/~davidg/thesis.html">http://echidna.maths.usyd.edu.au/~davidg/thesis.html</a>
+which contains this surface with respect to other invariants.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="recip.bls.ic_from_Cab">
+<code class="descclassname">recip.bls.</code><code class="descname">ic_from_Cab</code><span class="sig-paren">(</span><em>a</em>, <em>b</em><span class="sig-paren">)</span><a class="headerlink" href="#recip.bls.ic_from_Cab" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="recip.bls.ic_on_humb8">
+<code class="descclassname">recip.bls.</code><code class="descname">ic_on_humb8</code><span class="sig-paren">(</span><em>ic</em><span class="sig-paren">)</span><a class="headerlink" href="#recip.bls.ic_on_humb8" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="recip.bls.ideal_power">
+<code class="descclassname">recip.bls.</code><code class="descname">ideal_power</code><span class="sig-paren">(</span><em>I</em>, <em>n</em><span class="sig-paren">)</span><a class="headerlink" href="#recip.bls.ideal_power" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns I^n if I is principal.
+(because I**n is too slow in Sage 5.4.1)</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="recip.bls.is_polarized_product">
+<code class="descclassname">recip.bls.</code><code class="descname">is_polarized_product</code><span class="sig-paren">(</span><em>Z</em>, <em>info=False</em>, <em>reduce=True</em><span class="sig-paren">)</span><a class="headerlink" href="#recip.bls.is_polarized_product" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns True or False. If True, then we know Z is a polarized product
+of CM elliptic curves. If False, then likely it is not (no proof!).
+If info is True, then returns information on the elliptic curves.
+If reduce is True, then reduce first (use reduce=False if already reduced).</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="recip.bls.j_from_Cab">
+<code class="descclassname">recip.bls.</code><code class="descname">j_from_Cab</code><span class="sig-paren">(</span><em>a</em>, <em>b</em><span class="sig-paren">)</span><a class="headerlink" href="#recip.bls.j_from_Cab" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="recip.bls.j_from_a">
+<code class="descclassname">recip.bls.</code><code class="descname">j_from_a</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#recip.bls.j_from_a" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="recip.bls.lower_root">
+<code class="descclassname">recip.bls.</code><code class="descname">lower_root</code><span class="sig-paren">(</span><em>ideal</em>, <em>n</em><span class="sig-paren">)</span><a class="headerlink" href="#recip.bls.lower_root" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="recip.bls.mult_ic">
+<code class="descclassname">recip.bls.</code><code class="descname">mult_ic</code><span class="sig-paren">(</span><em>ic</em>, <em>d</em><span class="sig-paren">)</span><a class="headerlink" href="#recip.bls.mult_ic" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="recip.bls.nn_isogenous_matrices_iter">
+<code class="descclassname">recip.bls.</code><code class="descname">nn_isogenous_matrices_iter</code><span class="sig-paren">(</span><em>Z</em>, <em>p</em><span class="sig-paren">)</span><a class="headerlink" href="#recip.bls.nn_isogenous_matrices_iter" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns all Sp_4(ZZ)-classes of period matrices that are (p,p)-isogenous to
+Z.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="recip.bls.nn_isogenous_matrices_iter2">
+<code class="descclassname">recip.bls.</code><code class="descname">nn_isogenous_matrices_iter2</code><span class="sig-paren">(</span><em>Z</em>, <em>p</em><span class="sig-paren">)</span><a class="headerlink" href="#recip.bls.nn_isogenous_matrices_iter2" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns all Sp_4(ZZ)-classes of period matrices that are (p,p)-isogenous to
+Z.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="recip.bls.recognize_all_from_article">
+<code class="descclassname">recip.bls.</code><code class="descname">recognize_all_from_article</code><span class="sig-paren">(</span><em>bound=2</em>, <em>print_results=False</em><span class="sig-paren">)</span><a class="headerlink" href="#recip.bls.recognize_all_from_article" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a list of pairs ((a1,a2),l).
+Here a1, a2 runs over the numbers a1 and a2 from the article, and each
+l is itself a list.
+The elements of l are triples (Z, o0, o1), where the Z are period matrices.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="recip.bls.recognize_matrix">
+<code class="descclassname">recip.bls.</code><code class="descname">recognize_matrix</code><span class="sig-paren">(</span><em>Z</em>, <em>bound=2</em><span class="sig-paren">)</span><a class="headerlink" href="#recip.bls.recognize_matrix" title="Permalink to this definition">¶</a></dt>
+<dd><p>Tries to write Z as a polarized product of CM elliptic curves.
+If that fails, tries this for all (p,p)-isogenous varieties
+for p below the given bound.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="recip.bls.reduce_ic">
+<code class="descclassname">recip.bls.</code><code class="descname">reduce_ic</code><span class="sig-paren">(</span><em>ic</em><span class="sig-paren">)</span><a class="headerlink" href="#recip.bls.reduce_ic" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="bissonstreng.html"
+                        title="previous chapter">Bisson-Streng</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/bls.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="bissonstreng.html" title="Bisson-Streng"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">CM SageMath code 3.0.1 documentation</a> &#187;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2017, Marco Streng.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.5.3.
+    </div>
+  </body>
+</html>

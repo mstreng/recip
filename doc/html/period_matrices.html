@@ -1,0 +1,670 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Period matrices &#8212; CM SageMath code 3.0.1 documentation</title>
+    
+    <link rel="stylesheet" href="_static/classic.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '3.0.1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="_static/MathJax.js?config=TeX-AMS_HTML-full,../mathjax_sage.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Theta transformation formulas" href="theta_trans.html" />
+    <link rel="prev" title="Symplectic matrices" href="symplectic_matrices.html" /> 
+  </head>
+  <body role="document">
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="theta_trans.html" title="Theta transformation formulas"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="symplectic_matrices.html" title="Symplectic matrices"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">CM SageMath code 3.0.1 documentation</a> &#187;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <p>..nodoctest</p>
+<div class="section" id="module-recip.period_matrices">
+<span id="period-matrices"></span><h1>Period matrices<a class="headerlink" href="#module-recip.period_matrices" title="Permalink to this headline">¶</a></h1>
+<p>x.__init__(...) initializes x; see help(type(x)) for signature</p>
+<dl class="function">
+<dt id="recip.period_matrices.PeriodMatrix">
+<code class="descclassname">recip.period_matrices.</code><code class="descname">PeriodMatrix</code><span class="sig-paren">(</span><em>arg1</em>, <em>arg2=None</em>, <em>arg3=None</em>, <em>check=True</em><span class="sig-paren">)</span><a class="headerlink" href="#recip.period_matrices.PeriodMatrix" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create a period matrix.</p>
+<p>Currently, period matrices with CM by
+non-maximal orders may not completely work.</p>
+<p>INPUT:</p>
+<ul class="simple">
+<li><span class="math">\(arg1\)</span> &#8211; a CM-type <span class="math">\(\Phi\)</span> of a CM-field <span class="math">\(K\)</span></li>
+<li><span class="math">\(arg2\)</span> &#8211; an ideal <span class="math">\(A\)</span> of a maximal order of <span class="math">\(K\)</span></li>
+<li><span class="math">\(arg3\)</span> &#8211; an element <span class="math">\(\xi\)</span> of <span class="math">\(K\)</span> with totally positive imaginary part
+and real part 0, such that <span class="math">\(\xi A\)</span> is the trace dual of <span class="math">\(\bar{A}\)</span>.
+(If <span class="math">\(A\)</span> is an ideal of the maximal order <span class="math">\(O_K\)</span> and <span class="math">\(D\)</span> is the different,
+then the final condition is equivalent to <span class="math">\(\xi A\bar{A} D = O_K\)</span>.)</li>
+<li><span class="math">\(check\)</span> (default:True) &#8211; whether to check the condition on <span class="math">\(arg3\)</span>.</li>
+</ul>
+<p>Instead of an ideal of a maximal order, it is possible to give a basis
+of any lattice in <span class="math">\(K\)</span>. This basis does not have to be symplectic. For this,
+call directly the class (it is not implemented in this constructor yet).</p>
+<p>OUTPUT:</p>
+<p>A period matrix corresponding to some symplectic basis for the input data.</p>
+</dd></dl>
+
+<dl class="class">
+<dt id="recip.period_matrices.PeriodMatrix_CM">
+<em class="property">class </em><code class="descclassname">recip.period_matrices.</code><code class="descname">PeriodMatrix_CM</code><span class="sig-paren">(</span><em>CM_type=None</em>, <em>ideal=None</em>, <em>xi=None</em>, <em>basis=None</em>, <em>matrix=None</em>, <em>check=True</em><span class="sig-paren">)</span><a class="headerlink" href="#recip.period_matrices.PeriodMatrix_CM" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">sage.matrix.matrix_generic_dense.Matrix_generic_dense</span></code></p>
+<p>Object representing a CM period matrix. See <a class="reference internal" href="#recip.period_matrices.PeriodMatrix" title="recip.period_matrices.PeriodMatrix"><code class="xref py py-func docutils literal"><span class="pre">PeriodMatrix()</span></code></a>.</p>
+<dl class="method">
+<dt id="recip.period_matrices.PeriodMatrix_CM.CM_field">
+<code class="descname">CM_field</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#recip.period_matrices.PeriodMatrix_CM.CM_field" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="recip.period_matrices.PeriodMatrix_CM.CM_type">
+<code class="descname">CM_type</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#recip.period_matrices.PeriodMatrix_CM.CM_type" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="recip.period_matrices.PeriodMatrix_CM.Shimura_reciprocity">
+<code class="descname">Shimura_reciprocity</code><span class="sig-paren">(</span><em>A</em>, <em>n</em>, <em>m=None</em>, <em>reduce=100</em>, <em>period_matrix=False</em>, <em>transformation=True</em><span class="sig-paren">)</span><a class="headerlink" href="#recip.period_matrices.PeriodMatrix_CM.Shimura_reciprocity" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns matrices M in GSp(QQ)^+ and u in GSp(ZZ/n*ZZ) that
+give the Galois action of the ray class A mod m on a
+modular function f of level n.</p>
+<p>INPUT:</p>
+<ul class="simple">
+<li>A &#8211; an ideal of K = self.CM_type().reflex_field()</li>
+<li>n &#8211; a positive integer</li>
+<li>m (default:None) &#8211; a positive integer or None.
+If None, then use m=n.
+For every prime P of K dividing m, we must have
+ord_P(A)=0.</li>
+<li>reduce (default:100) &#8211; a positive integer or False.
+If a positive integer, then M*self is reduced
+(with precision reduce).</li>
+<li>period_matrix (default:False) &#8211; whether to
+also return Z = (M^-1)*self</li>
+<li>transformation (default:True) &#8211; whether to
+return M. period_matrix and transformation
+can not both be false.</li>
+</ul>
+<p>OUTPUT:</p>
+<p>A pair (M, u) or (Z, u) or a triple (Z, M, u)
+depending on period_matrix and transformation.
+Here we have M in GSp(QQ)^+, u in GSp(ZZ/n*ZZ),
+and Z = M^-1*self a period matrix
+such that the following holds.</p>
+<p>Let f be a modular function of level n
+and assume that f(self) is in the ray class field
+of K of conductor m. (This assumption
+automatically holds in the case m=n.)</p>
+<p>Then f(self)^Artin(A) = f^u(Z).</p>
+<p>NOTE:</p>
+<p>If m=n, then M and Z are as in
+self.galois_action(x, transformation=True).</p>
+<p>EXAMPLES:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">sage: </span><span class="kn">from</span> <span class="nn">recip</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="gp">sage: </span><span class="n">k</span> <span class="o">=</span> <span class="n">CM_Field</span><span class="p">([</span><span class="mi">5</span><span class="p">,</span><span class="mi">13</span><span class="p">,</span><span class="mi">41</span><span class="p">])</span>
+<span class="gp">sage: </span><span class="n">Z</span> <span class="o">=</span> <span class="n">k</span><span class="o">.</span><span class="n">one_period_matrix</span><span class="p">()</span>
+<span class="gp">sage: </span><span class="n">a</span> <span class="o">=</span> <span class="n">Z</span><span class="o">.</span><span class="n">CM_type</span><span class="p">()</span><span class="o">.</span><span class="n">reflex_field</span><span class="p">()</span><span class="o">.</span><span class="n">gen</span><span class="p">()</span>
+<span class="gp">sage: </span><span class="n">i</span> <span class="o">=</span> <span class="n">igusa_invariants_absolute</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span>
+</pre></div>
+</div>
+<p>The following is supposed to be real, so the precision of 100 is not
+really 100. This should be corrected (TODO):</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">sage: </span><span class="n">i</span><span class="p">(</span><span class="n">Z</span><span class="p">,</span> <span class="n">prec</span><span class="o">=</span><span class="mi">100</span><span class="p">)</span>
+<span class="go">6464.1219280862927825807751509 + 1.4177571165844968616946581863e-26*I</span>
+<span class="gp">sage: </span><span class="p">(</span><span class="n">U</span><span class="p">,</span> <span class="n">M</span><span class="p">,</span> <span class="n">u</span><span class="p">)</span> <span class="o">=</span> <span class="n">Z</span><span class="o">.</span><span class="n">Shimura_reciprocity</span><span class="p">(</span><span class="n">a</span><span class="o">.</span><span class="n">parent</span><span class="p">()</span><span class="o">.</span><span class="n">ideal</span><span class="p">(</span><span class="n">a</span><span class="p">),</span> <span class="n">m</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">n</span><span class="o">=</span><span class="mi">8</span><span class="p">,</span> <span class="n">period_matrix</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+<span class="gp">sage: </span><span class="n">M</span>
+<span class="go">[ 1 -2 -1 -1]</span>
+<span class="go">[-2 -1 -1 -2]</span>
+<span class="go">[ 0  0  1 -2]</span>
+<span class="go">[ 0  0 -2 -1]</span>
+<span class="gp">sage: </span><span class="n">u</span>
+<span class="go">[1 6 7 7]</span>
+<span class="go">[6 7 7 6]</span>
+<span class="go">[0 0 1 6]</span>
+<span class="go">[0 0 6 7]</span>
+<span class="gp">sage: </span><span class="p">(</span><span class="n">i</span><span class="o">^</span><span class="n">u</span><span class="p">)(</span><span class="n">U</span><span class="p">,</span> <span class="n">prec</span><span class="o">=</span><span class="mi">100</span><span class="p">)</span>
+<span class="go">6464.12192808629278258077515...</span>
+</pre></div>
+</div>
+<p>The following sign error points out a bug, or not? a is not 1 mod 8,
+so it is allowed to have a non-trivial effect:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">sage: </span><span class="n">P</span> <span class="o">=</span> <span class="n">theta_ring</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+<span class="gp">sage: </span><span class="n">t</span> <span class="o">=</span> <span class="n">ThetaModForm</span><span class="p">(</span><span class="n">P</span><span class="o">.</span><span class="n">gens</span><span class="p">()[</span><span class="mi">4</span><span class="p">]</span><span class="o">/</span><span class="n">P</span><span class="o">.</span><span class="n">gens</span><span class="p">()[</span><span class="mi">6</span><span class="p">])</span>
+<span class="gp">sage: </span><span class="n">t</span><span class="p">(</span><span class="n">Z</span><span class="p">,</span> <span class="n">prec</span><span class="o">=</span><span class="mi">100</span><span class="p">)</span>
+<span class="go">0.99854006288205177918601876434 - 0.054016134807185886527908776...*I</span>
+<span class="gp">sage: </span><span class="n">t</span>
+<span class="go">t4/t6</span>
+</pre></div>
+</div>
+<p>Simplification of theta quotient expressions does not wcompletely work
+yet in all cases (TODO):</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">sage: </span><span class="n">t</span><span class="o">^</span><span class="n">u</span>
+<span class="go">((-zeta8)*t6)/((zeta8)*t4)</span>
+<span class="gp">sage: </span><span class="p">(</span><span class="n">t</span><span class="o">^</span><span class="n">u</span><span class="p">)(</span><span class="n">U</span><span class="p">,</span> <span class="n">prec</span><span class="o">=</span><span class="mi">100</span><span class="p">)</span>
+<span class="go">-0.99854006288205177918601876434 + 0.054016134807185886527908776...*I</span>
+<span class="gp">sage: </span><span class="n">P</span> <span class="o">=</span> <span class="n">theta_ring</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">2</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="recip.period_matrices.PeriodMatrix_CM.Sp_action">
+<code class="descname">Sp_action</code><span class="sig-paren">(</span><em>M</em><span class="sig-paren">)</span><a class="headerlink" href="#recip.period_matrices.PeriodMatrix_CM.Sp_action" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the period matrix M*self for any M in GSp_{2g}(QQ)^+.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="recip.period_matrices.PeriodMatrix_CM.basis">
+<code class="descname">basis</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#recip.period_matrices.PeriodMatrix_CM.basis" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="recip.period_matrices.PeriodMatrix_CM.complex_conjugate">
+<code class="descname">complex_conjugate</code><span class="sig-paren">(</span><em>transformation=False</em><span class="sig-paren">)</span><a class="headerlink" href="#recip.period_matrices.PeriodMatrix_CM.complex_conjugate" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns minus the complex conjugate of self.</p>
+<p>If transformation is True, then also returns
+a matrix in Sp_2g(QQ) (if possible in Sp_2g(ZZ)) that maps
+self to the output.</p>
+<p>EXAMPLES:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">sage: </span><span class="kn">from</span> <span class="nn">recip</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="gp">sage: </span><span class="n">U</span> <span class="o">=</span> <span class="n">CM_Field</span><span class="p">(</span><span class="n">x</span><span class="o">^</span><span class="mi">4</span><span class="o">+</span><span class="mi">5</span><span class="o">*</span><span class="n">x</span><span class="o">^</span><span class="mi">2</span><span class="o">+</span><span class="mi">5</span><span class="p">)</span><span class="o">.</span><span class="n">period_matrices_iter</span><span class="p">()</span><span class="o">.</span><span class="n">next</span><span class="p">();</span> <span class="n">U</span>
+<span class="go">Period Matrix</span>
+<span class="go">[ 0.30901699437...? + 0.95105651629...?*I  0.50000000000...? + 0.36327126400268?*I]</span>
+<span class="go">[ 0.50000000000...? + 0.36327126400268?*I -0.30901699437495? + 0.95105651629...?*I]</span>
+<span class="gp">sage: </span><span class="n">Ubar</span><span class="p">,</span> <span class="n">M</span> <span class="o">=</span> <span class="n">U</span><span class="o">.</span><span class="n">complex_conjugate</span><span class="p">(</span><span class="n">transformation</span><span class="o">=</span><span class="bp">True</span><span class="p">);</span> <span class="n">Ubar</span>
+<span class="go">Period Matrix</span>
+<span class="go">[-0.30901699437...? + 0.95105651629...?*I -0.50000000000...? + 0.36327126400268?*I]</span>
+<span class="go">[-0.50000000000...? + 0.36327126400268?*I  0.30901699437495? + 0.95105651629...?*I]</span>
+<span class="gp">sage: </span><span class="n">M</span><span class="o">.</span><span class="n">base_ring</span><span class="p">()</span>
+<span class="go">Integer Ring</span>
+<span class="gp">sage: </span><span class="n">M</span>
+<span class="go">[-1  0  0  0]</span>
+<span class="go">[ 0 -1  0  0]</span>
+<span class="go">[ 0  1 -1  0]</span>
+<span class="go">[ 1 -1  0 -1]</span>
+<span class="gp">sage: </span><span class="n">U</span><span class="o">.</span><span class="n">complex_matrix</span><span class="p">(</span><span class="mi">20</span><span class="p">)</span>
+<span class="go">[ 0.30902 + 0.95106*I  0.50000 + 0.36327*I]</span>
+<span class="go">[ 0.50000 + 0.36327*I -0.30902 + 0.95106*I]</span>
+<span class="gp">sage: </span><span class="n">Ubar</span><span class="o">.</span><span class="n">complex_matrix</span><span class="p">(</span><span class="mi">20</span><span class="p">)</span>
+<span class="go">[-0.30902 + 0.95106*I -0.50000 + 0.36327*I]</span>
+<span class="go">[-0.50000 + 0.36327*I  0.30902 + 0.95106*I]</span>
+<span class="gp">sage: </span><span class="n">U</span><span class="o">.</span><span class="n">Sp_action</span><span class="p">(</span><span class="n">M</span><span class="p">)</span> <span class="o">==</span> <span class="n">Ubar</span>
+<span class="go">True</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="recip.period_matrices.PeriodMatrix_CM.complex_conjugation_symplectic_matrix">
+<code class="descname">complex_conjugation_symplectic_matrix</code><span class="sig-paren">(</span><em>level</em>, <em>mu=None</em>, <em>A=None</em><span class="sig-paren">)</span><a class="headerlink" href="#recip.period_matrices.PeriodMatrix_CM.complex_conjugation_symplectic_matrix" title="Permalink to this definition">¶</a></dt>
+<dd><p>EXAMPLES:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">sage: </span><span class="k">class</span> <span class="nc">Foo</span><span class="p">:</span>
+<span class="go">....:     def __init__(self, x):</span>
+<span class="go">....:         self._x = x</span>
+<span class="go">....:     @cached_method</span>
+<span class="go">....:     def f(self,*args):</span>
+<span class="go">....:         return self._x^2</span>
+<span class="gp">sage: </span><span class="n">a</span> <span class="o">=</span> <span class="n">Foo</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+<span class="gp">sage: </span><span class="n">a</span><span class="o">.</span><span class="n">f</span><span class="o">.</span><span class="n">cache</span>
+<span class="go">{}</span>
+<span class="gp">sage: </span><span class="n">a</span><span class="o">.</span><span class="n">f</span><span class="p">()</span>
+<span class="go">4</span>
+<span class="gp">sage: </span><span class="n">a</span><span class="o">.</span><span class="n">f</span><span class="o">.</span><span class="n">cache</span>
+<span class="go">{((), ()): 4}</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="recip.period_matrices.PeriodMatrix_CM.complex_matrix">
+<code class="descname">complex_matrix</code><span class="sig-paren">(</span><em>prec=None</em><span class="sig-paren">)</span><a class="headerlink" href="#recip.period_matrices.PeriodMatrix_CM.complex_matrix" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns self as a matrix over a complex field.</p>
+<p>INPUT:</p>
+<blockquote>
+<div><ul class="simple">
+<li>prec (default=None) &#8211; Either None or a positive integer.</li>
+</ul>
+</div></blockquote>
+<p>OUTPUT:</p>
+<blockquote>
+<div><ul class="simple">
+<li>If prec is an integer, returns self as a matrix over ComplexField(prec)</li>
+<li>If prec=None, returns self as a matrix over self.base_ring().embedding().codomain()</li>
+</ul>
+</div></blockquote>
+</dd></dl>
+
+<dl class="method">
+<dt id="recip.period_matrices.PeriodMatrix_CM.epsilon">
+<code class="descname">epsilon</code><span class="sig-paren">(</span><em>x</em><span class="sig-paren">)</span><a class="headerlink" href="#recip.period_matrices.PeriodMatrix_CM.epsilon" title="Permalink to this definition">¶</a></dt>
+<dd><p>The map epsilon of page 57 of Shimura&#8217;s &#8220;on certain reciprocity laws...&#8221;
+Returns the transpose of the matrix of multiplication by x wrt the basis self.basis()</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="recip.period_matrices.PeriodMatrix_CM.evaluate_theta">
+<code class="descname">evaluate_theta</code><span class="sig-paren">(</span><em>c</em>, <em>prec</em>, <em>use_magma=False</em>, <em>interval=False</em><span class="sig-paren">)</span><a class="headerlink" href="#recip.period_matrices.PeriodMatrix_CM.evaluate_theta" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="recip.period_matrices.PeriodMatrix_CM.g">
+<code class="descname">g</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#recip.period_matrices.PeriodMatrix_CM.g" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="recip.period_matrices.PeriodMatrix_CM.galois_action">
+<code class="descname">galois_action</code><span class="sig-paren">(</span><em>A</em>, <em>transformation=False</em>, <em>reduce=100</em><span class="sig-paren">)</span><a class="headerlink" href="#recip.period_matrices.PeriodMatrix_CM.galois_action" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a period matrix Z with the same CM-type as self,
+and with Z.ideal() = N_Phi(A)^-1 * self.ideal()
+and Z.xi() = N(A)^-1 * self.xi().</p>
+<p>For a modular function f of level 1, we have
+f(self)^sigma(A) = f(Z), where sigma is the Artin map.</p>
+<p>INPUT:</p>
+<ul class="simple">
+<li>A &#8211; an ideal of self.CM_type().reflex_field()</li>
+<li><dl class="first docutils">
+<dt>N (default=1) &#8211; interpret x as an element of I(N)/R(N),</dt>
+<dd>where I(N) is the set of ideals coprime to N and R(N)
+is the set of ideals generated by elements that are 1 mod N.</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt>transformation (default=False) &#8211; whether to also</dt>
+<dd>return a matrix M in Mat(ZZ,2g) with M*Z.basis() = self.basis()
+(and M*Z = self)</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt>reduce (default=100) &#8211; if False, do not reduce the basis,</dt>
+<dd>if a positive integer, reduce the period matrix numerically
+with that precision.</dd>
+</dl>
+</li>
+</ul>
+<p>OUTPUT:</p>
+<p>With transformation=False, a matrix Z as above.
+With transformation=True, a pair (Z,M) as above.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="recip.period_matrices.PeriodMatrix_CM.has_real_moduli">
+<code class="descname">has_real_moduli</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#recip.period_matrices.PeriodMatrix_CM.has_real_moduli" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns true if and only if self is isomorphic
+to its complex conjugate over CC.</p>
+<p>EXAMPLES:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">sage: </span><span class="kn">from</span> <span class="nn">recip</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="gp">sage: </span><span class="n">K</span> <span class="o">=</span> <span class="n">CM_Field</span><span class="p">(</span><span class="n">x</span><span class="o">^</span><span class="mi">4</span><span class="o">+</span><span class="n">x</span><span class="o">^</span><span class="mi">3</span><span class="o">+</span><span class="n">x</span><span class="o">^</span><span class="mi">2</span><span class="o">+</span><span class="n">x</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span> <span class="n">embedding</span><span class="o">=</span><span class="n">QQbar</span><span class="p">)</span> <span class="c1"># the embedding is not added afterwards, and the reflex field is taken to be the field itself, so this is necessary for now</span>
+<span class="gp">sage: </span><span class="n">Z</span> <span class="o">=</span> <span class="n">K</span><span class="o">.</span><span class="n">one_period_matrix</span><span class="p">()</span>
+<span class="gp">sage: </span><span class="n">Z</span><span class="o">.</span><span class="n">has_real_moduli</span><span class="p">()</span>
+<span class="go">True</span>
+<span class="gp">sage: </span><span class="n">K</span> <span class="o">=</span> <span class="n">CM_Field</span><span class="p">([</span><span class="mi">521</span><span class="p">,</span><span class="mi">27</span><span class="p">,</span><span class="mi">52</span><span class="p">])</span>
+<span class="gp">sage: </span><span class="n">mat</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">K</span><span class="o">.</span><span class="n">period_matrices_iter</span><span class="p">())</span>
+<span class="gp">sage: </span><span class="n">ZZ</span><span class="p">(</span><span class="nb">sum</span><span class="p">([</span><span class="n">Z</span><span class="o">.</span><span class="n">has_real_moduli</span><span class="p">()</span> <span class="k">for</span> <span class="n">Z</span> <span class="ow">in</span> <span class="n">mat</span><span class="p">]))</span> <span class="o">/</span> <span class="n">ZZ</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">mat</span><span class="p">))</span>
+<span class="go">1/7</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="recip.period_matrices.PeriodMatrix_CM.ideal">
+<code class="descname">ideal</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#recip.period_matrices.PeriodMatrix_CM.ideal" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="recip.period_matrices.PeriodMatrix_CM.negative_inverse">
+<code class="descname">negative_inverse</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#recip.period_matrices.PeriodMatrix_CM.negative_inverse" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns -1/self.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="recip.period_matrices.PeriodMatrix_CM.reduce">
+<code class="descname">reduce</code><span class="sig-paren">(</span><em>prec=None</em>, <em>transformation=False</em><span class="sig-paren">)</span><a class="headerlink" href="#recip.period_matrices.PeriodMatrix_CM.reduce" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a reduced period matrix Z that is Sp_{2g}-equivalent to self.</p>
+<p>INPUT:</p>
+<blockquote>
+<div><ul class="simple">
+<li>prec (default=None) &#8211; the working precision when reducing.
+If None, use the embedding of self.base_ring() into the complex
+numbers.
+If a positive integer, use a complex field with that many bits of
+precision.</li>
+<li>transformation (default=False) &#8211; whether to also return a matrix M
+such that Z = M*self.</li>
+</ul>
+</div></blockquote>
+</dd></dl>
+
+<dl class="method">
+<dt id="recip.period_matrices.PeriodMatrix_CM.reflex_field">
+<code class="descname">reflex_field</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#recip.period_matrices.PeriodMatrix_CM.reflex_field" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="recip.period_matrices.PeriodMatrix_CM.xi">
+<code class="descname">xi</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#recip.period_matrices.PeriodMatrix_CM.xi" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="function">
+<dt id="recip.period_matrices.Sp_action">
+<code class="descclassname">recip.period_matrices.</code><code class="descname">Sp_action</code><span class="sig-paren">(</span><em>gamma</em>, <em>Z</em><span class="sig-paren">)</span><a class="headerlink" href="#recip.period_matrices.Sp_action" title="Permalink to this definition">¶</a></dt>
+<dd><p>Given a matrix gamma in GSp_2g(QQ)^+ and a gxg period matrix Z,
+returns gamma*Z as an immutable gxg Matrix.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="recip.period_matrices.evaluate_theta">
+<code class="descclassname">recip.period_matrices.</code><code class="descname">evaluate_theta</code><span class="sig-paren">(</span><em>c</em>, <em>z</em>, <em>u=None</em>, <em>use_magma=False</em><span class="sig-paren">)</span><a class="headerlink" href="#recip.period_matrices.evaluate_theta" title="Permalink to this definition">¶</a></dt>
+<dd><p>Numerically evaluate `      heta[c](z,u) =
+sum_{n in ZZ^2}exp(pi i (n+c&#8217;)^t z (n+c&#8217;) + 2pi i (n+c&#8217;)^t (z+c&#8217;&#8216;))`,
+where <span class="math">\(c = (c',c'')\)</span>.
+If u is unspecified, use u = (0,...,0).</p>
+<p>TODO:</p>
+<blockquote>
+<div>Uses bounds from my thesis, but according to errata, these should be
+changed slightly for actual correctness.</div></blockquote>
+<p>NOTE:</p>
+<blockquote>
+<div>algorithm=&#8217;magma&#8217; requires Sage 5.6 or higher</div></blockquote>
+<p>EXAMPLES:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">sage: </span><span class="kn">from</span> <span class="nn">recip</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="gp">sage: </span><span class="n">I</span> <span class="o">=</span> <span class="n">CC</span><span class="o">.</span><span class="n">gen</span><span class="p">()</span>
+<span class="gp">sage: </span><span class="n">evaluate_theta</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">],</span> <span class="n">Matrix</span><span class="p">(</span><span class="n">CC</span><span class="p">,</span> <span class="p">[[</span><span class="n">I</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="o">/</span><span class="mi">2</span><span class="o">+</span><span class="n">I</span><span class="o">/</span><span class="mi">3</span><span class="p">],</span> <span class="p">[</span><span class="mi">1</span><span class="o">/</span><span class="mi">2</span><span class="o">+</span><span class="n">I</span><span class="o">/</span><span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="o">/</span><span class="mi">2</span><span class="o">*</span><span class="n">I</span><span class="o">+</span><span class="mi">1</span><span class="o">/</span><span class="mi">5</span><span class="p">]]),</span> <span class="n">use_magma</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span> <span class="c1"># optional - magma</span>
+<span class="go">0.933295835691982 + 0.0143249911726235*I</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="recip.period_matrices.evaluate_theta_interval">
+<code class="descclassname">recip.period_matrices.</code><code class="descname">evaluate_theta_interval</code><span class="sig-paren">(</span><em>c</em>, <em>z</em>, <em>R=None</em>, <em>reduce_first=True</em><span class="sig-paren">)</span><a class="headerlink" href="#recip.period_matrices.evaluate_theta_interval" title="Permalink to this definition">¶</a></dt>
+<dd><p>Numerically evaluate `      heta[c](z) =
+sum_{n in ZZ^2}exp(pi i (n+c&#8217;)^t z (n+c&#8217;) + 2pi i (n+c&#8217;)^t (z+c&#8217;&#8216;))`,
+where <span class="math">\(c = (c',c'')\)</span>.</p>
+<p><span class="math">\(R\)</span> specifies the square over which to sum for n. It is automatically
+determined if not specified.</p>
+<p>TODO: Make a more sensible choice for <span class="math">\(R\)</span> in case g=2:
+one that is different for
+the two coordinates m and n in the code below, and which depends on Z.</p>
+<p>TODO: It turns out that sometimes <span class="math">\(R\)</span> is the limiting factor, and
+increasing precision by 100 bits has no effect as <span class="math">\(R\)</span> is not raised.
+Check that <span class="math">\(R\)</span> is large enough, especially in the non-interval setting!</p>
+<p>EXAMPLES:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">sage: </span><span class="kn">from</span> <span class="nn">recip</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="gp">sage: </span><span class="n">I</span> <span class="o">=</span> <span class="n">ComplexIntervalField</span><span class="p">(</span><span class="mi">100</span><span class="p">)</span><span class="o">.</span><span class="n">gen</span><span class="p">()</span>
+<span class="gp">sage: </span><span class="n">Z</span> <span class="o">=</span> <span class="n">Matrix</span><span class="p">([[</span><span class="n">I</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="o">/</span><span class="mi">2</span><span class="o">+</span><span class="n">I</span><span class="o">/</span><span class="mi">3</span><span class="p">],</span> <span class="p">[</span><span class="mi">1</span><span class="o">/</span><span class="mi">2</span><span class="o">+</span><span class="n">I</span><span class="o">/</span><span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="o">/</span><span class="mi">2</span><span class="o">*</span><span class="n">I</span><span class="o">+</span><span class="mi">1</span><span class="o">/</span><span class="mi">5</span><span class="p">]])</span>
+<span class="gp">sage: </span><span class="n">c</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">]</span>
+<span class="gp">sage: </span><span class="n">evaluate_theta_interval</span><span class="p">(</span><span class="n">c</span><span class="p">,</span> <span class="n">Z</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+<span class="go">0.?e1 + 0.?e1*I</span>
+<span class="gp">sage: </span><span class="n">evaluate_theta_interval</span><span class="p">(</span><span class="n">c</span><span class="p">,</span> <span class="n">Z</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+<span class="go">1.0? + 0.1?*I</span>
+<span class="gp">sage: </span><span class="n">evaluate_theta_interval</span><span class="p">(</span><span class="n">c</span><span class="p">,</span> <span class="n">Z</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
+<span class="go">0.93330? + 0.0144?*I</span>
+<span class="gp">sage: </span><span class="n">evaluate_theta_interval</span><span class="p">(</span><span class="n">c</span><span class="p">,</span> <span class="n">Z</span><span class="p">,</span> <span class="mi">4</span><span class="p">)</span>
+<span class="go">0.9332958357? + 0.014324992?*I</span>
+<span class="gp">sage: </span><span class="n">evaluate_theta_interval</span><span class="p">(</span><span class="n">c</span><span class="p">,</span> <span class="n">Z</span><span class="p">,</span> <span class="mi">5</span><span class="p">)</span>
+<span class="go">0.933295835691983? + 0.0143249911726235?*I</span>
+<span class="gp">sage: </span><span class="n">evaluate_theta_interval</span><span class="p">(</span><span class="n">c</span><span class="p">,</span> <span class="n">Z</span><span class="p">,</span> <span class="mi">6</span><span class="p">)</span>
+<span class="go">0.93329583569198215423213? + 0.01432499117262351644467?*I</span>
+<span class="gp">sage: </span><span class="n">evaluate_theta_interval</span><span class="p">(</span><span class="n">c</span><span class="p">,</span> <span class="n">Z</span><span class="p">,</span> <span class="mi">7</span><span class="p">)</span>
+<span class="go">0.9332958356919821542321268818? + 0.01432499117262351644467161792?*I</span>
+<span class="gp">sage: </span><span class="n">v</span> <span class="o">=</span> <span class="p">[</span><span class="n">evaluate_theta_interval</span><span class="p">(</span><span class="n">c</span><span class="p">,</span> <span class="n">Z</span><span class="p">,</span> <span class="n">k</span><span class="p">)</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">8</span><span class="p">)</span><span class="o">+</span><span class="p">[</span><span class="mi">20</span><span class="p">]]</span>
+<span class="gp">sage: </span><span class="n">vru</span> <span class="o">=</span> <span class="p">[</span><span class="n">x</span><span class="o">.</span><span class="n">real</span><span class="p">()</span><span class="o">.</span><span class="n">upper</span><span class="p">()</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">v</span><span class="p">]</span>
+<span class="gp">sage: </span><span class="nb">all</span><span class="p">([</span><span class="n">vru</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">&gt;=</span> <span class="n">vru</span><span class="p">[</span><span class="n">k</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">6</span><span class="p">)])</span>
+<span class="go">True</span>
+<span class="gp">sage: </span><span class="n">vrl</span> <span class="o">=</span> <span class="p">[</span><span class="n">x</span><span class="o">.</span><span class="n">real</span><span class="p">()</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">v</span><span class="p">]</span>
+<span class="gp">sage: </span><span class="nb">all</span><span class="p">([</span><span class="n">vrl</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">&lt;=</span> <span class="n">vrl</span><span class="p">[</span><span class="n">k</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">6</span><span class="p">)])</span>
+<span class="go">True</span>
+<span class="gp">sage: </span><span class="p">[</span><span class="n">RR</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">diameter</span><span class="p">())</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">v</span><span class="p">]</span>
+<span class="go">[4.38675115849014, 1.97112678302085, 0.000734124840204993, 1.23050838590045e-8, 8.92050564190827e-15, 2.79460042829428e-22, 1.53160261406578e-28, 9.18961568439468e-28]</span>
+</pre></div>
+</div>
+<p>TESTS:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">sage: </span><span class="n">cs</span> <span class="o">=</span> <span class="p">[(</span><span class="mi">1</span><span class="o">/</span><span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="o">/</span><span class="mi">2</span><span class="p">),</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">),</span> <span class="p">(</span><span class="mi">5</span><span class="o">/</span><span class="mi">3</span><span class="p">,</span> <span class="mi">111</span><span class="o">/</span><span class="mi">7</span><span class="p">),</span> <span class="p">(</span><span class="o">-</span><span class="mi">3</span><span class="o">/</span><span class="mi">4</span><span class="p">,</span> <span class="mi">8</span><span class="p">),</span> <span class="p">(</span><span class="mi">1</span><span class="o">/</span><span class="mi">100</span><span class="p">,</span> <span class="o">-</span><span class="mi">3</span><span class="o">/</span><span class="mi">2</span><span class="p">),</span> <span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="o">-</span><span class="mi">1</span><span class="p">)]</span>
+<span class="gp">sage: </span><span class="n">I</span> <span class="o">=</span> <span class="n">sqrt</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+<span class="gp">sage: </span><span class="n">zs</span> <span class="o">=</span> <span class="p">[</span><span class="n">I</span><span class="o">/</span><span class="mi">20</span><span class="p">,</span> <span class="n">I</span><span class="o">*</span><span class="mf">0.9</span><span class="p">,</span> <span class="mi">2</span><span class="o">*</span><span class="n">I</span><span class="o">+</span><span class="mf">8.3</span><span class="p">,</span> <span class="n">I</span><span class="o">+</span><span class="mf">0.1</span><span class="p">,</span> <span class="n">I</span><span class="o">/</span><span class="mi">3</span><span class="o">+</span><span class="mi">1</span><span class="o">/</span><span class="mi">7</span><span class="p">,</span> <span class="n">I</span><span class="o">/</span><span class="mi">5</span><span class="o">-</span><span class="mi">10</span><span class="o">/</span><span class="mi">3</span><span class="p">]</span>
+<span class="gp">sage: </span><span class="n">pairs</span> <span class="o">=</span> <span class="p">[(</span><span class="n">c</span><span class="p">,</span><span class="n">z</span><span class="p">)</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">cs</span> <span class="k">for</span> <span class="n">z</span> <span class="ow">in</span> <span class="n">zs</span><span class="p">]</span>
+<span class="gp">sage: </span><span class="n">CIF_values</span> <span class="o">=</span> <span class="p">[</span><span class="n">evaluate_theta_interval</span><span class="p">(</span><span class="n">c</span><span class="p">,</span> <span class="n">Matrix</span><span class="p">([[</span><span class="n">CIF</span><span class="p">(</span><span class="n">z</span><span class="p">)]]),</span> <span class="n">reduce_first</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">cs</span> <span class="k">for</span> <span class="n">z</span> <span class="ow">in</span> <span class="n">zs</span><span class="p">]</span>
+<span class="gp">sage: </span><span class="n">CIF_values_non_reduced_first</span> <span class="o">=</span> <span class="p">[</span><span class="n">evaluate_theta_interval</span><span class="p">(</span><span class="n">c</span><span class="p">,</span> <span class="n">Matrix</span><span class="p">([[</span><span class="n">CIF</span><span class="p">(</span><span class="n">z</span><span class="p">)]]),</span> <span class="n">reduce_first</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">cs</span> <span class="k">for</span> <span class="n">z</span> <span class="ow">in</span> <span class="n">zs</span><span class="p">]</span>
+<span class="gp">sage: </span><span class="n">magma_values</span> <span class="o">=</span> <span class="p">[</span><span class="n">evaluate_theta</span><span class="p">(</span><span class="n">c</span><span class="p">,</span> <span class="n">Matrix</span><span class="p">([[</span><span class="n">CC</span><span class="p">(</span><span class="n">z</span><span class="p">)]]),</span> <span class="n">use_magma</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">cs</span> <span class="k">for</span> <span class="n">z</span> <span class="ow">in</span> <span class="n">zs</span><span class="p">]</span> <span class="c1"># optional - magma</span>
+<span class="gp">sage: </span><span class="n">quotients</span> <span class="o">=</span> <span class="p">[</span><span class="n">CIF_values</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">/</span><span class="n">CIF_values_non_reduced_first</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">CIF_values</span><span class="p">))]</span>
+<span class="gp">sage: </span><span class="n">magma_quotients</span> <span class="o">=</span> <span class="p">[</span><span class="n">CIF_values_non_reduced_first</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">center</span><span class="p">()</span><span class="o">/</span><span class="n">magma_values</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">CIF_values</span><span class="p">))]</span> <span class="c1"># optional - magma</span>
+<span class="gp">sage: </span><span class="p">[</span><span class="n">i</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">pairs</span><span class="p">))</span> <span class="k">if</span> <span class="p">(</span><span class="n">magma_quotients</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">abs</span><span class="p">()</span> <span class="o">&gt;</span> <span class="mi">10</span><span class="o">^-</span><span class="mi">8</span><span class="p">]</span> <span class="c1"># optional - magma</span>
+<span class="go">[]</span>
+<span class="gp">sage: </span><span class="p">[</span><span class="n">i</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">pairs</span><span class="p">))</span> <span class="k">if</span> <span class="p">(</span><span class="n">quotients</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">abs</span><span class="p">()</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">]</span>
+<span class="go">[]</span>
+<span class="gp">sage: </span><span class="p">[</span><span class="n">i</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">pairs</span><span class="p">))</span> <span class="k">if</span> <span class="p">(</span><span class="n">quotients</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">abs</span><span class="p">()</span><span class="o">.</span><span class="n">upper</span><span class="p">()</span> <span class="o">&gt;</span> <span class="mi">10</span><span class="o">^-</span><span class="mi">7</span><span class="p">]</span>
+<span class="go">[]</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="recip.period_matrices.gottschling_matrices">
+<code class="descclassname">recip.period_matrices.</code><code class="descname">gottschling_matrices</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#recip.period_matrices.gottschling_matrices" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a set of matrices in Sp(4,ZZ) containing
+gottschling&#8217;s set.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="recip.period_matrices.is_period_matrix">
+<code class="descclassname">recip.period_matrices.</code><code class="descname">is_period_matrix</code><span class="sig-paren">(</span><em>m</em><span class="sig-paren">)</span><a class="headerlink" href="#recip.period_matrices.is_period_matrix" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns <span class="math">\(True\)</span> if and only if m is a period matrix.</p>
+<p>EXAMPLES:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">sage: </span><span class="kn">from</span> <span class="nn">recip</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="gp">sage: </span><span class="n">i</span> <span class="o">=</span> <span class="n">CC</span><span class="o">.</span><span class="n">gen</span><span class="p">()</span>
+<span class="gp">sage: </span><span class="n">is_period_matrix</span><span class="p">(</span><span class="n">Matrix</span><span class="p">([[</span><span class="mi">1</span><span class="o">+</span><span class="n">i</span><span class="p">,</span> <span class="mi">2</span><span class="o">+</span><span class="n">i</span><span class="p">],</span> <span class="p">[</span><span class="mi">2</span><span class="o">+</span><span class="n">i</span><span class="p">,</span> <span class="mi">5</span><span class="o">*</span><span class="n">i</span><span class="p">]]))</span>
+<span class="go">True</span>
+<span class="gp">sage: </span><span class="n">is_period_matrix</span><span class="p">(</span><span class="n">Matrix</span><span class="p">([[</span><span class="mi">1</span><span class="o">+</span><span class="n">i</span><span class="p">,</span> <span class="mi">2</span><span class="o">+</span><span class="n">i</span><span class="p">],</span> <span class="p">[</span><span class="mi">2</span><span class="o">+</span><span class="n">i</span><span class="p">,</span> <span class="n">i</span><span class="p">]]))</span>
+<span class="go">False</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="recip.period_matrices.is_positive_definite">
+<code class="descclassname">recip.period_matrices.</code><code class="descname">is_positive_definite</code><span class="sig-paren">(</span><em>m</em><span class="sig-paren">)</span><a class="headerlink" href="#recip.period_matrices.is_positive_definite" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns <span class="math">\(True\)</span> if and only if symmetric real matrix <span class="math">\(m\)</span>
+is positive definite.</p>
+<p>EXAMPLES:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">sage: </span><span class="kn">from</span> <span class="nn">recip</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="gp">sage: </span><span class="n">is_positive_definite</span><span class="p">(</span><span class="n">Matrix</span><span class="p">(</span><span class="n">AA</span><span class="p">,[[</span><span class="mi">2</span><span class="p">,</span><span class="mi">2</span><span class="p">],[</span><span class="mi">2</span><span class="p">,</span><span class="mi">4</span><span class="p">]]))</span>
+<span class="go">True</span>
+<span class="gp">sage: </span><span class="n">is_positive_definite</span><span class="p">(</span><span class="n">Matrix</span><span class="p">(</span><span class="n">AA</span><span class="p">,[[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">],[</span><span class="mi">2</span><span class="p">,</span><span class="mi">4</span><span class="p">]]))</span>
+<span class="go">False</span>
+<span class="gp">sage: </span><span class="n">is_positive_definite</span><span class="p">(</span><span class="n">Matrix</span><span class="p">(</span><span class="n">AA</span><span class="p">,[[</span><span class="o">-</span><span class="mi">3</span><span class="p">,</span><span class="mi">2</span><span class="p">],[</span><span class="mi">2</span><span class="p">,</span><span class="o">-</span><span class="mi">4</span><span class="p">]]))</span>
+<span class="go">False</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="recip.period_matrices.is_symplectic">
+<code class="descclassname">recip.period_matrices.</code><code class="descname">is_symplectic</code><span class="sig-paren">(</span><em>gamma</em>, <em>g=None</em><span class="sig-paren">)</span><a class="headerlink" href="#recip.period_matrices.is_symplectic" title="Permalink to this definition">¶</a></dt>
+<dd><p>Tests whether a 4x4 matrix is an element of Sp_g(ZZ).</p>
+<p>EXAMPLES:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">sage: </span><span class="kn">from</span> <span class="nn">recip</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="gp">sage: </span><span class="n">g</span> <span class="o">=</span> <span class="n">gottschling_matrices</span><span class="p">()</span>
+<span class="gp">sage: </span><span class="nb">all</span><span class="p">([</span><span class="n">is_symplectic</span><span class="p">(</span><span class="n">gamma</span><span class="p">)</span> <span class="k">for</span> <span class="n">gamma</span> <span class="ow">in</span> <span class="n">g</span><span class="p">])</span> <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="n">g</span><span class="p">)</span> <span class="o">==</span> <span class="mi">38</span>
+<span class="go">True</span>
+<span class="gp">sage: </span><span class="n">is_symplectic</span><span class="p">(</span><span class="n">g</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span>
+<span class="go">False</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="recip.period_matrices.lift_ray_class_group_element">
+<code class="descclassname">recip.period_matrices.</code><code class="descname">lift_ray_class_group_element</code><span class="sig-paren">(</span><em>A</em>, <em>M</em>, <em>N</em>, <em>generator=False</em><span class="sig-paren">)</span><a class="headerlink" href="#recip.period_matrices.lift_ray_class_group_element" title="Permalink to this definition">¶</a></dt>
+<dd><p>Given a ray class mod M, lift it to a ray class mod N.</p>
+<p>INPUT:</p>
+<ul class="simple">
+<li>A &#8211; a fractional ideal of a field K</li>
+<li>M &#8211; an integral ideal of K, such that
+the valuation of A at every divisor of M
+is zero. Actually, the current implementation
+requires that M can be defined already over the
+rationals.</li>
+<li>N &#8211; an integral ideal of K divisible by M</li>
+<li>generator &#8211; whether to also output an element x
+with x = 1 mod* M and output = A / x.</li>
+</ul>
+<p>OUTPUT:</p>
+<p>A fractional ideal B such that every valuation
+of A at every divisor of N is zero, and such that
+A is in the same ray class modulo M as A.</p>
+<p>Or a pair (B, x) if generator is True</p>
+<p>EXAMPLES:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">sage: </span><span class="kn">from</span> <span class="nn">recip</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="gp">sage: </span><span class="n">P</span><span class="o">.&lt;</span><span class="n">x</span><span class="o">&gt;</span> <span class="o">=</span> <span class="n">QQ</span><span class="p">[]</span>
+<span class="gp">sage: </span><span class="n">k</span> <span class="o">=</span> <span class="n">NumberField</span><span class="p">(</span><span class="n">x</span><span class="o">^</span><span class="mi">2</span><span class="o">+</span><span class="mi">5</span><span class="p">,</span><span class="s1">&#39;a&#39;</span><span class="p">)</span>
+<span class="gp">sage: </span><span class="n">A</span> <span class="o">=</span> <span class="n">k</span><span class="o">.</span><span class="n">class_group</span><span class="p">()</span><span class="o">.</span><span class="n">gen</span><span class="p">()</span><span class="o">.</span><span class="n">ideal</span><span class="p">()</span>
+<span class="gp">sage: </span><span class="n">B</span> <span class="o">=</span> <span class="n">lift_ray_class_group_element</span><span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="n">M</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">N</span><span class="o">=</span><span class="mi">2</span><span class="p">);</span> <span class="n">B</span>
+<span class="go">Fractional ideal (3, a + 1)</span>
+<span class="gp">sage: </span><span class="p">(</span><span class="n">B</span><span class="o">/</span><span class="n">A</span><span class="p">)</span><span class="o">.</span><span class="n">is_principal</span><span class="p">()</span>
+<span class="go">True</span>
+
+<span class="gp">sage: </span><span class="n">B</span><span class="p">,</span> <span class="n">x</span> <span class="o">=</span> <span class="n">lift_ray_class_group_element</span><span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="n">M</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">N</span><span class="o">=</span><span class="mi">6</span><span class="p">,</span> <span class="n">generator</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+<span class="gp">sage: </span><span class="n">B</span>
+<span class="go">Fractional ideal (23/2, 1/2*a + 15/2)</span>
+<span class="gp">sage: </span><span class="n">B</span><span class="o">*</span><span class="n">x</span> <span class="o">==</span> <span class="n">A</span>
+<span class="go">True</span>
+<span class="gp">sage: </span><span class="p">(</span><span class="n">x</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span><span class="o">/</span><span class="mi">3</span>
+<span class="go">2/23*a - 7/23</span>
+</pre></div>
+</div>
+<p>A must be coprime to M to start with:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">sage: </span><span class="n">lift_ray_class_group_element</span><span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="n">M</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">N</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+<span class="gt">Traceback (most recent call last):</span>
+<span class="c">...</span>
+<span class="gr">ValueError</span>: <span class="n">A (=Fractional ideal (2, a + 1)) and M (=Fractional ideal (2)) are not coprime</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="recip.period_matrices.my_ceil">
+<code class="descclassname">recip.period_matrices.</code><code class="descname">my_ceil</code><span class="sig-paren">(</span><em>a</em><span class="sig-paren">)</span><a class="headerlink" href="#recip.period_matrices.my_ceil" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="recip.period_matrices.my_floor">
+<code class="descclassname">recip.period_matrices.</code><code class="descname">my_floor</code><span class="sig-paren">(</span><em>a</em><span class="sig-paren">)</span><a class="headerlink" href="#recip.period_matrices.my_floor" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="recip.period_matrices.random_period_matrix">
+<code class="descclassname">recip.period_matrices.</code><code class="descname">random_period_matrix</code><span class="sig-paren">(</span><em>prec=53</em>, <em>g=2</em><span class="sig-paren">)</span><a class="headerlink" href="#recip.period_matrices.random_period_matrix" title="Permalink to this definition">¶</a></dt>
+<dd><p>Outputs a pseudorandom Z in H_g. Only implemented for g=2.</p>
+<p>The period matrix is in the block with diagonal entries uniformly
+in [-1/2, 1/2] + [0.1, 2]*i and off-diagonal entries with real part
+in [-1/2, 1/2] and imaginary part in [0, min(Im(diagonal entries))].</p>
+<p>EXAMPLE:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">sage: </span><span class="kn">from</span> <span class="nn">recip</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="gp">sage: </span><span class="n">random_period_matrix</span><span class="p">(</span><span class="mi">200</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span><span class="o">.</span><span class="n">parent</span><span class="p">()</span>
+<span class="go">Full MatrixSpace of 2 by 2 dense matrices over Complex Field with 200 bits of precision</span>
+<span class="gp">sage: </span><span class="n">random_period_matrix</span><span class="p">()</span><span class="o">.</span><span class="n">parent</span><span class="p">()</span>
+<span class="go">Full MatrixSpace of 2 by 2 dense matrices over Complex Field with 53 bits of precision</span>
+<span class="gp">sage: </span><span class="n">random_period_matrix</span><span class="p">(</span><span class="n">g</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
+<span class="gt">Traceback (most recent call last):</span>
+<span class="c">...</span>
+<span class="gr">NotImplementedError</span>
+</pre></div>
+</div>
+</dd></dl>
+
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="symplectic_matrices.html"
+                        title="previous chapter">Symplectic matrices</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="theta_trans.html"
+                        title="next chapter">Theta transformation formulas</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/period_matrices.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="theta_trans.html" title="Theta transformation formulas"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="symplectic_matrices.html" title="Symplectic matrices"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">CM SageMath code 3.0.1 documentation</a> &#187;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2017, Marco Streng.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.5.3.
+    </div>
+  </body>
+</html>

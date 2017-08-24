@@ -1,0 +1,220 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Polynomials &#8212; CM SageMath code 3.0.1 documentation</title>
+    
+    <link rel="stylesheet" href="_static/classic.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '3.0.1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="_static/MathJax.js?config=TeX-AMS_HTML-full,../mathjax_sage.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Symplectic matrices" href="symplectic_matrices.html" />
+    <link rel="prev" title="Basic" href="basic.html" /> 
+  </head>
+  <body role="document">
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="symplectic_matrices.html" title="Symplectic matrices"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="basic.html" title="Basic"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">CM SageMath code 3.0.1 documentation</a> &#187;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <p>..nodoctest</p>
+<div class="section" id="module-recip.polynomials">
+<span id="polynomials"></span><h1>Polynomials<a class="headerlink" href="#module-recip.polynomials" title="Permalink to this headline">¶</a></h1>
+<p>x.__init__(...) initializes x; see help(type(x)) for signature</p>
+<dl class="function">
+<dt id="recip.polynomials.my_round">
+<code class="descclassname">recip.polynomials.</code><code class="descname">my_round</code><span class="sig-paren">(</span><em>x</em><span class="sig-paren">)</span><a class="headerlink" href="#recip.polynomials.my_round" title="Permalink to this definition">¶</a></dt>
+<dd><p>Rounds x to the nearest element in ZZ.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="recip.polynomials.recognize_polynomial">
+<code class="descclassname">recip.polynomials.</code><code class="descname">recognize_polynomial</code><span class="sig-paren">(</span><em>pol_n</em>, <em>K=None</em>, <em>N=None</em>, <em>M=None</em>, <em>emb=None</em>, <em>poly_gen=None</em>, <em>solution=None</em>, <em>check=True</em><span class="sig-paren">)</span><a class="headerlink" href="#recip.polynomials.recognize_polynomial" title="Permalink to this definition">¶</a></dt>
+<dd><p>Given a polynomial pol_n over the real or complex numbers,
+guesses a polynomial over number field K close to it.
+Note, K must be embedded into the real or complex numbers.</p>
+<p>INPUT:</p>
+<blockquote>
+<div><ul class="simple">
+<li><span class="math">\(pol_n\)</span> &#8211; a polynomial over a real or complex field <span class="math">\(A\)</span></li>
+<li><span class="math">\(K\)</span> &#8211; a number field</li>
+<li><span class="math">\(N\)</span> (default:None) &#8211; a positive number or None,
+weigh the output minus pol_n by this factor.
+If None, determine one from the precision of pol_n
+(and assume pol_n is accurate to nearly its precision).
+Actually, the value for N=None is pretty arbitrary.</li>
+<li><span class="math">\(M\)</span> (default:None) &#8211; a positive number or None,
+weigh the coefficients of the output by this factor.
+If None, determine one from the precision of pol_n
+(and assume pol_n is accurate to nearly its precision).
+Actually, the value for M=None is pretty arbitrary.</li>
+<li><span class="math">\(emb\)</span> (default:None) &#8211; an embedding of <span class="math">\(K\)</span> into a complex
+or real field, use this to embed <span class="math">\(K\)</span> into <span class="math">\(A\)</span>. If None,
+then try to coerce.</li>
+<li><span class="math">\(poly_gen\)</span> (default:None) &#8211; a polynomial ring generator
+to use for the output, or a string, or None. If a string,
+create a new polynomial ring over <span class="math">\(K\)</span> with that string
+as variable name. If None, use variable name <span class="math">\(y\)</span>.</li>
+<li><span class="math">\(solution\)</span> (default:None) &#8211; a pair (pol, den), where
+pol is a correct polynomial over <span class="math">\(K\)</span> such that pol_n
+approximates pol/den . For debugging purposes only.</li>
+</ul>
+</div></blockquote>
+<p>EXAMPLES:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">sage: </span><span class="kn">from</span> <span class="nn">recip</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="gp">sage: </span><span class="n">Q</span><span class="o">.&lt;</span><span class="n">y</span><span class="o">&gt;</span> <span class="o">=</span> <span class="n">QQ</span><span class="p">[]</span>
+<span class="gp">sage: </span><span class="n">K</span><span class="o">.&lt;</span><span class="n">a</span><span class="o">&gt;</span> <span class="o">=</span> <span class="n">NumberField</span><span class="p">(</span><span class="n">y</span><span class="o">^</span><span class="mi">2</span><span class="o">+</span><span class="n">y</span><span class="o">-</span><span class="mi">7</span><span class="p">)</span>
+<span class="gp">sage: </span><span class="n">P</span><span class="o">.&lt;</span><span class="n">x</span><span class="o">&gt;</span> <span class="o">=</span> <span class="n">K</span><span class="p">[]</span>
+<span class="gp">sage: </span><span class="n">R</span><span class="o">.&lt;</span><span class="n">X</span><span class="o">&gt;</span> <span class="o">=</span> <span class="n">RR</span><span class="p">[]</span>
+<span class="gp">sage: </span><span class="n">emb</span> <span class="o">=</span> <span class="n">K</span><span class="o">.</span><span class="n">embeddings</span><span class="p">(</span><span class="n">RR</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+<span class="gp">sage: </span><span class="n">pol_n</span> <span class="o">=</span> <span class="n">emb</span><span class="p">(</span><span class="n">a</span><span class="o">+</span><span class="mi">4</span><span class="p">)</span><span class="o">*</span><span class="n">X</span><span class="o">^</span><span class="mi">2</span> <span class="o">+</span> <span class="n">emb</span><span class="p">(</span><span class="mi">5</span><span class="o">*</span><span class="n">a</span><span class="o">-</span><span class="mi">7</span><span class="o">/</span><span class="mi">32</span><span class="p">)</span><span class="o">*</span><span class="n">X</span> <span class="o">+</span> <span class="n">emb</span><span class="p">((</span><span class="mi">7</span><span class="o">*</span><span class="n">a</span><span class="o">-</span><span class="mi">8</span><span class="p">)</span><span class="o">/</span><span class="mi">29</span><span class="p">)</span>
+<span class="gp">sage: </span><span class="n">recognize_polynomial</span><span class="p">(</span><span class="n">pol_n</span><span class="p">,</span> <span class="n">emb</span><span class="o">=</span><span class="n">emb</span><span class="p">)</span>
+<span class="go">(a + 4)*y^2 + (5*a - 7/32)*y + 7/29*a - 8/29</span>
+
+<span class="gp">sage: </span><span class="n">P</span><span class="o">.&lt;</span><span class="n">x</span><span class="o">&gt;</span> <span class="o">=</span> <span class="n">QQ</span><span class="p">[]</span>
+<span class="gp">sage: </span><span class="n">K</span><span class="o">.&lt;</span><span class="n">a</span><span class="o">&gt;</span> <span class="o">=</span> <span class="n">NumberField</span><span class="p">(</span><span class="n">x</span><span class="o">^</span><span class="mi">4</span><span class="o">+</span><span class="mi">13</span><span class="o">*</span><span class="n">x</span><span class="o">^</span><span class="mi">2</span><span class="o">+</span><span class="mi">41</span><span class="p">)</span>
+<span class="gp">sage: </span><span class="n">emb</span> <span class="o">=</span> <span class="n">K</span><span class="o">.</span><span class="n">embeddings</span><span class="p">(</span><span class="n">CC</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+<span class="gp">sage: </span><span class="n">P</span><span class="o">.&lt;</span><span class="n">X</span><span class="o">&gt;</span> <span class="o">=</span> <span class="n">PolynomialRing</span><span class="p">(</span><span class="n">CC</span><span class="p">)</span>
+<span class="gp">sage: </span><span class="n">pol_n</span> <span class="o">=</span> <span class="n">emb</span><span class="p">(</span><span class="n">a</span><span class="o">/</span><span class="mi">8</span><span class="o">+</span><span class="n">a</span><span class="o">^</span><span class="mi">2</span><span class="o">/</span><span class="mi">7</span><span class="o">+</span><span class="mi">53</span><span class="p">)</span><span class="o">*</span><span class="n">X</span><span class="o">^</span><span class="mi">5</span> <span class="o">+</span> <span class="n">emb</span><span class="p">(</span><span class="n">a</span><span class="o">+</span><span class="mi">5</span><span class="p">)</span><span class="o">*</span><span class="n">X</span><span class="o">^</span><span class="mi">4</span> <span class="o">-</span> <span class="mi">11</span><span class="o">/</span><span class="mi">13</span><span class="o">*</span><span class="n">X</span> <span class="o">+</span> <span class="mi">83</span><span class="p">;</span> <span class="n">pol_n</span>
+<span class="go">(51.9117094301786 - 0.345009827503822*I)*X^5 + (5.00000000000000 - 2.76007862003058*I)*X^4 - 0.846153846153846*X + 83.0000000000000</span>
+<span class="gp">sage: </span><span class="n">recognize_polynomial</span><span class="p">(</span><span class="n">pol_n</span><span class="p">,</span> <span class="n">K</span><span class="p">,</span> <span class="n">emb</span><span class="o">=</span><span class="n">emb</span><span class="p">)</span>
+<span class="go">(1/7*a^2 + 1/8*a + 53)*y^5 + (a + 5)*y^4 - 11/13*y + 83</span>
+</pre></div>
+</div>
+<p>Larger example:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">sage: </span><span class="n">P</span><span class="o">.&lt;</span><span class="n">y</span><span class="o">&gt;</span> <span class="o">=</span> <span class="n">PolynomialRing</span><span class="p">(</span><span class="n">Rationals</span><span class="p">())</span>
+<span class="gp">sage: </span><span class="n">kr</span> <span class="o">=</span> <span class="n">NumberField</span><span class="p">(</span><span class="n">y</span><span class="o">^</span><span class="mi">4</span><span class="o">+</span><span class="mi">26</span><span class="o">*</span><span class="n">y</span><span class="o">^</span><span class="mi">2</span><span class="o">+</span><span class="mi">5</span><span class="p">,</span><span class="s1">&#39;a&#39;</span><span class="p">)</span>
+<span class="gp">sage: </span><span class="n">poly</span> <span class="o">=</span> <span class="n">y</span><span class="o">^</span><span class="mi">2</span> <span class="o">-</span> <span class="mi">3669057</span><span class="o">/</span><span class="mi">256</span><span class="o">*</span><span class="n">y</span> <span class="o">+</span> <span class="mi">3255076125</span><span class="o">/</span><span class="mi">64</span>
+<span class="gp">sage: </span><span class="n">s</span> <span class="o">=</span> <span class="n">poly</span><span class="o">.</span><span class="n">roots</span><span class="p">(</span><span class="n">kr</span><span class="p">)[</span><span class="mi">1</span><span class="p">][</span><span class="mi">0</span><span class="p">];</span> <span class="n">s</span>
+<span class="go">-56133/1024*a^2 + 6608385/1024</span>
+<span class="gp">sage: </span><span class="n">C</span> <span class="o">=</span> <span class="n">ComplexField</span><span class="p">(</span><span class="mi">500</span><span class="p">)</span>
+<span class="gp">sage: </span><span class="n">emb</span> <span class="o">=</span> <span class="n">kr</span><span class="o">.</span><span class="n">embeddings</span><span class="p">(</span><span class="n">C</span><span class="p">)[</span><span class="mi">1</span><span class="p">]</span>
+<span class="gp">sage: </span><span class="n">emb</span><span class="p">(</span><span class="n">s</span><span class="p">)</span>
+<span class="go">6464.12192808629278258077515091885499223178761073356317753629949149850565866041944398811655264025009640104066290246943889048395671706574175947746682694</span>
+<span class="gp">sage: </span><span class="n">r</span> <span class="o">=</span> <span class="n">recognize_polynomial</span><span class="p">(</span><span class="n">emb</span><span class="p">(</span><span class="n">s</span><span class="p">),</span> <span class="n">kr</span><span class="p">,</span> <span class="n">emb</span><span class="o">=</span><span class="n">emb</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+<span class="gp">sage: </span><span class="n">r</span> <span class="o">==</span> <span class="n">s</span>
+<span class="go">True</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="recip.polynomials.short_interpolation">
+<code class="descclassname">recip.polynomials.</code><code class="descname">short_interpolation</code><span class="sig-paren">(</span><em>a</em>, <em>b</em><span class="sig-paren">)</span><a class="headerlink" href="#recip.polynomials.short_interpolation" title="Permalink to this definition">¶</a></dt>
+<dd><p>Given lists a and b of the same lengths, returns
+the polynomial</p>
+<blockquote>
+<div>P = sum_i b[i] prod_{j!=i} (x-a[j])</div></blockquote>
+<p>which satisfies P(a[i]) = b[i] * H&#8217;(a[i]),
+where H = prod (x-a[i]).</p>
+<p>EXAMPLES:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">sage: </span><span class="kn">from</span> <span class="nn">recip</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="gp">sage: </span><span class="n">p</span> <span class="o">=</span> <span class="n">short_interpolation</span><span class="p">([</span><span class="mi">3</span><span class="p">],[</span><span class="mi">3</span><span class="p">]);</span> <span class="n">p</span>
+<span class="go">3</span>
+<span class="gp">sage: </span><span class="n">p</span><span class="o">.</span><span class="n">parent</span><span class="p">()</span>
+<span class="go">Univariate Polynomial Ring in x over Integer Ring</span>
+<span class="gp">sage: </span><span class="n">p</span> <span class="o">=</span> <span class="n">short_interpolation</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span><span class="mi">3</span><span class="p">],[</span><span class="mi">2</span><span class="p">,</span><span class="mf">3.</span><span class="p">]);</span> <span class="n">p</span>
+<span class="go">5.00000000000000*x - 9.00000000000000</span>
+<span class="gp">sage: </span><span class="n">p</span><span class="o">.</span><span class="n">parent</span><span class="p">()</span>
+<span class="go">Univariate Polynomial Ring in x over Real Field with 53 bits of precision</span>
+</pre></div>
+</div>
+</dd></dl>
+
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="basic.html"
+                        title="previous chapter">Basic</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="symplectic_matrices.html"
+                        title="next chapter">Symplectic matrices</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/polynomials.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="symplectic_matrices.html" title="Symplectic matrices"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="basic.html" title="Basic"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">CM SageMath code 3.0.1 documentation</a> &#187;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2017, Marco Streng.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.5.3.
+    </div>
+  </body>
+</html>

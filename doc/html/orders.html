@@ -1,0 +1,709 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Orders &#8212; CM SageMath code 3.0.1 documentation</title>
+    
+    <link rel="stylesheet" href="_static/classic.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '3.0.1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="_static/MathJax.js?config=TeX-AMS_HTML-full,../mathjax_sage.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Bisson-Streng" href="bissonstreng.html" />
+    <link rel="prev" title="Class polynomials" href="class_polynomials.html" /> 
+  </head>
+  <body role="document">
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="bissonstreng.html" title="Bisson-Streng"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="class_polynomials.html" title="Class polynomials"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">CM SageMath code 3.0.1 documentation</a> &#187;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <p>..nodoctest</p>
+<div class="section" id="module-recip.orders">
+<span id="orders"></span><h1>Orders<a class="headerlink" href="#module-recip.orders" title="Permalink to this headline">¶</a></h1>
+<p>x.__init__(...) initializes x; see help(type(x)) for signature</p>
+<dl class="function">
+<dt id="recip.orders.additive_gens_to_basis">
+<code class="descclassname">recip.orders.</code><code class="descname">additive_gens_to_basis</code><span class="sig-paren">(</span><em>gens</em>, <em>K</em><span class="sig-paren">)</span><a class="headerlink" href="#recip.orders.additive_gens_to_basis" title="Permalink to this definition">¶</a></dt>
+<dd><p>Given generators of a lattice L in K, returns a basis of L.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="recip.orders.are_nn_isogenous">
+<code class="descclassname">recip.orders.</code><code class="descname">are_nn_isogenous</code><span class="sig-paren">(</span><em>Z1</em>, <em>Z2</em>, <em>n</em>, <em>F1</em>, <em>F2</em>, <em>transformation=False</em>, <em>double_check=False</em><span class="sig-paren">)</span><a class="headerlink" href="#recip.orders.are_nn_isogenous" title="Permalink to this definition">¶</a></dt>
+<dd><p>Given two CM period matrices with the same CM-type, returns True if and
+only if there is an (n,n)-isogeny between them. Assumes the orders Oi of Zi
+to satisfy Fi*OK subset Oi.</p>
+<p>If double_check, also checks whether there is an isogeny the other way
+(which should be equivalent). Raises an error if there is an isogeny in only
+one direction.</p>
+<p>EXAMPLES:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">sage: </span><span class="kn">from</span> <span class="nn">recip</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="gp">sage: </span><span class="n">K</span> <span class="o">=</span> <span class="n">CM_Field</span><span class="p">([</span><span class="mi">5</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span><span class="mi">5</span><span class="p">])</span>
+<span class="gp">sage: </span><span class="n">Phi</span> <span class="o">=</span> <span class="n">K</span><span class="o">.</span><span class="n">CM_types</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span>
+<span class="gp">sage: </span><span class="n">alpha</span> <span class="o">=</span> <span class="n">K</span><span class="o">.</span><span class="n">gen</span><span class="p">()</span>
+<span class="gp">sage: </span><span class="n">orders</span> <span class="o">=</span> <span class="p">[</span><span class="n">K</span><span class="o">.</span><span class="n">order</span><span class="p">([</span><span class="mi">1</span><span class="o">/</span><span class="mi">2</span><span class="o">*</span><span class="n">alpha</span><span class="o">^</span><span class="mi">3</span> <span class="o">+</span> <span class="mi">1</span><span class="o">/</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="o">/</span><span class="mi">2</span><span class="o">*</span><span class="n">alpha</span><span class="o">^</span><span class="mi">3</span> <span class="o">+</span> <span class="mi">5</span><span class="o">/</span><span class="mi">2</span><span class="o">*</span><span class="n">alpha</span><span class="o">^</span><span class="mi">2</span> <span class="o">+</span> <span class="mi">5</span><span class="o">/</span><span class="mi">2</span><span class="o">*</span><span class="n">alpha</span><span class="p">,</span> <span class="mi">5</span><span class="o">*</span><span class="n">alpha</span><span class="o">^</span><span class="mi">2</span><span class="p">,</span> <span class="n">alpha</span><span class="o">^</span><span class="mi">3</span><span class="p">]),</span> <span class="n">K</span><span class="o">.</span><span class="n">order</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="o">*</span><span class="n">alpha</span><span class="p">,</span> <span class="mi">2</span><span class="o">*</span><span class="n">alpha</span><span class="o">^</span><span class="mi">2</span><span class="p">,</span> <span class="n">alpha</span><span class="o">^</span><span class="mi">3</span><span class="p">]),</span> <span class="n">K</span><span class="o">.</span><span class="n">order</span><span class="p">([</span><span class="mi">3</span><span class="o">/</span><span class="mi">2</span><span class="o">*</span><span class="n">alpha</span><span class="o">^</span><span class="mi">3</span> <span class="o">+</span> <span class="mi">1</span><span class="o">/</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="o">/</span><span class="mi">2</span><span class="o">*</span><span class="n">alpha</span><span class="o">^</span><span class="mi">3</span> <span class="o">+</span> <span class="mi">1</span><span class="o">/</span><span class="mi">2</span><span class="o">*</span><span class="n">alpha</span><span class="o">^</span><span class="mi">2</span> <span class="o">+</span> <span class="mi">3</span><span class="o">/</span><span class="mi">2</span><span class="o">*</span><span class="n">alpha</span><span class="p">,</span> <span class="n">alpha</span><span class="o">^</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="o">*</span><span class="n">alpha</span><span class="o">^</span><span class="mi">3</span><span class="p">])]</span>
+<span class="gp">sage: </span><span class="n">OK</span> <span class="o">=</span> <span class="n">K</span><span class="o">.</span><span class="n">maximal_order</span><span class="p">()</span>
+
+<span class="gp">sage: </span><span class="n">O</span> <span class="o">=</span> <span class="n">orders</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+<span class="gp">sage: </span><span class="n">O</span><span class="o">.</span><span class="n">index_in</span><span class="p">(</span><span class="n">OK</span><span class="p">)</span>
+<span class="go">25</span>
+<span class="gp">sage: </span><span class="n">s</span> <span class="o">=</span> <span class="n">superorders_stable_under_complex_conjugation</span><span class="p">(</span><span class="n">O</span><span class="p">)</span>
+<span class="gp">sage: </span><span class="nb">len</span><span class="p">(</span><span class="n">s</span><span class="p">)</span>
+<span class="go">3</span>
+<span class="gp">sage: </span><span class="n">F</span> <span class="o">=</span> <span class="mi">5</span>
+<span class="gp">sage: </span><span class="p">[</span><span class="n">ideal_contains</span><span class="p">(</span><span class="n">A</span><span class="o">.</span><span class="n">basis</span><span class="p">(),</span> <span class="p">[</span><span class="n">F</span><span class="o">*</span><span class="n">b</span> <span class="k">for</span> <span class="n">b</span> <span class="ow">in</span> <span class="n">OK</span><span class="o">.</span><span class="n">basis</span><span class="p">()])</span> <span class="k">for</span> <span class="n">A</span> <span class="ow">in</span> <span class="n">s</span><span class="p">]</span>
+<span class="go">[True, True, True]</span>
+<span class="gp">sage: </span><span class="n">Zs</span> <span class="o">=</span> <span class="p">[</span><span class="n">period_matrices</span><span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="n">F</span><span class="p">,</span> <span class="n">Phi</span><span class="p">)</span> <span class="k">for</span> <span class="n">A</span> <span class="ow">in</span> <span class="n">s</span><span class="p">]</span> <span class="c1"># long time, half a minute</span>
+<span class="gp">sage: </span><span class="nb">len</span><span class="p">(</span><span class="n">Zs</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="o">==</span> <span class="mi">1</span> <span class="ow">and</span> <span class="n">s</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="n">OK</span> <span class="c1"># long time</span>
+<span class="go">True</span>
+<span class="gp">sage: </span><span class="n">Zmax</span> <span class="o">=</span> <span class="n">Zs</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="c1"># long time</span>
+<span class="gp">sage: </span><span class="nb">len</span><span class="p">(</span><span class="n">Zs</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span> <span class="o">==</span> <span class="mi">0</span> <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="n">Zs</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span> <span class="o">==</span> <span class="mi">1</span> <span class="c1"># long time</span>
+<span class="go">True</span>
+<span class="gp">sage: </span><span class="n">Zother</span> <span class="o">=</span> <span class="n">Zs</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="c1"># long time</span>
+<span class="gp">sage: </span><span class="n">are_nn_isogenous</span><span class="p">(</span><span class="n">Zmax</span><span class="p">,</span> <span class="n">Zother</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">F</span><span class="p">,</span> <span class="n">transformation</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span> <span class="c1"># long time</span>
+<span class="go">(True, 1/10*alpha^3 - 1/2)</span>
+<span class="gp">sage: </span><span class="n">b</span><span class="p">,</span> <span class="n">t</span> <span class="o">=</span> <span class="n">_</span> <span class="c1"># long time</span>
+<span class="gp">sage: </span><span class="n">ideal_index</span><span class="p">([</span><span class="n">b</span><span class="o">*</span><span class="n">t</span> <span class="k">for</span> <span class="n">b</span> <span class="ow">in</span> <span class="n">Zmax</span><span class="o">.</span><span class="n">basis</span><span class="p">()],</span> <span class="n">Zother</span><span class="o">.</span><span class="n">basis</span><span class="p">())</span> <span class="c1"># long time</span>
+<span class="go">25</span>
+<span class="gp">sage: </span><span class="n">cc</span> <span class="o">=</span> <span class="n">K</span><span class="o">.</span><span class="n">complex_conjugation</span><span class="p">()</span> <span class="c1"># long time</span>
+<span class="gp">sage: </span><span class="n">Zother</span><span class="o">.</span><span class="n">xi</span><span class="p">()</span><span class="o">*</span><span class="n">t</span><span class="o">*</span><span class="n">cc</span><span class="p">(</span><span class="n">t</span><span class="p">)</span><span class="o">*</span><span class="mi">5</span> <span class="o">==</span> <span class="n">Zmax</span><span class="o">.</span><span class="n">xi</span><span class="p">()</span> <span class="c1"># long time</span>
+<span class="go">True</span>
+</pre></div>
+</div>
+<p>Some checks for the are_nn_isogenous function:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">sage: </span><span class="n">are_nn_isogenous</span><span class="p">(</span><span class="n">Zmax</span><span class="p">,</span> <span class="n">Zmax</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="n">transformation</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span> <span class="c1"># long time</span>
+<span class="go">(True, -1/5*alpha^3 - 1/10*alpha^2 - 1/2*alpha - 1/2)</span>
+<span class="gp">sage: </span><span class="n">are_nn_isogenous</span><span class="p">(</span><span class="n">Zmax</span><span class="p">,</span> <span class="n">Zmax</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">transformation</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span> <span class="c1"># long time</span>
+<span class="go">(True, 1)</span>
+<span class="gp">sage: </span><span class="n">are_nn_isogenous</span><span class="p">(</span><span class="n">Zother</span><span class="p">,</span> <span class="n">Zother</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">F</span><span class="p">,</span> <span class="n">F</span><span class="p">,</span> <span class="n">transformation</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span> <span class="c1"># long time</span>
+<span class="go">(True, 1)</span>
+<span class="gp">sage: </span><span class="n">are_nn_isogenous</span><span class="p">(</span><span class="n">Zmax</span><span class="p">,</span> <span class="n">Zother</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">F</span><span class="p">)</span> <span class="c1"># long time</span>
+<span class="go">False</span>
+<span class="gp">sage: </span><span class="n">are_nn_isogenous</span><span class="p">(</span><span class="n">Zmax</span><span class="p">,</span> <span class="mi">7</span><span class="o">*</span><span class="n">Zmax</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">7</span><span class="p">)</span> <span class="c1"># todo, multiplication of period matrices by integers is not implemented</span>
+<span class="go">True</span>
+</pre></div>
+</div>
+<p>Another example:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">sage: </span><span class="n">O</span> <span class="o">=</span> <span class="n">orders</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
+<span class="gp">sage: </span><span class="n">O</span><span class="o">.</span><span class="n">index_in</span><span class="p">(</span><span class="n">OK</span><span class="p">)</span>
+<span class="go">9</span>
+<span class="gp">sage: </span><span class="n">s</span> <span class="o">=</span> <span class="n">superorders_stable_under_complex_conjugation</span><span class="p">(</span><span class="n">O</span><span class="p">)</span>
+<span class="gp">sage: </span><span class="nb">len</span><span class="p">(</span><span class="n">s</span><span class="p">)</span>
+<span class="go">2</span>
+<span class="gp">sage: </span><span class="n">F</span> <span class="o">=</span> <span class="mi">3</span>
+<span class="gp">sage: </span><span class="p">[</span><span class="n">ideal_contains</span><span class="p">(</span><span class="n">A</span><span class="o">.</span><span class="n">basis</span><span class="p">(),</span> <span class="p">[</span><span class="n">F</span><span class="o">*</span><span class="n">b</span> <span class="k">for</span> <span class="n">b</span> <span class="ow">in</span> <span class="n">OK</span><span class="o">.</span><span class="n">basis</span><span class="p">()])</span> <span class="k">for</span> <span class="n">A</span> <span class="ow">in</span> <span class="n">s</span><span class="p">]</span>
+<span class="go">[True, True]</span>
+<span class="gp">sage: </span><span class="n">Zs</span> <span class="o">=</span> <span class="p">[</span><span class="n">period_matrices</span><span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="n">F</span><span class="p">,</span> <span class="n">Phi</span><span class="p">)</span> <span class="k">for</span> <span class="n">A</span> <span class="ow">in</span> <span class="n">s</span><span class="p">]</span>
+<span class="gp">sage: </span><span class="nb">len</span><span class="p">(</span><span class="n">Zs</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="o">==</span> <span class="mi">1</span> <span class="ow">and</span> <span class="n">s</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="n">OK</span>
+<span class="go">True</span>
+<span class="gp">sage: </span><span class="n">Zmax</span> <span class="o">=</span> <span class="n">Zs</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
+<span class="gp">sage: </span><span class="nb">len</span><span class="p">(</span><span class="n">Zs</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span> <span class="o">==</span> <span class="mi">2</span>
+<span class="go">True</span>
+<span class="gp">sage: </span><span class="n">Zothers</span> <span class="o">=</span> <span class="n">Zs</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+<span class="gp">sage: </span><span class="n">are_nn_isogenous</span><span class="p">(</span><span class="n">Zmax</span><span class="p">,</span> <span class="n">Zothers</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">F</span><span class="p">,</span> <span class="n">transformation</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+<span class="go">(True, 1)</span>
+<span class="gp">sage: </span><span class="n">are_nn_isogenous</span><span class="p">(</span><span class="n">Zmax</span><span class="p">,</span> <span class="n">Zothers</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">F</span><span class="p">,</span> <span class="n">transformation</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+<span class="go">(True, 1)</span>
+</pre></div>
+</div>
+<p>The 2-part will be dealt with for all fields together.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="recip.orders.class_polynomials_order">
+<code class="descclassname">recip.orders.</code><code class="descname">class_polynomials_order</code><span class="sig-paren">(</span><em>O</em>, <em>F</em>, <em>Phi</em>, <em>prec</em>, <em>include_period_matrices=False</em><span class="sig-paren">)</span><a class="headerlink" href="#recip.orders.class_polynomials_order" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the class polynomials of an order in a cyclic quartic CM-field K.</p>
+<p>TODO: more general fields, examples</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="recip.orders.ideal_contains">
+<code class="descclassname">recip.orders.</code><code class="descname">ideal_contains</code><span class="sig-paren">(</span><em>B</em>, <em>A</em><span class="sig-paren">)</span><a class="headerlink" href="#recip.orders.ideal_contains" title="Permalink to this definition">¶</a></dt>
+<dd><p>Given bases of two lattices B and A in K, returns true
+if and only if the lattice B contains the lattice A.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="recip.orders.ideal_divide">
+<code class="descclassname">recip.orders.</code><code class="descname">ideal_divide</code><span class="sig-paren">(</span><em>basis1</em>, <em>basis2</em>, <em>K</em><span class="sig-paren">)</span><a class="headerlink" href="#recip.orders.ideal_divide" title="Permalink to this definition">¶</a></dt>
+<dd><p>Given bases of ideals A1 and A2, returns a basis
+of (A1 : A2) = {a in K : a*A2 subset A1}.</p>
+<p>EXAMPLES:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">sage: </span><span class="kn">from</span> <span class="nn">recip</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="gp">sage: </span><span class="n">K</span><span class="o">.&lt;</span><span class="n">a</span><span class="o">&gt;</span> <span class="o">=</span> <span class="n">QuadraticField</span><span class="p">(</span><span class="mi">15</span><span class="p">)</span>
+<span class="gp">sage: </span><span class="n">basis1</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="n">a</span><span class="p">]</span>   <span class="c1"># Maximal order OK</span>
+<span class="gp">sage: </span><span class="n">basis2</span> <span class="o">=</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="o">*</span><span class="n">a</span><span class="p">]</span> <span class="c1"># 2OK</span>
+<span class="gp">sage: </span><span class="n">basis3</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="o">*</span><span class="n">a</span><span class="p">]</span> <span class="c1"># Another order, O</span>
+<span class="gp">sage: </span><span class="n">basis4</span> <span class="o">=</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="n">a</span><span class="p">]</span>   <span class="c1"># Fractional ideal. Note: 4*basis4 is an ideal of basis3.</span>
+<span class="gp">sage: </span><span class="n">ideal_divide</span><span class="p">(</span><span class="n">basis1</span><span class="p">,</span> <span class="n">basis2</span><span class="p">,</span> <span class="n">K</span><span class="p">)</span> <span class="c1"># OK / 2OK = (1/2)OK</span>
+<span class="go">[1/2, 1/2*a]</span>
+<span class="gp">sage: </span><span class="n">ideal_divide</span><span class="p">(</span><span class="n">basis1</span><span class="p">,</span> <span class="n">basis3</span><span class="p">,</span> <span class="n">K</span><span class="p">)</span> <span class="c1"># contains OK as OK*O = OK, and is contained in OK as it multiplies 1 into OK</span>
+<span class="go">[1, a]</span>
+<span class="gp">sage: </span><span class="n">ideal_divide</span><span class="p">(</span><span class="n">basis2</span><span class="p">,</span> <span class="n">basis3</span><span class="p">,</span> <span class="n">K</span><span class="p">)</span> <span class="c1"># twice the above</span>
+<span class="go">[2, 2*a]</span>
+<span class="gp">sage: </span><span class="n">ideal_divide</span><span class="p">(</span><span class="n">basis4</span><span class="p">,</span> <span class="n">basis3</span><span class="p">,</span> <span class="n">K</span><span class="p">)</span> <span class="c1"># ideal divided by its own order</span>
+<span class="go">[2, a]</span>
+<span class="gp">sage: </span><span class="n">ideal_divide</span><span class="p">(</span><span class="n">basis4</span><span class="p">,</span> <span class="n">basis4</span><span class="p">,</span> <span class="n">K</span><span class="p">)</span> <span class="c1"># endomorphism ring of ideal 4</span>
+<span class="go">[1, 2*a]</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="recip.orders.ideal_index">
+<code class="descclassname">recip.orders.</code><code class="descname">ideal_index</code><span class="sig-paren">(</span><em>B</em>, <em>A</em>, <em>check_included=True</em><span class="sig-paren">)</span><a class="headerlink" href="#recip.orders.ideal_index" title="Permalink to this definition">¶</a></dt>
+<dd><p>Given two ideals B and A, assuming B contains A,
+returns the index of A in B.</p>
+<p>Here A and B are given by their bases, which are sequences of n elements
+of K, where n=[K:QQ] and A and B are lattices in K.</p>
+<p>If check_included is False, then B does not have to contain A, and
+the output is the quotient of the indices in B+A.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="recip.orders.ideal_inverse">
+<code class="descclassname">recip.orders.</code><code class="descname">ideal_inverse</code><span class="sig-paren">(</span><em>basis</em>, <em>K</em>, <em>O=None</em><span class="sig-paren">)</span><a class="headerlink" href="#recip.orders.ideal_inverse" title="Permalink to this definition">¶</a></dt>
+<dd><p>Given a basis of an ideal A, returns
+a basis of (O : A) = {a in K : a*A subset O}.</p>
+<p>If O is not specified, use ideal_order(basis, K).</p>
+<p>EXAMPLES:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">sage: </span><span class="kn">from</span> <span class="nn">recip</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="gp">sage: </span><span class="n">K</span><span class="o">.&lt;</span><span class="n">a</span><span class="o">&gt;</span> <span class="o">=</span> <span class="n">QuadraticField</span><span class="p">(</span><span class="mi">15</span><span class="p">)</span>
+<span class="gp">sage: </span><span class="n">basis1</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="n">a</span><span class="p">]</span>   <span class="c1"># Maximal order OK</span>
+<span class="gp">sage: </span><span class="n">basis2</span> <span class="o">=</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="o">*</span><span class="n">a</span><span class="p">]</span> <span class="c1"># 2OK</span>
+<span class="gp">sage: </span><span class="n">basis3</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="o">*</span><span class="n">a</span><span class="p">]</span> <span class="c1"># Another order, O</span>
+<span class="gp">sage: </span><span class="n">basis4</span> <span class="o">=</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="n">a</span><span class="p">]</span>   <span class="c1"># Fractional ideal. Note: 2*basis4 is an ideal of basis3.</span>
+<span class="gp">sage: </span><span class="n">ideal_inverse</span><span class="p">(</span><span class="n">basis1</span><span class="p">,</span> <span class="n">K</span><span class="p">)</span> <span class="c1"># The order itself</span>
+<span class="go">[1, a]</span>
+<span class="gp">sage: </span><span class="n">ideal_inverse</span><span class="p">(</span><span class="n">basis2</span><span class="p">,</span> <span class="n">K</span><span class="p">)</span> <span class="c1"># (1/2)OK</span>
+<span class="go">[1/2, 1/2*a]</span>
+<span class="gp">sage: </span><span class="n">ideal_inverse</span><span class="p">(</span><span class="n">basis3</span><span class="p">,</span> <span class="n">K</span><span class="p">)</span> <span class="c1"># the order itself</span>
+<span class="go">[1, 2*a]</span>
+<span class="gp">sage: </span><span class="n">basis5</span> <span class="o">=</span> <span class="n">ideal_inverse</span><span class="p">(</span><span class="n">basis4</span><span class="p">,</span> <span class="n">K</span><span class="p">);</span> <span class="n">basis5</span> <span class="c1"># happens to be self-inverse</span>
+<span class="go">[2, a]</span>
+<span class="gp">sage: </span><span class="n">mult_ideals</span><span class="p">(</span><span class="n">basis4</span><span class="p">,</span> <span class="n">basis5</span><span class="p">,</span> <span class="n">K</span><span class="p">)</span>
+<span class="go">[1, 2*a]</span>
+<span class="gp">sage: </span><span class="n">ideal_order</span><span class="p">(</span><span class="n">basis4</span><span class="p">,</span> <span class="n">K</span><span class="p">)</span><span class="o">.</span><span class="n">basis</span><span class="p">()</span>
+<span class="go">[1, 2*a]</span>
+
+<span class="gp">sage: </span><span class="n">ideal_is_invertible</span><span class="p">(</span><span class="n">basis2</span><span class="p">,</span> <span class="n">O</span> <span class="o">=</span> <span class="n">K</span><span class="o">.</span><span class="n">order</span><span class="p">(</span><span class="n">basis3</span><span class="p">))</span>
+<span class="go">False</span>
+<span class="gp">sage: </span><span class="n">ideal_is_invertible</span><span class="p">(</span><span class="n">basis2</span><span class="p">,</span> <span class="n">O</span> <span class="o">=</span> <span class="n">K</span><span class="o">.</span><span class="n">order</span><span class="p">(</span><span class="n">basis1</span><span class="p">))</span>
+<span class="go">True</span>
+<span class="gp">sage: </span><span class="n">bases</span> <span class="o">=</span> <span class="p">[</span><span class="n">basis1</span><span class="p">,</span> <span class="n">basis2</span><span class="p">,</span> <span class="n">basis3</span><span class="p">,</span> <span class="n">basis4</span><span class="p">]</span>
+<span class="gp">sage: </span><span class="nb">all</span><span class="p">([</span><span class="n">ideal_is_invertible</span><span class="p">(</span><span class="n">b</span><span class="p">)</span> <span class="k">for</span> <span class="n">b</span> <span class="ow">in</span> <span class="n">bases</span><span class="p">])</span> <span class="c1"># quadratic ring, hence all invertible for some ring</span>
+<span class="go">True</span>
+</pre></div>
+</div>
+<p>Special case of Exercise 2.20 of
+<a class="reference external" href="http://websites.math.leidenuniv.nl/algebra/ant.pdf">http://websites.math.leidenuniv.nl/algebra/ant.pdf</a></p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">sage: </span><span class="kn">from</span> <span class="nn">recip</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="gp">sage: </span><span class="n">K</span><span class="o">.&lt;</span><span class="n">a</span><span class="o">&gt;</span> <span class="o">=</span> <span class="n">NumberField</span><span class="p">(</span><span class="n">x</span><span class="o">^</span><span class="mi">3</span><span class="o">+</span><span class="n">x</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span>
+<span class="gp">sage: </span><span class="n">A</span> <span class="o">=</span> <span class="n">K</span><span class="o">.</span><span class="n">order</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="n">a</span><span class="p">,</span> <span class="n">a</span><span class="o">^</span><span class="mi">2</span><span class="p">])</span>
+<span class="gp">sage: </span><span class="n">p</span> <span class="o">=</span> <span class="mi">7</span>
+<span class="gp">sage: </span><span class="n">R</span> <span class="o">=</span> <span class="n">K</span><span class="o">.</span><span class="n">order</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="n">p</span><span class="o">*</span><span class="n">a</span><span class="p">,</span> <span class="n">p</span><span class="o">*</span><span class="n">a</span><span class="o">^</span><span class="mi">2</span><span class="p">])</span>
+<span class="gp">sage: </span><span class="n">I</span> <span class="o">=</span> <span class="n">additive_gens_to_basis</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="n">p</span><span class="o">*</span><span class="n">a</span><span class="p">,</span> <span class="n">p</span><span class="o">*</span><span class="n">a</span><span class="o">^</span><span class="mi">2</span><span class="p">,</span> <span class="n">a</span><span class="p">,</span> <span class="n">p</span><span class="o">*</span><span class="n">a</span><span class="o">^</span><span class="mi">2</span><span class="p">,</span> <span class="n">p</span><span class="o">*</span><span class="n">a</span><span class="o">^</span><span class="mi">3</span><span class="p">],</span> <span class="n">K</span><span class="p">);</span> <span class="n">I</span>
+<span class="go">[1, a, 7*a^2]</span>
+<span class="gp">sage: </span><span class="n">ideal_order</span><span class="p">(</span><span class="n">I</span><span class="p">,</span> <span class="n">K</span><span class="p">)</span> <span class="o">==</span> <span class="n">R</span>
+<span class="go">True</span>
+<span class="gp">sage: </span><span class="n">Isq</span> <span class="o">=</span> <span class="n">mult_ideals</span><span class="p">(</span><span class="n">I</span><span class="p">,</span> <span class="n">I</span><span class="p">,</span> <span class="n">K</span><span class="p">);</span> <span class="n">Isq</span>
+<span class="go">[1, a, a^2]</span>
+<span class="gp">sage: </span><span class="n">ideal_order</span><span class="p">(</span><span class="n">Isq</span><span class="p">,</span> <span class="n">K</span><span class="p">)</span> <span class="o">==</span> <span class="n">A</span>
+<span class="go">True</span>
+</pre></div>
+</div>
+<p>The final part of the exercise is to show that the above
+implies that I is a proper, but non-invertible R-ideal. In particular,
+it is for all orders non-invertible.
+We compute the <a href="#id1"><span class="problematic" id="id2">``</span></a>inverse&#8217;&#8217; of this non-invertible ideal:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">sage: </span><span class="n">Iinv</span> <span class="o">=</span> <span class="n">ideal_inverse</span><span class="p">(</span><span class="n">I</span><span class="p">,</span> <span class="n">K</span><span class="p">);</span> <span class="n">Iinv</span>
+<span class="go">[7, 7*a, 7*a^2]</span>
+<span class="gp">sage: </span><span class="n">mult_ideals</span><span class="p">(</span><span class="n">I</span><span class="p">,</span> <span class="n">Iinv</span><span class="p">,</span> <span class="n">K</span><span class="p">)</span>
+<span class="go">[7, 7*a, 7*a^2]</span>
+<span class="gp">sage: </span><span class="n">ideal_is_invertible</span><span class="p">(</span><span class="n">I</span><span class="p">)</span>
+<span class="go">False</span>
+<span class="gp">sage: </span><span class="n">ideal_is_invertible</span><span class="p">(</span><span class="n">Isq</span><span class="p">,</span> <span class="n">O</span><span class="o">=</span><span class="n">A</span><span class="p">)</span>
+<span class="go">True</span>
+<span class="gp">sage: </span><span class="n">ideal_is_invertible</span><span class="p">(</span><span class="n">Isq</span><span class="p">,</span> <span class="n">O</span><span class="o">=</span><span class="n">R</span><span class="p">)</span>
+<span class="go">False</span>
+<span class="gp">sage: </span><span class="n">ideal_is_invertible</span><span class="p">(</span><span class="n">Isq</span><span class="p">)</span>
+<span class="go">True</span>
+</pre></div>
+</div>
+<p>Something from work with Sorina Ionica, Chloe Martindale
+and Damien Robert:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">sage: </span><span class="kn">from</span> <span class="nn">recip</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="gp">sage: </span><span class="n">K</span> <span class="o">=</span> <span class="n">CM_Field</span><span class="p">([</span><span class="mi">40</span><span class="p">,</span> <span class="mi">20</span><span class="p">,</span> <span class="mi">90</span><span class="p">])</span>
+<span class="gp">sage: </span><span class="n">alpha</span> <span class="o">=</span> <span class="n">K</span><span class="o">.</span><span class="n">gen</span><span class="p">()</span>
+<span class="gp">sage: </span><span class="n">I1</span> <span class="o">=</span> <span class="p">[</span><span class="mi">2</span><span class="o">*</span><span class="n">alpha</span><span class="o">^</span><span class="mi">3</span> <span class="o">+</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">220</span><span class="o">/</span><span class="mi">3</span><span class="o">*</span><span class="n">alpha</span><span class="o">^</span><span class="mi">3</span> <span class="o">+</span> <span class="mi">2</span><span class="o">/</span><span class="mi">3</span><span class="o">*</span><span class="n">alpha</span><span class="p">,</span> <span class="mi">3</span><span class="o">*</span><span class="n">alpha</span><span class="o">^</span><span class="mi">3</span> <span class="o">+</span> <span class="mi">3</span><span class="o">*</span><span class="n">alpha</span><span class="o">^</span><span class="mi">2</span><span class="p">,</span>    <span class="mi">111</span><span class="o">*</span><span class="n">alpha</span><span class="o">^</span><span class="mi">3</span><span class="p">]</span>
+<span class="gp">sage: </span><span class="n">xi1</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span><span class="o">/</span><span class="mi">5328</span><span class="o">*</span><span class="n">alpha</span><span class="o">^</span><span class="mi">3</span> <span class="o">-</span> <span class="mi">31</span><span class="o">/</span><span class="mi">26640</span><span class="o">*</span><span class="n">alpha</span>
+<span class="gp">sage: </span><span class="n">I2</span> <span class="o">=</span> <span class="p">[</span><span class="mi">28</span><span class="o">*</span><span class="n">alpha</span><span class="o">^</span><span class="mi">3</span> <span class="o">+</span> <span class="mi">2</span><span class="o">*</span><span class="n">alpha</span><span class="o">^</span><span class="mi">2</span> <span class="o">+</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">61</span><span class="o">/</span><span class="mi">3</span><span class="o">*</span><span class="n">alpha</span><span class="o">^</span><span class="mi">3</span> <span class="o">+</span> <span class="mi">2</span><span class="o">*</span><span class="n">alpha</span><span class="o">^</span><span class="mi">2</span> <span class="o">+</span> <span class="mi">2</span><span class="o">/</span><span class="mi">3</span><span class="o">*</span><span class="n">alpha</span><span class="p">,</span>   <span class="mi">15</span><span class="o">*</span><span class="n">alpha</span><span class="o">^</span><span class="mi">3</span> <span class="o">+</span> <span class="mi">6</span><span class="o">*</span><span class="n">alpha</span><span class="o">^</span><span class="mi">2</span><span class="p">,</span>   <span class="mi">39</span><span class="o">*</span><span class="n">alpha</span><span class="o">^</span><span class="mi">3</span><span class="p">]</span>
+<span class="gp">sage: </span><span class="n">xi2</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span><span class="o">/</span><span class="mi">93600</span><span class="o">*</span><span class="n">alpha</span><span class="o">^</span><span class="mi">3</span> <span class="o">+</span> <span class="mi">1</span><span class="o">/</span><span class="mi">9360</span><span class="o">*</span><span class="n">alpha</span>
+<span class="gp">sage: </span><span class="n">I3</span> <span class="o">=</span> <span class="p">[</span><span class="mi">2</span><span class="o">*</span><span class="n">alpha</span><span class="o">^</span><span class="mi">3</span> <span class="o">+</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">4</span><span class="o">/</span><span class="mi">3</span><span class="o">*</span><span class="n">alpha</span><span class="o">^</span><span class="mi">3</span> <span class="o">+</span> <span class="mi">2</span><span class="o">*</span><span class="n">alpha</span><span class="o">^</span><span class="mi">2</span> <span class="o">+</span> <span class="mi">2</span><span class="o">/</span><span class="mi">3</span><span class="o">*</span><span class="n">alpha</span><span class="p">,</span> <span class="mi">6</span><span class="o">*</span><span class="n">alpha</span><span class="o">^</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="o">*</span><span class="n">alpha</span><span class="o">^</span><span class="mi">3</span><span class="p">]</span>
+<span class="gp">sage: </span><span class="n">xi3</span> <span class="o">=</span> <span class="mi">1</span><span class="o">/</span><span class="mi">1440</span><span class="o">*</span><span class="n">alpha</span><span class="o">^</span><span class="mi">3</span> <span class="o">+</span> <span class="mi">7</span><span class="o">/</span><span class="mi">720</span><span class="o">*</span><span class="n">alpha</span>
+
+<span class="gp">sage: </span><span class="n">O</span> <span class="o">=</span> <span class="n">ideal_order</span><span class="p">(</span><span class="n">I1</span><span class="p">,</span> <span class="n">K</span><span class="p">)</span>
+<span class="gp">sage: </span><span class="n">O</span> <span class="o">==</span> <span class="n">ideal_order</span><span class="p">(</span><span class="n">I2</span><span class="p">,</span> <span class="n">K</span><span class="p">)</span>
+<span class="go">True</span>
+<span class="gp">sage: </span><span class="n">O</span> <span class="o">==</span> <span class="n">ideal_order</span><span class="p">(</span><span class="n">I3</span><span class="p">,</span> <span class="n">K</span><span class="p">)</span>
+<span class="go">True</span>
+<span class="gp">sage: </span><span class="n">O</span><span class="o">.</span><span class="n">index_in</span><span class="p">(</span><span class="n">K</span><span class="o">.</span><span class="n">maximal_order</span><span class="p">())</span>
+<span class="go">27</span>
+
+<span class="gp">sage: </span><span class="n">I1inv</span> <span class="o">=</span> <span class="n">ideal_inverse</span><span class="p">(</span><span class="n">I1</span><span class="p">,</span> <span class="n">K</span><span class="p">)</span>
+<span class="gp">sage: </span><span class="n">P1</span> <span class="o">=</span> <span class="n">mult_ideals</span><span class="p">(</span><span class="n">I1</span><span class="p">,</span> <span class="n">I1inv</span><span class="p">,</span> <span class="n">K</span><span class="p">);</span> <span class="n">P1</span>
+<span class="go">[3, 2*alpha^3 + alpha, 3*alpha^2, 3*alpha^3]</span>
+<span class="gp">sage: </span><span class="n">O1</span> <span class="o">=</span> <span class="n">ideal_order</span><span class="p">(</span><span class="n">P1</span><span class="p">,</span> <span class="n">K</span><span class="p">);</span> <span class="n">O1</span> <span class="o">==</span> <span class="n">O</span>
+<span class="go">False</span>
+<span class="gp">sage: </span><span class="n">O1</span><span class="o">.</span><span class="n">index_in</span><span class="p">(</span><span class="n">K</span><span class="o">.</span><span class="n">maximal_order</span><span class="p">())</span>
+<span class="go">1</span>
+
+<span class="gp">sage: </span><span class="n">I2inv</span> <span class="o">=</span> <span class="n">ideal_inverse</span><span class="p">(</span><span class="n">I2</span><span class="p">,</span> <span class="n">K</span><span class="p">)</span>
+<span class="gp">sage: </span><span class="n">P2</span> <span class="o">=</span> <span class="n">mult_ideals</span><span class="p">(</span><span class="n">I2</span><span class="p">,</span> <span class="n">I2inv</span><span class="p">,</span> <span class="n">K</span><span class="p">);</span> <span class="n">P2</span>
+<span class="go">[3, 2*alpha^3 + alpha, 3*alpha^2, 3*alpha^3]</span>
+<span class="gp">sage: </span><span class="n">O2</span> <span class="o">=</span> <span class="n">ideal_order</span><span class="p">(</span><span class="n">P2</span><span class="p">,</span> <span class="n">K</span><span class="p">)</span>
+<span class="gp">sage: </span><span class="n">O2</span> <span class="o">==</span> <span class="n">O1</span>
+<span class="go">True</span>
+
+<span class="gp">sage: </span><span class="n">I3inv</span> <span class="o">=</span> <span class="n">ideal_inverse</span><span class="p">(</span><span class="n">I3</span><span class="p">,</span> <span class="n">K</span><span class="p">)</span>
+<span class="gp">sage: </span><span class="n">P3</span> <span class="o">=</span> <span class="n">mult_ideals</span><span class="p">(</span><span class="n">I3</span><span class="p">,</span> <span class="n">I3inv</span><span class="p">,</span> <span class="n">K</span><span class="p">);</span> <span class="n">P3</span>
+<span class="go">[3, 2*alpha^3 + alpha, 3*alpha^2, 3*alpha^3]</span>
+<span class="gp">sage: </span><span class="n">O3</span> <span class="o">=</span> <span class="n">ideal_order</span><span class="p">(</span><span class="n">P3</span><span class="p">,</span> <span class="n">K</span><span class="p">)</span>
+<span class="gp">sage: </span><span class="n">O3</span> <span class="o">==</span> <span class="n">O1</span>
+<span class="go">True</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="recip.orders.ideal_is_invertible">
+<code class="descclassname">recip.orders.</code><code class="descname">ideal_is_invertible</code><span class="sig-paren">(</span><em>basis</em>, <em>K=None</em>, <em>O=None</em><span class="sig-paren">)</span><a class="headerlink" href="#recip.orders.ideal_is_invertible" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns True if and only if the ZZ-lattice I spanned by basis is an
+invertible O-ideal.</p>
+<p>If O is not specified, returns True if and only if there is an order O
+such that I is an invertible O-ideal. Equivalently, it then returns True
+if and only if it is an invertible ideal of its endomorphism order.</p>
+<p>See <a class="reference internal" href="#recip.orders.ideal_inverse" title="recip.orders.ideal_inverse"><code class="xref py py-func docutils literal"><span class="pre">ideal_inverse()</span></code></a> for examples.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="recip.orders.ideal_order">
+<code class="descclassname">recip.orders.</code><code class="descname">ideal_order</code><span class="sig-paren">(</span><em>basis</em>, <em>K</em><span class="sig-paren">)</span><a class="headerlink" href="#recip.orders.ideal_order" title="Permalink to this definition">¶</a></dt>
+<dd><p>Given a basis of an ideal, returns the endomorphism ring inside K
+of this ideal, as an order.</p>
+<p>EXAMPLES:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">sage: </span><span class="kn">from</span> <span class="nn">recip</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="gp">sage: </span><span class="n">K</span><span class="o">.&lt;</span><span class="n">a</span><span class="o">&gt;</span> <span class="o">=</span> <span class="n">QuadraticField</span><span class="p">(</span><span class="mi">15</span><span class="p">)</span>
+<span class="gp">sage: </span><span class="n">basis1</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="n">a</span><span class="p">]</span>   <span class="c1"># Maximal order OK</span>
+<span class="gp">sage: </span><span class="n">basis2</span> <span class="o">=</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="o">*</span><span class="n">a</span><span class="p">]</span> <span class="c1"># 2OK</span>
+<span class="gp">sage: </span><span class="n">basis3</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="o">*</span><span class="n">a</span><span class="p">]</span> <span class="c1"># Another order, O</span>
+<span class="gp">sage: </span><span class="n">basis4</span> <span class="o">=</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="n">a</span><span class="p">]</span>   <span class="c1"># Fractional ideal. Note: 4*basis4 is an ideal of basis3.</span>
+<span class="gp">sage: </span><span class="n">O1</span> <span class="o">=</span> <span class="n">ideal_order</span><span class="p">(</span><span class="n">basis1</span><span class="p">,</span> <span class="n">K</span><span class="p">);</span> <span class="n">O1</span>
+<span class="go">Order in Number Field in a with defining polynomial x^2 - 15</span>
+<span class="gp">sage: </span><span class="n">O1</span><span class="o">.</span><span class="n">basis</span><span class="p">()</span>
+<span class="go">[1, a]</span>
+
+<span class="gp">sage: </span><span class="n">ideal_order</span><span class="p">(</span><span class="n">basis2</span><span class="p">,</span> <span class="n">K</span><span class="p">)</span> <span class="o">==</span> <span class="n">O1</span>
+<span class="go">True</span>
+
+<span class="gp">sage: </span><span class="n">O3</span> <span class="o">=</span> <span class="n">ideal_order</span><span class="p">(</span><span class="n">basis3</span><span class="p">,</span> <span class="n">K</span><span class="p">)</span>
+<span class="gp">sage: </span><span class="n">O3</span><span class="o">.</span><span class="n">basis</span><span class="p">()</span>
+<span class="go">[1, 2*a]</span>
+<span class="gp">sage: </span><span class="n">O1</span> <span class="o">==</span> <span class="n">O3</span>
+<span class="go">False</span>
+
+<span class="gp">sage: </span><span class="n">ideal_order</span><span class="p">(</span><span class="n">basis4</span><span class="p">,</span> <span class="n">K</span><span class="p">)</span> <span class="o">==</span> <span class="n">O3</span>
+<span class="go">True</span>
+
+<span class="gp">sage: </span><span class="n">is_ideal</span><span class="p">(</span><span class="n">O3</span><span class="p">,</span> <span class="n">basis3</span><span class="p">)</span>
+<span class="go">True</span>
+<span class="gp">sage: </span><span class="n">is_ideal</span><span class="p">(</span><span class="n">O1</span><span class="p">,</span> <span class="n">basis3</span><span class="p">)</span>
+<span class="go">False</span>
+<span class="gp">sage: </span><span class="n">is_ideal</span><span class="p">(</span><span class="n">O1</span><span class="p">,</span> <span class="n">basis1</span><span class="p">)</span>
+<span class="go">True</span>
+<span class="gp">sage: </span><span class="n">is_ideal</span><span class="p">(</span><span class="n">O3</span><span class="p">,</span> <span class="n">basis1</span><span class="p">)</span>
+<span class="go">True</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="recip.orders.ideals_equal">
+<code class="descclassname">recip.orders.</code><code class="descname">ideals_equal</code><span class="sig-paren">(</span><em>A</em>, <em>B</em>, <em>K=None</em><span class="sig-paren">)</span><a class="headerlink" href="#recip.orders.ideals_equal" title="Permalink to this definition">¶</a></dt>
+<dd><p>Given bases of two lattices A and B in K, returns true
+if and only if the lattices are equal.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="recip.orders.intersect_ideals">
+<code class="descclassname">recip.orders.</code><code class="descname">intersect_ideals</code><span class="sig-paren">(</span><em>basis1</em>, <em>basis2</em>, <em>K</em><span class="sig-paren">)</span><a class="headerlink" href="#recip.orders.intersect_ideals" title="Permalink to this definition">¶</a></dt>
+<dd><p>Given bases of lattices in K, returns a basis of their intersection.</p>
+<p>EXAMPLES:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">sage: </span><span class="kn">from</span> <span class="nn">recip</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="gp">sage: </span><span class="n">K</span><span class="o">.&lt;</span><span class="n">a</span><span class="o">&gt;</span> <span class="o">=</span> <span class="n">QuadraticField</span><span class="p">(</span><span class="mi">15</span><span class="p">)</span>
+<span class="gp">sage: </span><span class="n">basis1</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="n">a</span><span class="p">]</span>   <span class="c1"># Maximal order OK</span>
+<span class="gp">sage: </span><span class="n">basis2</span> <span class="o">=</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="o">*</span><span class="n">a</span><span class="p">]</span> <span class="c1"># 2OK</span>
+<span class="gp">sage: </span><span class="n">basis3</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="o">*</span><span class="n">a</span><span class="p">]</span> <span class="c1"># Another order, O</span>
+<span class="gp">sage: </span><span class="n">basis4</span> <span class="o">=</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="n">a</span><span class="p">]</span>   <span class="c1"># Fractional ideal. Note: 4*basis4 is an ideal of basis3.</span>
+<span class="gp">sage: </span><span class="n">intersect_ideals</span><span class="p">(</span><span class="n">basis1</span><span class="p">,</span> <span class="n">basis2</span><span class="p">,</span> <span class="n">K</span><span class="p">)</span> <span class="c1"># ideal2 intersected with an ambient ring, hence unchanged</span>
+<span class="go">[2, 2*a]</span>
+<span class="gp">sage: </span><span class="n">intersect_ideals</span><span class="p">(</span><span class="n">basis1</span><span class="p">,</span> <span class="n">basis3</span><span class="p">,</span> <span class="n">K</span><span class="p">)</span> <span class="c1"># Two orders intersected, hence the smallest is obtained</span>
+<span class="go">[1, 2*a]</span>
+<span class="gp">sage: </span><span class="n">intersect_ideals</span><span class="p">(</span><span class="n">basis2</span><span class="p">,</span> <span class="n">basis3</span><span class="p">,</span> <span class="n">K</span><span class="p">)</span> <span class="c1"># ideal2 intersected with an ambient ring, hence unchanged</span>
+<span class="go">[2, 2*a]</span>
+<span class="gp">sage: </span><span class="n">intersect_ideals</span><span class="p">(</span><span class="n">basis4</span><span class="p">,</span> <span class="n">basis3</span><span class="p">,</span> <span class="n">K</span><span class="p">)</span> <span class="c1"># intersection</span>
+<span class="go">[2, 2*a]</span>
+<span class="gp">sage: </span><span class="n">intersect_ideals</span><span class="p">(</span><span class="n">basis4</span><span class="p">,</span> <span class="n">basis4</span><span class="p">,</span> <span class="n">K</span><span class="p">)</span> <span class="c1"># intersection with itself</span>
+<span class="go">[2, a]</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="recip.orders.is_ideal">
+<code class="descclassname">recip.orders.</code><code class="descname">is_ideal</code><span class="sig-paren">(</span><em>O</em>, <em>B</em><span class="sig-paren">)</span><a class="headerlink" href="#recip.orders.is_ideal" title="Permalink to this definition">¶</a></dt>
+<dd><p>Given a basis B of a lattice L in a field K, and an order O in K,
+return True if and only if <span class="math">\(O L \subset L\)</span>.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="recip.orders.is_trivial_in_shimura_group">
+<code class="descclassname">recip.orders.</code><code class="descname">is_trivial_in_shimura_group</code><span class="sig-paren">(</span><em>A</em>, <em>alpha</em>, <em>O</em>, <em>cc=None</em><span class="sig-paren">)</span><a class="headerlink" href="#recip.orders.is_trivial_in_shimura_group" title="Permalink to this definition">¶</a></dt>
+<dd><p>Given an integral ideal A of the maximal order O_K of O coprime to 
+F = [O_K : O] and given an element alpha of O with A*Abar = alpha*O_K,
+returns True if and only if
+there exists mu in K^* with mu*mubar = alpha and mu*O coprime to F*O as
+ideals of O and mu*O_K = A.</p>
+<p>cc is complex conjugation (if not given, assumes K is a CM-field object).</p>
+<p>Assumes K is a non-biquadratic quartic CM-field (TODO: does not warn for
+biquadratic fields).</p>
+<p>Assumes O is stable under complex conjugation.</p>
+<p>EXAMPLES:</p>
+<p>We first create a suitable order, and standard things like reflex
+fields etcetera:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">sage: </span><span class="kn">from</span> <span class="nn">recip</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="gp">sage: </span><span class="n">P</span><span class="o">.&lt;</span><span class="n">x</span><span class="o">&gt;</span> <span class="o">=</span> <span class="n">QQ</span><span class="p">[]</span>
+<span class="gp">sage: </span><span class="n">CM_Field</span><span class="p">(</span><span class="n">x</span><span class="o">^</span><span class="mi">4</span><span class="o">+</span><span class="mi">2</span><span class="o">*</span><span class="n">x</span><span class="o">^</span><span class="mi">3</span><span class="o">+</span><span class="mi">16</span><span class="o">*</span><span class="n">x</span><span class="o">^</span><span class="mi">2</span><span class="o">+</span><span class="mi">15</span><span class="o">*</span><span class="n">x</span><span class="o">+</span><span class="mi">19</span><span class="p">)</span><span class="o">.</span><span class="n">minimal_DAB</span><span class="p">()</span>
+<span class="go">[149, 13, 5]</span>
+<span class="gp">sage: </span><span class="n">K</span> <span class="o">=</span> <span class="n">CM_Field</span><span class="p">([</span><span class="mi">149</span><span class="p">,</span><span class="mi">13</span><span class="p">,</span><span class="mi">5</span><span class="p">])</span>
+<span class="gp">sage: </span><span class="n">Phi</span> <span class="o">=</span> <span class="n">K</span><span class="o">.</span><span class="n">CM_types</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span>
+<span class="gp">sage: </span><span class="n">Psi</span> <span class="o">=</span> <span class="n">Phi</span><span class="o">.</span><span class="n">reflex</span><span class="p">()</span>
+<span class="gp">sage: </span><span class="n">Kr</span> <span class="o">=</span> <span class="n">Phi</span><span class="o">.</span><span class="n">reflex_field</span><span class="p">()</span>
+<span class="gp">sage: </span><span class="p">[</span><span class="n">alpha1</span><span class="p">,</span><span class="n">alpha2</span><span class="p">]</span><span class="o">=</span><span class="p">(</span><span class="n">x</span><span class="o">^</span><span class="mi">4</span><span class="o">+</span><span class="mi">2</span><span class="o">*</span><span class="n">x</span><span class="o">^</span><span class="mi">3</span><span class="o">+</span><span class="mi">16</span><span class="o">*</span><span class="n">x</span><span class="o">^</span><span class="mi">2</span><span class="o">+</span><span class="mi">15</span><span class="o">*</span><span class="n">x</span><span class="o">+</span><span class="mi">19</span><span class="p">)</span><span class="o">.</span><span class="n">roots</span><span class="p">(</span><span class="n">K</span><span class="p">,</span> <span class="n">multiplicities</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
+<span class="gp">sage: </span><span class="n">cc</span> <span class="o">=</span> <span class="n">K</span><span class="o">.</span><span class="n">complex_conjugation</span><span class="p">()</span>
+<span class="gp">sage: </span><span class="n">cc</span><span class="p">(</span><span class="n">alpha1</span><span class="p">)</span> <span class="o">==</span> <span class="n">alpha2</span>
+<span class="go">True</span>
+<span class="gp">sage: </span><span class="n">O</span> <span class="o">=</span> <span class="n">K</span><span class="o">.</span><span class="n">order</span><span class="p">(</span><span class="n">alpha1</span><span class="p">)</span>
+<span class="gp">sage: </span><span class="n">alpha2</span> <span class="ow">in</span> <span class="n">O</span>
+<span class="go">True</span>
+<span class="gp">sage: </span><span class="n">OK</span> <span class="o">=</span> <span class="n">K</span><span class="o">.</span><span class="n">maximal_order</span><span class="p">()</span>
+<span class="gp">sage: </span><span class="n">O</span><span class="o">.</span><span class="n">index_in</span><span class="p">(</span><span class="n">OK</span><span class="p">)</span>
+<span class="go">7</span>
+</pre></div>
+</div>
+<p>Now let&#8217;s compute lots of ideal classes to try:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">sage: </span><span class="n">ideal_classes</span> <span class="o">=</span> <span class="p">[</span><span class="n">c</span><span class="o">.</span><span class="n">ideal</span><span class="p">()</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">Kr</span><span class="o">.</span><span class="n">class_group</span><span class="p">()]</span>
+<span class="gp">sage: </span><span class="n">idealstar</span> <span class="o">=</span> <span class="n">Kr</span><span class="o">.</span><span class="n">ideal</span><span class="p">(</span><span class="mi">7</span><span class="p">)</span><span class="o">.</span><span class="n">idealstar</span><span class="p">(</span><span class="n">flag</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span><span class="o">.</span><span class="n">list</span><span class="p">()</span>
+<span class="gp">sage: </span><span class="n">ray_classes</span> <span class="o">=</span> <span class="p">[</span><span class="n">a</span><span class="o">*</span><span class="n">b</span> <span class="k">for</span> <span class="n">a</span> <span class="ow">in</span> <span class="n">idealstar</span> <span class="k">for</span> <span class="n">b</span> <span class="ow">in</span> <span class="n">ideal_classes</span><span class="p">]</span>
+<span class="gp">sage: </span><span class="nb">len</span><span class="p">(</span><span class="n">ray_classes</span><span class="p">)</span>
+<span class="go">2304</span>
+<span class="gp">sage: </span><span class="n">type_norms</span> <span class="o">=</span> <span class="p">[(</span><span class="n">Psi</span><span class="o">.</span><span class="n">type_norm</span><span class="p">(</span><span class="n">I</span><span class="p">),</span> <span class="n">I</span><span class="o">.</span><span class="n">norm</span><span class="p">())</span> <span class="k">for</span> <span class="n">I</span> <span class="ow">in</span> <span class="n">ray_classes</span><span class="p">]</span> <span class="c1"># long time, 20 seconds</span>
+</pre></div>
+</div>
+<p>Here we test the current function:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">sage: </span><span class="nb">all</span><span class="p">([</span><span class="n">is_trivial_in_shimura_group</span><span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="n">alpha</span><span class="p">,</span> <span class="n">OK</span><span class="p">)</span> <span class="k">for</span> <span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="n">alpha</span><span class="p">)</span> <span class="ow">in</span> <span class="n">type_norms</span><span class="p">])</span> <span class="c1"># long time, 30 seconds</span>
+<span class="go">  ***   Warning: precision too low for generators, not given.</span>
+<span class="go">  ...</span>
+<span class="go">  ***   Warning: precision too low for generators, not given.</span>
+<span class="go">True</span>
+<span class="gp">sage: </span><span class="nb">len</span><span class="p">([</span><span class="n">A</span> <span class="k">for</span> <span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="n">alpha</span><span class="p">)</span> <span class="ow">in</span> <span class="n">type_norms</span> <span class="k">if</span> <span class="n">is_trivial_in_shimura_group</span><span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="n">alpha</span><span class="p">,</span> <span class="n">O</span><span class="p">)])</span> <span class="c1"># long time, 25 seconds</span>
+<span class="go">384</span>
+<span class="gp">sage: </span><span class="mi">2304</span><span class="o">/</span><span class="mi">384</span>
+<span class="go">6</span>
+</pre></div>
+</div>
+<p>1/6 of ideals maps to a principal ideal, so the image has order 6.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="recip.orders.minimal_F">
+<code class="descclassname">recip.orders.</code><code class="descname">minimal_F</code><span class="sig-paren">(</span><em>O</em><span class="sig-paren">)</span><a class="headerlink" href="#recip.orders.minimal_F" title="Permalink to this definition">¶</a></dt>
+<dd><p>Given an order O in a number field K, returns the smallest integer F such
+that F*O_K subset O.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="recip.orders.mult_ideals">
+<code class="descclassname">recip.orders.</code><code class="descname">mult_ideals</code><span class="sig-paren">(</span><em>basis1</em>, <em>basis2</em>, <em>K</em><span class="sig-paren">)</span><a class="headerlink" href="#recip.orders.mult_ideals" title="Permalink to this definition">¶</a></dt>
+<dd><p>Given bases of lattices in K, returns a basis of their product.</p>
+<p>EXAMPLES:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">sage: </span><span class="kn">from</span> <span class="nn">recip</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="gp">sage: </span><span class="n">K</span><span class="o">.&lt;</span><span class="n">a</span><span class="o">&gt;</span> <span class="o">=</span> <span class="n">QuadraticField</span><span class="p">(</span><span class="mi">15</span><span class="p">)</span>
+<span class="gp">sage: </span><span class="n">basis1</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="n">a</span><span class="p">]</span>   <span class="c1"># Maximal order OK</span>
+<span class="gp">sage: </span><span class="n">basis2</span> <span class="o">=</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="o">*</span><span class="n">a</span><span class="p">]</span> <span class="c1"># 2OK</span>
+<span class="gp">sage: </span><span class="n">basis3</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="o">*</span><span class="n">a</span><span class="p">]</span> <span class="c1"># Another order, O</span>
+<span class="gp">sage: </span><span class="n">basis4</span> <span class="o">=</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="n">a</span><span class="p">]</span>   <span class="c1"># Fractional ideal. Note: 4*basis4 is an ideal of basis3.</span>
+<span class="gp">sage: </span><span class="n">mult_ideals</span><span class="p">(</span><span class="n">basis1</span><span class="p">,</span> <span class="n">basis2</span><span class="p">,</span> <span class="n">K</span><span class="p">)</span> <span class="c1"># basis2 multiplied by its endomorphism ring, hence unchanged</span>
+<span class="go">[2, 2*a]</span>
+<span class="gp">sage: </span><span class="n">mult_ideals</span><span class="p">(</span><span class="n">basis1</span><span class="p">,</span> <span class="n">basis3</span><span class="p">,</span> <span class="n">K</span><span class="p">)</span> <span class="c1"># Two orders multiplied, hence the largest is obtained</span>
+<span class="go">[1, a]</span>
+<span class="gp">sage: </span><span class="n">mult_ideals</span><span class="p">(</span><span class="n">basis2</span><span class="p">,</span> <span class="n">basis3</span><span class="p">,</span> <span class="n">K</span><span class="p">)</span> <span class="c1"># Twice the above</span>
+<span class="go">[2, 2*a]</span>
+<span class="gp">sage: </span><span class="n">mult_ideals</span><span class="p">(</span><span class="n">basis4</span><span class="p">,</span> <span class="n">basis3</span><span class="p">,</span> <span class="n">K</span><span class="p">)</span> <span class="c1"># basis4 multiplied by its endomorphism ring, hence unchanged</span>
+<span class="go">[2, a]</span>
+<span class="gp">sage: </span><span class="n">mult_ideals</span><span class="p">(</span><span class="n">basis4</span><span class="p">,</span> <span class="n">basis4</span><span class="p">,</span> <span class="n">K</span><span class="p">)</span> <span class="c1"># the square of basis4, generated by 4, 2a and a^2 = 15.</span>
+<span class="go">[1, 2*a]</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="recip.orders.period_matrices">
+<code class="descclassname">recip.orders.</code><code class="descname">period_matrices</code><span class="sig-paren">(</span><em>O</em>, <em>F</em>, <em>Phi=None</em>, <em>reduced=True</em><span class="sig-paren">)</span><a class="headerlink" href="#recip.orders.period_matrices" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns all isomorphism classes of principally polarized abelian surfaces
+with CM by O of type Phi. Here F is such that F*OK is contained in O.</p>
+<p>If Phi is None, use all CM-types and gives all elements
+up to complex conjugation of the CM type.</p>
+<p>EXAMPLES:</p>
+<p>Here is a bug, some numbers are close to zero and apparently CLF&#8217;s &gt; 0
+is not to be trusted.:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">sage: </span><span class="kn">from</span> <span class="nn">recip</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="gp">sage: </span><span class="n">K</span> <span class="o">=</span> <span class="n">CM_Field</span><span class="p">([</span><span class="mi">1837</span><span class="p">,</span> <span class="mi">81</span><span class="p">,</span> <span class="mi">1181</span><span class="p">])</span>
+<span class="gp">sage: </span><span class="n">Phi</span> <span class="o">=</span> <span class="n">K</span><span class="o">.</span><span class="n">CM_types</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span>
+<span class="gp">sage: </span><span class="nb">len</span><span class="p">(</span><span class="n">period_matrices</span><span class="p">(</span><span class="n">K</span><span class="o">.</span><span class="n">maximal_order</span><span class="p">(),</span> <span class="mi">1</span><span class="p">,</span> <span class="n">Phi</span><span class="p">))</span> <span class="c1"># long time, half a minute</span>
+<span class="go">66</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="recip.orders.polarized_ideal_classes">
+<code class="descclassname">recip.orders.</code><code class="descname">polarized_ideal_classes</code><span class="sig-paren">(</span><em>O</em>, <em>F</em><span class="sig-paren">)</span><a class="headerlink" href="#recip.orders.polarized_ideal_classes" title="Permalink to this definition">¶</a></dt>
+<dd><p>On input an order O of a quartic CM-field, returns all principally
+polarized ideal
+classes up to</p>
+<blockquote>
+<div><ul class="simple">
+<li>changing (aaa, xi) into (aaa, -xi),</li>
+<li>changing (aaa, xi) into (x*aaa, xi/x/xbar) for x in K.</li>
+</ul>
+</div></blockquote>
+<p>In the primitive quartic case, this is either the empty set or
+half of a
+torsor for the group CCC(O) in the article of Bisson and Streng.
+(Half of, because only one of (aaa, xi) and (aaa, -xi) is given.)
+If O is the maximal order of a primtive quartic CM-field, then the
+output is non-empty.</p>
+<p>INPUT:</p>
+<blockquote>
+<div><ul class="simple">
+<li><span class="math">\(O\)</span> &#8211; order in a quartic <span class="math">\(CM_Field\)</span> object</li>
+<li><span class="math">\(F\)</span> &#8211; positive integer such that F*OK is contained in O (not checked)</li>
+</ul>
+</div></blockquote>
+<p>EXAMPLES:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">sage: </span><span class="kn">from</span> <span class="nn">recip</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="gp">sage: </span><span class="n">K</span> <span class="o">=</span> <span class="n">CM_Field</span><span class="p">([</span><span class="mi">5</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span><span class="mi">5</span><span class="p">])</span>
+<span class="gp">sage: </span><span class="n">Phi</span> <span class="o">=</span> <span class="n">K</span><span class="o">.</span><span class="n">CM_types</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span>
+<span class="gp">sage: </span><span class="n">alpha</span> <span class="o">=</span> <span class="n">K</span><span class="o">.</span><span class="n">gen</span><span class="p">()</span>
+<span class="gp">sage: </span><span class="n">O</span> <span class="o">=</span> <span class="n">K</span><span class="o">.</span><span class="n">order</span><span class="p">([</span><span class="mi">1</span><span class="o">/</span><span class="mi">2</span><span class="o">*</span><span class="n">alpha</span><span class="o">^</span><span class="mi">3</span> <span class="o">+</span> <span class="mi">1</span><span class="o">/</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="o">/</span><span class="mi">2</span><span class="o">*</span><span class="n">alpha</span><span class="o">^</span><span class="mi">3</span> <span class="o">+</span> <span class="mi">5</span><span class="o">/</span><span class="mi">2</span><span class="o">*</span><span class="n">alpha</span><span class="o">^</span><span class="mi">2</span> <span class="o">+</span> <span class="mi">5</span><span class="o">/</span><span class="mi">2</span><span class="o">*</span><span class="n">alpha</span><span class="p">,</span> <span class="mi">5</span><span class="o">*</span><span class="n">alpha</span><span class="o">^</span><span class="mi">2</span><span class="p">,</span> <span class="n">alpha</span><span class="o">^</span><span class="mi">3</span><span class="p">])</span>
+<span class="gp">sage: </span><span class="n">OK</span> <span class="o">=</span> <span class="n">K</span><span class="o">.</span><span class="n">maximal_order</span><span class="p">()</span>
+<span class="gp">sage: </span><span class="n">O</span><span class="o">.</span><span class="n">index_in</span><span class="p">(</span><span class="n">OK</span><span class="p">)</span>
+<span class="go">25</span>
+<span class="gp">sage: </span><span class="n">s</span> <span class="o">=</span> <span class="n">superorders_stable_under_complex_conjugation</span><span class="p">(</span><span class="n">O</span><span class="p">)</span>
+<span class="gp">sage: </span><span class="nb">len</span><span class="p">(</span><span class="n">s</span><span class="p">)</span>
+<span class="go">3</span>
+<span class="gp">sage: </span><span class="n">F</span> <span class="o">=</span> <span class="mi">5</span>
+<span class="gp">sage: </span><span class="p">[</span><span class="n">ideal_contains</span><span class="p">(</span><span class="n">A</span><span class="o">.</span><span class="n">basis</span><span class="p">(),</span> <span class="p">[</span><span class="n">F</span><span class="o">*</span><span class="n">b</span> <span class="k">for</span> <span class="n">b</span> <span class="ow">in</span> <span class="n">OK</span><span class="o">.</span><span class="n">basis</span><span class="p">()])</span> <span class="k">for</span> <span class="n">A</span> <span class="ow">in</span> <span class="n">s</span><span class="p">]</span>
+<span class="go">[True, True, True]</span>
+<span class="gp">sage: </span><span class="n">polarized_ideal_classes</span><span class="p">(</span><span class="n">s</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="mi">1</span><span class="p">)</span>
+<span class="go">[([1/2*alpha^3 + 1/2, 1/2*alpha^3 + 1/2*alpha^2 + 1/2*alpha, alpha^2, alpha^3],</span>
+<span class="go">  1/5*alpha),</span>
+<span class="go"> ([1/2*alpha^3 + 1/2, 1/2*alpha^3 + 1/2*alpha^2 + 1/2*alpha, alpha^2, alpha^3],</span>
+<span class="go">  -1/5*alpha^3 - 3/5*alpha)]</span>
+<span class="gp">sage: </span><span class="n">polarized_ideal_classes</span><span class="p">(</span><span class="n">s</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="mi">5</span><span class="p">)</span> <span class="o">==</span> <span class="n">_</span> <span class="c1"># long time</span>
+<span class="go">True</span>
+<span class="gp">sage: </span><span class="n">polarized_ideal_classes</span><span class="p">(</span><span class="n">s</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="mi">5</span><span class="p">)</span> <span class="c1"># long time</span>
+<span class="go">[([1/2*alpha^3 + 1/2, 1/2*alpha^3 + 1/2*alpha^2 + 5/2*alpha, alpha^2, alpha^3],</span>
+<span class="go">  2/25*alpha^3 + 1/5*alpha),</span>
+<span class="go"> ([1/2*alpha^3 + 1/2, 1/2*alpha^3 + 1/2*alpha^2 + 5/2*alpha, alpha^2, alpha^3],</span>
+<span class="go">  1/25*alpha^3 + 1/5*alpha)]</span>
+<span class="gp">sage: </span><span class="n">polarized_ideal_classes</span><span class="p">(</span><span class="n">s</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="mi">5</span><span class="p">)</span> <span class="c1"># long time</span>
+<span class="go">[]</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="recip.orders.proper_ideal_classes">
+<code class="descclassname">recip.orders.</code><code class="descname">proper_ideal_classes</code><span class="sig-paren">(</span><em>O</em>, <em>F</em><span class="sig-paren">)</span><a class="headerlink" href="#recip.orders.proper_ideal_classes" title="Permalink to this definition">¶</a></dt>
+<dd><p>Input: O an order, F non-zero in ZZ and a multiple of the conductor.</p>
+<p>Output: representatives of all classes of proper ideals of O modulo
+principal ideals.</p>
+<p>Warning: not tested much except for primitive quartic CM-fields.</p>
+<blockquote>
+<div>sage: from recip import *
+sage: K = CM_Field([5,5,5])
+sage: Phi = K.CM_types()[0]
+sage: alpha = K.gen()
+sage: O = K.order([1/2*alpha^3 + 1/2, 1/2*alpha^3 + 5/2*alpha^2 + 5/2*alpha, 5*alpha^2, alpha^3])
+sage: OK = K.maximal_order()
+sage: O.index_in(OK)
+25
+sage: s = superorders_stable_under_complex_conjugation(O)
+sage: len(s)
+3
+sage: F = 5
+sage: [ideal_contains(A.basis(), [F*b for b in OK.basis()]) for A in s]
+[True, True, True]
+sage: proper_ideal_classes(s[0], 1)
+([[1/2*alpha^3 + 1/2, 1/2*alpha^3 + 1/2*alpha^2 + 1/2*alpha, alpha^2, alpha^3]], [[1/2*alpha^3 + 1/2, 1/2*alpha^3 + 1/2*alpha^2 + 1/2*alpha, alpha^2, alpha^3]], [[1/2*alpha^3 + 1/2, 1/2*alpha^3 + 1/2*alpha^2 + 1/2*alpha, alpha^2, alpha^3]])
+sage: proper_ideal_classes(s[0], 5) == _ # long time
+True
+sage: proper_ideal_classes(s[1], 5) # long time
+([[1/2*alpha^3 + 1/2, 1/2*alpha^3 + 1/2*alpha^2 + 5/2*alpha, alpha^2, alpha^3]], [[1/2*alpha^3 + 1/2, 5/2*alpha^3 + 5/2*alpha^2 + 5/2*alpha, alpha^2, alpha^3]], [[1/2*alpha^3 + 1/2, 1/2*alpha^3 + 1/2*alpha^2 + 5/2*alpha, alpha^2, alpha^3]])
+sage: proper_ideal_classes(s[2], 5) # long time
+([[1/2*alpha^3 + 1/2, 1/2*alpha^3 + 1/2*alpha^2 + 1/2*alpha, 5*alpha^2, alpha^3], [1/2*alpha^3 + 1/2, 1/2*alpha^3 + 5/2*alpha^2 + 5/2*alpha, 5*alpha^2, alpha^3]], [[1/2*alpha^3 + 1/2, 1/2*alpha^3 + 1/2*alpha^2 + 1/2*alpha, 5*alpha^2, alpha^3], [1/2*alpha^3 + 1/2, 5/2*alpha^3 + 5/2*alpha^2 + 5/2*alpha, 5*alpha^2, alpha^3]], [[1/2*alpha^3 + 1/2, 1/2*alpha^3 + 5/2*alpha^2 + 5/2*alpha, 5*alpha^2, alpha^3]])</div></blockquote>
+</dd></dl>
+
+<dl class="function">
+<dt id="recip.orders.superorders">
+<code class="descclassname">recip.orders.</code><code class="descname">superorders</code><span class="sig-paren">(</span><em>O</em><span class="sig-paren">)</span><a class="headerlink" href="#recip.orders.superorders" title="Permalink to this definition">¶</a></dt>
+<dd><p>Given an order O in a number field K, returns all orders in K containing O.</p>
+<p>NOTE: this implementation is probably not optimal, as it uses all subgroups
+of OK/O and tests whether they yield rings.</p>
+<p>EXAMPLES:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">sage: </span><span class="kn">from</span> <span class="nn">recip</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="gp">sage: </span><span class="n">K</span> <span class="o">=</span> <span class="n">CM_Field</span><span class="p">([</span><span class="mi">5</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span><span class="mi">5</span><span class="p">])</span>
+<span class="gp">sage: </span><span class="n">OK</span> <span class="o">=</span> <span class="n">K</span><span class="o">.</span><span class="n">maximal_order</span><span class="p">()</span>
+<span class="gp">sage: </span><span class="n">O</span> <span class="o">=</span> <span class="n">K</span><span class="o">.</span><span class="n">order</span><span class="p">([</span><span class="mi">5</span><span class="o">*</span><span class="n">b</span> <span class="k">for</span> <span class="n">b</span> <span class="ow">in</span> <span class="n">OK</span><span class="o">.</span><span class="n">basis</span><span class="p">()])</span>
+<span class="gp">sage: </span><span class="n">s</span> <span class="o">=</span> <span class="n">superorders</span><span class="p">(</span><span class="n">O</span><span class="p">)</span>
+<span class="gp">sage: </span><span class="p">[</span><span class="n">A</span><span class="o">.</span><span class="n">index_in</span><span class="p">(</span><span class="n">OK</span><span class="p">)</span> <span class="k">for</span> <span class="n">A</span> <span class="ow">in</span> <span class="n">s</span><span class="p">]</span>
+<span class="go">[1, 5, 25, 25, 25, 25, 25, 25, 125]</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="recip.orders.superorders_stable_under_complex_conjugation">
+<code class="descclassname">recip.orders.</code><code class="descname">superorders_stable_under_complex_conjugation</code><span class="sig-paren">(</span><em>O</em>, <em>c=None</em><span class="sig-paren">)</span><a class="headerlink" href="#recip.orders.superorders_stable_under_complex_conjugation" title="Permalink to this definition">¶</a></dt>
+<dd><p>Given an order O in a number field K, and an automorphism c of K, returns
+all orders of K containing O and fixed under c.</p>
+<p>If c is omitted and K has a method complex_conjugation, then use that for
+c.</p>
+<p>EXAMPLES:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">sage: </span><span class="kn">from</span> <span class="nn">recip</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="gp">sage: </span><span class="n">K</span> <span class="o">=</span> <span class="n">CM_Field</span><span class="p">([</span><span class="mi">5</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span><span class="mi">5</span><span class="p">])</span>
+<span class="gp">sage: </span><span class="n">OK</span> <span class="o">=</span> <span class="n">K</span><span class="o">.</span><span class="n">maximal_order</span><span class="p">()</span>
+<span class="gp">sage: </span><span class="n">O</span> <span class="o">=</span> <span class="n">K</span><span class="o">.</span><span class="n">order</span><span class="p">([</span><span class="mi">5</span><span class="o">*</span><span class="n">b</span> <span class="k">for</span> <span class="n">b</span> <span class="ow">in</span> <span class="n">OK</span><span class="o">.</span><span class="n">basis</span><span class="p">()])</span>
+<span class="gp">sage: </span><span class="n">s</span> <span class="o">=</span> <span class="n">superorders_stable_under_complex_conjugation</span><span class="p">(</span><span class="n">O</span><span class="p">)</span>
+<span class="gp">sage: </span><span class="p">[</span><span class="n">A</span><span class="o">.</span><span class="n">index_in</span><span class="p">(</span><span class="n">OK</span><span class="p">)</span> <span class="k">for</span> <span class="n">A</span> <span class="ow">in</span> <span class="n">s</span><span class="p">]</span>
+<span class="go">[1, 5, 25, 25, 125]</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="recip.orders.trace_dual_complex_conjugate">
+<code class="descclassname">recip.orders.</code><code class="descname">trace_dual_complex_conjugate</code><span class="sig-paren">(</span><em>A</em>, <em>cc=None</em><span class="sig-paren">)</span><a class="headerlink" href="#recip.orders.trace_dual_complex_conjugate" title="Permalink to this definition">¶</a></dt>
+<dd><p>Given a basis A of a lattice, returns the trace dual of cc(A).
+If cc is not specified and K has a complex_conjugation method, use that.</p>
+</dd></dl>
+
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="class_polynomials.html"
+                        title="previous chapter">Class polynomials</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="bissonstreng.html"
+                        title="next chapter">Bisson-Streng</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/orders.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="bissonstreng.html" title="Bisson-Streng"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="class_polynomials.html" title="Class polynomials"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">CM SageMath code 3.0.1 documentation</a> &#187;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2017, Marco Streng.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.5.3.
+    </div>
+  </body>
+</html>

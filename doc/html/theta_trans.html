@@ -1,0 +1,702 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Theta transformation formulas &#8212; CM SageMath code 3.0.1 documentation</title>
+    
+    <link rel="stylesheet" href="_static/classic.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '3.0.1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="_static/MathJax.js?config=TeX-AMS_HTML-full,../mathjax_sage.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Finding class invariants" href="find_class_invariant.html" />
+    <link rel="prev" title="Period matrices" href="period_matrices.html" /> 
+  </head>
+  <body role="document">
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="find_class_invariant.html" title="Finding class invariants"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="period_matrices.html" title="Period matrices"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">CM SageMath code 3.0.1 documentation</a> &#187;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <p>..nodoctest</p>
+<div class="section" id="module-recip.theta_trans">
+<span id="theta-transformation-formulas"></span><h1>Theta transformation formulas<a class="headerlink" href="#module-recip.theta_trans" title="Permalink to this headline">¶</a></h1>
+<p>x.__init__(...) initializes x; see help(type(x)) for signature</p>
+<dl class="attribute">
+<dt id="recip.theta_trans.Theta">
+<code class="descclassname">recip.theta_trans.</code><code class="descname">Theta</code><a class="headerlink" href="#recip.theta_trans.Theta" title="Permalink to this definition">¶</a></dt>
+<dd><p>alias of <a class="reference internal" href="#recip.theta_trans.ThetaProduct" title="recip.theta_trans.ThetaProduct"><code class="xref py py-class docutils literal"><span class="pre">ThetaProduct</span></code></a></p>
+</dd></dl>
+
+<dl class="class">
+<dt id="recip.theta_trans.ThetaGroup">
+<em class="property">class </em><code class="descclassname">recip.theta_trans.</code><code class="descname">ThetaGroup</code><a class="headerlink" href="#recip.theta_trans.ThetaGroup" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">sage.groups.group.Group</span></code>, <code class="xref py py-class docutils literal"><span class="pre">sage.structure.unique_representation.UniqueRepresentation</span></code></p>
+<dl class="attribute">
+<dt id="recip.theta_trans.ThetaGroup.Element">
+<code class="descname">Element</code><a class="headerlink" href="#recip.theta_trans.ThetaGroup.Element" title="Permalink to this definition">¶</a></dt>
+<dd><p>alias of <a class="reference internal" href="#recip.theta_trans.ThetaProduct" title="recip.theta_trans.ThetaProduct"><code class="xref py py-class docutils literal"><span class="pre">ThetaProduct</span></code></a></p>
+</dd></dl>
+
+<dl class="method">
+<dt id="recip.theta_trans.ThetaGroup.is_abelian">
+<code class="descname">is_abelian</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#recip.theta_trans.ThetaGroup.is_abelian" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="recip.theta_trans.ThetaGroup.is_finite">
+<code class="descname">is_finite</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#recip.theta_trans.ThetaGroup.is_finite" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="recip.theta_trans.ThetaGroup.order">
+<code class="descname">order</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#recip.theta_trans.ThetaGroup.order" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="function">
+<dt id="recip.theta_trans.ThetaModForm">
+<code class="descclassname">recip.theta_trans.</code><code class="descname">ThetaModForm</code><span class="sig-paren">(</span><em>x</em>, <em>g=None</em>, <em>den=None</em><span class="sig-paren">)</span><a class="headerlink" href="#recip.theta_trans.ThetaModForm" title="Permalink to this definition">¶</a></dt>
+<dd><p>Constructs a modular form given as a polynomial in theta series.</p>
+<p>EXAMPLES:</p>
+<blockquote>
+<div>sage: from recip import *
+sage: P = theta_ring(3, 2)[0]
+sage: x = sum(P.gens()[2:7])
+sage: t = ThetaModForm(x, g = 3); t
+t2 + t3 + t4 + t5 + t6
+sage: t.long_name()
+&#8216;th[0,0,0;0,1/2,0] + th[0,0,0;1/2,1/2,0] + th[0,0,0;0,0,1/2] + th[0,0,0;1/2,0,1/2] + th[0,0,0;0,1/2,1/2]&#8217;</div></blockquote>
+</dd></dl>
+
+<dl class="class">
+<dt id="recip.theta_trans.ThetaProduct">
+<em class="property">class </em><code class="descclassname">recip.theta_trans.</code><code class="descname">ThetaProduct</code><span class="sig-paren">(</span><em>sequence</em>, <em>unity=0</em><span class="sig-paren">)</span><a class="headerlink" href="#recip.theta_trans.ThetaProduct" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">sage.structure.element.MultiplicativeGroupElement</span></code>, <a class="reference internal" href="#recip.theta_trans.Theta_element" title="recip.theta_trans.Theta_element"><code class="xref py py-class docutils literal"><span class="pre">recip.theta_trans.Theta_element</span></code></a></p>
+<dl class="method">
+<dt id="recip.theta_trans.ThetaProduct.g">
+<code class="descname">g</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#recip.theta_trans.ThetaProduct.g" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="recip.theta_trans.ThetaProduct.level">
+<code class="descname">level</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#recip.theta_trans.ThetaProduct.level" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a multiple of the level of this function</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="recip.theta_trans.ThetaProduct.weight">
+<code class="descname">weight</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#recip.theta_trans.ThetaProduct.weight" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="recip.theta_trans.ThetaRing">
+<em class="property">class </em><code class="descclassname">recip.theta_trans.</code><code class="descname">ThetaRing</code><a class="headerlink" href="#recip.theta_trans.ThetaRing" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">sage.rings.ring.CommutativeRing</span></code>, <code class="xref py py-class docutils literal"><span class="pre">sage.structure.unique_representation.UniqueRepresentation</span></code></p>
+<dl class="attribute">
+<dt id="recip.theta_trans.ThetaRing.Element">
+<code class="descname">Element</code><a class="headerlink" href="#recip.theta_trans.ThetaRing.Element" title="Permalink to this definition">¶</a></dt>
+<dd><p>alias of <a class="reference internal" href="#recip.theta_trans.ThetaSum" title="recip.theta_trans.ThetaSum"><code class="xref py py-class docutils literal"><span class="pre">ThetaSum</span></code></a></p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="recip.theta_trans.ThetaSum">
+<em class="property">class </em><code class="descclassname">recip.theta_trans.</code><code class="descname">ThetaSum</code><span class="sig-paren">(</span><em>sequence</em><span class="sig-paren">)</span><a class="headerlink" href="#recip.theta_trans.ThetaSum" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">sage.structure.element.CommutativeRingElement</span></code>, <a class="reference internal" href="#recip.theta_trans.Theta_element" title="recip.theta_trans.Theta_element"><code class="xref py py-class docutils literal"><span class="pre">recip.theta_trans.Theta_element</span></code></a></p>
+</dd></dl>
+
+<dl class="class">
+<dt id="recip.theta_trans.Theta_element">
+<em class="property">class </em><code class="descclassname">recip.theta_trans.</code><code class="descname">Theta_element</code><a class="headerlink" href="#recip.theta_trans.Theta_element" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">sage.structure.element.Element</span></code></p>
+<dl class="method">
+<dt id="recip.theta_trans.Theta_element.orbit">
+<code class="descname">orbit</code><span class="sig-paren">(</span><em>M</em>, <em>group_elements=False</em><span class="sig-paren">)</span><a class="headerlink" href="#recip.theta_trans.Theta_element.orbit" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the orbit of self under M.
+Note: see <code class="xref py py-meth docutils literal"><span class="pre">__eq__()</span></code></p>
+<p>INPUT:</p>
+<ul class="simple">
+<li>group_elements can be either False, True, or &#8220;list&#8221;.
+If False, return only the orbit
+If &#8220;list&#8221;, also return a list of lists <span class="math">\(l\)</span> of elements of M such that
+the elements of the orbit are given by l*self
+If True, then give an element of the group generated by M instead
+of a list of elements of M.</li>
+</ul>
+<p>EXAMPLES:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">sage: </span><span class="kn">from</span> <span class="nn">recip</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="gp">sage: </span><span class="n">gens</span> <span class="o">=</span> <span class="n">symplectic_generators</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+<span class="gp">sage: </span><span class="n">th0</span> <span class="o">=</span> <span class="n">ThetaModForm</span><span class="p">(</span><span class="n">theta_ring</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">2</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">gens</span><span class="p">()[</span><span class="mi">0</span><span class="p">])</span>
+<span class="gp">sage: </span><span class="n">h4</span> <span class="o">=</span> <span class="n">my_sum</span><span class="p">((</span><span class="n">th0</span><span class="o">^</span><span class="mi">8</span><span class="p">)</span><span class="o">.</span><span class="n">orbit</span><span class="p">(</span><span class="n">gens</span><span class="p">));</span> <span class="n">h4</span> <span class="c1"># long time</span>
+<span class="go">t0^8 + t1^8 + t2^8 + t3^8 + t4^8 + t6^8 + t8^8 + t9^8 + t12^8 + t15^8</span>
+</pre></div>
+</div>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="recip.theta_trans.Theta_element_polynomial_ring">
+<em class="property">class </em><code class="descclassname">recip.theta_trans.</code><code class="descname">Theta_element_polynomial_ring</code><span class="sig-paren">(</span><em>num_pol</em>, <em>den_pol</em>, <em>g</em>, <em>den</em><span class="sig-paren">)</span><a class="headerlink" href="#recip.theta_trans.Theta_element_polynomial_ring" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#recip.theta_trans.Theta_element" title="recip.theta_trans.Theta_element"><code class="xref py py-class docutils literal"><span class="pre">recip.theta_trans.Theta_element</span></code></a></p>
+<dl class="method">
+<dt id="recip.theta_trans.Theta_element_polynomial_ring.change_den">
+<code class="descname">change_den</code><span class="sig-paren">(</span><em>den</em><span class="sig-paren">)</span><a class="headerlink" href="#recip.theta_trans.Theta_element_polynomial_ring.change_den" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a representation of self with denominator den</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="recip.theta_trans.Theta_element_polynomial_ring.den_weight">
+<code class="descname">den_weight</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#recip.theta_trans.Theta_element_polynomial_ring.den_weight" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="recip.theta_trans.Theta_element_polynomial_ring.is_fixed_by">
+<code class="descname">is_fixed_by</code><span class="sig-paren">(</span><em>M</em><span class="sig-paren">)</span><a class="headerlink" href="#recip.theta_trans.Theta_element_polynomial_ring.is_fixed_by" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the orbit of self under M.
+Note: see __eq__</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="recip.theta_trans.Theta_element_polynomial_ring.is_power_of_theta">
+<code class="descname">is_power_of_theta</code><span class="sig-paren">(</span><em>data=False</em><span class="sig-paren">)</span><a class="headerlink" href="#recip.theta_trans.Theta_element_polynomial_ring.is_power_of_theta" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns true if and only if self is a constant times
+a positive power of a non-zero theta constant.</p>
+<p>If data is True, then also output a triple (a, n, e)
+such that self = a*theta_n^e.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="recip.theta_trans.Theta_element_polynomial_ring.long_name">
+<code class="descname">long_name</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#recip.theta_trans.Theta_element_polynomial_ring.long_name" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="recip.theta_trans.Theta_element_polynomial_ring.multiplication_formula">
+<code class="descname">multiplication_formula</code><span class="sig-paren">(</span><em>n</em><span class="sig-paren">)</span><a class="headerlink" href="#recip.theta_trans.Theta_element_polynomial_ring.multiplication_formula" title="Permalink to this definition">¶</a></dt>
+<dd><p>Gives Z <a href="#id1"><span class="problematic" id="id2">|</span></a>-&gt; self(nZ)</p>
+<p>EXAMPLES:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">sage: </span><span class="kn">from</span> <span class="nn">recip</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="gp">sage: </span><span class="n">M</span> <span class="o">=</span> <span class="n">Matrix</span><span class="p">([[</span><span class="n">I</span><span class="p">,</span> <span class="mi">1</span><span class="o">/</span><span class="mi">2</span><span class="o">+</span><span class="n">I</span><span class="o">/</span><span class="mi">7</span><span class="p">],</span> <span class="p">[</span><span class="mi">1</span><span class="o">/</span><span class="mi">2</span><span class="o">+</span><span class="n">I</span><span class="o">/</span><span class="mi">7</span><span class="p">,</span> <span class="mi">3</span><span class="o">/</span><span class="mi">2</span><span class="o">*</span><span class="n">I</span><span class="o">-</span><span class="mi">1</span><span class="o">/</span><span class="mi">5</span><span class="p">]],</span> <span class="n">ring</span><span class="o">=</span><span class="n">CC</span><span class="p">)</span>
+<span class="gp">sage: </span><span class="n">M</span><span class="o">.</span><span class="n">set_immutable</span><span class="p">()</span>
+<span class="gp">sage: </span><span class="n">P</span> <span class="o">=</span> <span class="n">theta_ring</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">2</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+<span class="gp">sage: </span><span class="n">N</span> <span class="o">=</span> <span class="mi">1</span><span class="o">/</span><span class="mi">2</span> <span class="o">*</span> <span class="n">M</span>
+<span class="gp">sage: </span><span class="n">N</span><span class="o">.</span><span class="n">set_immutable</span><span class="p">()</span>
+<span class="gp">sage: </span><span class="n">u</span> <span class="o">=</span> <span class="n">ThetaModForm</span><span class="p">(</span><span class="n">P</span><span class="o">.</span><span class="n">gens</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span><span class="o">^</span><span class="mi">2</span><span class="o">/</span><span class="n">P</span><span class="o">.</span><span class="n">gens</span><span class="p">()[</span><span class="mi">1</span><span class="p">]</span><span class="o">^</span><span class="mi">2</span><span class="p">)</span>
+<span class="gp">sage: </span><span class="n">u</span><span class="p">(</span><span class="n">M</span><span class="p">)</span>
+<span class="go">1.39698675882520 + 0.0121273780920932*I</span>
+<span class="gp">sage: </span><span class="n">u</span><span class="o">.</span><span class="n">multiplication_formula</span><span class="p">(</span><span class="mi">2</span><span class="p">)(</span><span class="n">N</span><span class="p">)</span>
+<span class="go">1.39698675882520 + 0.0121273780920933*I</span>
+</pre></div>
+</div>
+<p>Here is a Delta-quotient, but it will need to be simplified before it is useful:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">sage: </span><span class="n">i</span> <span class="o">=</span> <span class="n">igusa_modular_forms</span><span class="p">()[</span><span class="mi">2</span><span class="p">];</span> <span class="n">i</span>
+<span class="go">t0^2*t1^2*t2^2*t3^2*t4^2*t6^2*t8^2*t9^2*t12^2*t15^2</span>
+<span class="gp">sage: </span><span class="n">q</span> <span class="o">=</span> <span class="n">i</span><span class="o">.</span><span class="n">multiplication_formula</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span><span class="o">/</span><span class="n">i</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="recip.theta_trans.Theta_element_polynomial_ring.num_weight">
+<code class="descname">num_weight</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#recip.theta_trans.Theta_element_polynomial_ring.num_weight" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="recip.theta_trans.Theta_element_polynomial_ring.rational_function">
+<code class="descname">rational_function</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#recip.theta_trans.Theta_element_polynomial_ring.rational_function" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="recip.theta_trans.Theta_element_polynomial_ring.weight">
+<code class="descname">weight</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#recip.theta_trans.Theta_element_polynomial_ring.weight" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="function">
+<dt id="recip.theta_trans.c_to_num">
+<code class="descclassname">recip.theta_trans.</code><code class="descname">c_to_num</code><span class="sig-paren">(</span><em>c</em>, <em>den</em><span class="sig-paren">)</span><a class="headerlink" href="#recip.theta_trans.c_to_num" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns an integer from 0 to den^2g (exclusive), one unique
+number for each c in [0,1)^2g with den*c integral.</p>
+<p>For g = 2 and den = 2, this is Dupont&#8217;s notation.</p>
+<p>EXAMPLE:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">sage: </span><span class="kn">from</span> <span class="nn">recip</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="gp">sage: </span><span class="n">c_to_num</span><span class="p">(</span><span class="n">num_to_c</span><span class="p">(</span><span class="mi">1234</span><span class="p">,</span> <span class="n">g</span> <span class="o">=</span> <span class="mi">5</span><span class="p">,</span> <span class="n">den</span> <span class="o">=</span> <span class="mi">7</span><span class="p">),</span> <span class="n">den</span> <span class="o">=</span> <span class="mi">7</span><span class="p">)</span>
+<span class="go">1234</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="recip.theta_trans.cycl_galois_action">
+<code class="descclassname">recip.theta_trans.</code><code class="descname">cycl_galois_action</code><span class="sig-paren">(</span><em>alpha</em>, <em>amodb</em><span class="sig-paren">)</span><a class="headerlink" href="#recip.theta_trans.cycl_galois_action" title="Permalink to this definition">¶</a></dt>
+<dd><p>For alpha in CyclotomicField(b), return alpha with zeta_b raised to the power a</p>
+<p>EXAMPLES:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">sage: </span><span class="kn">from</span> <span class="nn">recip</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="gp">sage: </span><span class="n">C</span> <span class="o">=</span> <span class="n">CyclotomicField</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
+<span class="gp">sage: </span><span class="n">amodb</span> <span class="o">=</span> <span class="n">Zmod</span><span class="p">(</span><span class="mi">15</span><span class="p">)(</span><span class="mi">7</span><span class="p">)</span>
+<span class="gp">sage: </span><span class="n">z</span> <span class="o">=</span> <span class="n">C</span><span class="o">.</span><span class="n">gen</span><span class="p">()</span>
+<span class="gp">sage: </span><span class="n">cycl_galois_action</span><span class="p">(</span><span class="n">z</span><span class="o">^</span><span class="mi">5</span><span class="o">+</span><span class="n">z</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span> <span class="n">amodb</span><span class="p">)</span>
+<span class="go">-zeta15^3</span>
+</pre></div>
+</div>
+<p>The modulus must match up:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">sage: </span><span class="n">f</span> <span class="o">=</span> <span class="n">Zmod</span><span class="p">(</span><span class="mi">6</span><span class="p">)(</span><span class="mi">5</span><span class="p">)</span>
+<span class="gp">sage: </span><span class="n">cycl_galois_action</span><span class="p">(</span><span class="n">z</span><span class="p">,</span> <span class="n">f</span><span class="p">)</span>
+<span class="gt">Traceback (most recent call last):</span>
+<span class="c">...</span>
+<span class="gr">TypeError</span>: <span class="n">Cannot coerce zeta10 into Cyclotomic Field of order 6 and degree 2</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="recip.theta_trans.cycl_galois_action_on_polynomials">
+<code class="descclassname">recip.theta_trans.</code><code class="descname">cycl_galois_action_on_polynomials</code><span class="sig-paren">(</span><em>x</em>, <em>amodb</em><span class="sig-paren">)</span><a class="headerlink" href="#recip.theta_trans.cycl_galois_action_on_polynomials" title="Permalink to this definition">¶</a></dt>
+<dd><p>On input a polynomial x and an element amodb of Zmod(b),
+return x where cycl_galois_action is aplied to each coefficient.</p>
+<p>EXAMPLES:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">sage: </span><span class="kn">from</span> <span class="nn">recip</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="gp">sage: </span><span class="n">P</span> <span class="o">=</span> <span class="n">theta_ring</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">6</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+<span class="gp">sage: </span><span class="n">z</span> <span class="o">=</span> <span class="n">P</span><span class="o">.</span><span class="n">base_ring</span><span class="p">()</span><span class="o">.</span><span class="n">gen</span><span class="p">()</span>
+<span class="gp">sage: </span><span class="n">x</span> <span class="o">=</span> <span class="n">P</span><span class="o">.</span><span class="n">gens</span><span class="p">()[</span><span class="mi">1</span><span class="p">]</span><span class="o">*</span><span class="p">(</span><span class="n">z</span><span class="o">+</span><span class="n">z</span><span class="o">^</span><span class="mi">2</span><span class="o">+</span><span class="n">z</span><span class="o">^</span><span class="mi">3</span><span class="p">)</span><span class="o">+</span><span class="n">P</span><span class="o">.</span><span class="n">gens</span><span class="p">()[</span><span class="mi">3</span><span class="p">]</span><span class="o">*</span><span class="n">z</span><span class="o">^-</span><span class="mi">1</span><span class="p">;</span> <span class="n">x</span>
+<span class="go">(zeta72^3 + zeta72^2 + zeta72)*t1d6 + (-zeta72^23 + zeta72^11)*t3d6</span>
+<span class="gp">sage: </span><span class="n">cycl_galois_action_on_polynomials</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">Zmod</span><span class="p">(</span><span class="mi">72</span><span class="p">)(</span><span class="mi">73</span><span class="p">))</span> <span class="o">==</span> <span class="n">x</span>
+<span class="go">True</span>
+<span class="gp">sage: </span><span class="n">cycl_galois_action_on_polynomials</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">Zmod</span><span class="p">(</span><span class="mi">72</span><span class="p">)(</span><span class="mi">3</span><span class="p">))</span>
+<span class="go">(zeta72^9 + zeta72^6 + zeta72^3)*t1d6 + (2*zeta72^21 - 2*zeta72^9)*t3d6</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="recip.theta_trans.determine_kappa">
+<code class="descclassname">recip.theta_trans.</code><code class="descname">determine_kappa</code><span class="sig-paren">(</span><em>M</em>, <em>prec=200</em><span class="sig-paren">)</span><a class="headerlink" href="#recip.theta_trans.determine_kappa" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the element kappa(M) of QQ(zeta_{1/8}) such that for all c and Z:</p>
+<blockquote>
+<div>theta[M[c]](0, M(Z)) = kappa(M) det(CZ+D)^(1/2) e(k(M,c)/2) theta[c](0,Z).</div></blockquote>
+<p>where the square root is chosen such that det(C*I+D)^(1/2) has argument
+in [0, 2*pi).</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="recip.theta_trans.dup_data">
+<code class="descclassname">recip.theta_trans.</code><code class="descname">dup_data</code><span class="sig-paren">(</span><em>g</em><span class="sig-paren">)</span><a class="headerlink" href="#recip.theta_trans.dup_data" title="Permalink to this definition">¶</a></dt>
+<dd><p>Writes out the duplication formula on pages 129 and 130 of Dupont&#8217;s thesis.</p>
+<p>EXAMPLES:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">sage: </span><span class="kn">from</span> <span class="nn">recip</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="gp">sage: </span><span class="n">M</span> <span class="o">=</span> <span class="n">Matrix</span><span class="p">([[</span><span class="n">I</span><span class="p">,</span> <span class="mi">1</span><span class="o">/</span><span class="mi">2</span><span class="o">+</span><span class="n">I</span><span class="o">/</span><span class="mi">7</span><span class="p">],</span> <span class="p">[</span><span class="mi">1</span><span class="o">/</span><span class="mi">2</span><span class="o">+</span><span class="n">I</span><span class="o">/</span><span class="mi">7</span><span class="p">,</span> <span class="mi">3</span><span class="o">/</span><span class="mi">2</span><span class="o">*</span><span class="n">I</span><span class="o">-</span><span class="mi">1</span><span class="o">/</span><span class="mi">5</span><span class="p">]],</span> <span class="n">ring</span><span class="o">=</span><span class="n">CC</span><span class="p">)</span>
+<span class="gp">sage: </span><span class="n">M</span><span class="o">.</span><span class="n">set_immutable</span><span class="p">()</span>
+<span class="gp">sage: </span><span class="n">P</span> <span class="o">=</span> <span class="n">theta_ring</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">2</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+<span class="gp">sage: </span><span class="n">N</span> <span class="o">=</span> <span class="mi">1</span><span class="o">/</span><span class="mi">2</span> <span class="o">*</span> <span class="n">M</span>
+<span class="gp">sage: </span><span class="n">N</span><span class="o">.</span><span class="n">set_immutable</span><span class="p">()</span>
+<span class="gp">sage: </span><span class="n">ThetaModForm</span><span class="p">(</span><span class="n">dup_data</span><span class="p">(</span><span class="mi">2</span><span class="p">)[</span><span class="mi">1</span><span class="p">])(</span><span class="n">N</span><span class="p">)</span>
+<span class="go">0.864595401455589 - 0.0220695738100844*I</span>
+<span class="gp">sage: </span><span class="n">ThetaModForm</span><span class="p">(</span><span class="n">P</span><span class="o">.</span><span class="n">gens</span><span class="p">()[</span><span class="mi">1</span><span class="p">])(</span><span class="n">M</span><span class="p">)</span><span class="o">^</span><span class="mi">2</span>
+<span class="go">0.864595401455589 - 0.0220695738100845*I</span>
+<span class="gp">sage: </span><span class="p">[</span><span class="nb">abs</span><span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="n">ThetaModForm</span><span class="p">(</span><span class="n">dup_data</span><span class="p">(</span><span class="mi">2</span><span class="p">)[</span><span class="n">i</span><span class="p">])(</span><span class="n">N</span><span class="p">)</span> <span class="o">/</span> <span class="n">ThetaModForm</span><span class="p">(</span><span class="n">P</span><span class="o">.</span><span class="n">gens</span><span class="p">()[</span><span class="n">i</span><span class="p">])(</span><span class="n">M</span><span class="p">)</span><span class="o">^</span><span class="mi">2</span><span class="p">)</span><span class="o">&lt;</span><span class="mi">10</span><span class="o">^-</span><span class="mi">10</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">6</span><span class="p">,</span><span class="mi">8</span><span class="p">,</span><span class="mi">9</span><span class="p">,</span><span class="mi">12</span><span class="p">,</span><span class="mi">15</span><span class="p">]]</span> <span class="c1"># long time</span>
+<span class="go">[True, True, True, True, True, True, True, True, True, True]</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="recip.theta_trans.dup_formula">
+<code class="descclassname">recip.theta_trans.</code><code class="descname">dup_formula</code><span class="sig-paren">(</span><em>pol</em>, <em>g</em><span class="sig-paren">)</span><a class="headerlink" href="#recip.theta_trans.dup_formula" title="Permalink to this definition">¶</a></dt>
+<dd><p>Applies the duplication formula on pages 129 and 130 of Dupont&#8217;s thesis.</p>
+<p>EXAMPLES:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">sage: </span><span class="kn">from</span> <span class="nn">recip</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="gp">sage: </span><span class="n">M</span> <span class="o">=</span> <span class="n">Matrix</span><span class="p">([[</span><span class="n">I</span><span class="p">,</span> <span class="mi">1</span><span class="o">/</span><span class="mi">2</span><span class="o">+</span><span class="n">I</span><span class="o">/</span><span class="mi">7</span><span class="p">],</span> <span class="p">[</span><span class="mi">1</span><span class="o">/</span><span class="mi">2</span><span class="o">+</span><span class="n">I</span><span class="o">/</span><span class="mi">7</span><span class="p">,</span> <span class="mi">3</span><span class="o">/</span><span class="mi">2</span><span class="o">*</span><span class="n">I</span><span class="o">-</span><span class="mi">1</span><span class="o">/</span><span class="mi">5</span><span class="p">]],</span> <span class="n">ring</span><span class="o">=</span><span class="n">CC</span><span class="p">)</span>
+<span class="gp">sage: </span><span class="n">M</span><span class="o">.</span><span class="n">set_immutable</span><span class="p">()</span>
+<span class="gp">sage: </span><span class="n">P</span> <span class="o">=</span> <span class="n">theta_ring</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">2</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+<span class="gp">sage: </span><span class="n">N</span> <span class="o">=</span> <span class="mi">1</span><span class="o">/</span><span class="mi">2</span> <span class="o">*</span> <span class="n">M</span>
+<span class="gp">sage: </span><span class="n">N</span><span class="o">.</span><span class="n">set_immutable</span><span class="p">()</span>
+<span class="gp">sage: </span><span class="n">t</span> <span class="o">=</span> <span class="n">P</span><span class="o">.</span><span class="n">gens</span><span class="p">()[</span><span class="mi">1</span><span class="p">]</span><span class="o">^</span><span class="mi">2</span><span class="o">*</span><span class="n">P</span><span class="o">.</span><span class="n">gens</span><span class="p">()[</span><span class="mi">2</span><span class="p">]</span><span class="o">^</span><span class="mi">4</span>
+<span class="gp">sage: </span><span class="n">ThetaModForm</span><span class="p">(</span><span class="n">dup_formula</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="mi">2</span><span class="p">))(</span><span class="n">N</span><span class="p">)</span>
+<span class="go">1.14954909189867 + 0.0102975011948174*I</span>
+<span class="gp">sage: </span><span class="n">ThetaModForm</span><span class="p">(</span><span class="n">t</span><span class="p">)(</span><span class="n">M</span><span class="p">)</span>
+<span class="go">1.14954909189867 + 0.0102975011948173*I</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="recip.theta_trans.even_theta_characteristics">
+<code class="descclassname">recip.theta_trans.</code><code class="descname">even_theta_characteristics</code><span class="sig-paren">(</span><em>dupont=False</em><span class="sig-paren">)</span><a class="headerlink" href="#recip.theta_trans.even_theta_characteristics" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the even theta characteristics.
+If <code class="docutils literal"><span class="pre">dupont</span></code> is True returns numbers in Dupont&#8217;s
+notation instead of theta characteristics.</p>
+<p>EXAMPLE:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">sage: </span><span class="kn">from</span> <span class="nn">recip</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="gp">sage: </span><span class="n">even_theta_characteristics</span><span class="p">()</span>
+<span class="go">[[0, 0, 0, 0], [0, 0, 1/2, 0], [0, 0, 0, 1/2], [0, 0, 1/2, 1/2], [1/2, 0, 0, 0], [1/2, 0, 0, 1/2], [0, 1/2, 0, 0], [0, 1/2, 1/2, 0], [1/2, 1/2, 0, 0], [1/2, 1/2, 1/2, 1/2]]</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="recip.theta_trans.is_den_even">
+<code class="descclassname">recip.theta_trans.</code><code class="descname">is_den_even</code><span class="sig-paren">(</span><em>den</em><span class="sig-paren">)</span><a class="headerlink" href="#recip.theta_trans.is_den_even" title="Permalink to this definition">¶</a></dt>
+<dd><p>All code assumes den to be even. This function
+raises an error if den is odd, and returns nothing
+otherwise.</p>
+<p>EXAMPLES:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">sage: </span><span class="kn">from</span> <span class="nn">recip</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="gp">sage: </span><span class="n">is_den_even</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
+<span class="gt">Traceback (most recent call last):</span>
+<span class="c">...</span>
+<span class="gr">ValueError</span>: <span class="n">The integer den (=5) must be even.</span>
+<span class="gp">sage: </span><span class="n">is_den_even</span><span class="p">(</span><span class="mi">8</span><span class="p">)</span>
+<span class="gp">sage: </span><span class="n">is_den_even</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="recip.theta_trans.kappa">
+<code class="descclassname">recip.theta_trans.</code><code class="descname">kappa</code><span class="sig-paren">(</span><em>M</em>, <em>k=1</em><span class="sig-paren">)</span><a class="headerlink" href="#recip.theta_trans.kappa" title="Permalink to this definition">¶</a></dt>
+<dd><p>Given M in Sp_2g(Z) and k in ZZ, returns kappa(M)^k in &lt;zeta_8^{gk}&gt;.
+Note that the output is defined only up to sign if k is odd.</p>
+<dl class="docutils">
+<dt>The output is defined by</dt>
+<dd>M &#8211;&gt; kappa(M)^2 is a group homomorphism
+kappa((0 -1) (1 0))^2 = (-i)^g
+kappa((1 B) (0 1))^2 = 1
+kappa((A 0) (0 D))^2 = det(A) in {-1,1}</dd>
+</dl>
+<p>EXAMPLE:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">sage: </span><span class="kn">from</span> <span class="nn">recip</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="gp">sage: </span><span class="n">kappa</span><span class="p">(</span><span class="n">Matrix</span><span class="p">([[</span><span class="mi">0</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">],[</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="o">-</span><span class="mi">2</span><span class="p">,</span><span class="mi">0</span><span class="p">],[</span><span class="mi">1</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">1</span><span class="p">],[</span><span class="mi">1</span><span class="p">,</span><span class="o">-</span><span class="mi">5</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="o">-</span><span class="mi">1</span><span class="p">]]))</span>
+<span class="gt">Traceback (most recent call last):</span>
+<span class="c">...</span>
+<span class="gr">NotImplementedError</span>: <span class="n">sorry, kappa(M, k) only implemented in trivial cases</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="recip.theta_trans.make_theta_ring">
+<code class="descclassname">recip.theta_trans.</code><code class="descname">make_theta_ring</code><span class="sig-paren">(</span><em>g</em>, <em>den</em><span class="sig-paren">)</span><a class="headerlink" href="#recip.theta_trans.make_theta_ring" title="Permalink to this definition">¶</a></dt>
+<dd><p>See theta_ring.</p>
+<p>EXAMPLE:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">sage: </span><span class="kn">from</span> <span class="nn">recip</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="gp">sage: </span><span class="n">make_theta_ring</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">6</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+<span class="go">Multivariate Polynomial Ring in t0d6, t1d6, t2d6, t3d6, t4d6, t5d6, t6d6, t7d6, t8d6, t9d6, t10d6, t11d6, t12d6, t13d6, t14d6, t15d6, t16d6, t17d6, t18d6, t19d6, t20d6, t21d6, t22d6, t23d6, t24d6, t25d6, t26d6, t27d6, t28d6, t29d6, t30d6, t31d6, t32d6, t33d6, t34d6, t35d6 over Cyclotomic Field of order 72 and degree 24</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="recip.theta_trans.my_sum">
+<code class="descclassname">recip.theta_trans.</code><code class="descname">my_sum</code><span class="sig-paren">(</span><em>s</em><span class="sig-paren">)</span><a class="headerlink" href="#recip.theta_trans.my_sum" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="recip.theta_trans.name_to_den">
+<code class="descclassname">recip.theta_trans.</code><code class="descname">name_to_den</code><span class="sig-paren">(</span><em>name</em><span class="sig-paren">)</span><a class="headerlink" href="#recip.theta_trans.name_to_den" title="Permalink to this definition">¶</a></dt>
+<dd><p>Given a string ending in &#8220;d?????&#8221;, returns
+the integer with decimal expansion &#8221;?????&#8221;.</p>
+<p>EXAMPLE:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">sage: </span><span class="kn">from</span> <span class="nn">recip</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="gp">sage: </span><span class="n">name_to_den</span><span class="p">(</span><span class="s1">&#39;t12d034&#39;</span><span class="p">)</span>
+<span class="go">34</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="recip.theta_trans.name_to_den_c">
+<code class="descclassname">recip.theta_trans.</code><code class="descname">name_to_den_c</code><span class="sig-paren">(</span><em>name</em>, <em>g</em><span class="sig-paren">)</span><a class="headerlink" href="#recip.theta_trans.name_to_den_c" title="Permalink to this definition">¶</a></dt>
+<dd><p>Given a string name = &#8220;t.....d?????&#8221;, returns
+(den, num_to_c(.....), g, den))
+for den = ????? (both interpreted as decimal expansions.</p>
+<p>EXAMPLE:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">sage: </span><span class="kn">from</span> <span class="nn">recip</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="gp">sage: </span><span class="n">name_to_den_c</span><span class="p">(</span><span class="s1">&#39;t0123d45&#39;</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+<span class="go">(45, [0, 0, 11/15, 2/45])</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="recip.theta_trans.num_to_c">
+<code class="descclassname">recip.theta_trans.</code><code class="descname">num_to_c</code><span class="sig-paren">(</span><em>n</em>, <em>g</em>, <em>den</em><span class="sig-paren">)</span><a class="headerlink" href="#recip.theta_trans.num_to_c" title="Permalink to this definition">¶</a></dt>
+<dd><p>Inverse of c_to_num.</p>
+<p>For g = 2 and den = 2, this is Dupont&#8217;s notation.</p>
+<p>EXAMPLE:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">sage: </span><span class="kn">from</span> <span class="nn">recip</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="gp">sage: </span><span class="n">num_to_c</span><span class="p">(</span><span class="n">c_to_num</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="o">/</span><span class="mi">2</span><span class="p">,</span><span class="mi">2</span><span class="o">/</span><span class="mi">3</span><span class="p">,</span><span class="mi">3</span><span class="o">/</span><span class="mi">4</span><span class="p">,</span><span class="mi">4</span><span class="o">/</span><span class="mi">5</span><span class="p">,</span><span class="mi">5</span><span class="o">/</span><span class="mi">6</span><span class="p">],</span><span class="n">den</span><span class="o">=</span><span class="mi">60</span><span class="p">),</span> <span class="n">g</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">den</span><span class="o">=</span><span class="mi">60</span><span class="p">)</span>
+<span class="go">[0, 1/2, 2/3, 3/4, 4/5, 5/6]</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="recip.theta_trans.sq_brackets_inverse">
+<code class="descclassname">recip.theta_trans.</code><code class="descname">sq_brackets_inverse</code><span class="sig-paren">(</span><em>M</em>, <em>nu_inv</em>, <em>c</em><span class="sig-paren">)</span><a class="headerlink" href="#recip.theta_trans.sq_brackets_inverse" title="Permalink to this definition">¶</a></dt>
+<dd><p>Given M in GSp_2g(Z/NZ) and c in (1/den)ZZ^{2g}, returns d as in my Shimura
+reciprocity article. If M is in Sp_2g, then M[d^1,d^2]^i == c^i in the
+notation of Birkenhake-Lange.</p>
+<p>INPUT:</p>
+<ul class="simple">
+<li>M &#8211; matrix in GSp_2g(Z/NZ), lifted to ZZ</li>
+<li>nu_inv &#8211; inverse of nu(M), lifted to ZZ</li>
+<li>c &#8211; vector in (1/den)Z^{2g}</li>
+</ul>
+<p>..NOTE:</p>
+<p>The input is not checked, make sure that the congruences are satisfied when
+using this function.</p>
+<p>EXAMPLES:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">sage: </span><span class="kn">from</span> <span class="nn">recip</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="gp">sage: </span><span class="n">M</span> <span class="o">=</span> <span class="n">Matrix</span><span class="p">([[</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">0</span><span class="p">],[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">],[</span><span class="o">-</span><span class="mi">2</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="o">-</span><span class="mi">3</span><span class="p">,</span><span class="mi">0</span><span class="p">],[</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">]])</span>
+<span class="gp">sage: </span><span class="n">c</span> <span class="o">=</span> <span class="n">vector</span><span class="p">([</span><span class="mi">1</span><span class="o">/</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="o">/</span><span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">])</span>
+<span class="gp">sage: </span><span class="n">sq_brackets_inverse</span><span class="p">(</span><span class="n">M</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">c</span><span class="p">)</span>
+<span class="go">(-1/2, 1/2, -2, 0)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="recip.theta_trans.subscript_zero">
+<code class="descclassname">recip.theta_trans.</code><code class="descname">subscript_zero</code><span class="sig-paren">(</span><em>A</em><span class="sig-paren">)</span><a class="headerlink" href="#recip.theta_trans.subscript_zero" title="Permalink to this definition">¶</a></dt>
+<dd><p>Given A in Mat_g(Z), returns A_0 in Z^g as defined in [BL],
+which is the diagonal of A.</p>
+<p>EXAMPLES:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">sage: </span><span class="kn">from</span> <span class="nn">recip</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="gp">sage: </span><span class="n">A</span> <span class="o">=</span> <span class="n">Matrix</span><span class="p">([[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">],[</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">]])</span>
+<span class="gp">sage: </span><span class="n">subscript_zero</span><span class="p">(</span><span class="n">A</span><span class="p">)</span>
+<span class="go">(1, 4)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="recip.theta_trans.theta_action_without_kappa">
+<code class="descclassname">recip.theta_trans.</code><code class="descname">theta_action_without_kappa</code><span class="sig-paren">(</span><em>M</em>, <em>nu_inv</em>, <em>d</em><span class="sig-paren">)</span><a class="headerlink" href="#recip.theta_trans.theta_action_without_kappa" title="Permalink to this definition">¶</a></dt>
+<dd><p>Given d in RR^2g and M in Sp_2g(ZZ), returns
+c in [0,1)^2g and s in RR such that</p>
+<blockquote>
+<div>theta[d](0, M(Z)) = kappa(M)*det(C*Z+D)^(1/2)*e(s)*theta[c](0, Z)</div></blockquote>
+<dl class="docutils">
+<dt>This uses the theta transformation formula</dt>
+<dd>theta[M[c]](0, M(Z)) = kappa(M) det(CZ+D)^(1/2) e(k(M,c)/2) theta[c](0,Z).</dd>
+</dl>
+<p>In fact, this is useful for slightly more, and also accepts elements M of
+GSp_2g(ZZ/NZZ) when given with the inverse of nu(M).</p>
+<p>Note: depends only on M modulo LCM(2*den^2, 8):
+s1/2 mod ZZ depends only on M mod 2*den^2
+cpre mod 2*den depends only on M mod 2*den^2,
+hence s2 and c depend only on M mod 2*den^2.</p>
+<p>EXAMPLES:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">sage: </span><span class="kn">from</span> <span class="nn">recip</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="gp">sage: </span><span class="n">M</span> <span class="o">=</span> <span class="n">Matrix</span><span class="p">([[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">]])</span>
+<span class="gp">sage: </span><span class="n">theta_action_without_kappa</span><span class="p">(</span><span class="n">M</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="p">[</span><span class="mi">1</span><span class="o">/</span><span class="mi">6</span><span class="p">,</span> <span class="mi">1</span><span class="o">/</span><span class="mi">2</span><span class="p">])</span>
+<span class="go">([1/2, 1/6], 1/12)</span>
+<span class="gp">sage: </span><span class="n">M</span> <span class="o">=</span> <span class="n">Matrix</span><span class="p">([[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]])</span>
+<span class="gp">sage: </span><span class="n">theta_action_without_kappa</span><span class="p">(</span><span class="n">M</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="p">[</span><span class="mi">1</span><span class="o">/</span><span class="mi">6</span><span class="p">,</span> <span class="mi">1</span><span class="o">/</span><span class="mi">6</span><span class="p">])</span>
+<span class="go">([1/6, 5/6], -7/72)</span>
+<span class="gp">sage: </span><span class="n">M</span> <span class="o">=</span> <span class="n">matrix_from_blocks</span><span class="p">(</span><span class="n">zero_matrix</span><span class="p">(</span><span class="mi">2</span><span class="p">),</span> <span class="n">identity_matrix</span><span class="p">(</span><span class="mi">2</span><span class="p">),</span> <span class="o">-</span><span class="n">identity_matrix</span><span class="p">(</span><span class="mi">2</span><span class="p">),</span> <span class="n">zero_matrix</span><span class="p">(</span><span class="mi">2</span><span class="p">))</span>
+<span class="gp">sage: </span><span class="n">theta_action_without_kappa</span><span class="p">(</span><span class="n">M</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="p">[</span><span class="mi">1</span><span class="o">/</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="o">/</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="o">/</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="o">/</span><span class="mi">2</span><span class="p">])</span>
+<span class="go">([1/2, 1/2, 1/2, 1/2], 1/2)</span>
+<span class="gp">sage: </span><span class="n">theta_action_without_kappa</span><span class="p">(</span><span class="n">M</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="o">/</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="o">/</span><span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="p">])</span>
+<span class="go">([1/2, 0, 0, 1/2], 0)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="recip.theta_trans.theta_c_mod_Z">
+<code class="descclassname">recip.theta_trans.</code><code class="descname">theta_c_mod_Z</code><span class="sig-paren">(</span><em>c</em><span class="sig-paren">)</span><a class="headerlink" href="#recip.theta_trans.theta_c_mod_Z" title="Permalink to this definition">¶</a></dt>
+<dd><p>Given c in RR^2g, returns d in [0,1)^2g and
+s in RR such that theta[c](0,Z) = e(s)*theta[d](0,Z).</p>
+<p>Note: depends only on c modulo den*ZZ.</p>
+<p>EXAMPLES:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">sage: </span><span class="kn">from</span> <span class="nn">recip</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="gp">sage: </span><span class="n">theta_c_mod_Z</span><span class="p">([</span><span class="mi">7</span><span class="o">/</span><span class="mi">2</span><span class="p">,</span> <span class="mi">7</span><span class="o">/</span><span class="mi">3</span><span class="p">,</span> <span class="mi">7</span><span class="o">/</span><span class="mi">4</span><span class="p">,</span> <span class="mi">7</span><span class="o">/</span><span class="mi">5</span><span class="p">,</span> <span class="mi">7</span><span class="o">/</span><span class="mi">6</span><span class="p">,</span> <span class="mi">7</span><span class="o">/</span><span class="mi">7</span><span class="p">,</span> <span class="mi">7</span><span class="o">/</span><span class="mi">8</span><span class="p">,</span> <span class="mi">7</span><span class="o">/</span><span class="mi">9</span><span class="p">])</span>
+<span class="go">([1/2, 1/3, 3/4, 2/5, 1/6, 0, 7/8, 7/9], 35/6)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="recip.theta_trans.theta_lc_complex">
+<code class="descclassname">recip.theta_trans.</code><code class="descname">theta_lc_complex</code><span class="sig-paren">(</span><em>c</em>, <em>C=Complex Field with 53 bits of precision</em><span class="sig-paren">)</span><a class="headerlink" href="#recip.theta_trans.theta_lc_complex" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the number a from <a class="reference internal" href="#recip.theta_trans.theta_leading_term_complex" title="recip.theta_trans.theta_leading_term_complex"><code class="xref py py-func docutils literal"><span class="pre">theta_leading_term_complex()</span></code></a>.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="recip.theta_trans.theta_lc_cyclotomic">
+<code class="descclassname">recip.theta_trans.</code><code class="descname">theta_lc_cyclotomic</code><span class="sig-paren">(</span><em>c</em>, <em>n=None</em><span class="sig-paren">)</span><a class="headerlink" href="#recip.theta_trans.theta_lc_cyclotomic" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the number a from <a class="reference internal" href="#recip.theta_trans.theta_leading_term_cyclotomic" title="recip.theta_trans.theta_leading_term_cyclotomic"><code class="xref py py-func docutils literal"><span class="pre">theta_leading_term_cyclotomic()</span></code></a>.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="recip.theta_trans.theta_leading_term_complex">
+<code class="descclassname">recip.theta_trans.</code><code class="descname">theta_leading_term_complex</code><span class="sig-paren">(</span><em>c</em>, <em>C=Complex Field with 53 bits of precision</em><span class="sig-paren">)</span><a class="headerlink" href="#recip.theta_trans.theta_leading_term_complex" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a pair (a, o), where o is rational and a is an element of C such
+that theta[c] = a*q^o + h.o.t. The output a is in C.</p>
+<p>Here c=(c1,c2) is a pair of numbers, and this only works in
+the classical genus-one case.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="recip.theta_trans.theta_leading_term_cyclotomic">
+<code class="descclassname">recip.theta_trans.</code><code class="descname">theta_leading_term_cyclotomic</code><span class="sig-paren">(</span><em>c</em>, <em>n=None</em><span class="sig-paren">)</span><a class="headerlink" href="#recip.theta_trans.theta_leading_term_cyclotomic" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a pair (a, o), where o is rational and a is an element of C such
+that theta[c] = a*q^o + h.o.t. The output a is in CyclotomicField(n)
+or ZZ. If n is None, then n is 2 times the product of the denominators
+of c1 and c2.</p>
+<p>Here c=(c1,c2) is a pair of numbers, and this only works in
+the classical genus-one case.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="recip.theta_trans.theta_ring">
+<code class="descclassname">recip.theta_trans.</code><code class="descname">theta_ring</code><span class="sig-paren">(</span><em>g</em>, <em>den</em><span class="sig-paren">)</span><a class="headerlink" href="#recip.theta_trans.theta_ring" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a triple (P, eval, R),
+where P is a polynomial ring representing polynomials
+in theta[c](0,Z) with c in (1/den)*ZZ^2g
+and coefficients in CyclotomicField(LCM(8, 2*den^2)),
+R is a quotient of P by an ideal of zero modular forms,
+and eval is such that R(x(eval)) = R(x) for all x in P.</p>
+<p>EXAMPLES:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">sage: </span><span class="kn">from</span> <span class="nn">recip</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="gp">sage: </span><span class="n">tr</span> <span class="o">=</span> <span class="n">theta_ring</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">2</span><span class="p">);</span> <span class="nb">len</span><span class="p">(</span><span class="n">tr</span><span class="p">)</span>
+<span class="go">3</span>
+<span class="gp">sage: </span><span class="n">tr</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+<span class="go">Multivariate Polynomial Ring in t0, t1, t2, t3, t4, t5, t6, t7, t8, t9, t10, t11, t12, t13, t14, t15, t16, t17, t18, t19, t20, t21, t22, t23, t24, t25, t26, t27, t28, t29, t30, t31, t32, t33, t34, t35, t36, t37, t38, t39, t40, t41, t42, t43, t44, t45, t46, t47, t48, t49, t50, t51, t52, t53, t54, t55, t56, t57, t58, t59, t60, t61, t62, t63 over Cyclotomic Field of order 8 and degree 4</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="recip.theta_trans.theta_ring_inclusion">
+<code class="descclassname">recip.theta_trans.</code><code class="descname">theta_ring_inclusion</code><span class="sig-paren">(</span><em>g</em>, <em>den1</em>, <em>den2</em><span class="sig-paren">)</span><a class="headerlink" href="#recip.theta_trans.theta_ring_inclusion" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the natural map from theta_ring(g, den1) to theta_ring(g, den2)
+as a sequence to evaluate elements of theta_ring(g, den1) in.</p>
+<p>EXAMPLE:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">sage: </span><span class="kn">from</span> <span class="nn">recip</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="gp">sage: </span><span class="n">theta_ring_inclusion</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">4</span><span class="p">)</span>
+<span class="go">[t0d4, t2d4, t8d4, t10d4, t32d4, t34d4, t40d4, t42d4, t128d4, t130d4, t136d4, t138d4, t160d4, t162d4, t168d4, t170d4]</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="recip.theta_trans.theta_trans_k">
+<code class="descclassname">recip.theta_trans.</code><code class="descname">theta_trans_k</code><span class="sig-paren">(</span><em>M</em>, <em>nu_inv</em>, <em>c</em><span class="sig-paren">)</span><a class="headerlink" href="#recip.theta_trans.theta_trans_k" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns k(M,c) in R as in Formula 8.6.1 of BL on page 227.
+Note: if c is in (1/n)ZZ, then k(M,c) is in (1/n^2)ZZ.</p>
+<p>Note: if M is 1 modulo 2*den^2, then the output is an even integer.</p>
+<p>EXAMPLE:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">sage: </span><span class="kn">from</span> <span class="nn">recip</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="gp">sage: </span><span class="n">M</span> <span class="o">=</span> <span class="n">Matrix</span><span class="p">([[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="o">-</span><span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="mi">3</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]])</span>
+<span class="gp">sage: </span><span class="n">d</span> <span class="o">=</span> <span class="n">vector</span><span class="p">([</span><span class="mi">1</span><span class="o">/</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="o">/</span><span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">])</span>
+<span class="gp">sage: </span><span class="n">theta_trans_k</span><span class="p">(</span><span class="n">M</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">d</span><span class="p">)</span>
+<span class="go">-3/2</span>
+</pre></div>
+</div>
+</dd></dl>
+
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="period_matrices.html"
+                        title="previous chapter">Period matrices</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="find_class_invariant.html"
+                        title="next chapter">Finding class invariants</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/theta_trans.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="find_class_invariant.html" title="Finding class invariants"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="period_matrices.html" title="Period matrices"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">CM SageMath code 3.0.1 documentation</a> &#187;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2017, Marco Streng.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.5.3.
+    </div>
+  </body>
+</html>

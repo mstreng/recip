@@ -1,0 +1,208 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>List of fields &#8212; CM SageMath code 3.0.1 documentation</title>
+    
+    <link rel="stylesheet" href="_static/classic.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '3.0.1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="_static/MathJax.js?config=TeX-AMS_HTML-full,../mathjax_sage.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Denominators" href="denominators.html" />
+    <link rel="prev" title="Igusa invariants" href="igusa_invariants.html" /> 
+  </head>
+  <body role="document">
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="denominators.html" title="Denominators"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="igusa_invariants.html" title="Igusa invariants"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">CM SageMath code 3.0.1 documentation</a> &#187;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <p>..nodoctest</p>
+<div class="section" id="module-recip.list_fields">
+<span id="list-of-fields"></span><h1>List of fields<a class="headerlink" href="#module-recip.list_fields" title="Permalink to this headline">¶</a></h1>
+<p>x.__init__(...) initializes x; see help(type(x)) for signature</p>
+<dl class="function">
+<dt id="recip.list_fields.DAm_to_DAB">
+<code class="descclassname">recip.list_fields.</code><code class="descname">DAm_to_DAB</code><span class="sig-paren">(</span><em>D</em>, <em>A</em>, <em>m</em><span class="sig-paren">)</span><a class="headerlink" href="#recip.list_fields.DAm_to_DAB" title="Permalink to this definition">¶</a></dt>
+<dd><p>Given D a fundamental discriminant, A a positive integer, and m
+a positive integer with m^2 D &lt; A^2 and m^2 * D == A^2 mod 4,
+returns [D,A,B] with m^2*D = A^2 - 4B</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="recip.list_fields.iterate_DAB">
+<code class="descclassname">recip.list_fields.</code><code class="descname">iterate_DAB</code><span class="sig-paren">(</span><em>stopD</em>, <em>stopA</em>, <em>startD=5</em>, <em>startA=1</em>, <em>prime_D=False</em><span class="sig-paren">)</span><a class="headerlink" href="#recip.list_fields.iterate_DAB" title="Permalink to this definition">¶</a></dt>
+<dd><p>Given a range of positive discriminants D and integers A, returns all
+minimal triples DAB corresponding to primitive quartic CM-fields with D and
+A in the range.</p>
+<p>The number of such triples is proportional to
+(maxA^2 - minA^2) * (sqrt(maxD) - sqrt(minD)).</p>
+<p>If prime_D is true, restrict to D of the form p for a prime p=1 mod 4
+and 4*p for p a prime p!=1 mod 4.</p>
+<p>EXAMPLES:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">sage: </span><span class="kn">from</span> <span class="nn">recip</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="gp">sage: </span><span class="nb">list</span><span class="p">(</span><span class="n">iterate_DAB</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">10</span><span class="p">))</span>
+<span class="go">[[5, 5, 5], [5, 7, 11], [5, 9, 19], [8, 4, 2], [8, 6, 7], [8, 8, 14]]</span>
+<span class="gp">sage: </span><span class="nb">list</span><span class="p">(</span><span class="n">iterate_DAB</span><span class="p">(</span><span class="mi">20</span><span class="p">,</span> <span class="mi">20</span><span class="p">,</span> <span class="n">prime_D</span><span class="o">=</span><span class="bp">True</span><span class="p">))</span>
+<span class="go">[[5, 5, 5], [5, 7, 11], [5, 9, 19], [5, 10, 20], [5, 11, 29], [5, 12, 31], [5, 13, 41], [5, 14, 44], [5, 15, 55], [5, 15, 45], [5, 16, 59], [5, 17, 71], [5, 17, 61], [5, 18, 76], [5, 19, 89], [5, 19, 79], [8, 4, 2], [8, 6, 7], [8, 8, 14], [8, 10, 23], [8, 10, 17], [8, 12, 34], [8, 12, 18], [8, 14, 47], [8, 14, 41], [8, 14, 31], [8, 16, 62], [8, 16, 46], [8, 18, 79], [8, 18, 73], [8, 18, 63], [12, 6, 6], [12, 8, 13], [12, 10, 22], [12, 10, 13], [12, 12, 33], [12, 14, 46], [12, 14, 37], [12, 14, 22], [12, 16, 61], [12, 16, 37], [12, 18, 78], [12, 18, 69], [12, 18, 33], [13, 5, 3], [13, 9, 17], [13, 10, 12], [13, 12, 23], [13, 13, 39], [13, 13, 13], [13, 15, 53], [13, 16, 51], [13, 17, 69], [13, 17, 43], [13, 18, 68], [13, 18, 29], [13, 19, 87], [13, 19, 61], [17, 5, 2], [17, 11, 26], [17, 12, 19], [17, 13, 38], [17, 15, 52], [17, 15, 18], [17, 16, 47], [17, 17, 68], [17, 17, 34], [17, 19, 86]]</span>
+<span class="gp">sage: </span><span class="n">l</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">iterate_DAB</span><span class="p">(</span><span class="mi">30</span><span class="p">,</span> <span class="mi">30</span><span class="p">))</span>
+<span class="gp">sage: </span><span class="n">l</span> <span class="o">=</span> <span class="p">[(</span><span class="n">DAB</span><span class="p">,</span> <span class="n">CM_Field</span><span class="p">(</span><span class="n">DAB</span><span class="p">))</span> <span class="k">for</span> <span class="n">DAB</span> <span class="ow">in</span> <span class="n">l</span><span class="p">]</span>
+<span class="gp">sage: </span><span class="n">l</span> <span class="o">=</span> <span class="p">[(</span><span class="n">DAB</span><span class="p">,</span> <span class="n">K</span><span class="p">,</span> <span class="n">K</span><span class="o">.</span><span class="n">ideal</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span><span class="o">.</span><span class="n">factor</span><span class="p">())</span> <span class="k">for</span> <span class="p">(</span><span class="n">DAB</span><span class="p">,</span> <span class="n">K</span><span class="p">)</span> <span class="ow">in</span> <span class="n">l</span><span class="p">]</span>
+<span class="gp">sage: </span><span class="n">l</span> <span class="o">=</span> <span class="p">[(</span><span class="n">DAB</span><span class="p">,</span> <span class="n">K</span><span class="p">)</span> <span class="k">for</span> <span class="p">(</span><span class="n">DAB</span><span class="p">,</span> <span class="n">K</span><span class="p">,</span> <span class="n">f</span><span class="p">)</span> <span class="ow">in</span> <span class="n">l</span> <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">f</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span> <span class="ow">and</span> <span class="n">f</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="mi">1</span><span class="p">]</span>
+<span class="gp">sage: </span><span class="n">l</span> <span class="o">=</span> <span class="p">[(</span><span class="n">DAB</span><span class="p">,</span> <span class="n">K</span><span class="o">.</span><span class="n">class_number</span><span class="p">()</span><span class="o">/</span><span class="n">K</span><span class="o">.</span><span class="n">real_field</span><span class="p">()</span><span class="o">.</span><span class="n">class_number</span><span class="p">())</span> <span class="k">for</span> <span class="p">(</span><span class="n">DAB</span><span class="p">,</span> <span class="n">K</span><span class="p">)</span> <span class="ow">in</span> <span class="n">l</span><span class="p">]</span>
+<span class="gp">sage: </span><span class="p">[(</span><span class="n">DAB</span><span class="p">,</span> <span class="n">h</span><span class="p">)</span> <span class="k">for</span> <span class="p">(</span><span class="n">DAB</span><span class="p">,</span> <span class="n">h</span><span class="p">)</span> <span class="ow">in</span> <span class="n">l</span> <span class="k">if</span> <span class="n">h</span> <span class="o">&gt;</span> <span class="mi">3</span><span class="p">]</span>
+<span class="go">[([21, 25, 109], 4), ([29, 25, 149], 5)]</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="recip.list_fields.iterate_DAB_given_D">
+<code class="descclassname">recip.list_fields.</code><code class="descname">iterate_DAB_given_D</code><span class="sig-paren">(</span><em>D</em>, <em>stopA</em>, <em>startA=1</em>, <em>K0=None</em><span class="sig-paren">)</span><a class="headerlink" href="#recip.list_fields.iterate_DAB_given_D" title="Permalink to this definition">¶</a></dt>
+<dd><p>Given a real quadratic discriminant and a range of integers A,
+returns all minimal triples DAB corresponding to primitive quartic
+CM-fields with this D and in the A-range.</p>
+<p>The number of such triples is proportional to
+1/2 (maxA^2 - minA^2) / sqrt(D).</p>
+<p>K0, if given, should be the quadratic field with discriminant D.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="recip.list_fields.iterate_DAB_given_DA">
+<code class="descclassname">recip.list_fields.</code><code class="descname">iterate_DAB_given_DA</code><span class="sig-paren">(</span><em>D</em>, <em>A</em>, <em>K0</em><span class="sig-paren">)</span><a class="headerlink" href="#recip.list_fields.iterate_DAB_given_DA" title="Permalink to this definition">¶</a></dt>
+<dd><p>Given a real quadratic discriminant and a positive integer A,
+returns all minimal triples DAB corresponding to primitive quartic
+CM-fields with this D and in the A-range.</p>
+<p>The number of such triples is proportional to A/sqrt(D).</p>
+<p>K0, if given, should be the quadratic field with discriminant D.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="recip.list_fields.wamelen_curves">
+<code class="descclassname">recip.list_fields.</code><code class="descname">wamelen_curves</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#recip.list_fields.wamelen_curves" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns van Wamelen&#8217;s CM curves
+(taken from <a class="reference external" href="https://www.math.lsu.edu/~wamelen/CMcurves.txt">https://www.math.lsu.edu/~wamelen/CMcurves.txt</a>)
+in such a way that wamelen_curves()[i] corresponds to wamelen_dab_list()[i]</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="recip.list_fields.wamelen_dab_list">
+<code class="descclassname">recip.list_fields.</code><code class="descname">wamelen_dab_list</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#recip.list_fields.wamelen_dab_list" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the list of triples DAB from Paul van Wamelen&#8217;s list of CM curves.</p>
+<p>EXAMPLE:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">sage: </span><span class="kn">from</span> <span class="nn">recip</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="gp">sage: </span><span class="n">lst</span> <span class="o">=</span> <span class="n">wamelen_dab_list</span><span class="p">();</span> <span class="n">lst</span>
+<span class="go">[[5, 5, 5], [8, 4, 2], [13, 13, 13], [5, 10, 20], [5, 65, 845], [29, 29, 29], [5, 85, 1445], [37, 37, 333], [8, 20, 50], [13, 65, 325], [13, 26, 52], [53, 53, 53], [61, 61, 549]]</span>
+</pre></div>
+</div>
+<p>We check that this list contains of 13 cyclic Galois CM-fields, 
+and that there are 19 curves corresponding to these 13
+fields.:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">sage: </span><span class="nb">len</span><span class="p">(</span><span class="n">lst</span><span class="p">)</span>
+<span class="go">13</span>
+<span class="gp">sage: </span><span class="n">flds</span> <span class="o">=</span> <span class="p">[</span><span class="n">CM_Field</span><span class="p">(</span><span class="n">DAB</span><span class="p">)</span> <span class="k">for</span> <span class="n">DAB</span> <span class="ow">in</span> <span class="n">lst</span><span class="p">]</span>
+<span class="gp">sage: </span><span class="nb">all</span><span class="p">([</span><span class="n">K</span><span class="o">.</span><span class="n">is_galois</span><span class="p">()</span> <span class="k">for</span> <span class="n">K</span> <span class="ow">in</span> <span class="n">flds</span><span class="p">])</span>
+<span class="go">True</span>
+<span class="gp">sage: </span><span class="nb">sum</span><span class="p">([</span><span class="n">K</span><span class="o">.</span><span class="n">class_number</span><span class="p">()</span><span class="o">/</span><span class="n">K</span><span class="o">.</span><span class="n">real_field</span><span class="p">()</span><span class="o">.</span><span class="n">class_number</span><span class="p">()</span> <span class="k">for</span> <span class="n">K</span> <span class="ow">in</span> <span class="n">flds</span><span class="p">])</span>
+<span class="go">19</span>
+</pre></div>
+</div>
+</dd></dl>
+
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="igusa_invariants.html"
+                        title="previous chapter">Igusa invariants</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="denominators.html"
+                        title="next chapter">Denominators</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/list_fields.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="denominators.html" title="Denominators"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="igusa_invariants.html" title="Igusa invariants"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">CM SageMath code 3.0.1 documentation</a> &#187;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2017, Marco Streng.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.5.3.
+    </div>
+  </body>
+</html>

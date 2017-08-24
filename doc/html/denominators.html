@@ -1,0 +1,763 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Denominators &#8212; CM SageMath code 3.0.1 documentation</title>
+    
+    <link rel="stylesheet" href="_static/classic.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '3.0.1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="_static/MathJax.js?config=TeX-AMS_HTML-full,../mathjax_sage.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Class polynomials" href="class_polynomials.html" />
+    <link rel="prev" title="List of fields" href="list_fields.html" /> 
+  </head>
+  <body role="document">
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="class_polynomials.html" title="Class polynomials"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="list_fields.html" title="List of fields"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">CM SageMath code 3.0.1 documentation</a> &#187;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <p>..nodoctest</p>
+<div class="section" id="module-recip.denominators">
+<span id="denominators"></span><h1>Denominators<a class="headerlink" href="#module-recip.denominators" title="Permalink to this headline">¶</a></h1>
+<p>x.__init__(...) initializes x; see help(type(x)) for signature</p>
+<dl class="function">
+<dt id="recip.denominators.bruinier_yang_applies">
+<code class="descclassname">recip.denominators.</code><code class="descname">bruinier_yang_applies</code><span class="sig-paren">(</span><em>K</em>, <em>proof=True</em>, <em>reason=False</em><span class="sig-paren">)</span><a class="headerlink" href="#recip.denominators.bruinier_yang_applies" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return <code class="docutils literal"><span class="pre">True</span></code> if and only if the Bruinier-Yang results are proven for
+the input quartic CM field in Yang&#8217;s preprint.</p>
+<p>With <code class="docutils literal"><span class="pre">proof=False</span></code> returns <code class="docutils literal"><span class="pre">True</span></code> only if the Bruinier-Yang results are
+formulated and conjectured for the input quartic CM field
+as in Yang&#8217;s preprint.</p>
+<p>With <code class="docutils literal"><span class="pre">reason=True</span></code> also return a string with an explanation.</p>
+<p>EXAMPLES:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">sage: </span><span class="kn">from</span> <span class="nn">recip</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="gp">sage: </span><span class="n">bruinier_yang_applies</span><span class="p">(</span><span class="n">CM_Field</span><span class="p">([</span><span class="mi">5</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span><span class="mi">5</span><span class="p">]))</span>
+<span class="go">True</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="recip.denominators.bruinier_yang_bound">
+<code class="descclassname">recip.denominators.</code><code class="descname">bruinier_yang_bound</code><span class="sig-paren">(</span><em>K</em>, <em>check=True</em>, <em>proof=True</em><span class="sig-paren">)</span><a class="headerlink" href="#recip.denominators.bruinier_yang_bound" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the Bruinier-Yang bounds. Assumes
+that the input satisfies the hypotheses of the
+Bruinier-Yang conjecture. Bounds are proven
+only if <code class="docutils literal"><span class="pre">bruinier_yang_applies</span></code> returns <code class="docutils literal"><span class="pre">True</span></code>.</p>
+<p>EXAMPLES:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">sage: </span><span class="kn">from</span> <span class="nn">recip</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="gp">sage: </span><span class="n">bruinier_yang_bound</span><span class="p">(</span><span class="n">CM_Field</span><span class="p">([</span><span class="mi">5</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span><span class="mi">5</span><span class="p">]))</span>
+<span class="go">1</span>
+</pre></div>
+</div>
+<p>Let&#8217;s check for a few fields how sharp these denominators are. First,
+all elements of van Wamelen&#8217;s table where the conjecture has been
+proven.:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">sage: </span><span class="n">lst</span> <span class="o">=</span> <span class="n">wamelen_dab_list</span><span class="p">()</span>
+<span class="gp">sage: </span><span class="n">lst</span> <span class="o">=</span> <span class="p">[(</span><span class="n">DAB</span><span class="p">,</span> <span class="n">CM_Field</span><span class="p">(</span><span class="n">DAB</span><span class="p">))</span> <span class="k">for</span> <span class="n">DAB</span> <span class="ow">in</span> <span class="n">lst</span><span class="p">]</span>
+<span class="gp">sage: </span><span class="n">lst</span> <span class="o">=</span> <span class="p">[(</span><span class="n">DAB</span><span class="p">,</span> <span class="n">K</span><span class="p">,</span> <span class="n">bruinier_yang_applies</span><span class="p">(</span><span class="n">K</span><span class="p">,</span> <span class="n">proof</span><span class="o">=</span><span class="bp">True</span><span class="p">))</span> <span class="k">for</span> <span class="p">(</span><span class="n">DAB</span><span class="p">,</span> <span class="n">K</span><span class="p">)</span> <span class="ow">in</span> <span class="n">lst</span> <span class="k">if</span> <span class="n">bruinier_yang_applies</span><span class="p">(</span><span class="n">K</span><span class="p">,</span> <span class="n">proof</span><span class="o">=</span><span class="bp">False</span><span class="p">)]</span>
+<span class="gp">sage: </span><span class="nb">len</span><span class="p">(</span><span class="n">lst</span><span class="p">)</span>
+<span class="go">6</span>
+<span class="gp">sage: </span><span class="p">[(</span><span class="n">DAB</span><span class="p">,</span> <span class="n">b</span><span class="p">)</span> <span class="k">for</span> <span class="p">(</span><span class="n">DAB</span><span class="p">,</span> <span class="n">K</span><span class="p">,</span> <span class="n">b</span><span class="p">)</span> <span class="ow">in</span> <span class="n">lst</span><span class="p">]</span>
+<span class="go">[([5, 5, 5], True),</span>
+<span class="go"> ([13, 13, 13], True),</span>
+<span class="go"> ([29, 29, 29], True),</span>
+<span class="go"> ([37, 37, 333], True),</span>
+<span class="go"> ([53, 53, 53], True),</span>
+<span class="go"> ([61, 61, 549], True)]</span>
+<span class="gp">sage: </span><span class="n">lst</span> <span class="o">=</span> <span class="p">[(</span><span class="n">K</span><span class="p">,</span> <span class="n">denominator_bound</span><span class="p">(</span><span class="n">K</span><span class="p">,</span> <span class="n">bound</span><span class="o">=</span><span class="s1">&#39;by&#39;</span><span class="p">),</span> <span class="n">class_polynomials</span><span class="p">(</span><span class="n">K</span><span class="p">))</span> <span class="k">for</span> <span class="p">(</span><span class="n">DAB</span><span class="p">,</span> <span class="n">K</span><span class="p">,</span> <span class="n">b</span><span class="p">)</span> <span class="ow">in</span> <span class="n">lst</span> <span class="k">if</span> <span class="n">b</span><span class="p">]</span> <span class="c1"># long time</span>
+<span class="gp">sage: </span><span class="nb">len</span><span class="p">(</span><span class="n">lst</span><span class="p">)</span> <span class="c1"># long time</span>
+<span class="go">6</span>
+<span class="gp">sage: </span><span class="p">[(</span><span class="n">K</span><span class="o">.</span><span class="n">DAB</span><span class="p">(),</span> <span class="n">den</span><span class="o">.</span><span class="n">factor</span><span class="p">(),</span> <span class="n">lcm</span><span class="p">([</span><span class="n">c</span><span class="o">.</span><span class="n">denominator</span><span class="p">()</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">flatten</span><span class="p">([</span><span class="nb">list</span><span class="p">(</span><span class="n">p</span><span class="p">)</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">pols</span><span class="p">])])</span><span class="o">.</span><span class="n">factor</span><span class="p">())</span> <span class="k">for</span> <span class="p">(</span><span class="n">K</span><span class="p">,</span><span class="n">den</span><span class="p">,</span><span class="n">pols</span><span class="p">)</span> <span class="ow">in</span> <span class="n">lst</span><span class="p">]</span> <span class="c1"># long time</span>
+<span class="go">[([5, 5, 5], 2^14, 1), ([13, 13, 13], 2^14, 1), ([29, 29, 29], 2^14 * 5^4, 1), ([37, 37, 333], 2^14 * 3^4 * 11^4, 11^2), ([53, 53, 53], 2^14 * 17^4 * 29^4, 17^2 * 29^4), ([61, 61, 549], 2^14 * 3^8 * 5^4 * 41^4, 3^3 * 41^4)]</span>
+</pre></div>
+</div>
+<p>So we see that den contains too many 2&#8217;s, 5&#8217;s, 11&#8217;s in the first cases, but
+den is optimal wrt 29 and 41 in the last two cases. The 2, 3, 5, 11, 17
+could be cancellation, but is still a bit fishy. Anyway, here is the list
+of 6 triples of class polynomials that we just proved:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">sage: </span><span class="p">[(</span><span class="n">K</span><span class="o">.</span><span class="n">DAB</span><span class="p">(),</span> <span class="n">pols</span><span class="p">)</span> <span class="k">for</span> <span class="p">(</span><span class="n">K</span><span class="p">,</span><span class="n">den</span><span class="p">,</span><span class="n">pols</span><span class="p">)</span> <span class="ow">in</span> <span class="n">lst</span><span class="p">]</span> <span class="c1"># long time</span>
+<span class="go">[([5, 5, 5], [x, 0, 0]), ([13, 13, 13], [x + 7840, 102400, -204800000]), ([29, 29, 29], [x + 2589408, 131383296, -60466176000000]), ([37, 37, 333], [x + 505440, -810393600/121, 1642291200000]), ([53, 53, 53], [x + 16982274516480/14297, 30036725005359513600/204404209, -16680511371779820748800000/707281]), ([61, 61, 549], [x - 88833024/1681, -14055214415872/76295547, 9663676416000000/2825761])]</span>
+</pre></div>
+</div>
+<p>Here is the final curve in the author&#8217;s preprint with Florian Bouyer:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">sage: </span><span class="n">K</span> <span class="o">=</span> <span class="n">CM_Field</span><span class="p">([</span><span class="mi">389</span><span class="p">,</span> <span class="mi">37</span><span class="p">,</span> <span class="mi">245</span><span class="p">])</span>
+<span class="gp">sage: </span><span class="n">class_polynomials</span><span class="p">(</span><span class="n">K</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+<span class="go">starting with precision 50</span>
+<span class="go">output has 120.772235075431 too few bits of precision</span>
+<span class="go">increasing precision to 175</span>
+<span class="go">output has 4.22059275336305 more bits of precision than needed</span>
+<span class="go">Denominator: 11^2 * 19^6 * 29^4 out of 2^14 * 5^4 * 11^8 * 19^8 * 29^4</span>
+<span class="go">[x^2 - 502951680/303601*x - 215457915617280/5768419,</span>
+<span class="go"> 102098407935836160/11153001631321*x + 1497833452550013478502400/4026233588906881,</span>
+<span class="go"> 2213545771008000000/92173567201*x - 36646804488714190848000000/33274657759561]</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="recip.denominators.calI">
+<code class="descclassname">recip.denominators.</code><code class="descname">calI</code><span class="sig-paren">(</span><em>delta</em>, <em>f_u=None</em>, <em>t_w=None</em>, <em>l=None</em>, <em>d_u=None</em>, <em>n_w=None</em>, <em>t_u=None</em>, <em>safe=True</em><span class="sig-paren">)</span><a class="headerlink" href="#recip.denominators.calI" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns calI(n, f_u) as in Theorem 2.1 of [LV].</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="recip.denominators.calIp">
+<code class="descclassname">recip.denominators.</code><code class="descname">calIp</code><span class="sig-paren">(</span><em>C</em>, <em>p</em>, <em>a1</em>, <em>a0</em>, <em>safe=True</em><span class="sig-paren">)</span><a class="headerlink" href="#recip.denominators.calIp" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns calI_C^{(p)}(a1, a2) as in [LV, Thm 2.1]</p>
+<p>With <code class="docutils literal"><span class="pre">safe=True</span></code>, an additional redundant slow step is done to verify
+the result.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="recip.denominators.calIp_enumerate">
+<code class="descclassname">recip.denominators.</code><code class="descname">calIp_enumerate</code><span class="sig-paren">(</span><em>C</em>, <em>p</em>, <em>a1</em>, <em>a0</em><span class="sig-paren">)</span><a class="headerlink" href="#recip.denominators.calIp_enumerate" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns calI_C^{(p)}(a1, a2) as in [LV, Thm 2.1], simple but slow
+implementation.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="recip.denominators.calIp_fast">
+<code class="descclassname">recip.denominators.</code><code class="descname">calIp_fast</code><span class="sig-paren">(</span><em>C</em>, <em>p</em>, <em>a1</em>, <em>a0</em><span class="sig-paren">)</span><a class="headerlink" href="#recip.denominators.calIp_fast" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns calI_C^{(p)}(a1, a2) as in [LV, Thm 2.1], complicated but fast
+implementation.</p>
+<p>TESTS:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">sage: </span><span class="kn">from</span> <span class="nn">recip</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="gp">sage: </span><span class="n">S</span> <span class="o">=</span> <span class="p">[(</span><span class="n">C</span><span class="p">,</span> <span class="n">p</span><span class="p">,</span> <span class="n">a1</span><span class="p">,</span> <span class="n">a0</span><span class="p">)</span> <span class="k">for</span> <span class="n">C</span> <span class="ow">in</span> <span class="n">srange</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">5</span><span class="p">)</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">5</span><span class="p">]</span> <span class="k">for</span> <span class="n">a0</span> <span class="ow">in</span> <span class="n">srange</span><span class="p">(</span><span class="mi">15</span><span class="p">)</span> <span class="k">for</span> <span class="n">a1</span> <span class="ow">in</span> <span class="n">srange</span><span class="p">(</span><span class="mi">15</span><span class="p">)]</span>
+<span class="gp">sage: </span><span class="p">[(</span><span class="n">C</span><span class="p">,</span> <span class="n">p</span><span class="p">,</span> <span class="n">a1</span><span class="p">,</span> <span class="n">a0</span><span class="p">)</span> <span class="k">for</span> <span class="p">(</span><span class="n">C</span><span class="p">,</span> <span class="n">p</span><span class="p">,</span> <span class="n">a1</span><span class="p">,</span> <span class="n">a0</span><span class="p">)</span> <span class="ow">in</span> <span class="n">S</span> <span class="k">if</span> <span class="n">calIp_enumerate</span><span class="p">(</span><span class="n">C</span><span class="p">,</span> <span class="n">p</span><span class="p">,</span> <span class="n">a1</span><span class="p">,</span> <span class="n">a0</span><span class="p">)</span> <span class="o">!=</span> <span class="n">calIp_fast</span><span class="p">(</span><span class="n">C</span><span class="p">,</span> <span class="n">p</span><span class="p">,</span> <span class="n">a1</span><span class="p">,</span> <span class="n">a0</span><span class="p">)]</span>
+<span class="go">[]</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="recip.denominators.calJ_bound">
+<code class="descclassname">recip.denominators.</code><code class="descname">calJ_bound</code><span class="sig-paren">(</span><em>n</em>, <em>delta</em>, <em>Dtilde</em>, <em>d_u</em>, <em>f_u</em>, <em>d_x</em>, <em>t</em>, <em>l</em>, <em>D</em>, <em>safe=True</em>, <em>bound_calJ=1</em><span class="sig-paren">)</span><a class="headerlink" href="#recip.denominators.calJ_bound" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the upper bound on calJ of [LV] given in Theorem 2.4 of [LV].</p>
+<p>If safe is True, then also checks whether Conjecture 2.6 holds in this case
+and raises an error if it does not.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="recip.denominators.calJ_bound_thm24">
+<code class="descclassname">recip.denominators.</code><code class="descname">calJ_bound_thm24</code><span class="sig-paren">(</span><em>n</em>, <em>delta</em>, <em>Dtilde</em>, <em>d_u</em>, <em>f_u</em>, <em>d_x</em>, <em>t</em>, <em>l</em>, <em>D</em>, <em>safe=True</em><span class="sig-paren">)</span><a class="headerlink" href="#recip.denominators.calJ_bound_thm24" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the upper bound on calJ from Theorem 2.4.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="recip.denominators.calJ_conjecture">
+<code class="descclassname">recip.denominators.</code><code class="descname">calJ_conjecture</code><span class="sig-paren">(</span><em>d1</em>, <em>d2</em>, <em>t</em>, <em>l</em><span class="sig-paren">)</span><a class="headerlink" href="#recip.denominators.calJ_conjecture" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the right hand side of Conjecture 2.6,
+or None if the hypothesis of the conjecture is not satisfied.</p>
+<p>Also returns None if one of the Legendre symbols is ambiguous (i.e.,
+if l&gt;2 and 2 divides m).</p>
+<p>Since this is a conjecture, it is only used as a check: counterexamples
+to the conjecture will be reported when safe=True in lauter_viray_bound,
+but otherwise nothing is done with this conjecture.
+If counterexamples are found, it is probably a good idea to check the code
+of this function, as not much care was given to it (it is only used as a
+redundant check).</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="recip.denominators.conductor">
+<code class="descclassname">recip.denominators.</code><code class="descname">conductor</code><span class="sig-paren">(</span><em>d</em><span class="sig-paren">)</span><a class="headerlink" href="#recip.denominators.conductor" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the largest integer f such that d/f^2 is a discriminant.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="recip.denominators.count_ideals">
+<code class="descclassname">recip.denominators.</code><code class="descname">count_ideals</code><span class="sig-paren">(</span><em>disc</em>, <em>norm</em>, <em>safe=True</em><span class="sig-paren">)</span><a class="headerlink" href="#recip.denominators.count_ideals" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the number of invertible (equivalently: proper) ideals of the given
+norm in the quadratic order of the given discriminant.</p>
+<p>If safe=True, then calculates it in a few (possibly slow) ways and checks
+whether the outputs agree.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="recip.denominators.count_ideals1">
+<code class="descclassname">recip.denominators.</code><code class="descname">count_ideals1</code><span class="sig-paren">(</span><em>disc</em>, <em>norm</em><span class="sig-paren">)</span><a class="headerlink" href="#recip.denominators.count_ideals1" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the number of invertible ideals of the given norm inside the
+quadratic order of the given discriminant.</p>
+<p>Does this quickly by checking some congruences if norm and the conductor
+of the order are coprime. Otherwise, falls back to a slower algorithm:
+<a class="reference internal" href="#recip.denominators.count_ideals3" title="recip.denominators.count_ideals3"><code class="xref py py-func docutils literal"><span class="pre">count_ideals3()</span></code></a>.</p>
+<p>EXAMPLE:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">sage: </span><span class="kn">from</span> <span class="nn">recip</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="gp">sage: </span><span class="n">count_ideals1</span><span class="p">(</span><span class="o">-</span><span class="mi">183</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
+<span class="go">1</span>
+<span class="gp">sage: </span><span class="n">count_ideals1</span><span class="p">(</span><span class="o">-</span><span class="mi">183</span><span class="p">,</span> <span class="mi">3</span><span class="o">*</span><span class="mi">11</span><span class="o">*</span><span class="mi">13</span><span class="p">)</span>
+<span class="go">4</span>
+<span class="gp">sage: </span><span class="n">count_ideals1</span><span class="p">(</span><span class="o">-</span><span class="mi">183</span><span class="p">,</span> <span class="mi">7</span><span class="p">)</span>
+<span class="go">0</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="recip.denominators.count_ideals2">
+<code class="descclassname">recip.denominators.</code><code class="descname">count_ideals2</code><span class="sig-paren">(</span><em>disc</em>, <em>norm</em><span class="sig-paren">)</span><a class="headerlink" href="#recip.denominators.count_ideals2" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the number of invertible ideals of the given norm inside the
+quadratic order of the given discriminant.</p>
+<p>This is a slow implementation, which counts binary quadratic forms. It is
+used only as a redundant safety check in <a class="reference internal" href="#recip.denominators.count_ideals" title="recip.denominators.count_ideals"><code class="xref py py-func docutils literal"><span class="pre">count_ideals()</span></code></a>.</p>
+<p>EXAMPLES:</p>
+<p>Here is an example of an ideal of norm 3:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">sage: </span><span class="n">QuadraticField</span><span class="p">(</span><span class="o">-</span><span class="mi">183</span><span class="p">,</span><span class="s1">&#39;a&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">ideal</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span><span class="o">.</span><span class="n">factor</span><span class="p">()[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">basis</span><span class="p">()</span>
+<span class="go">[3, 1/2*a + 3/2]</span>
+</pre></div>
+</div>
+<p>Let n=3, then this ideal is n*(tau*ZZ+ZZ), where tau = (a+3)/6 is a root
+of the primitive polynomial 3*x^2-3*x+16. So in the code of this function,
+this is given by A=3, B=-3, C=16. This is not in the form we are listing,
+but by changing tau by -1, we find tau=(a-3)/6, so B=3, with the same
+A and C. Also N=n/A=1.
+This is the only ideal of norm 3, since 3 is ramified. And indeed, we get:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">sage: </span><span class="kn">from</span> <span class="nn">recip</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="gp">sage: </span><span class="n">count_ideals2</span><span class="p">(</span><span class="o">-</span><span class="mi">183</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
+<span class="go">1</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="recip.denominators.count_ideals3">
+<code class="descclassname">recip.denominators.</code><code class="descname">count_ideals3</code><span class="sig-paren">(</span><em>disc</em>, <em>norm</em><span class="sig-paren">)</span><a class="headerlink" href="#recip.denominators.count_ideals3" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the number of invertible ideals of the given norm inside the
+quadratic order of the given discriminant.</p>
+<p>This is a slow implementation, which counts binary quadratic forms. It is
+used as a fall-back in difficult cases in <a class="reference internal" href="#recip.denominators.count_ideals1" title="recip.denominators.count_ideals1"><code class="xref py py-func docutils literal"><span class="pre">count_ideals1()</span></code></a>.</p>
+<p>EXAMPLES:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">sage: </span><span class="kn">from</span> <span class="nn">recip</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="gp">sage: </span><span class="n">count_ideals3</span><span class="p">(</span><span class="o">-</span><span class="mi">400</span><span class="o">*</span><span class="mi">27</span><span class="p">,</span> <span class="mi">5</span><span class="p">)</span>
+<span class="go">0</span>
+<span class="gp">sage: </span><span class="n">count_ideals3</span><span class="p">(</span><span class="o">-</span><span class="mi">400</span><span class="o">*</span><span class="mi">27</span><span class="p">,</span> <span class="mi">7</span><span class="p">)</span>
+<span class="go">2</span>
+<span class="gp">sage: </span><span class="n">count_ideals3</span><span class="p">(</span><span class="o">-</span><span class="mi">400</span><span class="o">*</span><span class="mi">27</span><span class="p">,</span> <span class="mi">7</span><span class="o">*</span><span class="mi">11</span><span class="p">)</span>
+<span class="go">0</span>
+<span class="gp">sage: </span><span class="n">count_ideals3</span><span class="p">(</span><span class="o">-</span><span class="mi">400</span><span class="o">*</span><span class="mi">27</span><span class="p">,</span> <span class="mi">16</span><span class="p">)</span>
+<span class="go">6</span>
+<span class="gp">sage: </span><span class="n">count_ideals3</span><span class="p">(</span><span class="o">-</span><span class="mi">400</span><span class="o">*</span><span class="mi">27</span><span class="p">,</span> <span class="mi">32</span><span class="p">)</span>
+<span class="go">0</span>
+<span class="gp">sage: </span><span class="n">count_ideals2</span><span class="p">(</span><span class="o">-</span><span class="mi">400</span><span class="o">*</span><span class="mi">27</span><span class="p">,</span> <span class="mi">32</span><span class="p">)</span>
+<span class="go">0</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="recip.denominators.denominator_bound">
+<code class="descclassname">recip.denominators.</code><code class="descname">denominator_bound</code><span class="sig-paren">(</span><em>K</em>, <em>c=16384</em>, <em>k=2</em>, <em>d=None</em>, <em>Phi=None</em>, <em>bound='default'</em>, <em>check=True</em>, <em>safe=True</em><span class="sig-paren">)</span><a class="headerlink" href="#recip.denominators.denominator_bound" title="Permalink to this definition">¶</a></dt>
+<dd><p>If <code class="docutils literal"><span class="pre">Phi</span></code> is None, returns a positive integer <span class="math">\(D\)</span>
+such that <span class="math">\(D N(f h_{10}^{-k}(Z))\)</span>
+is integral whenever <span class="math">\(Z\)</span> has CM by <span class="math">\(O_K\)</span>,
+<span class="math">\(c*f\)</span> is a modular
+form of weight <span class="math">\(k\)</span> and level <span class="math">\(1\)</span> with integral
+Fourier coefficients, and
+<span class="math">\(d\)</span> (if K/QQ is Galois) and <span class="math">\(2d\)</span> (if K/QQ is non-Galois)
+is the degree of the algebraic number 
+<span class="math">\(f h_{10}^{-k}(Z)\)</span>.</p>
+<p>For the choice of invariants in the author&#8217;s thesis, take k=2 and c=2^14.
+These are also the defaults.</p>
+<p>If <code class="docutils literal"><span class="pre">Phi</span></code> is a CM-type, returns a number <span class="math">\(D\)</span>
+in the real quadratic subfield of the reflex field
+of <code class="docutils literal"><span class="pre">Phi</span></code> such that
+that <span class="math">\(D f h_{10}^{-k}(Z)\)</span>
+is integral whenever <span class="math">\(Z\)</span> has CM by <span class="math">\(O_K\)</span>
+of type <code class="docutils literal"><span class="pre">Phi</span></code> and <span class="math">\(c*f\)</span> is a modular
+form of weight <span class="math">\(k\)</span> and level <span class="math">\(1\)</span> with integral
+Fourier coefficients.</p>
+<p>EXAMPLE:</p>
+<p>The following example shows how horribly unusable the Goren-Lauter bounds
+are in practice. The additional number of digits (about 2000) needed to
+compute the class polynomial with certainty using the algorithm of the
+author&#8217;s thesis is huge even though it is also easy to see that actually
+the class polynomials are all equal to X, so the algorithm as given is not
+practical. The importance of the algorithm is in proving the asymptotic
+running time:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">sage: </span><span class="kn">from</span> <span class="nn">recip</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="gp">sage: </span><span class="n">gl</span> <span class="o">=</span> <span class="n">denominator_bound</span><span class="p">(</span><span class="n">CM_Field</span><span class="p">([</span><span class="mi">5</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span><span class="mi">5</span><span class="p">]),</span> <span class="n">bound</span><span class="o">=</span><span class="s1">&#39;gl&#39;</span><span class="p">)</span>
+<span class="gp">sage: </span><span class="n">gl</span><span class="o">.</span><span class="n">factor</span><span class="p">()</span>
+<span class="go">2^14 * 5^36 * 19^20 * 29^18 * 59^14 * 79^14 * 89^14 * 109^12 * 139^12 * 149^12 * 179^12 * 199^12 * 229^12 * 239^12 * 269^10 * 349^10 * 359^10 * 379^10 * 389^10 * 409^10 * 419^10 * 439^10 * 449^10 * 479^10 * 499^10 * 509^10 * 569^10 * 599^10 * 619^10 * 659^10 * 709^10 * 719^10 * 739^10 * 769^10 * 809^10 * 829^10 * 839^10 * 859^10 * 919^10 * 929^10 * 1009^8 * 1019^8 * 1039^8 * 1049^8 * 1069^8 * 1109^8 * 1129^8 * 1229^8 * 1249^8 * 1259^8 * 1279^8 * 1289^8 * 1319^8 * 1399^8 * 1409^8 * 1429^8 * 1439^8 * 1459^8 * 1489^8 * 1499^8 * 1549^8 * 1559^8 * 1579^8 * 1609^8 * 1619^8 * 1669^8 * 1699^8 * 1709^8 * 1759^8 * 1789^8 * 1879^8 * 1889^8 * 1949^8 * 1979^8 * 1999^8</span>
+<span class="gp">sage: </span><span class="p">(</span><span class="n">log</span><span class="p">(</span><span class="n">gl</span><span class="p">)</span><span class="o">/</span><span class="n">log</span><span class="p">(</span><span class="mi">10</span><span class="p">))</span><span class="o">.</span><span class="n">n</span><span class="p">()</span>
+<span class="go">1947.25745024934</span>
+<span class="gp">sage: </span><span class="p">(</span><span class="n">log</span><span class="p">(</span><span class="n">gl</span><span class="p">)</span><span class="o">/</span><span class="n">log</span><span class="p">(</span><span class="mi">2</span><span class="p">))</span><span class="o">.</span><span class="n">n</span><span class="p">()</span>
+<span class="go">6468.64923196203</span>
+</pre></div>
+</div>
+<p>Fortunately the Bruinier-Yang bounds apply:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">sage: </span><span class="n">denominator_bound</span><span class="p">(</span><span class="n">CM_Field</span><span class="p">([</span><span class="mi">5</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span><span class="mi">5</span><span class="p">]),</span> <span class="n">bound</span><span class="o">=</span><span class="s1">&#39;by&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">factor</span><span class="p">()</span>
+<span class="go">2^14</span>
+</pre></div>
+</div>
+<p>Next, we try a different field:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">sage: </span><span class="n">K</span> <span class="o">=</span> <span class="n">CM_Field</span><span class="p">((</span><span class="n">x</span><span class="o">^</span><span class="mi">2</span><span class="o">+</span><span class="mi">2</span><span class="p">)</span><span class="o">^</span><span class="mi">2</span><span class="o">-</span><span class="mi">2</span><span class="p">,</span><span class="s1">&#39;a&#39;</span><span class="p">)</span>
+<span class="gp">sage: </span><span class="n">bruinier_yang_applies</span><span class="p">(</span><span class="n">K</span><span class="p">)</span>
+<span class="go">False</span>
+<span class="gp">sage: </span><span class="n">gl</span> <span class="o">=</span> <span class="n">denominator_bound</span><span class="p">(</span><span class="n">K</span><span class="p">,</span> <span class="n">bound</span><span class="o">=</span><span class="s1">&#39;gl&#39;</span><span class="p">)</span>
+<span class="gp">sage: </span><span class="p">(</span><span class="n">log</span><span class="p">(</span><span class="n">gl</span><span class="p">)</span><span class="o">/</span><span class="n">log</span><span class="p">(</span><span class="mi">2</span><span class="p">))</span><span class="o">.</span><span class="n">n</span><span class="p">()</span>
+<span class="go">313.633570483095</span>
+<span class="gp">sage: </span><span class="n">Z</span> <span class="o">=</span> <span class="n">K</span><span class="o">.</span><span class="n">one_period_matrix</span><span class="p">();</span> <span class="n">Z</span>
+<span class="go">Period Matrix</span>
+<span class="go">[ 0.?e-15 + 1.08239220029240?*I 0.414213562373095? + 0.?e-14*I]</span>
+<span class="go">[             0.41421356237310?            1.53073372946036?*I]</span>
+<span class="gp">sage: </span><span class="n">h</span> <span class="o">=</span> <span class="n">igusa_modular_forms</span><span class="p">()</span>
+<span class="gp">sage: </span><span class="n">v</span> <span class="o">=</span> <span class="p">[</span><span class="n">f</span><span class="p">(</span><span class="n">Z</span><span class="p">,</span> <span class="n">prec</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">interval</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span> <span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="n">h</span><span class="p">];</span> <span class="n">v</span>
+<span class="go">[5.14511662180777441738853320? + 0.?e-28*I, 1.5657740361761366552190052? + 0.?e-27*I, -0.00110508779417351004090108656? + 0.?e-30*I, 0.0201781755750066641900463261? + 0.?e-29*I]</span>
+<span class="gp">sage: </span><span class="n">w</span> <span class="o">=</span> <span class="n">igusa_modular_forms_to_absolute</span><span class="p">(</span><span class="n">v</span><span class="p">);</span> <span class="n">w</span>
+<span class="go">[-7290.0000000000000000000000? + 0.?e-23*I, 437400.00000000000000000000? + 0.?e-21*I, 2.9524500000000000000000000?e9 + 0.?e-17*I]</span>
+<span class="gp">sage: </span><span class="p">[(</span><span class="n">log</span><span class="p">((</span><span class="n">gl</span><span class="o">*</span><span class="n">y</span><span class="p">)</span><span class="o">.</span><span class="n">real</span><span class="p">()</span><span class="o">.</span><span class="n">absolute_diameter</span><span class="p">())</span><span class="o">/</span><span class="n">log</span><span class="p">(</span><span class="mi">2</span><span class="p">))</span><span class="o">.</span><span class="n">n</span><span class="p">()</span> <span class="k">for</span> <span class="n">y</span> <span class="ow">in</span> <span class="n">w</span><span class="p">]</span>
+<span class="go">[240.728133100306, 246.473959365695, 259.180686194823]</span>
+</pre></div>
+</div>
+<p>These numbers are very recognizable, but we need 346 more bits of output
+precision to prove they are correct.:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">sage: </span><span class="n">v</span> <span class="o">=</span> <span class="p">[</span><span class="n">f</span><span class="p">(</span><span class="n">Z</span><span class="p">,</span> <span class="n">prec</span><span class="o">=</span><span class="mi">450</span><span class="p">,</span> <span class="n">interval</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span> <span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="n">h</span><span class="p">]</span>
+<span class="gp">sage: </span><span class="n">w</span> <span class="o">=</span> <span class="n">igusa_modular_forms_to_absolute</span><span class="p">(</span><span class="n">v</span><span class="p">)</span>
+<span class="gp">sage: </span><span class="n">x</span> <span class="o">=</span> <span class="p">[</span><span class="n">gl</span><span class="o">*</span><span class="n">y</span><span class="o">.</span><span class="n">real</span><span class="p">()</span> <span class="k">for</span> <span class="n">y</span> <span class="ow">in</span> <span class="n">w</span><span class="p">]</span>
+<span class="gp">sage: </span><span class="p">[(</span><span class="n">log</span><span class="p">(</span><span class="n">y</span><span class="o">.</span><span class="n">absolute_diameter</span><span class="p">())</span><span class="o">/</span><span class="n">log</span><span class="p">(</span><span class="mi">2</span><span class="p">))</span><span class="o">.</span><span class="n">n</span><span class="p">()</span> <span class="k">for</span> <span class="n">y</span> <span class="ow">in</span> <span class="n">x</span><span class="p">]</span>
+<span class="go">[-107.565143763258, -101.889231246203, -89.1476167961862]</span>
+</pre></div>
+</div>
+<p>So now we have more than enough precision and can simply round:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">sage: </span><span class="n">z</span> <span class="o">=</span> <span class="p">[</span><span class="n">y</span><span class="o">.</span><span class="n">real</span><span class="p">()</span><span class="o">.</span><span class="n">unique_integer</span><span class="p">()</span> <span class="k">for</span> <span class="n">y</span> <span class="ow">in</span> <span class="n">x</span><span class="p">]</span>
+<span class="gp">sage: </span><span class="n">invs</span> <span class="o">=</span> <span class="p">[</span><span class="n">y</span><span class="o">/</span><span class="n">gl</span> <span class="k">for</span> <span class="n">y</span> <span class="ow">in</span> <span class="n">z</span><span class="p">];</span> <span class="n">invs</span>
+<span class="go">[-7290, 437400, 2952450000]</span>
+</pre></div>
+</div>
+<p>These numbers are proven correct, so let&#8217;s prove the corresponding entry
+of van Wamelen&#8217;s table with it. First, we double-check that the curve
+in the table corresponds with the invariants given in the table:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">sage: </span><span class="n">x</span> <span class="o">=</span> <span class="n">QQ</span><span class="p">[</span><span class="s1">&#39;x&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">gen</span><span class="p">()</span>
+<span class="gp">sage: </span><span class="n">f</span> <span class="o">=</span> <span class="o">-</span><span class="n">x</span><span class="o">^</span><span class="mi">5</span><span class="o">+</span><span class="mi">3</span><span class="o">*</span><span class="n">x</span><span class="o">^</span><span class="mi">4</span><span class="o">+</span><span class="mi">2</span><span class="o">*</span><span class="n">x</span><span class="o">^</span><span class="mi">3</span><span class="o">-</span><span class="mi">6</span><span class="o">*</span><span class="n">x</span><span class="o">^</span><span class="mi">2</span><span class="o">-</span><span class="mi">3</span><span class="o">*</span><span class="n">x</span><span class="o">+</span><span class="mi">1</span>
+<span class="gp">sage: </span><span class="p">[</span><span class="n">I2</span><span class="p">,</span><span class="n">I4</span><span class="p">,</span><span class="n">I6</span><span class="p">,</span><span class="n">I10</span><span class="p">]</span> <span class="o">=</span> <span class="n">igusa_clebsch_invariants</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
+<span class="gp">sage: </span><span class="p">(</span><span class="n">I2</span><span class="o">^</span><span class="mi">5</span><span class="o">/</span><span class="n">I10</span><span class="p">)</span> <span class="o">==</span> <span class="mi">2</span><span class="o">^</span><span class="mi">7</span><span class="o">*</span><span class="mi">3</span><span class="o">^</span><span class="mi">15</span>
+<span class="go">True</span>
+<span class="gp">sage: </span><span class="n">I2</span><span class="o">^</span><span class="mi">3</span><span class="o">*</span><span class="n">I4</span><span class="o">/</span><span class="n">I10</span> <span class="o">==</span> <span class="mi">2</span><span class="o">^</span><span class="mi">5</span><span class="o">*</span><span class="mi">3</span><span class="o">^</span><span class="mi">11</span><span class="o">*</span><span class="mi">5</span>
+<span class="go">True</span>
+<span class="gp">sage: </span><span class="n">I2</span><span class="o">^</span><span class="mi">2</span><span class="o">*</span><span class="n">I6</span><span class="o">/</span><span class="n">I10</span> <span class="o">==</span> <span class="mi">2</span><span class="o">^</span><span class="mi">4</span><span class="o">*</span><span class="mi">3</span><span class="o">^</span><span class="mi">9</span><span class="o">*</span><span class="mi">31</span>
+<span class="go">True</span>
+</pre></div>
+</div>
+<p>Next, we show that these invariants coincide with the value we just proved.
+This seems to be the first complete proof of correctness for any entry
+of van Wamelen&#8217;s table, other than the classical and easy QQ(zeta_5).
+It was already proven by van Wamelen that the curve <span class="math">\(y^2 = f\)</span> has CM
+by an order of <span class="math">\(K\)</span>, and a sketch was given of how to extend these results
+to show the order is the maximal order. Now we have a complete proof (by
+different means).:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">sage: </span><span class="n">I6pr</span> <span class="o">=</span> <span class="p">(</span><span class="n">I2</span><span class="o">*</span><span class="n">I4</span><span class="o">-</span><span class="mi">3</span><span class="o">*</span><span class="n">I6</span><span class="p">)</span><span class="o">/</span><span class="mi">2</span>
+<span class="gp">sage: </span><span class="n">invs</span> <span class="o">==</span> <span class="p">[</span><span class="n">I4</span><span class="o">*</span><span class="n">I6pr</span><span class="o">/</span><span class="n">I10</span><span class="p">,</span> <span class="n">I4</span><span class="o">^</span><span class="mi">2</span><span class="o">*</span><span class="n">I2</span><span class="o">/</span><span class="n">I10</span><span class="p">,</span> <span class="n">I4</span><span class="o">^</span><span class="mi">5</span><span class="o">/</span><span class="n">I10</span><span class="o">^</span><span class="mi">2</span><span class="p">]</span>
+<span class="go">True</span>
+</pre></div>
+</div>
+<p>Check that a bug with incorrect embeddings is fixed:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">sage: </span><span class="n">K</span> <span class="o">=</span> <span class="n">CM_Field</span><span class="p">([</span><span class="mi">5</span><span class="p">,</span><span class="mi">26</span><span class="p">,</span><span class="mi">149</span><span class="p">])</span>
+<span class="gp">sage: </span><span class="n">denominator_bound</span><span class="p">(</span><span class="n">K</span><span class="p">,</span> <span class="n">bound</span><span class="o">=</span><span class="s1">&#39;by&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">factor</span><span class="p">()</span>
+<span class="go">2^14 * 5^4 * 7^4</span>
+</pre></div>
+</div>
+<p>Our implementation computes Lauter-Viray bounds faster than Bruinier-Yang
+bounds, but Bruinier-Yang bounds are significantly sharper, so we
+use them by default:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">sage: </span><span class="n">K</span> <span class="o">=</span> <span class="n">CM_Field</span><span class="p">([</span><span class="mi">389</span><span class="p">,</span><span class="mi">37</span><span class="p">,</span><span class="mi">245</span><span class="p">])</span>
+<span class="gp">sage: </span><span class="n">D1</span> <span class="o">=</span> <span class="n">denominator_bound</span><span class="p">(</span><span class="n">K</span><span class="p">,</span> <span class="n">bound</span><span class="o">=</span><span class="s1">&#39;lv&#39;</span><span class="p">)</span> <span class="c1"># less than a second</span>
+<span class="gp">sage: </span><span class="n">D2</span> <span class="o">=</span> <span class="n">denominator_bound</span><span class="p">(</span><span class="n">K</span><span class="p">,</span> <span class="n">bound</span><span class="o">=</span><span class="s1">&#39;by&#39;</span><span class="p">)</span> <span class="c1"># long time: 6 seconds</span>
+<span class="gp">sage: </span><span class="n">class_polynomials</span><span class="p">(</span><span class="n">K</span><span class="p">,</span> <span class="n">D</span><span class="o">=</span><span class="n">D1</span><span class="p">)</span> <span class="c1"># long time: 50 seconds</span>
+<span class="go">[x^2 - 502951680/303601*x - 215457915617280/5768419,</span>
+<span class="go"> 102098407935836160/11153001631321*x + 1497833452550013478502400/4026233588906881,</span>
+<span class="go"> 2213545771008000000/92173567201*x - 36646804488714190848000000/33274657759561]</span>
+<span class="gp">sage: </span><span class="n">class_polynomials</span><span class="p">(</span><span class="n">K</span><span class="p">,</span> <span class="n">D</span><span class="o">=</span><span class="n">D2</span><span class="p">)</span> <span class="c1"># still a long time, but only 26 seconds</span>
+<span class="go">[x^2 - 502951680/303601*x - 215457915617280/5768419,</span>
+<span class="go"> 102098407935836160/11153001631321*x + 1497833452550013478502400/4026233588906881,</span>
+<span class="go"> 2213545771008000000/92173567201*x - 36646804488714190848000000/33274657759561]</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="recip.denominators.find_eta">
+<code class="descclassname">recip.denominators.</code><code class="descname">find_eta</code><span class="sig-paren">(</span><em>K</em>, <em>how_many=None</em>, <em>proof=True</em><span class="sig-paren">)</span><a class="headerlink" href="#recip.denominators.find_eta" title="Permalink to this definition">¶</a></dt>
+<dd><p>Given a primitive quartic CM-field K, returns a list [eta] of one element
+eta such that O_F[eta] = O_K, if it exists.</p>
+<p>If not, then returns a list L of pairs (eta, S), where S is thet set of
+primes dividing [O_K : O_f[eta]].
+The sets S don&#8217;t contain any primes &lt;= D/4 (D = Disc(F)), and the
+intersection of all sets S is empty.</p>
+<p>If how_many is None, use as few as possible. Otherwise, return that number.</p>
+<p>EXAMPLE:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">sage: </span><span class="kn">from</span> <span class="nn">recip</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="gp">sage: </span><span class="n">K</span> <span class="o">=</span> <span class="n">CM_Field</span><span class="p">((</span><span class="n">x</span><span class="o">^</span><span class="mi">2</span><span class="o">+</span><span class="mi">2</span><span class="p">)</span><span class="o">^</span><span class="mi">2</span><span class="o">-</span><span class="mi">3</span><span class="p">)</span> <span class="c1"># a biquadratic field</span>
+<span class="gp">sage: </span><span class="n">find_eta</span><span class="p">(</span><span class="n">K</span><span class="p">)</span>
+<span class="go">[alpha]</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="recip.denominators.find_eta_coprime">
+<code class="descclassname">recip.denominators.</code><code class="descname">find_eta_coprime</code><span class="sig-paren">(</span><em>K</em>, <em>Krel</em>, <em>F</em>, <em>D</em>, <em>rel_diff</em>, <em>prime_bound</em>, <em>proof=True</em><span class="sig-paren">)</span><a class="headerlink" href="#recip.denominators.find_eta_coprime" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="recip.denominators.find_eta_pid">
+<code class="descclassname">recip.denominators.</code><code class="descname">find_eta_pid</code><span class="sig-paren">(</span><em>K</em>, <em>Krel</em>, <em>F</em>, <em>rel_diff</em><span class="sig-paren">)</span><a class="headerlink" href="#recip.denominators.find_eta_pid" title="Permalink to this definition">¶</a></dt>
+<dd><p>Given a primitive quartic CM-field K with no roots of unity
+other than +/- 1, returns an element
+eta of K as a relative field such that O_F[eta] = O_K, if it exists, and
+return None otherwise.
+Assumes F is a PID. See the source code of find_eta for what the
+input is.</p>
+<p>EXAMPLE:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">sage: </span><span class="kn">from</span> <span class="nn">recip</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="gp">sage: </span><span class="n">K</span> <span class="o">=</span> <span class="n">CM_Field</span><span class="p">((</span><span class="n">x</span><span class="o">^</span><span class="mi">2</span><span class="o">+</span><span class="mi">2</span><span class="p">)</span><span class="o">^</span><span class="mi">2</span><span class="o">-</span><span class="mi">3</span><span class="p">)</span> <span class="c1"># a biquadratic field</span>
+<span class="gp">sage: </span><span class="n">Krel</span> <span class="o">=</span> <span class="n">K</span><span class="o">.</span><span class="n">relative_field</span><span class="p">()</span>
+<span class="gp">sage: </span><span class="n">find_eta_pid</span><span class="p">(</span><span class="n">K</span><span class="p">,</span> <span class="n">Krel</span><span class="p">,</span> <span class="n">K</span><span class="o">.</span><span class="n">real_field</span><span class="p">(),</span> <span class="n">Krel</span><span class="o">.</span><span class="n">relative_different</span><span class="p">())</span>
+<span class="go">alpha</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="recip.denominators.find_eta_pid_old">
+<code class="descclassname">recip.denominators.</code><code class="descname">find_eta_pid_old</code><span class="sig-paren">(</span><em>K</em>, <em>Krel</em>, <em>F</em>, <em>D</em>, <em>rel_diff</em><span class="sig-paren">)</span><a class="headerlink" href="#recip.denominators.find_eta_pid_old" title="Permalink to this definition">¶</a></dt>
+<dd><p>Given a primitive quartic CM-field K, returns an one-element list
+[eta] such that O_F[eta] = O_K, if it exists, and return None otherwise.
+Assumes F is a PID. See the source code of find_eta for what the
+input is.</p>
+<p>THIS version had bugs and has been deprecated.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="recip.denominators.goren_lauter_bound">
+<code class="descclassname">recip.denominators.</code><code class="descname">goren_lauter_bound</code><span class="sig-paren">(</span><em>K</em>, <em>Phi=None</em><span class="sig-paren">)</span><a class="headerlink" href="#recip.denominators.goren_lauter_bound" title="Permalink to this definition">¶</a></dt>
+<dd><p>If <code class="docutils literal"><span class="pre">Phi</span></code> is None, returns a positive integer <span class="math">\(D\)</span>
+such that <span class="math">\(c^l D^{dk} N(f h_{10}^{-k}(Z))\)</span>
+is integral whenever <span class="math">\(Z\)</span> has CM by <span class="math">\(O_K\)</span>,
+<span class="math">\(f\)</span> is a modular
+form of weight <span class="math">\(k\)</span> and level <span class="math">\(1\)</span> with integral
+Fourier coefficients, and
+<span class="math">\(d\)</span> (if K/QQ is Galois) and <span class="math">\(2d\)</span> (if K/QQ is non-Galois)
+is the degree of the algebraic number 
+<span class="math">\(f h_{10}^{-k}(Z)\)</span>.</p>
+<p>Here l is the degree and is l=d if K/QQ is Galois and l=2*d otherwise.</p>
+<p>For the choice of invariants in the author&#8217;s thesis, take k=2 and note that
+2^14*i_n satisfies the hypotheses.</p>
+<p>If <code class="docutils literal"><span class="pre">Phi</span></code> is a CM-type, returns a number <span class="math">\(D\)</span>
+in the real quadratic subfield of the reflex field
+of <code class="docutils literal"><span class="pre">Phi</span></code> such that
+that <span class="math">\(D^k f h_{10}^{-k}(Z)\)</span>
+is integral whenever <span class="math">\(Z\)</span> has CM by <span class="math">\(O_K\)</span>
+of type <code class="docutils literal"><span class="pre">Phi</span></code> and <span class="math">\(f\)</span> is a modular
+form of weight <span class="math">\(k\)</span> and level <span class="math">\(1\)</span> with integral
+Fourier coefficients.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="recip.denominators.hilbert_symbol_trivial_outside">
+<code class="descclassname">recip.denominators.</code><code class="descname">hilbert_symbol_trivial_outside</code><span class="sig-paren">(</span><em>a</em>, <em>b</em>, <em>l</em>, <em>negative=True</em><span class="sig-paren">)</span><a class="headerlink" href="#recip.denominators.hilbert_symbol_trivial_outside" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns True if and only if (a,b)_p != -1 for all primes p not
+equal to l.</p>
+<p>If negative=True, then only accepts inputs with a and b negative,
+and performs some additional checks.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="recip.denominators.lauter_viray_bound">
+<code class="descclassname">recip.denominators.</code><code class="descname">lauter_viray_bound</code><span class="sig-paren">(</span><em>K</em>, <em>safe=True</em>, <em>num_etas=None</em>, <em>implementation='bound'</em>, <em>bound_calJ=1</em>, <em>bound_two=2</em><span class="sig-paren">)</span><a class="headerlink" href="#recip.denominators.lauter_viray_bound" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a denominator bound for Igusa class polynomials based on [LV].
+See below for the output format.</p>
+<p>INPUT:</p>
+<blockquote>
+<div><ul class="simple">
+<li><span class="math">\(K\)</span>   &#8211; a quartic CM-field</li>
+<li><dl class="first docutils">
+<dt><span class="math">\(safe\)</span> &#8211; if True, do a few redundant computations, to detect possible</dt>
+<dd>bugs</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt><span class="math">\(num_etas\)</span> &#8211; if O_K is not of the form O_{K_0}[eta], how many etas</dt>
+<dd>with O_K containing O_{K_0}[eta] to use. If None, uses
+the default of <a class="reference internal" href="#recip.denominators.find_eta" title="recip.denominators.find_eta"><code class="xref py py-func docutils literal"><span class="pre">find_eta()</span></code></a></dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt><span class="math">\(implementation\)</span> &#8211; &#8220;bound&#8221; or &#8220;gjlsvw&#8221;, if &#8220;bound&#8221;, then output a</dt>
+<dd>bound, if &#8220;gjlsvw&#8221; and the code of [GJLSVW] is loaded
+into a Magma session in a global variable <span class="math">\(m\)</span>, then
+compute an exact denominator with the aid of that code
+(very slow).</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt><span class="math">\(bound_calJ\)</span> - where we use upper bounds for calJ (see [LV]) instead</dt>
+<dd>of exact numbers, multiply them by this number.</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt><span class="math">\(bound_two\)</span> - replace the number 2 in Theorems 2.1 and 2.3 of [LV]</dt>
+<dd>by this number.</dd>
+</dl>
+</li>
+</ul>
+</div></blockquote>
+<p>OUTPUT:</p>
+<blockquote>
+<div><ul class="simple">
+<li>If O_K = O_{K_0}[eta] and implementation=&#8221;bound&#8221; and bound_calJ is an
+integer &gt;= 1 and bound_two is an integer &gt;= 2, then returns a multiple
+of the denominator of the Igusa class polynomials.</li>
+<li>If O_K is not of the form O_{K_0}[eta], takes a few values of eta
+such that O_K contains O_{K_0}[eta] and returns the output for each
+of those.</li>
+<li>If implementation=&#8221;gjlsvw&#8221;, does not return bounds, but returns
+actual values (if it returns anything at all), hardly tested!</li>
+<li>If bound_calJ and bound_two are polynomial variables, returns primes p
+and the orders e_p with which they appear in the denominators. Each e_p
+is of the form given, where 0&lt;=bound_calJ&lt;=1 and 0&lt;=bound_two&lt;=2 depend
+on p.</li>
+</ul>
+</div></blockquote>
+<p>EXAMPLES:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">sage: </span><span class="kn">from</span> <span class="nn">recip</span> <span class="kn">import</span> <span class="o">*</span>
+</pre></div>
+</div>
+<p>The following gave output 4147360000 for an older version of Sage. I don&#8217;t
+know whether that was correct too (it was a factor 5^4 lower).:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">sage: </span><span class="n">lauter_viray_bound</span><span class="p">(</span><span class="n">CM_Field</span><span class="p">([</span><span class="mi">5</span><span class="p">,</span><span class="mi">11</span><span class="p">,</span><span class="mi">29</span><span class="p">]),</span> <span class="n">safe</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+<span class="go">2592100000000</span>
+
+<span class="gp">sage: </span><span class="n">P</span><span class="o">.&lt;</span><span class="n">a</span><span class="p">,</span><span class="n">b</span><span class="o">&gt;</span> <span class="o">=</span> <span class="n">QQ</span><span class="p">[]</span>
+<span class="gp">sage: </span><span class="n">lauter_viray_bound</span><span class="p">(</span><span class="n">CM_Field</span><span class="p">([</span><span class="mi">5</span><span class="p">,</span><span class="mi">11</span><span class="p">,</span><span class="mi">29</span><span class="p">]),</span> <span class="n">safe</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">bound_two</span><span class="o">=</span><span class="n">b</span><span class="p">,</span> <span class="n">bound_calJ</span><span class="o">=</span><span class="n">a</span><span class="p">)</span>
+<span class="go">[[2, 4], [5, 3*a + 1], [7, 1], [23, 1]]</span>
+
+<span class="gp">sage: </span><span class="n">lauter_viray_bound</span><span class="p">(</span><span class="n">CM_Field</span><span class="p">([</span><span class="mi">389</span><span class="p">,</span><span class="mi">37</span><span class="p">,</span><span class="mi">245</span><span class="p">]),</span> <span class="n">safe</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+<span class="go">1913578584632940061725625</span>
+<span class="gp">sage: </span><span class="n">lauter_viray_bound</span><span class="p">(</span><span class="n">CM_Field</span><span class="p">([</span><span class="mi">389</span><span class="p">,</span><span class="mi">37</span><span class="p">,</span><span class="mi">245</span><span class="p">]),</span> <span class="n">safe</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">bound_two</span><span class="o">=</span><span class="n">b</span><span class="p">,</span> <span class="n">bound_calJ</span><span class="o">=</span><span class="n">a</span><span class="p">)</span>
+<span class="go">[[5, b], [11, 2*b], [19, 2*b], [29, 1]]</span>
+</pre></div>
+</div>
+<p>The actual denominators in the class polynomials for the last one are:
+11^2 * 19^6 * 29^4
+A factor 4 and something related to the primes 2, 3, 5 can be expected,
+so really this is
+[[2, <a href="#id1"><span class="problematic" id="id2">*</span></a>], [3, <a href="#id3"><span class="problematic" id="id4">*</span></a>], [5, <a href="#id5"><span class="problematic" id="id6">*</span></a>], [11, 8*b], [19, 8*b], [29, 4]]
+The 29^4 is sharp, the 19^16 is quite far off, and the 11^16 even more.
+This can be due to cancellation, but probably isn&#8217;t.</p>
+<blockquote>
+<div><p>sage: K = CM_Field([17, 255, 15300])
+sage: lauter_viray_bound(K, safe=True, bound_two=b, bound_calJ=a)
+[[2, 20*a*b + 15*b],</p>
+<blockquote>
+<div>[3, 16*a + 4],
+[5, 0],
+[13, 23*a + 2],
+[19, 4*a + 3],
+[67, 2],
+[83, 3*a + 3],
+[157, 8*a + 2],
+[883, 2]]</div></blockquote>
+</div></blockquote>
+<p>Observed denominator in class polynomial:
+13^4 * 19^6 * 67^4 * 83^6 * 157^4 * 883^4
+Seems to suggest cancellation at 3 and non-sharpness or
+cancellation at 2, 13, 19, 83, 157.
+When getting rid of all cancellation, but without caring too much for the
+small primes, we get something like:
+2^(20/3) * 3^(2/3) * 13^2 * 19^4 * 67^2 * 83^4 * 157^2 * 883^2
+for I10 (product over all curves)
+So we have non-sharpness for 13, 19, 83, 157 and maybe 2 and 3.
+We get for the prime 13 an exponent
+23*a+2 = 2, so out of the 23 take 0.
+For the prime 83, we get 3*a+3 = 4, so out of 3, take only 1
+For the prime 157, we get 8*a+2=2, so out of 8, take 0.
+The big discrepancy is in the prime 13.</p>
+<p>In Magma, we get the following, which agrees with these conclusions.
+ListAllEmb(-1, 0, 319, -30, 17, 13);
+...
+2
+ListAllEmb(-1, 0, 319, -30, 17, 19);
+...
+4</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="recip.denominators.lauter_viray_bound_given_eta">
+<code class="descclassname">recip.denominators.</code><code class="descname">lauter_viray_bound_given_eta</code><span class="sig-paren">(</span><em>K</em>, <em>eta</em>, <em>safe=True</em>, <em>verbose=False</em>, <em>factor_two=True</em>, <em>bound_calJ=1</em>, <em>bound_two=2</em><span class="sig-paren">)</span><a class="headerlink" href="#recip.denominators.lauter_viray_bound_given_eta" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a list of pairs (l_i, <a href="#id7"><span class="problematic" id="id8">e_</span></a>) such that sum of e_i with l_i=l is
+at least twice the right hand side of Theorem 2.1 or 2.3 of [LV].</p>
+<p>If <span class="math">\(factor_two\)</span> is True, uses Theorem 2.3, otherwise, uses Theorem 2.1.</p>
+<p>INPUT:</p>
+<blockquote>
+<div><ul class="simple">
+<li><span class="math">\(K\)</span>   &#8211; a quartic CM-field</li>
+<li><span class="math">\(eta\)</span> &#8211; an integral element of K, not in <span class="math">\(K_0\)</span></li>
+<li><dl class="first docutils">
+<dt><span class="math">\(safe\)</span> &#8211; if True, do a few redundant computations, to detect possible</dt>
+<dd>bugs</dd>
+</dl>
+</li>
+<li><span class="math">\(factor_two\)</span> &#8211; If True, multiply by the factor two at the beginning
+of the right hand side as in Theorem 2.3
+of [LV]. If False, use factors two as in Theorem 2.1.</li>
+</ul>
+</div></blockquote>
+</dd></dl>
+
+<dl class="function">
+<dt id="recip.denominators.lauter_viray_win">
+<code class="descclassname">recip.denominators.</code><code class="descname">lauter_viray_win</code><span class="sig-paren">(</span><em>K</em>, <em>eta</em>, <em>safe=True</em>, <em>verbose=False</em>, <em>factor_two=True</em>, <em>m=Magma</em>, <em>bound_calJ=1</em>, <em>bound_two=2</em><span class="sig-paren">)</span><a class="headerlink" href="#recip.denominators.lauter_viray_win" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a list of pairs (l_i, <a href="#id9"><span class="problematic" id="id10">e_</span></a>) such that sum of e_i with l_i=l is
+at least twice the right hand side of Theorem 2.1 or 2.3 of [LV].</p>
+<p>If <span class="math">\(factor_two\)</span> is True, uses Theorem 2.3, otherwise, uses Theorem 2.1.</p>
+<p>INPUT:</p>
+<blockquote>
+<div><ul class="simple">
+<li><span class="math">\(K\)</span>   &#8211; a quartic CM-field</li>
+<li><span class="math">\(eta\)</span> &#8211; an integral element of K, not in <span class="math">\(K_0\)</span></li>
+<li><dl class="first docutils">
+<dt><span class="math">\(safe\)</span> &#8211; if True, do a few redundant computations, to detect possible</dt>
+<dd>bugs</dd>
+</dl>
+</li>
+<li><span class="math">\(factor_two\)</span> &#8211; If True, multiply by the factor two at the beginning
+of the right hand side as in Theorem 2.3
+of [LV]. If False, use factors two as in Theorem 2.1.</li>
+<li>bound_calJ and bound_two are not used.</li>
+</ul>
+</div></blockquote>
+<p>TESTS:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">sage: </span><span class="kn">from</span> <span class="nn">recip</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="gp">sage: </span><span class="n">magma</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s2">&quot;gjlsvw.magma&quot;</span><span class="p">)</span> <span class="c1"># optional - magma gjlsvw</span>
+<span class="go">&#39;Loading &quot;gjlsvw.magma&quot;&#39;</span>
+<span class="gp">sage: </span><span class="n">set_recip_verbose</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+<span class="gp">sage: </span><span class="n">lauter_viray_bound</span><span class="p">(</span><span class="n">CM_Field</span><span class="p">([</span><span class="mi">8</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">2</span><span class="p">]),</span> <span class="n">safe</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">implementation</span><span class="o">=</span><span class="s2">&quot;gjlsvw&quot;</span><span class="p">)</span> <span class="c1"># indirect doctest, long time 23 minutes, optional - magma gjlsvw</span>
+<span class="go">16</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="recip.denominators.next_prime_in_class">
+<code class="descclassname">recip.denominators.</code><code class="descname">next_prime_in_class</code><span class="sig-paren">(</span><em>a</em>, <em>n</em>, <em>gen=False</em>, <em>allow_one=False</em><span class="sig-paren">)</span><a class="headerlink" href="#recip.denominators.next_prime_in_class" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a prime P of prime norm p&gt;n in the same ideal class as a.</p>
+<p>If gen is True, also return an element y such that y*a=P.</p>
+<p>If allow_one is True, then instead of a prime P, also allow P=1, regardless
+of n, if a is principal.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="recip.denominators.rhotilde">
+<code class="descclassname">recip.denominators.</code><code class="descname">rhotilde</code><span class="sig-paren">(</span><em>d</em>, <em>s0</em>, <em>s1</em>, <em>l</em>, <em>part=0</em><span class="sig-paren">)</span><a class="headerlink" href="#recip.denominators.rhotilde" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns rhotilde_d^(2)(s0, s1) from Theorem 2.4</p>
+<p>If part=0, really returns rhotilde, if part equals 1 or 2, only returns
+the first or second factor.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="recip.denominators.win_implementation">
+<code class="descclassname">recip.denominators.</code><code class="descname">win_implementation</code><span class="sig-paren">(</span><em>alpha0</em>, <em>alpha1</em>, <em>beta0</em>, <em>beta1</em>, <em>D</em>, <em>p</em>, <em>m</em><span class="sig-paren">)</span><a class="headerlink" href="#recip.denominators.win_implementation" title="Permalink to this definition">¶</a></dt>
+<dd><p>Assumes the code from [GJLSVW] has been loaded into the Magma session m
+(requires magma).
+Returns the output of length of the output of ListAllEmb.</p>
+</dd></dl>
+
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="list_fields.html"
+                        title="previous chapter">List of fields</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="class_polynomials.html"
+                        title="next chapter">Class polynomials</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/denominators.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="class_polynomials.html" title="Class polynomials"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="list_fields.html" title="List of fields"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">CM SageMath code 3.0.1 documentation</a> &#187;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2017, Marco Streng.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.5.3.
+    </div>
+  </body>
+</html>
