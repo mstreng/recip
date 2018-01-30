@@ -187,7 +187,13 @@ def denominator_bound(K, c=2**14, k=2, d=None, Phi=None, bound='default', check=
                 print "[LV] bounds not implemented, falling back to GL"
             bound = 'gl'
     if bound == 'lv':
-        b = lauter_viray_bound(K, safe=safe)    
+        b = lauter_viray_bound(K, safe=safe)
+        if b in ZZ:
+            b = ZZ(b)
+        else:
+            print "what now? b = " + str(b)
+            return b
+
     elif bound == 'gl':
         b = goren_lauter_bound(K, Phi=Phi)**d
     elif bound == 'by':
@@ -196,7 +202,13 @@ def denominator_bound(K, c=2**14, k=2, d=None, Phi=None, bound='default', check=
         raise ValueError, "Unkown bound: %s" % bound
     gal = K.is_galois()
     if not gal:
+    #    print c
+    #    print "no"
         c = sqrt(c)
+    #print c
+    #print b
+    #print d
+    #print k
     ret = c**d * b**k
     if ret in QQ:
         return QQ(ret)
@@ -696,6 +708,7 @@ def lauter_viray_bound(K, safe=True, num_etas=None, implementation="bound", boun
     The 29^4 is sharp, the 19^16 is quite far off, and the 11^16 even more.
     This can be due to cancellation, but probably isn't.
     
+        sage: P.<a,b> = QQ[]
         sage: K = CM_Field([17, 255, 15300])
         sage: lauter_viray_bound(K, safe=True, bound_two=b, bound_calJ=a)
         [[2, 20*a*b + 15*b],
@@ -707,6 +720,21 @@ def lauter_viray_bound(K, safe=True, num_etas=None, implementation="bound", boun
          [83, 3*a + 3],
          [157, 8*a + 2],
          [883, 2]]
+
+    An example with increasing number of eta's, where just one eta is not enough.::
+
+        sage: F = CM_Field([145, 15, 20])
+        sage: lauter_viray_bound(F, eta).factor()
+        5^452 * 11^556 * 19^88 * 31^88 * 41^208 * 71^76 * 79^48 * 89^8 * 109^24 * 139^48 * 149^20 * 151^40 * 179^32 * 241^8 * 401^8 * 3821^16 * 5039^4
+        sage: lauter_viray_bound(F).factor()
+        5^452 * 11^556 * 19^88 * 31^88 * 41^208 * 71^76 * 79^48 * 89^8 * 109^24 * 139^48 * 149^20 * 151^40 * 179^32 * 241^8 * 401^8 * 3821^16 * 5039^4
+        sage: lauter_viray_bound(F, num_etas=3).factor()
+        5^376 * 11^556 * 19^88 * 31^88 * 41^208 * 71^76 * 79^48 * 89^8 * 139^48 * 149^20 * 179^32 * 241^8
+        sage: lauter_viray_bound(F, num_etas=4).factor()
+        5^376 * 11^556 * 19^88 * 31^56 * 41^80 * 71^76 * 79^12 * 89^8 * 139^24 * 149^20 * 179^32 * 241^8
+        sage: lauter_viray_bound(F, num_etas=5).factor()
+        5^376 * 11^556 * 19^88 * 31^56 * 41^80 * 71^76 * 79^12 * 89^8 * 139^24 * 149^20 * 179^32 * 241^8
+
 
     Observed denominator in class polynomial:
     13^4 * 19^6 * 67^4 * 83^6 * 157^4 * 883^4
@@ -746,12 +774,17 @@ def lauter_viray_bound(K, safe=True, num_etas=None, implementation="bound", boun
         if get_recip_verbose():
             print "[LV] results: %s" % (ret,)
         return ret[0]
-    return [(impl(K, safe=safe, eta=eta[0], bound_calJ=bound_calJ, bound_two=bound_two), eta[1]) for eta in L]
+    l = [(impl(K, safe=safe, eta=eta[0], bound_calJ=bound_calJ, bound_two=bound_two), eta[1]) for eta in L]
+    r = 1
+    for p in l[0][0][0].prime_factors():
+        e = min([a[0].valuation(p) for (a,b) in l if not p in b])
+        r = r * p**e
+    return r
 
 
 def lauter_viray_bound_given_eta(K, eta, safe=True, verbose=False, factor_two=True, bound_calJ=1, bound_two=2):
     """
-    Returns a list of pairs (l_i, e_) such that sum of e_i with l_i=l is
+    Returns a list of pairs (l_i, e_i) such that sum of e_i with l_i=l is
     at least twice the right hand side of Theorem 2.1 or 2.3 of [LV].
     
     If `factor_two` is True, uses Theorem 2.3, otherwise, uses Theorem 2.1.
@@ -1382,12 +1415,16 @@ def find_eta(K, how_many=None, proof=True):
     
     If how_many is None, use as few as possible. Otherwise, return that number.
     
-    EXAMPLE::
+    EXAMPLES::
     
         sage: from recip import *
         sage: K = CM_Field((x^2+2)^2-3) # a biquadratic field
         sage: find_eta(K)
         [alpha]
+        sage: F = CM_Field([145, 15, 20])
+        sage: find_eta(F)
+        [(-1/4*alpha^3 + 3/4*alpha - 1/2, [37]), (3/4*alpha^3 + 7/4*alpha - 1/2, [43])]
+
     """
     ret = None
     if K.minimal_DAB() == [5,5,5]:
@@ -1420,7 +1457,7 @@ def find_eta(K, how_many=None, proof=True):
         prime_bound = new_prime_bound
         if get_recip_verbose() > 1:
             print "Found eta with [OK:OF[eta]] = %s" % prime_bound.factor()
-        ret.append((eta, prime_bound))
+        ret.append((eta, ZZ(prime_bound).prime_factors()))
     
     return ret
 
