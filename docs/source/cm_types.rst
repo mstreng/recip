@@ -1,6 +1,6 @@
 ..nodoctest
 
-CM types and CM fields
+t
 ===============================
 
 .. automodule:: recip.cm_types

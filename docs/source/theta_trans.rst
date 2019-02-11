@@ -1,6 +1,6 @@
 ..nodoctest
 
-Theta transformation formulas
+t
 ===============================
 
 .. automodule:: recip.theta_trans

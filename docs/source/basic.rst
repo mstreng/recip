@@ -1,6 +1,6 @@
 ..nodoctest
 
-Basic
+t
 ===============================
 
 .. automodule:: recip.basic

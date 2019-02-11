@@ -3,8 +3,9 @@ RECIP -- REpository of Complex multIPlication SageMath code.
 See the file README.txt for version information and instructions.
 
 #*****************************************************************************
-# Copyright (C) 2010,2011,2012,2013 Marco Streng <marco.streng@gmail.com>
-# 
+# Copyright (C) 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019
+# Marco Streng <marco.streng@gmail.com>
+#
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
 # the Free Software Foundation; either version 2 of the License, or
@@ -87,9 +88,9 @@ def class_polynomials(K, factor=False, prec=None, D=None,
         True
         sage: class_polynomials(CM_Field((x^2+29)^2-2^2*29), verbose=True) # long time: 10 seconds
         starting with precision 50
-        output has 35.4684649508012 too few bits of precision
+        output has 35.4... too few bits of precision
         increasing precision to 90
-        output has 4.50158705782075 more bits of precision than needed
+        output has 4.5... more bits of precision than needed
         Denominator: 1 out of 2^14 * 5^4
         [x + 2589408, 131383296, -60466176000000]
         
@@ -97,9 +98,9 @@ def class_polynomials(K, factor=False, prec=None, D=None,
         True
         sage: class_polynomials(CM_Field((x^2+61)^2-6^2*61), verbose=True) # long time: 11 seconds
         starting with precision 50
-        output has 54.2686150981159 too few bits of precision
+        output has 54.2... too few bits of precision
         increasing precision to 109
-        output has 4.58030311169402 more bits of precision than needed
+        output has 4.5... more bits of precision than needed
         Denominator: 3^3 * 41^4 out of 2^14 * 3^8 * 5^4 * 41^4
         [x - 88833024/1681, -14055214415872/76295547, 9663676416000000/2825761]
 

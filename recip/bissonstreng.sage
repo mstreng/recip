@@ -175,7 +175,7 @@ is (5,5)-isogenous to the one for the maximal order::
         sage: [Zmax] = period_matrices(s5[0], 1, Phi) # long time
         sage: [Zother] = period_matrices(s5[1], 5, Phi) # long time
         sage: are_nn_isogenous(Zmax, Zother, 5, 1, 5, transformation=True) # long time
-        (True, 1/10*alpha^3 - 1/2)
+        (True, 1/10*alpha^3 + 1/2*alpha^2 + 1/2*alpha + 1)
 
 Next, we prove that the period matrices for the order of index a power of 3
 is (3,3)-isogenous to the one for the maximal order::

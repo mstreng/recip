@@ -1,6 +1,6 @@
 ..nodoctest
 
-Bisson-Streng
+t
 ===============================
 
 .. automodule:: recip.bissonstreng

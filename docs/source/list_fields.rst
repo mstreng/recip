@@ -1,6 +1,6 @@
 ..nodoctest
 
-List of fields
+t
 ===============================
 
 .. automodule:: recip.list_fields

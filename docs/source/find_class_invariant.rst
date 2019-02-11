@@ -1,6 +1,6 @@
 ..nodoctest
 
-Finding class invariants
+t
 ===============================
 
 .. automodule:: recip.find_class_invariant
