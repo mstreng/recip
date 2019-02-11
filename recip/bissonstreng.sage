@@ -3,8 +3,9 @@ RECIP -- REpository of Complex multIPlication SageMath code.
 See the file README.txt for version information and instructions.
 
 #*****************************************************************************
-# Copyright (C) 2010, 2011, 2012, 2013 Marco Streng <marco.streng@gmail.com>
-# 
+# Copyright (C) 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019
+# Marco Streng <marco.streng@gmail.com>
+#
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
 # the Free Software Foundation; either version 2 of the License, or
@@ -116,7 +117,7 @@ We get that `O` contains `O_2\cap Omin5 \cap O_5`. We can therefore use
         sage: mu = [(_order_mod(m, K.ideal(F)), m) for m in mu]
         sage: mu.sort(reverse=True)
         sage: [m[0] for m in mu]
-        [20, 10, 10, 10, 2, 1]
+        [20, 10, 10, 5, 2, 2]
         sage: mu = [m[1] for m in mu]
         sage: gens = [F*b for b in OK.basis()] + mu[4:]
         sage: orders = [K.order(additive_gens_to_basis(gens + [zeta**i * mu[0], zeta**j * mu[1], zeta**k * mu[2], zeta**l * mu[3]], K)) for i in range(5) for j in range(5) for k in range(5) for l in range(5)] # long time

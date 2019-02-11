@@ -9,8 +9,8 @@ This file contains functions and classes for CM-fields and CM-types
 See the file README.txt for version information, instructions, and references.
 
 #*****************************************************************************
-# Copyright (C) 2010, 2011, 2012, 2013, 2014, 2015, 2016,2017 Marco Streng
-#                                                  <marco.streng@gmail.com>
+# Copyright (C) 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019
+# Marco Streng <marco.streng@gmail.com>
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -33,7 +33,6 @@ from sage.rings.number_field.number_field_base import is_NumberField
 from sage.rings.number_field.number_field_element import is_NumberFieldElement
 from sage.rings.number_field.number_field import NumberField_absolute
 from sage.rings.polynomial.polynomial_element import is_Polynomial
-from sage.rings.morphism import is_RingHomomorphism
 from sage.rings.all import (CC, ZZ, AA)
 from sage.rings.complex_field import is_ComplexField
 from sage.rings.complex_interval_field import is_ComplexIntervalField
@@ -141,8 +140,11 @@ def CM_Field(field, name=None, relative_name=None, check=True, embedding=None):
     
     if _is_accepted_complex_field(embedding):
         embedding = highest_root(poly, embedding)
-    elif is_RingHomomorphism(embedding):
-        embedding = embedding(embedding.domain().gen())
+    else:
+        try:
+            embedding = embedding(embedding.domain().gen())
+        except AttributeError:
+            pass
 
     if name == None:
         name = 'alpha'
@@ -412,12 +414,12 @@ class CM_Field_absolute(NumberField_absolute):
         """
         if _is_accepted_complex_field(embedding):
             self._embedding = highest_root(self.polynomial(), embedding)
-        elif is_RingHomomorphism(embedding):
-            self._embedding = embedding.im_gens()[0]
-        elif is_RingElement(embedding):
-            self._embedding = embedding
         else:
-            raise TypeError, "incorrect type of embedding (=%s) in embed" % embedding
+            try:
+                embedding = embedding.im_gens()[0]
+            except AttributeError:
+                pass
+            self._embedding = embedding
 
     def _repr_(self):
         """
@@ -1594,6 +1596,7 @@ class CM_Type_embeddings(CM_Type_base):
             if not ret is None: # if the weak reference has not been destroyed
                 return ret
 
+        import weakref
         # The following two lines assume self is primitive
         ret = self._compute_reflex()
         ret._reflex = weakref.ref(self)

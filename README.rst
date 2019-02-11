@@ -5,80 +5,47 @@ REpository of Complex multiplication SageMath code
     :target: https://travis-ci.org/mstreng/recip
 
 
-Once the Travis CI set-up has been completed, the documentation for the package can be found at https://mstreng.github.io/recip/doc/html/
+The documentation for the package can be found at https://mstreng.github.io/recip/doc/html/
 
 Installation
 ------------
 
+This package was last tested with SageMath 8.6.
+
 Local install from source
 ^^^^^^^^^^^^^^^^^^^^^^^^^
+
+You can install the package into SageMath using with few easy commands if you have standard linux tools installed.
 
 Download the source from the git repository::
 
     $ git clone https://github.com/mstreng/recip.git
 
-Change to the root directory and run::
-
-    $ sage -pip install --upgrade --no-index -v .
-
-For convenience this package contains a [makefile](makefile) with this
-and other often used commands. Should you wish too, you can use the
-shorthand::
+Change to the main directory of what was just installed and run::
 
     $ make install
+	
+To update to the latest version::
 
-Usage
------
+    $ git pull
 
-Once the package is installed, you can use it in Sage with::
+And then do make install again.
+
+Once the package is installed, you can use it in SageMath with::
 
     sage: from recip import *
     sage: CM_Field([5,5,5])
     CM Number Field in alpha with defining polynomial x^4 + 5*x^2 + 5
 
+Using it directly from the web
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Source code
------------
+If your copy of SageMath is built with ssh support, then whenever you have an internet connection, you can do the following inside SageMath to use the package without installing anything::
 
-All source code is stored in the folder ``recip`` using the same name as the
-package. This is not mandatory but highly recommended for clarity. All source folder
-must contain a ``__init__.py`` file with needed includes.
-
-Tests
------
-
-This package is configured for tests written in the documentation
-strings, also known as ``doctests``. For examples, see this
-[source file](recip/ultimate_question.py). See also
-[SageMath's coding conventions and best practices document](http://doc.sagemath.org/html/en/developer/coding_basics.html#writing-testable-examples).
-With additional configuration, it would be possible to include unit
-tests as well.
-
-Once the package is installed, one can use the SageMath test system
-configured in ``setup.py`` to run the tests::
-
-    $ sage setup.py test
-
-This is just calling ``sage -t`` with appropriate flags.
-
-Shorthand::
-
-    $ make test
-
-Documentation
--------------
-
-The documentation of the package can be generated using Sage's
-``Sphinx`` installation::
-
-    $ cd docs
-    $ sage -sh -c "make html"
-
-Shorthand::
-
-    $ make doc
-
-
+    sage: load("https://raw.githubusercontent.com/mstreng/recip/master/recip/recip_online.sage")
+    sage: CM_Field([5,5,5])
+    CM Number Field in alpha with defining polynomial x^4 + 5*x^2 + 5
+	
 #*****************************************************************************
 # Copyright (C) 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017 Marco Streng
 #                                                  <marco.streng@gmail.com>
@@ -104,7 +71,7 @@ This started out as code meant for computing with Shimura's RECIProcity law,
 but grew into a collection of much of the SageMath code written by me for my
 research.
 
-Version 0.2.5 (tested with SageMath 8.0, short tests only).
+See the file VERSION for the current version.
 
 When using this package in a publication, it is highly likely that it is
 approprate certain publications. Please CITE the relevant JOURNAL publications,

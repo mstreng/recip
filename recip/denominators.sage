@@ -11,9 +11,9 @@ additional original work.
 See the file README.txt for version information, instructions, and references.
 
 #*****************************************************************************
-# Copyright (C) 2010, 2011, 2012, 2013, 2014, 2015, 2016,2017 Marco Streng
-#                                                  <marco.streng@gmail.com>
-# 
+# Copyright (C) 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019
+# Marco Streng <marco.streng@gmail.com>
+#
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
 # the Free Software Foundation; either version 2 of the License, or
@@ -776,7 +776,8 @@ def lauter_viray_bound(K, safe=True, num_etas=None, implementation="bound", boun
         return ret[0]
     l = [(impl(K, safe=safe, eta=eta[0], bound_calJ=bound_calJ, bound_two=bound_two), eta[1]) for eta in L]
     r = 1
-    for p in l[0][0][0].prime_factors():
+    n = ZZ(l[0][0][0])
+    for p in n.prime_factors():
         e = min([a[0].valuation(p) for (a,b) in l if not p in b])
         r = r * p**e
     return r

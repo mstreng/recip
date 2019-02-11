@@ -1,0 +1,45 @@
+Here are some general instructions for using packages created with Marc Masdeu's cookie cutter.
+
+
+Source code
+-----------
+
+All source code is stored in the folder ``recip`` using the same name as the
+package. This is not mandatory but highly recommended for clarity. All source folder
+must contain a ``__init__.py`` file with needed includes.
+
+Tests
+-----
+
+This package is configured for tests written in the documentation
+strings, also known as ``doctests``. For examples, see this
+[source file](recip/ultimate_question.py). See also
+[SageMath's coding conventions and best practices document](http://doc.sagemath.org/html/en/developer/coding_basics.html#writing-testable-examples).
+With additional configuration, it would be possible to include unit
+tests as well.
+
+Once the package is installed, one can use the SageMath test system
+configured in ``setup.py`` to run the tests::
+
+    $ sage setup.py test
+
+This is just calling ``sage -t`` with appropriate flags.
+
+Shorthand::
+
+    $ make test
+
+Documentation
+-------------
+
+The documentation of the package can be generated using Sage's
+``Sphinx`` installation::
+
+    $ cd docs
+    $ sage -sh -c "make html"
+
+Shorthand::
+
+    $ make doc
+
+

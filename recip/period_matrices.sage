@@ -3,8 +3,9 @@ RECIP -- REpository of Complex multIPlication SageMath code.
 See the file README.txt for version information and instructions.
 
 #*****************************************************************************
-# Copyright (C) 2010,2011,2012,2013 Marco Streng <marco.streng@gmail.com>
-# 
+# Copyright (C) 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019
+# Marco Streng <marco.streng@gmail.com>
+#
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
 # the Free Software Foundation; either version 2 of the License, or
@@ -467,7 +468,7 @@ def _det_bottom_part(gamma, tau):
     
 def Sp_action(gamma, Z):
     """
-    Given a matrix gamma in GSp_2g(QQ)^+ and a gxg period matrix Z,
+    Given a matrix gamma in GSp_2g(QQ)^+ and a gxg matrix Z,
     returns gamma*Z as an immutable gxg Matrix.
     """ 
     gamma.subdivide(2,2)
@@ -482,7 +483,8 @@ def Sp_action(gamma, Z):
     
 def _gottschling_reduce(Z):
     """
-    Given Z, returns a pair (Z', g) with g an element of the set
+    Given a complex 2x2 matrix Z with positive definite imaginary part,
+    returns a pair (Z', g) with g an element of the set
     gottschling_matrices() and Z' = g*Z, such that det Im(g*Z) > det Im(Z)
     holds, if such a g exists. If such a g does not exist, return (Z, I) with I
     a 4x4 identity matrix.
@@ -509,7 +511,8 @@ def _gottschling_reduce(Z):
 
 def _reduce(Z, reduction_sequence=False):
     """
-    Given Z, returns (Z', M) such that Z' is reduced, M is in Sp(2g,ZZ) and
+    Given a complex gxg symmetric matrix Z with positive definite imaginary part,
+    returns (Z', M) such that Z' is reduced, M is in Sp(2g,ZZ) and
     MZ = Z'
     
     Only implemented for g=2 and maybe g=1.
@@ -594,7 +597,7 @@ def is_positive_definite(m):
     
 def is_period_matrix(m):
     """
-    Returns `True` if and only if m is a period matrix.
+    Returns `True` if and only if m is symmetric with positive definite imaginary part.
     
     EXAMPLES::
     
@@ -647,7 +650,7 @@ def PeriodMatrix(arg1, arg2=None, arg3=None, check=True):
     
     A period matrix corresponding to some symplectic basis for the input data.
     """
-    if arg2 == None and arg3 == None:
+    if arg2 is None and arg3 is None:
         if get_verbose() == 2:
             print "PeriodMatrix got a single input (%s), interpreting it as a PeriodMatrix_CM and creating a new PeriodMatrix_CM (copy) out of it" % arg1
         return PeriodMatrix_CM(arg1.CM_type(), arg1.ideal(), arg1.xi(), arg1.basis(), arg1, check=check)
@@ -656,7 +659,7 @@ def PeriodMatrix(arg1, arg2=None, arg3=None, check=True):
     return PeriodMatrix_CM(arg1, arg2, arg3, check=check)
 
 
-class PeriodMatrix_CM(Matrix_generic_dense):
+class PeriodMatrix_CM():
     r"""
     Object representing a CM period matrix. See :func:`PeriodMatrix`.
     """
@@ -710,26 +713,45 @@ class PeriodMatrix_CM(Matrix_generic_dense):
                 raise ValueError, "Period matrix belonging to basis %s is " \
                          "%s, but %s was supplied" % \
                          (basis, _small_period_matrix(CM_type, basis), matrix)
-        from sage.matrix.matrix_space import MatrixSpace
-        M = MatrixSpace(CM_type.codomain(), nrows=g, ncols=g, sparse=False)
-        from sage.misc.flatten import flatten
-        entries = flatten([[a for a in b] for b in matrix])
-        Matrix_generic_dense.__init__(self, M, entries=entries, copy=True,
-                                      coerce=True)
+#        from sage.matrix.matrix_space import MatrixSpace
+#        M = MatrixSpace(CM_type.codomain(), nrows=g, ncols=g, sparse=False)
+#        from sage.misc.flatten import flatten
+#        entries = flatten([[a for a in b] for b in matrix])
+        matrix.set_immutable()
+        self._matrix = Matrix(matrix)
         self._CM_type = CM_type
         self._ideal = ideal
         self._xi = xi
         self._basis = basis
-        self.set_immutable()
+#        self.set_immutable()
         # rows of Bt are bas[i] expressed in terms of standard basis
         self._Bt = Matrix([b.vector() for b in basis])
 
     def g(self):
         return self.CM_type().g()
 
-    def __repr__(self):
-        return "Period Matrix\n" + Matrix_generic_dense.__repr__(self)
+    ncols = g
+    
+    nrows = g
 
+    def __repr__(self):
+        return "Period Matrix\n" + self._matrix.__repr__()
+
+    def __eq__(self, other):
+        return self._matrix == other._matrix
+
+    def __getitem__(self, key):
+        return self._matrix.__getitem__(key)
+        
+#    def _cache_key(self):
+#        return ("Period Matrix", self._CM_type().__repr__(), self._matrix()._cache_key())
+
+    def __hash__(self):
+        return self._matrix.__hash__()
+    
+    def base_ring(self):
+        return self._matrix.base_ring()
+    
     def complex_matrix(self, prec=None):
         """
         Returns self as a matrix over a complex field.
@@ -744,14 +766,14 @@ class PeriodMatrix_CM(Matrix_generic_dense):
           
           - If prec=None, returns self as a matrix over self.base_ring().embedding().codomain()
         """
-        if prec == None:
-            K = self.base_ring()
+        if prec is None:
+            K = self._matrix.base_ring()
             if _is_accepted_complex_field(K):
-                return self
+                return self._matrix
             emb = K.embedding()
-            if emb == None:
+            if emb is None:
                 raise RuntimeError, "Incorrect period matrix: field not embedded"
-            return mat_convert(self, emb)
+            return mat_convert(self._matrix, emb)
         if prec in ZZ:
             prec = ComplexField(prec)
         return mat_convert(self.complex_matrix(None), prec)
@@ -759,6 +781,9 @@ class PeriodMatrix_CM(Matrix_generic_dense):
     def complex_conjugate(self, transformation=False):
         """
         Returns minus the complex conjugate of self.
+        
+        This is a period matrix corresponding to the complex conjugate
+        of the abelian variety corresponding to self.
         
         If transformation is True, then also returns
         a matrix in Sp_2g(QQ) (if possible in Sp_2g(ZZ)) that maps
@@ -886,10 +911,11 @@ class PeriodMatrix_CM(Matrix_generic_dense):
             [-0.30901699437495? + 0.95105651629515?*I -0.50000000000000? + 0.36327126400268?*I]
             [-0.50000000000000? + 0.36327126400268?*I  0.30901699437495? + 0.95105651629515?*I]
             sage: Z.complex_conjugation_symplectic_matrix(8)
+            Generalized symplectic matrix
             [1 0 0 0]
             [0 1 0 0]
             [0 7 7 0]
-            [7 1 0 7]
+            [7 1 0 7] with nu = 7
 
         """
         B = self.ideal()
@@ -1137,10 +1163,11 @@ class PeriodMatrix_CM(Matrix_generic_dense):
             [ 0  0  1 -2]
             [ 0  0 -2 -1]
             sage: u
+            Generalized symplectic matrix
             [1 6 7 7]
             [6 7 7 6]
             [0 0 1 6]
-            [0 0 6 7]
+            [0 0 6 7] with nu = 5
             sage: (i^u)(U, prec=100)
             6464.12192808629278258077515...
 

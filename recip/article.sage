@@ -10,8 +10,8 @@ using Shimura's reciprocity law in [Streng12].
 See the file README.txt for version information, instructions, and references.
 
 #*****************************************************************************
-# Copyright (C) 2010, 2011, 2012, 2013, 2014, 2015, 2016,2017 Marco Streng
-#                                                  <marco.streng@gmail.com>
+# Copyright (C) 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019
+# Marco Streng <marco.streng@gmail.com>
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -303,7 +303,7 @@ one where 2 is inert in the real quadratic subfield, and then ramifies in K.::
     sage: Z = K.one_period_matrix('Phi'); Z
     Period Matrix
     [ 0.19618739074462? + 1.22627074062326?*I -0.50000000000000? + 0.43440480214564?*I]
-    [-0.50000000000000? + 0.43440480214564?*I  -0.39237478148923? + 2.4525414812466?*I]
+    [-0.50000000000000? + 0.43440480214564?*I  -0.39237478148924? + 2.4525414812466?*I]
     sage: I = igusa_invariants_absolute()
     sage: Kr0 = QuadraticField(7,'a')
     sage: gammas = reciprocity_map_image(Z, 8)

@@ -3,8 +3,9 @@ RECIP -- REpository of Complex multIPlication SageMath code.
 See the file README.txt for version information and instructions.
 
 #*****************************************************************************
-# Copyright (C) 2010,2011,2012,2013,2016 Marco Streng <marco.streng@gmail.com>
-# 
+# Copyright (C) 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019
+# Marco Streng <marco.streng@gmail.com>
+#
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
 # the Free Software Foundation; either version 2 of the License, or
@@ -26,7 +27,7 @@ This file implements the arithmetic of matrices in GSp_2g(ZZ), see the class
 
 """
 
-from sage.matrix.matrix import is_Matrix
+from sage.structure.element import is_Matrix
 
 #from sage.matrix.all import (is_Matrix, Matrix, identity_matrix)
 #from sage.rings.all import ZZ
@@ -266,8 +267,13 @@ class GSp_group:
             sage: from recip import *
             sage: GSp_group(2, 2).list()
             [
-            [1 0]  [0 1]  [1 1]  [1 1]  [1 0]  [0 1]
-            [0 1], [1 0], [0 1], [1 0], [1 1], [1 1]
+            Symplectic matrix  Symplectic matrix  Symplectic matrix
+            [1 0]              [0 1]              [1 1]            
+            [0 1]            , [1 0]            , [0 1]            ,
+            <BLANKLINE>
+            Symplectic matrix  Symplectic matrix  Symplectic matrix
+            [1 1]              [1 0]              [0 1]            
+            [1 0]            , [1 1]            , [1 1]            
             ]
 
         """
@@ -363,10 +369,13 @@ class GSp_element:
         return self._Sp_part
 
     def __str__(self):
-        return self.matrix().__str__()
+        nu = self.nu()
+        if nu == 1:
+            return "Symplectic matrix\n" + self.matrix().__repr__()
+        return "Generalized symplectic matrix\n" + self.matrix().__repr__() + " with nu = " + str(nu)
         
     def __repr__(self):
-        return self.matrix().__repr__()
+        return self.__str__()
 
     def __call__(self, tau):
         if is_Matrix(tau):
@@ -448,6 +457,7 @@ class GSp_element:
             sage: from recip import *
             sage: M = GSp_element([[0,-1,1,1],[5,0,4,-5],[0,-2,2,1],[1,0,1,-1]])
             sage: M.transpose()
+            Symplectic matrix
             [ 0  5  0  1]
             [-1  0 -2  0]
             [ 1  4  2  1]
@@ -568,7 +578,7 @@ def random_symplectic_matrix(g, n, subgroup=None, level=None):
         [ 5  0  4 -5]
         [ 0 -2  2  1]
         [ 1  0  1 -1]
-        sage: is_symplectic(Matrix(M))
+        sage: is_symplectic(M.matrix())
         True
 
     """

@@ -4,8 +4,9 @@ RECIP -- REpository of Complex multIPlication SageMath code.
 See the file README.txt for version information and instructions.
 
 #*****************************************************************************
-# Copyright (C) 2010,2011,2012,2013,2016 Marco Streng <marco.streng@gmail.com>
-# 
+# Copyright (C) 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019
+# Marco Streng <marco.streng@gmail.com>
+#
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
 # the Free Software Foundation; either version 2 of the License, or
@@ -45,7 +46,7 @@ from sage.rings.number_field.number_field import CyclotomicField
 from sage.structure.unique_representation import UniqueRepresentation 
 from sage.structure.element import CommutativeRingElement
 from sage.groups.group import Group
-from sage.structure.element import Element
+from sage.structure.element import Element, MultiplicativeGroupElement
 from sage.rings.fraction_field import is_FractionField
 from sage.structure.element import is_RingElement
 
@@ -1190,9 +1191,12 @@ class Theta_element_polynomial_ring(Theta_element):
         For z in H_g, returns self evaluated at z.
         
         WARNING: unreliable if z is not reduced
+        
+        Note: there exist faster methods for such evaluations, see the work
+        of Dupont and Labrande. This does not use the fast methods.  
         """
-        if z.is_mutable():
-            return self._call_code(z, use_magma=use_magma, prec=prec, interval=interval)
+#        if z.is_mutable():
+#            return self._call_code(z, use_magma=use_magma, prec=prec, interval=interval)
         return self._cached_call(z, use_magma=use_magma, prec=prec, interval=interval)
     
     def _call_code(self, z, use_magma=False, prec=None, interval=False):

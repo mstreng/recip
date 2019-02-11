@@ -10,8 +10,8 @@ Examples of how to use this code are in bissonstreng.sage
 See the file README.txt for version information and instructions.
 
 #*****************************************************************************
-# Copyright (C) 2010, 2011, 2012, 2013, 2014, 2015, 2016,2017 Marco Streng
-#                                                  <marco.streng@gmail.com>
+# Copyright (C) 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019
+# Marco Streng <marco.streng@gmail.com>
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -387,7 +387,7 @@ def polarized_ideal_classes(O, F):
         [([1/2*alpha^3 + 1/2, 1/2*alpha^3 + 1/2*alpha^2 + 1/2*alpha, alpha^2, alpha^3],
           1/5*alpha),
          ([1/2*alpha^3 + 1/2, 1/2*alpha^3 + 1/2*alpha^2 + 1/2*alpha, alpha^2, alpha^3],
-          -1/5*alpha^3 - 3/5*alpha)]
+          1/5*alpha^3 + 3/5*alpha)]
         sage: polarized_ideal_classes(s[0], 5) == _ # long time
         True
         sage: polarized_ideal_classes(s[1], 5) # long time

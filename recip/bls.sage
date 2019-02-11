@@ -9,8 +9,8 @@ This file gives the details of computations for Table 2 of [BLS].
 See the file README.txt for version information, instructions, and references.
 
 #*****************************************************************************
-# Copyright (C) 2010, 2011, 2012, 2013, 2014, 2015, 2016,2017 Marco Streng
-#                                                  <marco.streng@gmail.com>
+# Copyright (C) 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019
+# Marco Streng <marco.streng@gmail.com>
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -38,7 +38,7 @@ See the file README.txt for version information, instructions, and references.
     (2, [(x^2 + 2, -8), (x^2 + 2, -8)])
     0 -5
     (1, [(x^2 - x + 1, -3), (x^2 - x + 1, -3)])
-    (1, [(2*x^2 - x + 2, -15), (x^2 - x + 4, -15)])
+    (1, [(2*x^2 + x + 2, -15), (x^2 - x + 4, -15)])
     (2, [(x^2 - x + 1, -3), (x^2 - x + 1, -3)])
     (2, [(2*x^2 - x + 2, -15), (x^2 - x + 4, -15)])
     1 -5
@@ -326,11 +326,11 @@ Similarly for Z[i] and Z[sqrt-2], we do
 %19 = x^2 + 4*x - 4
 
     sage: (j_from_a()-1728).numerator().factor()
-    (4096) * (x - 2)^2 * (x - 1/2)^2 * (x + 1)^2
+    (256) * (x - 2)^2 * (x - 1/2)^2 * (x + 1)^2
     sage: hilbert_class_polynomial(-8)
     x - 8000
     sage: (j_from_a()-8000).numerator().factor()
-    (4096) * (x^2 - 6*x + 1) * (x^2 - x - 1/4) * (x^2 + 4*x - 4)
+    (256) * (x^2 - 6*x + 1) * (x^2 - x - 1/4) * (x^2 + 4*x - 4)
 
 So we take a=2 and take b to be a root of x^2+4x-4 and get
 

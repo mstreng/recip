@@ -3,8 +3,9 @@ RECIP -- REpository of Complex multIPlication SageMath code.
 See the file README.txt for version information and instructions.
 
 #*****************************************************************************
-# Copyright (C) 2010, 2011, 2012, 2013 Marco Streng <marco.streng@gmail.com>
-# 
+# Copyright (C) 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019
+# Marco Streng <marco.streng@gmail.com>
+#
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
 # the Free Software Foundation; either version 2 of the License, or
@@ -27,7 +28,7 @@ from os import path
 directory = "/".join(path.abspath(__file__).split("/")[:-1]) + "/"
 
 from sage.all import *
-from sage.structure.sage_object import load
+from sage.misc.persist import load
 
 files = [   "basic.sage",
             "polynomials.sage",
@@ -43,6 +44,8 @@ files = [   "basic.sage",
             "orders.sage",
             "bissonstreng.sage",
             "bls.sage"]
+
+load_attach_mode(load_debug=True)
 
 for f in files:
     load(directory+f)
