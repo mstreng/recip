@@ -1,6 +1,6 @@
 ..nodoctest
 
-t
+Period matrices
 ===============================
 
 .. automodule:: recip.period_matrices

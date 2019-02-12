@@ -1,6 +1,6 @@
 ..nodoctest
 
-t
+Orders
 ===============================
 
 .. automodule:: recip.orders

@@ -1,6 +1,6 @@
 ..nodoctest
 
-t
+Symplectic matrices
 ===============================
 
 .. automodule:: recip.symplectic_matrices

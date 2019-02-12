@@ -1,6 +1,6 @@
 ..nodoctest
 
-t
+Polynomials
 ===============================
 
 .. automodule:: recip.polynomials

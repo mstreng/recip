@@ -1,6 +1,6 @@
 ..nodoctest
 
-t
+Class polynomials
 ===============================
 
 .. automodule:: recip.class_polynomials

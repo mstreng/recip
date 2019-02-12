@@ -1,6 +1,6 @@
 ..nodoctest
 
-t
+Broker-Lauter-Streng
 ===============================
 
 .. automodule:: recip.bls

@@ -1,6 +1,6 @@
 ..nodoctest
 
-t
+Igusa invariants
 ===============================
 
 .. automodule:: recip.igusa_invariants

@@ -1,6 +1,6 @@
 ..nodoctest
 
-t
+Denominators
 ===============================
 
 .. automodule:: recip.denominators
