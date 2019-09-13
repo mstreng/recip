@@ -131,7 +131,7 @@ of this repository.
 To use the latest version of this package directly from the web, start SageMath
 and type::
 
-    sage: load("https://bitbucket.org/mstreng/recip/raw/master/recip_online.sage")
+    sage: load("https://raw.githubusercontent.com/mstreng/recip/master/recip/recip_online.sage")
 
 To use this package offline, download it first and extract it to some
 directory, say "somewhere_on_my_drive/recip", then start SageMath and type::

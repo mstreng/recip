@@ -1216,6 +1216,8 @@ class Theta_element_polynomial_ring(Theta_element):
                 vals = [evaluate_theta(num_to_c(i, g, den), z,
                              use_magma=use_magma) for i in range(den**(2*g))]
         elif hasattr(z, '_theta_vals'):
+            if prec is None:
+                raise ValueError, "Please specify the precision for theta function evaluation."
             if interval:
                 C = ComplexIntervalField(prec)
             else:
