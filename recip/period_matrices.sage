@@ -375,6 +375,11 @@ def _realred(Z):
 
 
 def _reduce_symm_matrix(Y):
+    """
+    Minkowski reduction of 2x2 symmetric matrix.
+
+    Returns V and U such that V = U*Y*U.transpose() and V is reduced.
+    """
     #assert Y.determinant() > 0
     #assert Y[0,1] == Y[1,0]
     #assert Y[0,0] > 0
@@ -515,7 +520,7 @@ def _reduce(Z, reduction_sequence=False):
     returns (Z', M) such that Z' is reduced, M is in Sp(2g,ZZ) and
     MZ = Z'
     
-    Only implemented for g=2 and maybe g=1.
+    Only implemented for g <= 2.
     
     If reduction_sequence is True, then instead of M returns
     [M1,...,Mk] such that M = Mk*...*M1 and Mi is in a certain list
@@ -533,32 +538,42 @@ def _reduce(Z, reduction_sequence=False):
     else:
         M = identity_matrix(2*g)
     while True:
-        Z, U = _imagred(Z)
-        if get_verbose() == 2:
-            print "The imaginary part is made reduced by %s. This yields %s" % \
-                  (U,Z)
-        Uti = U.transpose().inverse()
-        U = Matrix([[U[0,0],U[0,1],0,0],[U[1,0],U[1,1],0,0],[0,0,Uti[0,0],
-                     Uti[0,1]],[0,0,Uti[1,0],Uti[1,1]]])
-        assert is_symplectic(U)
-        if reduction_sequence:
-            M.append(U)
-        else:
-            M = U*M
-            assert is_symplectic(M)
+        if g == 2:
+            Z, U = _imagred(Z)
+            if get_verbose() == 2:
+                print "The imaginary part is made reduced by %s. This yields %s" % \
+                      (U,Z)
+            Uti = U.transpose().inverse()
+            U = Matrix([[U[0,0],U[0,1],0,0],[U[1,0],U[1,1],0,0],[0,0,Uti[0,0],
+                         Uti[0,1]],[0,0,Uti[1,0],Uti[1,1]]])
+            assert is_symplectic(U)
+            if reduction_sequence:
+                M.append(U)
+            else:
+                M = U*M
+                assert is_symplectic(M)
         Z, V = _realred(Z)
         # Now it may happen that V is not symmetric (because of rounding),
         # so we use V[0,1] twice and ignore V[1,0].
         if get_verbose() == 2:
             print "The real part is made reduced by %s. This yields %s" % (V, Z)
-        V = Matrix([[1,0,V[0,0],V[0,1]],[0,1,V[0,1],V[1,1]],[0,0,1,0],[0,0,0,1]])
+        if g == 2:
+            V = Matrix([[1,0,V[0,0],V[0,1]],[0,1,V[0,1],V[1,1]],[0,0,1,0],[0,0,0,1]])
+        else:
+            V = Matrix([[1,V[0,0]],[0,1]])
         assert is_symplectic(V)
         if reduction_sequence:
             M.append(V)
         else:
             M = V*M
             assert is_symplectic(M)
-        Z, gamma = _gottschling_reduce(Z)
+        if g == 2:
+            Z, gamma = _gottschling_reduce(Z)
+        elif abs(Z[0,0]) < 1:
+            Z = -Z.inverse()
+            gamma = Matrix([[0,1],[-1,0]])
+        else:
+            gamma = 1
         if gamma == 1:
             return Z, M
         if reduction_sequence:

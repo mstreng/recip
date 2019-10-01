@@ -1105,6 +1105,32 @@ class CM_Field_absolute(NumberField_absolute):
                         Z = Z.reduce(reduced).reduce(reduced)
                     yield Z
 
+    def period_matrices(self, *args, **kwargs):
+        """
+        Returns the list of isomorphism classes of principally polarized
+        abelian varieties with the given CM-types, each given by a
+        period matrix that remembers a triple (Phi, A, xi) as in my thesis.
+
+        INPUT:
+
+         - CM_types (default=None) -- a CM-type, None, or tuple of CM-types.
+           If CM_types == None, then take all CM-types with values in QQbar up
+           to equivalence.
+         - reduced (default=100) -- if False, then don't reduce the period
+           matrices. If reduced is a non-zero integer, reduce numerically with
+           at least that number of digits precision.
+
+        EXAMPLES::
+
+            sage: from recip import *
+            sage: CM_Field(-3).period_matrices()
+            [Period Matrix
+             [-1/2*b + 1/2]]
+
+        """
+        return list(self.period_matrices_iter(*args, **kwargs))
+
+
 def CM_Type(embeddings, reflex_field=None, reflex_to_codomain=None, check=True):
     """
     Create a CM-type using one of the following two possibilities:

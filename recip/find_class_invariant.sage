@@ -82,6 +82,48 @@ def a_to_mu(Psi, A):
     return None
     
     
+def a_to_mus(Psi, A):
+    """
+    Given an ideal A and CM-type Psi, returns a list containing
+    all mu with mu*mubar in QQ and N_Psi(A) = (mu).
+
+    EXAMPLE::
+
+        sage: from recip import *
+        sage: K = CM_Field([5,5,5])
+        sage: Phi = K.Phi()
+        sage: A = K.ideal(K.gen())
+        sage: l = a_to_mus(Phi, A)
+        sage: l.sort(key=str)
+        sage: l
+        [-1/2*alphar^2 - 5/2,
+         -1/8*alphar^3 + 1/8*alphar^2 - 15/8*alphar + 15/8,
+         -1/8*alphar^3 - 1/8*alphar^2 - 15/8*alphar - 15/8,
+         -3/8*alphar^3 + 1/8*alphar^2 - 25/8*alphar - 5/8,
+         -3/8*alphar^3 - 1/8*alphar^2 - 25/8*alphar + 5/8,
+         1/2*alphar^2 + 5/2,
+         1/8*alphar^3 + 1/8*alphar^2 + 15/8*alphar + 15/8,
+         1/8*alphar^3 - 1/8*alphar^2 + 15/8*alphar - 15/8,
+         3/8*alphar^3 + 1/8*alphar^2 + 25/8*alphar - 5/8,
+         3/8*alphar^3 - 1/8*alphar^2 + 25/8*alphar + 5/8]
+
+    EXAMPLE::
+
+        sage: from recip import *
+        sage: K = CM_Field([764, 28, 5])
+        sage: Phi = K.Phi()
+        sage: A = K.ideal([19, K.gen()-2])
+        sage: a_to_mus(Phi, A^4)
+        []
+        sage: a_to_mus(Phi, A^8)
+        [-687/2*alphar^3 + 19177*alphar^2 - 28345*alphar + 536769,
+         687/2*alphar^3 - 19177*alphar^2 + 28345*alphar - 536769]
+    """
+    mu = a_to_mu(Psi, A)
+    if mu is None:
+        return []
+    K = mu.parent()
+    return [mu*u for u in K.roots_of_unity()]
 
 
 def principal_type_norms(Psi, modulus):
