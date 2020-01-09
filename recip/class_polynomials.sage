@@ -43,7 +43,7 @@ def class_polynomials(K, factor=False, prec=None, D=None,
                    (currently not supported)
      - `prec` -- starting precision (will be increased until it is enough)
      - `D` -- known multiple of the denominator (if omitted, computes one)
-     - `verbose` -- whether to print specific verbose output for this function.
+     - `verbose` -- whether to print(specific verbose output for this function.)
      
     OUTPUT:
     
@@ -124,7 +124,7 @@ def class_polynomials(K, factor=False, prec=None, D=None,
         # or maybe some more sensible guess?
         prec = 50
         if verbose:
-            print "starting with precision %s" % prec
+            print("starting with precision %s" % prec)
             sys.stdout.flush()
 
     while True:
@@ -140,7 +140,7 @@ def class_polynomials(K, factor=False, prec=None, D=None,
         err = (log(err)/log(2)).n()
         if err < 0:
             if verbose:
-                print "output has %s more bits of precision than needed" % -err
+                print("output has %s more bits of precision than needed" % -err)
             # we found the polynomial!
             try:
                 pols = [[c.unique_integer() for c in p] for p in pols]
@@ -148,14 +148,14 @@ def class_polynomials(K, factor=False, prec=None, D=None,
                 raise RuntimeError( "Incorrect denominator or bug, if you did "                                     "not specify a denominator, please report "                                     "%s" % e)
             ret = [QQ['x'](p)/D for p in pols]
             if verbose:
-                print "Denominator: %s out of %s" %                        (lcm([p.denominator() for p in ret]).factor(), D.factor())
+                print("Denominator: %s out of %s" %                        (lcm([p.denominator() for p in ret]).factor(), D.factor()))
             return ret
         else:
             if verbose:
-                print "output has %s too few bits of precision" % err
+                print("output has %s too few bits of precision" % err)
             # intervals are still pretty large, so we increase precision
             prec = prec + ZZ(floor(err)) + 5
             if verbose:
-                print "increasing precision to %s" % prec
+                print("increasing precision to %s" % prec)
                 sys.stdout.flush()
 

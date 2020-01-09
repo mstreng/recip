@@ -277,7 +277,7 @@ def proper_ideal_classes(O, F):
                 mult_by_c.append(a_matrix_IK)
             minimal_superorder_matrices.append(mult_by_c)
     if get_recip_verbose():
-        print "Number of minimal superorders: %s" % len(minimal_superorder_matrices)
+        print("Number of minimal superorders: %s" % len(minimal_superorder_matrices))
     
     for s in S:
         gns = ([g.list() for g in F*identity_matrix(4)] +
@@ -308,18 +308,18 @@ def proper_ideal_classes(O, F):
         # We will find the order e of u in OK^*/O^*/unit_reps and compute
         # the new unit_reps
         new_unit_reps = unit_reps
-#        print "new_unit_reps" + str(new_unit_reps)
+#        print("new_unit_reps" + str(new_unit_reps))
 #        sys.stdout.flush()
         # e = 1
         v = u
         while all([not(u*t in O) for t in unit_reps]):
             new_unit_reps = new_unit_reps + [u*t for t in unit_reps]
-#            print "new_unit_reps" + str(new_unit_reps)
+#            print("new_unit_reps" + str(new_unit_reps))
 #            sys.stdout.flush()
             u = u*v
             # e = e+1
         unit_reps = new_unit_reps
-#        print "unit_reps" + str(unit_reps)
+#        print("unit_reps" + str(unit_reps))
 #        sys.stdout.flush()
     
     lst = []
@@ -336,9 +336,9 @@ def proper_ideal_classes(O, F):
                         times_found[l] = times_found[l] + 1
 
     if not times_found == [1 for f in F_primary_bases]:
-        print times_found
+        print(times_found)
     if not len(lst)*len(unit_reps) == len(F_primary_bases):
-        print len(lst), len(unit_reps), len(F_primary_bases)
+        print(len(lst), len(unit_reps), len(F_primary_bases))
 
     F_primary_bases = lst
 
@@ -416,34 +416,34 @@ def polarized_ideal_classes(O, F):
     # are:
     units_mod_relative_norms = [z**j * u**m for j in range(e) for m in range(2*k)]
     if get_recip_verbose():
-        print "units modulo relative norms: %s" % units_mod_relative_norms
+        print("units modulo relative norms: %s" % units_mod_relative_norms)
     ret = []
     
     for A in a:
-        # print "ideal %s" % A
+        # print("ideal %s" % A)
         # we need xi*A to be the trace dual of Abar
         Abardual = trace_dual_complex_conjugate(A)
         # xi*A = Abardual, so xi*A*OK = Abardual*OK
         xi_ideal = K.ideal(Abardual) / K.ideal(A)
         if xi_ideal.is_principal():
             if get_recip_verbose() > 2:
-                print "ideal is principal"
+                print("ideal is principal")
             xi = xi_ideal.gens_reduced()[0]
             for u in units_mod_relative_norms:
                 if ideals_equal([xi*u*b for b in A], Abardual):
                     if get_recip_verbose() > 3:
-                        print "found xi generating the correct ideal"
+                        print("found xi generating the correct ideal")
                     if cc(xi*u) == -xi*u:
                         if get_recip_verbose() > 3:
-                            print "xi is totally imaginary"
+                            print("xi is totally imaginary")
                         ret.append((A, xi*u))
                         #print A, xi, u, xi*u
                     elif get_recip_verbose() > 2:
-                        print "xi is not totally imaginary"
+                        print("xi is not totally imaginary")
                 elif get_recip_verbose() > 2:
-                    print "This generator (%s) of AbardualOK / AOK (%s, %s) does not map A to Abardual (%s), but to (%s): " % (xi*u, xi*u*K.ideal(A) == K.ideal(Abardual), ideals_equal([xi*u*b for b in K.ideal(A).basis()], K.ideal(Abardual).basis()), Abardual, [xi*u*b for b in A]) 
+                    print("This generator (%s) of AbardualOK / AOK (%s, %s) does not map A to Abardual (%s), but to (%s): " % (xi*u, xi*u*K.ideal(A) == K.ideal(Abardual), ideals_equal([xi*u*b for b in K.ideal(A).basis()], K.ideal(Abardual).basis()), Abardual, [xi*u*b for b in A]) )
         elif get_recip_verbose() > 2:
-            print "ideal is not principal"
+            print("ideal is not principal")
     return ret
                 
 
@@ -522,7 +522,7 @@ def additive_gens_to_basis(gens, K):
     den = lcm([lcm([c.denominator() for c in r]) for r in M])
     N = Matrix(ZZ, den*M).hermite_form(include_zero_rows=False)
     if N.nrows() != N.ncols():
-        print "Matrix %s is not square, so the lattice does not have full rank. The input was %s" % (N, gens)
+        print("Matrix %s is not square, so the lattice does not have full rank. The input was %s" % (N, gens))
     return [K(g)/den for g in N]
 
 
@@ -824,12 +824,12 @@ def _is_ideal(mult_by_O, M):
 def _is_proper_ideal(mult_by_O, minimal_superorder_matrices, M):
     if not _is_ideal(mult_by_O, M):
         if get_recip_verbose() > 2:
-            print "Is not an ideal"
+            print("Is not an ideal")
         return False
     for c in minimal_superorder_matrices:
         if _is_ideal(c, M):
             if get_recip_verbose() > 2:
-                print "Is an ideal of the over-order"
+                print("Is an ideal of the over-order")
             return False
     return True
 

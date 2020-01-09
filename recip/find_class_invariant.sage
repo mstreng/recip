@@ -268,7 +268,7 @@ def list_group(gens):
         sage: all([g.matrix() in lst for g in gens]) # long time, not tested, apparently wrong??
         True
     """
-    print "Warning: the function list_group will be removed in a later "            "version, use group_generators_to_list instead"
+    print("Warning: the function list_group will be removed in a later "            "version, use group_generators_to_list instead")
     try:
         gens = [g.matrix() for g in gens]
     except AttributeError:
@@ -458,18 +458,18 @@ def visualize(gens, den, select_rows = None):
         else:
             select_rows = range(den**(2*g))
     big = den**(2*g)
-    print "On the %s-th powers, the action is (note that %s means 0):" % (2*den**2, big)
+    print("On the %s-th powers, the action is (note that %s means 0):" % (2*den**2, big))
     l, H = _permutations(gens, den, L=select_rows)
     for k in range(len(gens)):
-        print str(k+1) + ": " + l[k].cycle_string()
-    print "%s of order %s" % (H, H.order())
+        print(str(k+1) + ": " + l[k].cycle_string())
+    print("%s of order %s" % (H, H.order()))
     for h in H.orbits():
         i = [make_big_zero(k, big) for k in h]
         j = [k for k in i if k in select_rows]
         if len(j) > 0:
             j.sort()
-            print "The action on the orbit %s is as follows" % j
-            print table(gens, den, select_rows=j)
+            print("The action on the orbit %s is as follows" % j)
+            print(table(gens, den, select_rows=j))
 
 
 

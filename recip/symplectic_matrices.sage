@@ -209,8 +209,7 @@ class Sp_group:
                     elements_known.append(h)
                     elements_not_exhausted.append(h)
             if get_verbose():
-                print "found: %s, to check: %s" % (len(elements_known),
-                                                   len(elements_not_exhausted))
+                print("found: %s, to check: %s" % (len(elements_known), len(elements_not_exhausted)))
         return elements_known
         
     def order(self):
@@ -523,7 +522,7 @@ def group_generators_to_list(gens, G = None):
                         Hthisround += [n]
                         H += [n]
         if get_verbose() == 2:
-            print "Found %s new period matrices in H" % len(Hthisround)
+            print("Found %s new period matrices in H" % len(Hthisround))
         Hpreviousround = Hthisround
     return H
 

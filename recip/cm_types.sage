@@ -593,7 +593,7 @@ class CM_Field_absolute(NumberField_absolute):
         if L is None:
             L = QQbar
         if get_verbose():
-            print "Computing CM-types"
+            print("Computing CM-types")
             t = clock()
         
         if _is_accepted_complex_field(L):
@@ -630,7 +630,7 @@ class CM_Field_absolute(NumberField_absolute):
         ret = [CM_Type(Phi) for Phi in Phis]
         
         if get_verbose():
-            print "Finished computing CM-types in %s seconds" % (clock()-t)
+            print("Finished computing CM-types in %s seconds" % (clock()-t))
         return ret
 
     def is_totally_imaginary_element(self, a):
@@ -812,7 +812,7 @@ class CM_Field_absolute(NumberField_absolute):
         """
         if get_verbose():
             t = clock()
-            print "Computing Galois closure"
+            print("Computing Galois closure")
         if names == None:
             names = str(self.gen())+'0'
         K, m = NumberField_absolute.galois_closure(self, names=names, map=True)
@@ -828,7 +828,7 @@ class CM_Field_absolute(NumberField_absolute):
                 raise ValueError( "Cannot find embedding of galois closure that extends embedding %s."                                    "Possibly due to precision, an incorrect ambient field, or a bug")
         L = CM_Field(K, name = names, embedding = embedding, check=False)
         if get_verbose():
-            print "Finished computing Galois closure in %s seconds" % (clock() - t)
+            print("Finished computing Galois closure in %s seconds" % (clock() - t))
         if map:
             #m = self.hom(m(self.gen()), L)
             # m(self.gen()) is in the field K, not L (but they have the same
@@ -901,7 +901,7 @@ class CM_Field_absolute(NumberField_absolute):
         
         if get_verbose():
             t = clock()
-            print "Computing representatives of all principally polarized ideals"
+            print("Computing representatives of all principally polarized ideals")
         if self.g() > 2 or not special_g2:
             # The following only works for g >= 2
             D = self.different()

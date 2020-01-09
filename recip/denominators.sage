@@ -184,14 +184,14 @@ def denominator_bound(K, c=2**14, k=2, d=None, Phi=None, bound='default', check=
             except NotImplementedError:
                 pass
             if get_recip_verbose():
-                print "[LV] bounds not implemented, falling back to GL"
+                print("[LV] bounds not implemented, falling back to GL")
             bound = 'gl'
     if bound == 'lv':
         b = lauter_viray_bound(K, safe=safe)
         if b in ZZ:
             b = ZZ(b)
         else:
-            print "what now? b = " + str(b)
+            print("what now? b = " + str(b))
             return b
 
     elif bound == 'gl':
@@ -202,8 +202,8 @@ def denominator_bound(K, c=2**14, k=2, d=None, Phi=None, bound='default', check=
         raise ValueError( "Unkown bound: %s" % bound)
     gal = K.is_galois()
     if not gal:
-    #    print c
-    #    print "no"
+    #    print(c)
+    #    print("no")
         c = sqrt(c)
     #print c
     #print b
@@ -426,9 +426,9 @@ def bruinier_yang_bound(K, check=True, proof=True):
         if not b:
             raise ValueError( s)
         if get_recip_verbose():
-            print s
+            print(s)
     if get_recip_verbose():
-        print "Computing Bruinier-Yang's bound"
+        print("Computing Bruinier-Yang's bound")
 
     # We need to take the number of roots of unity into account.
     # The logarithm of what we have below is a factor #OK^*^tors / 2 too small.
@@ -458,7 +458,7 @@ def bruinier_yang_bound(K, check=True, proof=True):
         In other words, if we sum over S, we get exp(2*RHS of (1.11)).
         """
         if get_recip_verbose()>1:
-            print "Computing contribution of\nt = %s\n  = d^-1 * (%s)\n  = (k+(D-n^2)/4*sqrt(Dtilde))/(2D),\nwhere k=%s and (D-n^2)/4=%s and n=%s" % (u, u*d.gens_reduced()[0], (t*D).trace(), (D*t*2-(D*t).trace())/B, sqrt(D-(D*t*2-(D*t).trace())/B*4))
+            print("Computing contribution of\nt = %s\n  = d^-1 * (%s)\n  = (k+(D-n^2)/4*sqrt(Dtilde))/(2D),\nwhere k=%s and (D-n^2)/4=%s and n=%s" % (u, u*d.gens_reduced()[0], (t*D).trace(), (D*t*2-(D*t).trace())/B, sqrt(D-(D*t*2-(D*t).trace())/B*4)))
         f = (u*d).factor()
         def splittype(p):
             """
@@ -477,7 +477,7 @@ def bruinier_yang_bound(K, check=True, proof=True):
         f2 = [(p[0], p[1], splittype(p[0])) for p in f]
         
         if get_recip_verbose()>1:
-            print "Primes over t*d: (given by [p,e,f] in Ftilde/QQ)"
+            print("Primes over t*d: (given by [p,e,f] in Ftilde/QQ)")
             for p in f2:
                 if p[2] == 0:
                     s = "  Split in Ktilde/Ftilde:    "
@@ -485,7 +485,7 @@ def bruinier_yang_bound(K, check=True, proof=True):
                     s = "  Inert in Ktilde/Ftilde:    "
                 else:
                     s = "  Ramified in Ktilde/Ftilde: "
-                print s + "[%s,%s,%s] to power %s" % (p[0].gens_two()[0], p[0].ramification_index(), p[0].residue_class_degree(), p[1])
+                print(s + "[%s,%s,%s] to power %s" % (p[0].gens_two()[0], p[0].ramification_index(), p[0].residue_class_degree(), p[1]))
         
         def prerho(k, t):
             """
@@ -524,7 +524,7 @@ def bruinier_yang_bound(K, check=True, proof=True):
                    f2[k][0].norm() ** ((f2[k][1] - d.valuation(f2[k][0]) + 1) * (rho(k))) for k in range(len(f2))
                   )
         if get_recip_verbose() > 1:
-            print "Contribution of t is %s" % ret
+            print("Contribution of t is %s" % ret)
         return ret
         
     # Some notation changes within Yang:
@@ -560,7 +560,7 @@ def bruinier_yang_bound(K, check=True, proof=True):
         if ret.is_square():
             ret = ret.sqrt()
         else:
-            print "K is Galois, but the Bruinier-Yang arithmetic intersection number is not the logarithm of a square. Interesting..."
+            print("K is Galois, but the Bruinier-Yang arithmetic intersection number is not the logarithm of a square. Interesting...")
             ret = ret.sqrt()
     return ret
 
@@ -766,13 +766,13 @@ def lauter_viray_bound(K, safe=True, num_etas=None, implementation="bound", boun
     elif implementation == "gjlsvw":
         impl = lauter_viray_win
     else:
-        print "Unknown implementation %s" % (impl,)
+        print("Unknown implementation %s" % (impl,))
 
     L = find_eta(K, how_many=num_etas)
     if len(L) == 1:
         ret = impl(K, L[0], safe=safe, factor_two=False, bound_calJ=bound_calJ, bound_two=bound_two)
         if get_recip_verbose():
-            print "[LV] results: %s" % (ret,)
+            print("[LV] results: %s" % (ret,))
         return ret[0]
     l = [(impl(K, safe=safe, eta=eta[0], bound_calJ=bound_calJ, bound_two=bound_two), eta[1]) for eta in L]
     r = 1
@@ -803,7 +803,7 @@ def lauter_viray_bound_given_eta(K, eta, safe=True, verbose=False, factor_two=Tr
     
     """
     if get_recip_verbose():
-        print "Computing a denominator bound using [LV]"
+        print("Computing a denominator bound using [LV]")
     ret = []
     cc = K.complex_conjugation()
     F = K.real_field()
@@ -824,7 +824,7 @@ def lauter_viray_bound_given_eta(K, eta, safe=True, verbose=False, factor_two=Tr
     assert K.real_to_self()(beta0+beta1*omega) == eta * cc(eta)
 
     if get_recip_verbose():
-        print "[LV] alpha0=%s; alpha1=%s; beta0=%s; beta1=%s" % (alpha0, alpha1, beta0, beta1)
+        print("[LV] alpha0=%s; alpha1=%s; beta0=%s; beta1=%s" % (alpha0, alpha1, beta0, beta1))
 
     c_K = (alpha0^2 + alpha0*alpha1*D + 1/4*alpha1^2*(D^2-D)-4*beta0-2*beta1*D)
     
@@ -847,7 +847,7 @@ def lauter_viray_bound_given_eta(K, eta, safe=True, verbose=False, factor_two=Tr
             factors_two = factors_two + delta.prime_divisors()
 
             if get_recip_verbose():
-                print "[LV] delta = %s" % delta
+                print("[LV] delta = %s" % delta)
 
             C_delta = 2 if S == 0 else 1
 
@@ -886,14 +886,14 @@ def lauter_viray_bound_given_eta(K, eta, safe=True, verbose=False, factor_two=Tr
             for k in srange(kmin, kmax+1):
                 n = -c_K*delta + 2*D*k
                 if get_recip_verbose():
-                    print "[LV] n = %s" % n
+                    print("[LV] n = %s" % n)
                 quo = (delta**2*Dtilde - n**2)/(4*D)
                 
                 assert quo in ZZ
                 # This is equivalent to delta^2 % divisor_of_deltasq == 0
                 
                 if get_recip_verbose() > 2:
-                    print "(delta**2*Dtilde - n**2)/(4*D) = %s" % quo
+                    print("(delta**2*Dtilde - n**2)/(4*D) = %s" % quo)
                 if not quo in [-1, 1]:
                     # We next list prime divisors ell of quo, so +/- 1 is useless
                     n_u = ZZ(-delta*(n+c_K*delta)/(2*D)) # [LV, page 3]
@@ -919,7 +919,7 @@ def lauter_viray_bound_given_eta(K, eta, safe=True, verbose=False, factor_two=Tr
 
                     for l in ZZ(quo).prime_divisors():
                         if get_recip_verbose()>2:
-                            print "[LV] l = %s" % l
+                            print("[LV] l = %s" % l)
                         mu_l = quo.valuation(l)
                         if d_u % l != 0 or d_x % l != 0:
                             mu_l = (mu_l + 1)/2
@@ -934,7 +934,7 @@ def lauter_viray_bound_given_eta(K, eta, safe=True, verbose=False, factor_two=Tr
                             if not ((should_be_discr/l**2) in ZZ and ZZ(should_be_discr/l**2) % 4 in [0, 1]):
                                 # now we know should_be_discr is a discriminant of an imaginary quadratic order that is maximal at l
                                 if get_recip_verbose() > 2:
-                                    print "[LV] f_u = %s" % f_u
+                                    print("[LV] f_u = %s" % f_u)
                                 t_nfu = (d_x*d_u-f_u*(t_x*t_u-2*t_xuvee))/(2*f_u**2)
                                 computed_calJ_bound = calJ_bound(n=n, delta=delta, Dtilde=Dtilde, d_u=d_u, f_u=f_u, d_x=d_x, t=t_nfu, l=l, D=D, safe=safe, bound_calJ=bound_calJ)
                                 if computed_calJ_bound != 0:
@@ -1046,8 +1046,8 @@ def calJ_bound(n, delta, Dtilde, d_u, f_u, d_x, t, l, D, safe=True, bound_calJ=1
     if safe:
         conj = calJ_conjecture(d_u/f_u**2, d_x, t, l)
         if get_recip_verbose() > 2:
-            print "calJ <= %s" % thm24
-            print "calJ conjectured to be %s" % conj
+            print("calJ <= %s" % thm24)
+            print("calJ conjectured to be %s" % conj)
         if not (conj is None):
             assert conj > thm24
             if gcd(ZZ((delta**2*Dtilde-n**2)/(4*D*f_u^2)), conductor(d_u/f_u**2)) == 1:
@@ -1076,14 +1076,14 @@ def calJ_bound_thm24(n, delta, Dtilde, d_u, f_u, d_x, t, l, D, safe=True):
             # [LV, Remark 2.5]
             N = (delta**2*Dtilde-n**2)/(4*D)
             if not extra_factor1*extra_factor2 == 2**len([p for p in gcd(ZZ(N*f_u**-2), ZZ(d_u*f_u**-2)).prime_divisors() if p != l]):
-                print "Problem with [LV, Remark 2.5], l=%s, factor1=%s, factor2=%s*%s, product should be 2^%s, sets are %s and %s, d_u=%s, f_u=%s, s_0=%s, s_1=%s, N=%s" % (l, extra_factor1.factor(), rhotilde(d_u*f_u**-2,t,d_x,l,part=1), rhotilde(d_u*f_u**-2,t,d_x,l,part=2), len([p for p in gcd(ZZ(N*f_u**-2), ZZ(d_u*f_u**-2)).prime_divisors() if p != l]) , [p for p in ZZ(d_u*f_u**-2).prime_divisors() if p != 2 and p != l and t.valuation(p) >= (d_u*f_u**-2).valuation(p)], [p for p in gcd(ZZ(N*f_u**-2), ZZ(d_u*f_u**-2)).prime_divisors() if p != l], d_u, f_u, t, d_x, N)
+                print("Problem with [LV, Remark 2.5], l=%s, factor1=%s, factor2=%s*%s, product should be 2^%s, sets are %s and %s, d_u=%s, f_u=%s, s_0=%s, s_1=%s, N=%s" % (l, extra_factor1.factor(), rhotilde(d_u*f_u**-2,t,d_x,l,part=1), rhotilde(d_u*f_u**-2,t,d_x,l,part=2), len([p for p in gcd(ZZ(N*f_u**-2), ZZ(d_u*f_u**-2)).prime_divisors() if p != l]) , [p for p in ZZ(d_u*f_u**-2).prime_divisors() if p != 2 and p != l and t.valuation(p) >= (d_u*f_u**-2).valuation(p)], [p for p in gcd(ZZ(N*f_u**-2), ZZ(d_u*f_u**-2)).prime_divisors() if p != l], d_u, f_u, t, d_x, N))
                 if l != 2:
                     raise RuntimeError()
                 else:
                     pass
             else:
                 if get_recip_verbose() > 1:
-                    print "NO prob with [LV, Remark 2.5], factor1=%s, factor2=%s*%s, product should be 2^%s, sets are %s and %s" % (extra_factor1.factor(), rhotilde(d_u*f_u**-2,t,d_x,l,part=1), rhotilde(d_u*f_u**-2,t,d_x,l,part=2), len([p for p in gcd(ZZ(N*f_u**-2), ZZ(d_u*f_u**-2)).prime_divisors() if p != l]) , [p for p in ZZ(d_u*f_u**-2).prime_divisors() if p != 2 and p != l and t.valuation(p) >= (d_u*f_u**-2).valuation(p)], [p for p in gcd(ZZ(N*f_u**-2), ZZ(d_u*f_u**-2)).prime_divisors() if p != l])
+                    print("NO prob with [LV, Remark 2.5], factor1=%s, factor2=%s*%s, product should be 2^%s, sets are %s and %s" % (extra_factor1.factor(), rhotilde(d_u*f_u**-2,t,d_x,l,part=1), rhotilde(d_u*f_u**-2,t,d_x,l,part=2), len([p for p in gcd(ZZ(N*f_u**-2), ZZ(d_u*f_u**-2)).prime_divisors() if p != l]) , [p for p in ZZ(d_u*f_u**-2).prime_divisors() if p != 2 and p != l and t.valuation(p) >= (d_u*f_u**-2).valuation(p)], [p for p in gcd(ZZ(N*f_u**-2), ZZ(d_u*f_u**-2)).prime_divisors() if p != l]))
         return ret * extra_factor1 * extra_factor2
     else:
         if safe:
@@ -1457,7 +1457,7 @@ def find_eta(K, how_many=None, proof=True):
         assert new_prime_bound > prime_bound
         prime_bound = new_prime_bound
         if get_recip_verbose() > 1:
-            print "Found eta with [OK:OF[eta]] = %s" % prime_bound.factor()
+            print("Found eta with [OK:OF[eta]] = %s" % prime_bound.factor())
         ret.append((eta, ZZ(prime_bound).prime_factors()))
     
     return ret
@@ -1476,7 +1476,7 @@ def find_eta_coprime(K, Krel, F, D, rel_diff, prime_bound, proof=True):
     omega = (K(D).sqrt()-D)/2
     
     if get_recip_verbose() > 1:
-        print "index of OF[eta] must be a prime larger than %s" % prime_bound
+        print("index of OF[eta] must be a prime larger than %s" % prime_bound)
     
     P, y = next_prime_in_class(x_F, prime_bound, True, True)
     
@@ -1493,7 +1493,7 @@ def find_eta_coprime(K, Krel, F, D, rel_diff, prime_bound, proof=True):
     # Next, we need x in OF + 2*OK
     
     if get_recip_verbose() > 1:
-        print "Trying (eta-etabar) that would yield [OK:OF[eta]] = %s" % P.norm()
+        print("Trying (eta-etabar) that would yield [OK:OF[eta]] = %s" % P.norm())
     
     for a in range(2):
         for b in range(2):
@@ -1515,7 +1515,7 @@ def next_prime_in_class(a, n, gen=False, allow_one=False):
     of n, if a is principal.
     """
     if get_recip_verbose():
-        print "Taking the next prime in a class for a=%s, n=%s" % (a, n)
+        print("Taking the next prime in a class for a=%s, n=%s" % (a, n))
     K = a.number_field()
     if allow_one and a.is_principal():
         P = K.ideal(1)
@@ -1528,7 +1528,7 @@ def next_prime_in_class(a, n, gen=False, allow_one=False):
         for P in K.ideal(p).prime_factors():
             if P.norm() == p:
                 if get_recip_verbose() > 5:
-                    print p
+                    print(p)
                 y = P/a
                 if y.is_principal():
                     if gen:
@@ -1648,7 +1648,7 @@ def win_implementation(alpha0, alpha1, beta0, beta1, D, p, m):
     Returns the output of length of the output of ListAllEmb.
     """
     if get_recip_verbose():
-        print "calling [GJLSVW] function with p=%s" % p
+        print("calling [GJLSVW] function with p=%s" % p)
     lst = m.ListAllEmb(m(ZZ(alpha0)), m(ZZ(alpha1)), m(ZZ(beta0)), m(ZZ(beta1)), m(ZZ(D)), m(ZZ(p)), nvals=3)
     return lst[2].sage()
 
@@ -1685,7 +1685,7 @@ def lauter_viray_win(K, eta, safe=True, verbose=False, factor_two=True, m=magma,
     primes = []
     
     if get_recip_verbose():
-        print "Computing a denominator bound using [LV]"
+        print("Computing a denominator bound using [LV]")
     cc = K.complex_conjugation()
     F = K.real_field()
     D = ZZ(F.discriminant())
@@ -1705,7 +1705,7 @@ def lauter_viray_win(K, eta, safe=True, verbose=False, factor_two=True, m=magma,
     assert K.real_to_self()(beta0+beta1*omega) == eta * cc(eta)
 
     if get_recip_verbose():
-        print "[LV] alpha0=%s; alpha1=%s; beta0=%s; beta1=%s" % (alpha0, alpha1, beta0, beta1)
+        print("[LV] alpha0=%s; alpha1=%s; beta0=%s; beta1=%s" % (alpha0, alpha1, beta0, beta1))
 
     c_K = (alpha0^2 + alpha0*alpha1*D + 1/4*alpha1^2*(D^2-D)-4*beta0-2*beta1*D)
     
@@ -1728,7 +1728,7 @@ def lauter_viray_win(K, eta, safe=True, verbose=False, factor_two=True, m=magma,
             factors_two = factors_two + delta.prime_divisors()
 
             if get_recip_verbose():
-                print "[LV] delta = %s" % delta
+                print("[LV] delta = %s" % delta)
 
             C_delta = 2 if S == 0 else 1
 
@@ -1767,14 +1767,14 @@ def lauter_viray_win(K, eta, safe=True, verbose=False, factor_two=True, m=magma,
             for k in srange(kmin, kmax+1):
                 n = -c_K*delta + 2*D*k
                 if get_recip_verbose():
-                    print "[LV] n = %s" % n
+                    print("[LV] n = %s" % n)
                 quo = (delta**2*Dtilde - n**2)/(4*D)
                 
                 assert quo in ZZ
                 # This is equivalent to delta^2 % divisor_of_deltasq == 0
                 
                 if get_recip_verbose() > 2:
-                    print "(delta**2*Dtilde - n**2)/(4*D) = %s" % quo
+                    print("(delta**2*Dtilde - n**2)/(4*D) = %s" % quo)
                 if not quo in [-1, 1]:
                     # We next list prime divisors ell of quo, so +/- 1 is useless
                     n_u = ZZ(-delta*(n+c_K*delta)/(2*D)) # [LV, page 3]
@@ -1803,7 +1803,7 @@ def lauter_viray_win(K, eta, safe=True, verbose=False, factor_two=True, m=magma,
     sorted_primes.sort()
     
     if get_recip_verbose():
-        print "[LV] relevant primes ell: %s" % (sorted_primes,)
+        print("[LV] relevant primes ell: %s" % (sorted_primes,))
     fact = []
     
     for (p, mult) in sorted_primes:

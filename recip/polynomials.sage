@@ -180,9 +180,9 @@ def recognize_polynomial(pol_n, K=None, N=None, M=None,
             X[n*i+j, n*(d+1)+1 + 2*i]     = my_round((N*emb(bas[j])).real())
             X[n*i+j, n*(d+1)+1 + 2*i + 1] = my_round((N*emb(bas[j])).imag())
     if get_verbose():
-        print "recognize_polynomial has constructed a matrix, now doing LLL"
+        print("recognize_polynomial has constructed a matrix, now doing LLL")
         if get_verbose() > 1:
-            print X
+            print(X)
     
     if solution != None:
         (pol, den) = solution
@@ -190,15 +190,15 @@ def recognize_polynomial(pol_n, K=None, N=None, M=None,
             list_solution = flatten([Sequence(a) for a in Sequence(pol)])+[den]
         else:
             list_solution = Sequence(pol)+[den]
-        print list_solution
-        print sum([list_solution[k]*vector(X[k]) for k in range(n*(d+1)+1)])
+        print(list_solution)
+        print(sum([list_solution[k]*vector(X[k]) for k in range(n*(d+1)+1)]))
 
     X = X.LLL()
     
     if get_verbose():
-        print "recognize_polynomial finished LLL"
+        print("recognize_polynomial finished LLL")
         if get_verbose() > 1:
-            print X
+            print(X)
     
     if type(poly_gen) == str:
         y = PolynomialRing(K, poly_gen).gen()
@@ -211,7 +211,7 @@ def recognize_polynomial(pol_n, K=None, N=None, M=None,
     for i in X:
         if i[n*(d+1)] != 0:
             if get_verbose():
-                print i
+                print(i)
             return sum([sum([i[k*n+l]*y**k*bas[l] for k in range(d+1)])                          for l in range(n)]) / i[n*(d+1)]
     raise RuntimeError( "Failed to recognize polynomial. Bug?")
 

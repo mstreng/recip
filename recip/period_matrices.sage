@@ -76,10 +76,10 @@ def evaluate_theta(c, z, u = None, use_magma=False):
     extra_terms = 1.1
     prec = z.base_ring().precision()
     if get_verbose() == 2:
-        print "Precision %s" % prec
+        print("Precision %s" % prec)
     R = extra_terms*ceil((0.4*prec+2.2).sqrt())
     if get_verbose() == 2:
-        print "%s terms up to %s" % ((2*R+1)**2, R)
+        print("%s terms up to %s" % ((2*R+1)**2, R))
     if len(c) != 4:
         raise NotImplementedError( "sorry, evaluate_theta is only "                                     "implemented for g=2")
     F_extra = ComplexField(prec*extra_prec)
@@ -167,7 +167,7 @@ def evaluate_theta_interval(c, z, R=None, reduce_first=True):
 
     prec = C.precision()
     if get_verbose() == 2:
-        print "Precision %s" % prec
+        print("Precision %s" % prec)
     
     if len(c) == 2:
     
@@ -181,7 +181,7 @@ def evaluate_theta_interval(c, z, R=None, reduce_first=True):
             z_for_reduction = z.center()
             while not reduced:
                 t = (z_for_reduction.real()+1/2).floor()
-#                print evaluate_theta_interval(c, Matrix([[z]]), reduce_first=False)
+#                print(evaluate_theta_interval(c, Matrix([[z]]), reduce_first=False))
                 if t != 0:
                     z_new = z - t
                     N = Matrix([[1, t],[0,1]])
@@ -194,14 +194,14 @@ def evaluate_theta_interval(c, z, R=None, reduce_first=True):
                     lc, e = theta_leading_term_complex(c, C)
                     lcN, eN = theta_leading_term_complex(c_trans, C)
                     factor_for_this_transformation =  lc * exp(2*piI*e*t) / lcN
-#                    print "factor", factor_for_this_transformation
+#                    print("factor", factor_for_this_transformation)
                     prefactor = prefactor * factor_for_this_transformation
                     z = z_new
                     z_for_reduction = z_for_reduction - t
-#                    print "T", z_new, c_trans
+#                    print("T", z_new, c_trans)
                     c = c_trans
-#                    print "T"
-#                    print prefactor*evaluate_theta_interval(c, Matrix([[z]]), reduce_first=False)
+#                    print("T")
+#                    print(prefactor*evaluate_theta_interval(c, Matrix([[z]]), reduce_first=False))
                 
                 if z_for_reduction.abs() < 0.9:
                     z_new = -1/z
@@ -214,18 +214,18 @@ def evaluate_theta_interval(c, z, R=None, reduce_first=True):
                     if sqrt_z_new.real() < 0:
                         sqrt_z_new = -sqrt_z_new
                     assert sqrt_z_new.imag() > 0
-#                    print c, c_trans, e
-#                    print prefactor
+#                    print(c, c_trans, e)
+#                    print(prefactor)
                     factor_for_this_transformation =  sqrt_z_new * evaluate_theta_interval(c, Matrix([[I]])) / zeta8 / evaluate_theta_interval(c_trans, Matrix([[I]]))
-#                    print factor_for_this_transformation
+#                    print(factor_for_this_transformation)
                     prefactor = prefactor * factor_for_this_transformation
-#                    print prefactor
+#                    print(prefactor)
                     z = z_new
                     z_for_reduction = -1/z_for_reduction
                     c = c_trans
-#                    print "S", z_new, c_trans
-#                    print "S"
-#                    print prefactor*evaluate_theta_interval(c, Matrix([[z]]), reduce_first=False)
+#                    print("S", z_new, c_trans)
+#                    print("S")
+#                    print(prefactor*evaluate_theta_interval(c, Matrix([[z]]), reduce_first=False))
                 else:
                     reduced=True
         
@@ -234,7 +234,7 @@ def evaluate_theta_interval(c, z, R=None, reduce_first=True):
         RF = RealIntervalField(prec)
         Q = exp(RF(-pi*z.imag()))
         if not Q.upper() < 1:
-            print Q
+            print(Q)
             raise ValueError()
         if R is None:
             R = ZZ(ceil(sqrt((prec+3)*log(2)/-log(Q.upper())).n()))
@@ -259,7 +259,7 @@ def evaluate_theta_interval(c, z, R=None, reduce_first=True):
         error_term_bound = (2*Q**(R**2) / (1-Q**(2*R))).upper()
         error_term_bound = RF(-error_term_bound, error_term_bound)
         s = s + C(error_term_bound, error_term_bound)
-#        print s
+#        print(s)
         return prefactor * s
         
 
@@ -269,15 +269,15 @@ def evaluate_theta_interval(c, z, R=None, reduce_first=True):
         R = ceil((0.4*prec+2.2).sqrt())
 
     if get_verbose() == 2:
-        print "%s terms up to %s" % ((2*R+1)**2, R)
+        print("%s terms up to %s" % ((2*R+1)**2, R))
         
     cpp = vector([c[2],c[3]])
     verb = get_recip_verbose()
     if verb:
-        print "Evaluating a theta constant in interval arithmetic, R=%s" % R
+        print("Evaluating a theta constant in interval arithmetic, R=%s" % R)
     for n in range(-R, R+1):
         if verb and R > 40:
-            print "Evaluating a theta constant, R=%s, n=%s, so %s percent" % (R, n, 100*((n+R)/2/R).n())
+            print("Evaluating a theta constant, R=%s, n=%s, so %s percent" % (R, n, 100*((n+R)/2/R).n()))
         for m in range(-R, R+1):
             cp = vector([ZZ(m)+c[0],ZZ(n)+c[1]])
             s = s + exp(piI*(cp*z*cp + 2*cp*cpp))
@@ -492,16 +492,16 @@ def _gottschling_reduce(Z):
         d = abs(_det_bottom_part(g, Z))
         if d < improvement:
             if get_verbose() == 2:
-                print "The matrix %s would improve the determinant of the "                        "imaginary part by a factor %s" % (g, 1/d)
+                print("The matrix %s would improve the determinant of the "                        "imaginary part by a factor %s" % (g, 1/d))
             gamma = g
             improvement = d
     if improvement == 1:
         if get_verbose() == 2:
-            print "Cannot increase the imaginary part of %s" % Z
+            print("Cannot increase the imaginary part of %s" % Z)
         return (Z, identity_matrix(4))
     Z = Sp_action(gamma, Z)
     if get_verbose() == 2:
-        print "Improving the imaginary part by a factor %s using %s to get "                "%s" % (1/improvement, gamma, Z)
+        print("Improving the imaginary part by a factor %s using %s to get "                "%s" % (1/improvement, gamma, Z))
     return (Z, gamma)
 
 
@@ -519,7 +519,7 @@ def _reduce(Z, reduction_sequence=False):
     """
     g = Z.nrows()
     if get_verbose() == 2:
-        print "Beginning reduction of " + str(Z)
+        print("Beginning reduction of " + str(Z))
 
     if g > 2:
         raise NotImplementedError()
@@ -532,7 +532,7 @@ def _reduce(Z, reduction_sequence=False):
         if g == 2:
             Z, U = _imagred(Z)
             if get_verbose() == 2:
-                print "The imaginary part is made reduced by %s. This yields %s" %                        (U,Z)
+                print("The imaginary part is made reduced by %s. This yields %s" %                        (U,Z))
             Uti = U.transpose().inverse()
             U = Matrix([[U[0,0],U[0,1],0,0],[U[1,0],U[1,1],0,0],[0,0,Uti[0,0],
                          Uti[0,1]],[0,0,Uti[1,0],Uti[1,1]]])
@@ -546,7 +546,7 @@ def _reduce(Z, reduction_sequence=False):
         # Now it may happen that V is not symmetric (because of rounding),
         # so we use V[0,1] twice and ignore V[1,0].
         if get_verbose() == 2:
-            print "The real part is made reduced by %s. This yields %s" % (V, Z)
+            print("The real part is made reduced by %s. This yields %s" % (V, Z))
         if g == 2:
             V = Matrix([[1,0,V[0,0],V[0,1]],[0,1,V[0,1],V[1,1]],[0,0,1,0],[0,0,0,1]])
         else:
@@ -621,11 +621,11 @@ def is_period_matrix(m):
         raise ValueError()
     if not m.is_symmetric():
         if get_verbose() == 2 != 0:
-            print "Matrix %s is not symmetric in is_period_matrix" % m
+            print("Matrix %s is not symmetric in is_period_matrix" % m)
         return False
     if not is_positive_definite(mat_convert(m, imag)):
         if get_verbose() == 2 != 0:
-            print "Imaginary part of %s is not positive definite" % m
+            print("Imaginary part of %s is not positive definite" % m)
         return False
     return True
     
@@ -657,10 +657,10 @@ def PeriodMatrix(arg1, arg2=None, arg3=None, check=True):
     """
     if arg2 is None and arg3 is None:
         if get_verbose() == 2:
-            print "PeriodMatrix got a single input (%s), interpreting it as a PeriodMatrix_CM and creating a new PeriodMatrix_CM (copy) out of it" % arg1
+            print("PeriodMatrix got a single input (%s), interpreting it as a PeriodMatrix_CM and creating a new PeriodMatrix_CM (copy) out of it" % arg1)
         return PeriodMatrix_CM(arg1.CM_type(), arg1.ideal(), arg1.xi(), arg1.basis(), arg1, check=check)
     if get_verbose() == 2:
-        print "PeriodMatrix got inputs CM_type = %s, ideal = %s, xi = %s" % (arg1, arg2, arg3)
+        print("PeriodMatrix got inputs CM_type = %s, ideal = %s, xi = %s" % (arg1, arg2, arg3))
     return PeriodMatrix_CM(arg1, arg2, arg3, check=check)
 
 
@@ -991,7 +991,7 @@ class PeriodMatrix_CM():
 
     def evaluate_theta(self, c, prec, use_magma=False, interval=False):
         if get_verbose() == 2:
-            print "Evaluating theta constant of characteristic %s at %s" %                    (c, self)
+            print("Evaluating theta constant of characteristic %s at %s" %                    (c, self))
         if interval:
             if use_magma:
                 raise NotImplementedError( "Cannot use both Magma and interval arithmetic")
@@ -1062,11 +1062,11 @@ class PeriodMatrix_CM():
         Z = PeriodMatrix(Phi, ideal, xi)
         M = (self._Bt * Z._Bt.inverse())
         if get_verbose()==2:
-            print "galois action obtained by %s" % M
+            print("galois action obtained by %s" % M)
         if reduce != False:
             Z, M2 = Z.reduce(prec=reduce, transformation=True)
             if get_verbose()==2:
-                print "reduction obtained by the inverse\n %s of\n %s" % (M2.inverse(), M2)
+                print("reduction obtained by the inverse\n %s of\n %s" % (M2.inverse(), M2))
             M = M * M2.inverse()
         if not M*vector(Z.basis()) == vector(self.basis()):
             raise RuntimeError( "bug in galois_action, wrong matrix")

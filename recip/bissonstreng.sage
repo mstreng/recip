@@ -334,12 +334,12 @@ def minimal_orders_of_class_number_one(Phi, output_type='order'):
     ret = []
     for p in _primes_of_interest(K):
         if get_recip_verbose():
-            print "p = %s" % p
+            print("p = %s" % p)
         k = 1
         previous = OK
         while True:
             if get_recip_verbose():
-                print "k = %s" % k
+                print("k = %s" % k)
             O = minimal_order_cl_nr_one_F(Phi, p**k, output_type=output_type)
             if O.index_in(previous) == 1:
                 if k != 1:
@@ -720,7 +720,7 @@ def all_period_matrices_two(lst):
     # the things below are a copy of another similar function
     ret = []
     for DAB in lst:
-#        print DAB
+#        print(DAB)
         K = CM_Field(DAB)
         Phi = K.CM_types()[0]
         m = minimal_orders_of_class_number_one(Phi)
@@ -735,9 +735,9 @@ def all_period_matrices_two(lst):
         Zs = []
         orders = []
         sup = superorders_stable_under_complex_conjugation(Omin)
-#        print "%s orders" % len(sup)
+#        print("%s orders" % len(sup))
         for O in sup:
-#            print "Computing period matrices for an order"
+#            print("Computing period matrices for an order")
             Zs_this_order = period_matrices(O, F, Phi)
             Zs = Zs + Zs_this_order
             orders = orders + [O for k in range(len(Zs_this_order))]
@@ -753,12 +753,12 @@ def two_two_matrix(Zs, F):
     n = len(Zs)
     A = zero_matrix(n)
     for k in range(n):
-#        print "testing k = %s and l=0,...,%s" % (k,k)
+#        print("testing k = %s and l=0,...,%s" % (k,k))
         for l in range(k+1):
             entry = 1 if are_nn_isogenous(Zs[k], Zs[l], 2, F, F) else 0
             A[k,l] = entry
             A[l,k] = entry
-#        print A[k][0:k+1]
+#        print(A[k][0:k+1])
     return A
 
 

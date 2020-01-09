@@ -249,9 +249,9 @@ def determine_kappa(M, prec=200):
         assert re > 0
     if C != 0:
         if  im.contains_zero():
-#            print sqrtdet
-#            print im.upper()
-#            print im.lower()
+#            print(sqrtdet)
+#            print(im.upper())
+#            print(im.lower())
             raise ValueError( "M too complicated in determine_kappa")
         if im < 0:
             sqrtdet = -sqrtdet
@@ -1200,7 +1200,7 @@ class Theta_element_polynomial_ring(Theta_element):
                 raise ValueError( "prec!=None cannot be combined with a "                                    "non-exact period matrix")
             C = z.base_ring()
             if get_verbose() > 1:
-                print "Working with a period matrix over CC"
+                print("Working with a period matrix over CC")
             if interval:
                 vals = [evaluate_theta_interval(num_to_c(i, g, den), z)
                              for i in range(den**(2*g))]
@@ -1215,7 +1215,7 @@ class Theta_element_polynomial_ring(Theta_element):
             else:
                 C = ComplexField(prec)
             if get_verbose() > 1:
-                print "Working with a period matrix over a number field"
+                print("Working with a period matrix over a number field")
             vals = z._theta_vals(den, prec=prec, use_magma=use_magma, interval=interval)
         else:
             raise TypeError, "Period matrix z (=%s) has incorrect type "                               "(%s) or base ring" % (z, type(z))
@@ -1339,7 +1339,7 @@ class Theta_element_polynomial_ring(Theta_element):
         if den == self._den:
             return self
         if get_verbose() > 1:
-            print "Changing denominator of theta characteristic from %s to %s" % (self._den, den)
+            print("Changing denominator of theta characteristic from %s to %s" % (self._den, den))
         if not (den % self._den) == 0:
             raise NotImplementedError( "Lowering den is not implemented: trying to change den from %s to %s" % (self._den, den))
         g = self._g
