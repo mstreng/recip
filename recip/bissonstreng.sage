@@ -1,4 +1,4 @@
-"""
+r"""
 RECIP -- REpository of Complex multIPlication SageMath code.
 See the file README.txt for version information and instructions.
 
@@ -228,7 +228,7 @@ are correct and not defined over `\QQ`.
 """
 
 def orders_proven_with_wamelen(latex_output=False):
-    """
+    r"""
     Compute the orders O''' in the article, and prove that the non-maximal
     O''' have index 2 in the maximal order and no proper polarized ideal
     classes. Then output Table 1 of the article.
@@ -238,7 +238,7 @@ def orders_proven_with_wamelen(latex_output=False):
         sage: from recip import *
         sage: orders_proven_with_wamelen()
         [([5, 5, 5], 1, 1, 1, 1, 1), ([8, 4, 2], 1, x^4 + 4*x^2 + 2, 1, 1, 1), ([13, 13, 13], 1, x^4 - x^3 + 2*x^2 + 4*x + 3, 3, 1, 1), ([5, 10, 20], 2, x^4 + 10*x^2 + 20, 4, 4, 2), ([5, 65, 845], 2, x^4 - x^3 + 16*x^2 - 16*x + 61, 19, 1, 1), ([29, 29, 29], 1, x^4 - x^3 + 4*x^2 - 20*x + 23, 7, 1, 1), ([5, 85, 1445], 2, x^4 - x^3 + 21*x^2 - 21*x + 101, 29, 1, 1), ([37, 37, 333], 1, x^4 - x^3 + 5*x^2 - 7*x + 49, 21, 3, 1), ([8, 20, 50], 2, x^4 + 20*x^2 + 50, 25, 25, 1), ([13, 65, 325], 2, x^4 - x^3 + 15*x^2 + 17*x + 29, 23, 1, 1), ([13, 26, 52], 2, x^4 + 26*x^2 + 52, 36, 36, 2), ([53, 53, 53], 1, x^4 - x^3 + 7*x^2 + 43*x + 47, 13, 1, 1), ([61, 61, 549], 1, x^4 - x^3 + 8*x^2 - 42*x + 117, 39, 3, 1)]
-    """
+    r"""
     M = [[] for i in range(19)]
     M[1] = [[0, 0, 0, -1], [0, 0, -1, 0], [2, 2, 0, 0], [2, 1, 0, 0]]
     M[2] = [[-1, 1, -2, -1], [-1, -1, -2, 0], [3, -1, 3, 2], [0, -1, -1, 0]]
@@ -328,7 +328,7 @@ def minimal_orders_of_class_number_one(Phi, output_type='order'):
         sage: Phi = CM_Field(lst[1]).CM_types()[0]
         sage: m = minimal_orders_of_class_number_one(Phi); m
         [(2, 1, 4, Order in CM Number Field in alpha with defining polynomial x^4 + 4*x^2 + 2)]
-    """
+    r"""
     K = Phi.domain()
     OK = K.maximal_order()
     ret = []
@@ -351,7 +351,7 @@ def minimal_orders_of_class_number_one(Phi, output_type='order'):
 
 
 def minimal_order_cl_nr_one_F(Phi, F=None, output_type='order', Ostart=None):
-    """
+    r"""
     Returns an order O in the domain K of Phi such that for any order O' in K
     containing ZZ+F*OK,
     if the image of I_Kr(F) in CCC(O) is trivial,
@@ -363,7 +363,7 @@ def minimal_order_cl_nr_one_F(Phi, F=None, output_type='order', Ostart=None):
     is an "if and only if".
     
     Here F is an integer.
-    """
+    r"""
     K = Phi.domain()
 
     OK = K.maximal_order()
@@ -409,10 +409,10 @@ def minimal_order_cl_nr_one_F(Phi, F=None, output_type='order', Ostart=None):
 
 
 def CM_type_to_mus(Phi, F):
-    """
+    r"""
     Returns mu generating N_Phir(aaa) with mu*mubar in QQ for aaa ranging
     over generators of the ray class group mod F of the reflex field of Phi.
-    """
+    r"""
     K = Phi.domain()
     Psi = Phi.reflex()
     Kr = Psi.domain()
@@ -457,7 +457,7 @@ def _primes_of_interest(K):
     prove Theorem 5.1, so we cannot use that theorem. Instead, we use
     Proposition 4.2, and Corollary 5.3, together with the fact that the
     discriminant of K is a power of 5.
-    """
+    r"""
     if K.minimal_DAB() == [5,5,5]:
         return prime_range(19)
     return prime_divisors(2*3*
@@ -465,7 +465,7 @@ def _primes_of_interest(K):
                 
 
 def all_period_matrices_two(lst):
-    """
+    r"""
     Find all period matrices with CM by an order of 2-power index in OK such
     that the field of moduli is in Kr, where K ranges over the fields given by
     lst.
@@ -715,7 +715,7 @@ def all_period_matrices_two(lst):
         
     The first matrix is for `\QQ[\zeta_5]`, and from the others, we conclude
     Lemma 6.6. For `\QQ[\zeta_5]`, we see that the graph is connected.
-    """    
+    r"""    
     # the things below are a copy of another similar function
     ret = []
     for DAB in lst:
@@ -745,10 +745,10 @@ def all_period_matrices_two(lst):
             
     
 def two_two_matrix(Zs, F):
-    """
+    r"""
     Returns an n x n matrix A (where n=len(Zs)) with
     A[k,l] = 1 if Zs[k] and Zs[l] are (2,2)-isogenous, and A[k,l] = 0 otherwise
-    """
+    r"""
     n = len(Zs)
     A = zero_matrix(n)
     for k in range(n):
@@ -762,10 +762,10 @@ def two_two_matrix(Zs, F):
 
 
 def visualize_orders(orders):
-    """
+    r"""
     Returns an n x n matrix A (where n=len(Zs)) with
     A[k,l] = [OK:orders[k]] if orders[k]=orders[l], and A[k,l] = 0 otherwise
-    """
+    r"""
     n = len(orders)
     A = zero_matrix(n)
     for k in range(n):
@@ -779,7 +779,7 @@ def visualize_orders(orders):
     
 
 def is_S_O_equal_S_OK(O):
-    """
+    r"""
     Given an order O in a non-biquadratic quartic CM-field O, returns True if
     and only if S_O = S_{O_K}, in the notation of Bisson-Streng.
     
@@ -795,7 +795,7 @@ def is_S_O_equal_S_OK(O):
         sage: is_S_O_equal_S_OK(O)
         False
         
-    """
+    r"""
     K = O.number_field()
     OK = K.maximal_order()
     F = minimal_F(O)

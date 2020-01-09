@@ -40,7 +40,7 @@ from sage.matrix.matrix_generic_dense import Matrix_generic_dense
 
 
 def evaluate_theta(c, z, u = None, use_magma=False):
-    """
+    r"""
     Numerically evaluate `\theta[c](z,u) =
     \sum_{n \in \ZZ^2}\exp(\pi i (n+c')^t z (n+c') + 2\pi i (n+c')^t (z+c''))`,
     where `c = (c',c'')`.
@@ -61,7 +61,7 @@ def evaluate_theta(c, z, u = None, use_magma=False):
         sage: I = CC.gen()
         sage: evaluate_theta([0,0,0,0], Matrix(CC, [[I+1, 1/2+I/3], [1/2+I/3, 3/2*I+1/5]]), use_magma=True) # optional - magma
         0.933295835691982 + 0.0143249911726235*I
-    """
+    r"""
     if use_magma:
         zmag = magma(z)
         g = z.nrows()
@@ -95,7 +95,7 @@ def evaluate_theta(c, z, u = None, use_magma=False):
 
 
 def evaluate_theta_interval(c, z, R=None, reduce_first=True):
-    """
+    r"""
     Numerically evaluate `\theta[c](z) =
     \sum_{n \in \ZZ^2}\exp(\pi i (n+c')^t z (n+c') + 2\pi i (n+c')^t (z+c''))`,
     where `c = (c',c'')`.
@@ -159,7 +159,7 @@ def evaluate_theta_interval(c, z, R=None, reduce_first=True):
         sage: [i for i in range(len(pairs)) if (quotients[i]-1).abs().upper() > 10^-7]
         []
 
-    """
+    r"""
     C = z.base_ring()
     I = C.gen()
     piI = C(pi*I)
@@ -292,18 +292,18 @@ def evaluate_theta_interval(c, z, R=None, reduce_first=True):
     
     
 def _riemann_form(basis, xi, bar):
-    """
+    r"""
     Returns a matrix for the Riemann form (x,y) --> trace(xi*bar(x)*y)
     with respect to the given basis
-    """
+    r"""
     return Matrix(ZZ, [[(bar(x)*xi*y).trace() for y in basis] for x in basis])
 
 
 def _symplectic_basis(A, xi, bar, double_check=False):
-    """
+    r"""
     Returns a symplectic basis of A for the Riemann form
     (x,y) --> trace(xi*bar(x)*y)
-    """
+    r"""
     if type(A) is list:
         bas = A
     else:
@@ -324,17 +324,17 @@ def _symplectic_basis(A, xi, bar, double_check=False):
 
 
 def _big_period_matrix(Phi, bas):
-    """
+    r"""
     Returns the matrix with columns Phi(b) for b in bas 
-    """
+    r"""
     return Matrix([[phi(b) for b in bas] for phi in Phi])
 
 
 def _small_period_matrix(Phi, bas):
-    """
+    r"""
     Returns a small period matrix Omega_2^-1 Omega_1 from a given
     period matrix (Omega_1; Omega_2)
-    """
+    r"""
     bigone = _big_period_matrix(Phi, bas)
     g = bigone.nrows()
     assert bigone.ncols() == 2*g
@@ -362,21 +362,21 @@ def my_floor(a):
 
 
 def _realred(Z):
-    """
+    r"""
     Given a real matrix Z, returns (Z', T), where Z' = Z + T
     has coefficients in the interval [-1/2, 1/2) and T
     has integer coefficients.
-    """
+    r"""
     V = Matrix([[my_ceil(t.real()-1/2) for t in u] for u in Z])
     return Z - V, -V
 
 
 def _reduce_symm_matrix(Y):
-    """
+    r"""
     Minkowski reduction of 2x2 symmetric matrix.
 
     Returns V and U such that V = U*Y*U.transpose() and V is reduced.
-    """
+    r"""
     #assert Y.determinant() > 0
     #assert Y[0,1] == Y[1,0]
     #assert Y[0,0] > 0
@@ -414,10 +414,10 @@ _gottschling = None
 
 
 def gottschling_matrices():
-    """
+    r"""
     Returns a set of matrices in Sp(4,ZZ) containing
     gottschling's set.
-    """
+    r"""
     global _gottschling
     if _gottschling == None:
         from sage.misc.mrange import cartesian_product_iterator
@@ -426,20 +426,20 @@ def gottschling_matrices():
 
 
 def _matrix_omega(g):
-    """
+    r"""
 
     EXAMPLE::
 
         sage: from recip import _matrix_omega
         sage: _matrix_omega(2) == Matrix([[0,0,1,0],[0,0,0,1],[-1,0,0,0],[0,-1,0,0]])
         True
-    """
+    r"""
     g = ZZ(g)
     return matrix_from_blocks(zero_matrix(g), identity_matrix(g), -identity_matrix(g), zero_matrix(g))
 
 
 def is_symplectic(gamma, g=None):
-    """
+    r"""
     Tests whether a 4x4 matrix is an element of Sp_g(ZZ).
     
     EXAMPLES::
@@ -450,7 +450,7 @@ def is_symplectic(gamma, g=None):
         True
         sage: is_symplectic(g[0]+1)
         False
-    """
+    r"""
     if g is None:
         g = ZZ(gamma.ncols()/2)
     om = _matrix_omega(g)
@@ -465,10 +465,10 @@ def _det_bottom_part(gamma, tau):
 
     
 def Sp_action(gamma, Z):
-    """
+    r"""
     Given a matrix gamma in GSp_2g(QQ)^+ and a gxg matrix Z,
     returns gamma*Z as an immutable gxg Matrix.
-    """ 
+    r""" 
     gamma.subdivide(2,2)
     a = gamma.subdivision(0,0)
     b = gamma.subdivision(0,1)
@@ -480,13 +480,13 @@ def Sp_action(gamma, Z):
 
     
 def _gottschling_reduce(Z):
-    """
+    r"""
     Given a complex 2x2 matrix Z with positive definite imaginary part,
     returns a pair (Z', g) with g an element of the set
     gottschling_matrices() and Z' = g*Z, such that det Im(g*Z) > det Im(Z)
     holds, if such a g exists. If such a g does not exist, return (Z, I) with I
     a 4x4 identity matrix.
-    """
+    r"""
     improvement = 1
     for g in gottschling_matrices():
         d = abs(_det_bottom_part(g, Z))
@@ -506,7 +506,7 @@ def _gottschling_reduce(Z):
 
 
 def _reduce(Z, reduction_sequence=False):
-    """
+    r"""
     Given a complex gxg symmetric matrix Z with positive definite imaginary part,
     returns (Z', M) such that Z' is reduced, M is in Sp(2g,ZZ) and
     MZ = Z'
@@ -516,7 +516,7 @@ def _reduce(Z, reduction_sequence=False):
     If reduction_sequence is True, then instead of M returns
     [M1,...,Mk] such that M = Mk*...*M1 and Mi is in a certain list
     of generators of Sp(2g,ZZ).
-    """
+    r"""
     g = Z.nrows()
     if get_verbose() == 2:
         print("Beginning reduction of " + str(Z))
@@ -574,7 +574,7 @@ def _reduce(Z, reduction_sequence=False):
 
 
 def is_positive_definite(m):
-    """
+    r"""
     Returns `True` if and only if symmetric real matrix `m`
     is positive definite.
     
@@ -587,7 +587,7 @@ def is_positive_definite(m):
         False
         sage: is_positive_definite(Matrix(AA,[[-3,2],[2,-4]]))
         False
-    """
+    r"""
     try:
         return QuadraticForm(m).is_positive_definite()
     except NotImplementedError:
@@ -601,7 +601,7 @@ def is_positive_definite(m):
 
     
 def is_period_matrix(m):
-    """
+    r"""
     Returns `True` if and only if m is symmetric with positive definite imaginary part.
     
     EXAMPLES::
@@ -612,7 +612,7 @@ def is_period_matrix(m):
         True
         sage: is_period_matrix(Matrix([[1+i, 2+i], [2+i, i]]))
         False
-    """
+    r"""
     height = m.nrows()
     width = m.ncols()
     if 2*height == width:
@@ -654,7 +654,7 @@ def PeriodMatrix(arg1, arg2=None, arg3=None, check=True):
     OUTPUT:
     
     A period matrix corresponding to some symplectic basis for the input data.
-    """
+    r"""
     if arg2 is None and arg3 is None:
         if get_verbose() == 2:
             print("PeriodMatrix got a single input (%s), interpreting it as a PeriodMatrix_CM and creating a new PeriodMatrix_CM (copy) out of it" % arg1)
@@ -667,7 +667,7 @@ def PeriodMatrix(arg1, arg2=None, arg3=None, check=True):
 class PeriodMatrix_CM():
     r"""
     Object representing a CM period matrix. See :func:`PeriodMatrix`.
-    """
+    r"""
     def __init__(self, CM_type=None, ideal=None, xi=None, basis=None,
                  matrix=None, check=True):
         if xi is None:
@@ -749,7 +749,7 @@ class PeriodMatrix_CM():
         return self._matrix.base_ring()
     
     def complex_matrix(self, prec=None):
-        """
+        r"""
         Returns self as a matrix over a complex field.
                 
         INPUT:
@@ -761,7 +761,7 @@ class PeriodMatrix_CM():
           - If prec is an integer, returns self as a matrix over ComplexField(prec)
           
           - If prec=None, returns self as a matrix over self.base_ring().embedding().codomain()
-        """
+        r"""
         if prec is None:
             K = self._matrix.base_ring()
             if _is_accepted_complex_field(K):
@@ -775,7 +775,7 @@ class PeriodMatrix_CM():
         return mat_convert(self.complex_matrix(None), prec)
 
     def complex_conjugate(self, transformation=False):
-        """
+        r"""
         Returns minus the complex conjugate of self.
         
         This is a period matrix corresponding to the complex conjugate
@@ -811,7 +811,7 @@ class PeriodMatrix_CM():
             [-0.50000 + 0.36327*I  0.30902 + 0.95106*I]
             sage: U.Sp_action(M) == Ubar
             True
-        """
+        r"""
         # Minus the complex conjugate of self has:
         # Phi     : Phi
         # ideal   : idealbar
@@ -913,7 +913,7 @@ class PeriodMatrix_CM():
             [0 7 7 0]
             [7 1 0 7] with nu = 7
 
-        """
+        r"""
         B = self.ideal()
         rho = self.CM_field().complex_conjugation()
         if mu is None:
@@ -951,7 +951,7 @@ class PeriodMatrix_CM():
         
 #    @cached_method
     def reduce(self, prec=None, transformation=False):
-        """
+        r"""
         Returns a reduced period matrix Z that is Sp_{2g}-equivalent to self.
         
         INPUT:
@@ -964,7 +964,7 @@ class PeriodMatrix_CM():
             
           - transformation (default=False) -- whether to also return a matrix M
             such that Z = M*self.
-        """
+        r"""
         self_numerical = self.complex_matrix(prec)
         Z_numerical, M = _reduce(self_numerical)
         if not nu(M) == 1:
@@ -1007,9 +1007,9 @@ class PeriodMatrix_CM():
                 use_magma=use_magma, interval=interval) for i in range(den**(2*g))]
 
     def Sp_action(self, M):
-        """
+        r"""
         Returns the period matrix M*self for any M in GSp_{2g}(QQ)^+.
-        """
+        r"""
         try:
             M = M.matrix()
         except AttributeError:
@@ -1018,16 +1018,16 @@ class PeriodMatrix_CM():
         return PeriodMatrix_CM(self.CM_type(), self.ideal(), self.xi(), Z_basis)
         
     def negative_inverse(self):
-        """
+        r"""
         Returns -1/self.
-        """
+        r"""
         basis = self.basis()
         g = self.g()
         basis = basis[g:] + [-basis[i] for i in range(g)]
         return PeriodMatrix_CM(self.CM_type(), self.ideal(), self.xi(), basis)
 
     def galois_action(self, A, transformation=False, reduce=100):
-        """
+        r"""
         Returns a period matrix Z with the same CM-type as self,
         and with Z.ideal() = N_Phi(A)^-1 * self.ideal()
         and Z.xi() = N(A)^-1 * self.xi().
@@ -1055,7 +1055,7 @@ class PeriodMatrix_CM():
         
         With transformation=False, a matrix Z as above.
         With transformation=True, a pair (Z,M) as above.
-        """
+        r"""
         Phi = self.CM_type()
         ideal = Phi.reflex().type_norm(A)**-1 * self.ideal()
         xi = A.norm() * self.xi()
@@ -1075,10 +1075,10 @@ class PeriodMatrix_CM():
         return Z
         
     def epsilon(self, x):
-        """
+        r"""
         The map epsilon of page 57 of Shimura's "on certain reciprocity laws..."
         Returns the transpose of the matrix of multiplication by x wrt the basis self.basis()
-        """
+        r"""
         # columns of M are x*bas[i] expressed in terms of standard basis
         # M = Matrix([(x*b).vector() for b in bas]).transpose()
         Mt = Matrix([(x*b).vector() for b in self.basis()])
@@ -1086,7 +1086,7 @@ class PeriodMatrix_CM():
         return Mt*(self._Bt.inverse())
 
     def Shimura_reciprocity(self, A, n, m=None, reduce=100, period_matrix=False, transformation=True):
-        """
+        r"""
         Returns matrices M in GSp(QQ)^+ and u in GSp(ZZ/n*ZZ) that
         give the Galois action of the ray class A mod m on a
         modular function f of level n.
@@ -1181,7 +1181,7 @@ class PeriodMatrix_CM():
             sage: P = theta_ring(2,2)[0]
 
             
-        """
+        r"""
         if not (n in ZZ and n > 0):
             raise TypeError( "n (=%s) must be a positive integer" % n)
         if m == None:
@@ -1204,7 +1204,7 @@ class PeriodMatrix_CM():
         raise ValueError( "period_matrix and transformation are not "                            "allowed to be both False")
     
     def has_real_moduli(self):
-        """
+        r"""
         Returns true if and only if self is isomorphic
         to its complex conjugate over CC.
         
@@ -1219,7 +1219,7 @@ class PeriodMatrix_CM():
             sage: mat = list(K.period_matrices_iter())
             sage: ZZ(sum([Z.has_real_moduli() for Z in mat])) / ZZ(len(mat))
             1/7
-        """
+        r"""
         M = (self.complex_conjugate(transformation=True)[1])
         return M.base_ring() == ZZ
     
@@ -1245,7 +1245,7 @@ class PeriodMatrix_CM():
 
         
 def lift_ray_class_group_element(A, M, N, generator=False):
-    """
+    r"""
     Given a ray class mod M, lift it to a ray class mod N.
     
     INPUT:
@@ -1297,7 +1297,7 @@ def lift_ray_class_group_element(A, M, N, generator=False):
         Traceback (most recent call last):
         ...
         ValueError: A (=Fractional ideal (2, a + 1)) and M (=Fractional ideal (2)) are not coprime
-    """
+    r"""
     A_den = A.denominator()
     if A_den != 1:
         (B_den, x_den) = lift_ray_class_group_element(A_den, M=M, N=N,
@@ -1341,7 +1341,7 @@ def lift_ray_class_group_element(A, M, N, generator=False):
 
 
 def random_period_matrix(prec=53, g=2):
-    """
+    r"""
     Outputs a pseudorandom Z in H_g. Only implemented for g=2.
     
     The period matrix is in the block with diagonal entries uniformly
@@ -1360,7 +1360,7 @@ def random_period_matrix(prec=53, g=2):
         ...
         NotImplementedError
 
-    """
+    r"""
     C = ComplexField(prec)
     I = C.gen()
     R = RealField(prec)

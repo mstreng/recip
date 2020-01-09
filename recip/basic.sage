@@ -34,7 +34,7 @@ from sage.matrix.constructor import Matrix
 
 
 def mat_convert(M, ring_or_map):
-    """
+    r"""
     Applies `ring_or_map` to the coefficients of M,
     i.e. given M = (m_ij)_ij, returns
     (ring_or_map(m_ij))_ij
@@ -49,12 +49,12 @@ def mat_convert(M, ring_or_map):
         sage: mat_convert(M, GF(3))
         [2 2]
         [1 0]
-    """
+    r"""
     return Matrix([[ring_or_map(M[i,j]) for j in range(M.ncols())]                      for i in range(M.nrows())])
 
 
 def uniformizer(p):
-    """
+    r"""
     Given a prime ideal p, returns a uniformizer.
 
     EXAMPLES::
@@ -63,14 +63,14 @@ def uniformizer(p):
         sage: P = QuadraticField(-5,'a').ideal(5).factor()[0][0]
         sage: uniformizer(P)
         a
-    """
+    r"""
     for pi in p.gens():
         if pi.valuation(p) == 1:
             return pi
 
 
 def lift_small(a):
-    """
+    r"""
     Given a in Z/muZ, output b in ZZ with |b| <= mu/2 and (b mod mu) = a.
     Given a in Z, output a.
     
@@ -87,7 +87,7 @@ def lift_small(a):
         -501
         sage: lift_small(QQ(7))     
         7
-    """
+    r"""
     if a.parent() is ZZ or (a.parent() is QQ and a in ZZ):
         return a
     mu = a.parent().order()

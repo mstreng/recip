@@ -49,16 +49,16 @@ for f in files:
 recip_verbose = 0
 
 def set_recip_verbose(level):
-    """
+    r"""
     Sets the verbosity level for the Recip package.
-    """
+    r"""
     global recip_verbose
     recip_verbose = level
 
 def get_recip_verbose():
-    """
+    r"""
     Returns the verbosity level for the Recip package.
-    """
+    r"""
     try:
         return recip_verbose
     except NameError:

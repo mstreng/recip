@@ -98,7 +98,7 @@ def CM_Field(field, name=None, relative_name=None, check=True, embedding=None):
 
         sage: CM_Field(NumberField(x^4+1,'gamma'))
         CM Number Field in gamma with defining polynomial x^4 + 1
-    """
+    r"""
     if is_NumberFieldElement(field) or field in QQ:
         x = PolynomialRing(field.parent().fraction_field(), 'x').gen()
         poly = x**2-field
@@ -163,13 +163,13 @@ def CM_Field(field, name=None, relative_name=None, check=True, embedding=None):
     
 #class CM_FieldElement_absolute(NumberFieldElement_absolute):
 #    def __init__(self, parent, f):
-#        """
+#        r"""
 #        INPUT:
 #        
 #        -  ``parent`` - a number field
 #        
 #        -  ``f`` - defines an element of a number field.
-#        """
+#        r"""
 #        NumberFieldElement_absolute.__init__(self, parent, f)
 
 
@@ -190,7 +190,7 @@ class CM_Field_absolute(NumberField_absolute):
     def __init__(self, absolute_polynomial, relative_field=None,
                  real_field=None, name=None, latex_name=None,
                  relative_name=None, check=True, embedding=None):
-        """
+        r"""
         This is called by the function CM_Field and initializes a CM_Field_absolute object.
 
         INPUT:
@@ -218,7 +218,7 @@ class CM_Field_absolute(NumberField_absolute):
             sage: from recip import *
             sage: CM_Field(x^4+5*x^2+1) # implicit doctest
             CM Number Field in alpha with defining polynomial x^4 + 5*x^2 + 1
-        """
+        r"""
         NumberField_absolute.__init__(self, absolute_polynomial, name=name,
                                       latex_name=latex_name,
                                       embedding=embedding)
@@ -235,16 +235,16 @@ class CM_Field_absolute(NumberField_absolute):
             raise NotImplementedError( "relative_field not yet implemented")
 
     def _init_CM_field_data(self):
-        """
+        r"""
         Computes the complex conjugation automorphism, the real subfield,
         and the embedding of the real field into self.
-        """
+        r"""
         complex_conjugation_hom, self._real_field, real_to_self_hom =                                _CM_field_data(self, check=True)
         self._complex_conjugation = complex_conjugation_hom.im_gens()[0].list()
         self._real_gen_in_self = real_to_self_hom.im_gens()[0].list()
 
     def abs_to_rel(self):
-        """
+        r"""
         Returns the identity map from self to self.relative_field().
 
         EXAMPLES::
@@ -256,17 +256,17 @@ class CM_Field_absolute(NumberField_absolute):
               From: CM Number Field in alpha with defining polynomial x^4 + 5*x^2 + 1
               To:   Number Field in alpha0 with defining polynomial x^2 - 1/2*alpha1 over its base field
               Defn: alpha |--> alpha0
-        """
+        r"""
         return self.relative_field().structure()[1]
 
     def a_CM_type(self):
-        """
+        r"""
         Returns a CM-type of self.
-        """
+        r"""
         return CM_Type(self.gen())
 
     def real_field(self):
-        """
+        r"""
         Returns the maximal totally real subfield of self.
 
         EXAMPLES::
@@ -283,13 +283,13 @@ class CM_Field_absolute(NumberField_absolute):
             sage: K.real_field()
             Number Field in alpha1 with defining polynomial x^3 - 9*x^2 + 23*x - 16
 
-        """
+        r"""
         if self._real_field is None:
             self._init_CM_field_data()
         return self._real_field
 
     def real_generator_in_self(self):
-        """
+        r"""
         Returns a generator of the real quadratic field expressed
         in terms of the power basis of self.
 
@@ -298,13 +298,13 @@ class CM_Field_absolute(NumberField_absolute):
             sage: from recip import *
             sage: CM_Field([5, 165, 5445]).real_generator_in_self()
             [0, 0, 2, 0]
-        """
+        r"""
         if self._real_gen_in_self is None:
             self._init_CM_field_data()
         return self._real_gen_in_self
 
     def real_to_self(self, x=None):
-        """
+        r"""
         Given x in self.real_field(), returns x as an element of self.
         If x is None, then returns the inclusion homomorphism from
         self.real_field() to self.
@@ -327,22 +327,22 @@ class CM_Field_absolute(NumberField_absolute):
               From: Number Field in alpha0 with defining polynomial x
               To:   CM Number Field in alpha with defining polynomial x^2 + 3
               Defn: 0 |--> 0
-        """
+        r"""
         m = self.real_field().hom(self(self.real_generator_in_self()), self)
         if x is None:
             return m
         return m(x)
 
     def _complex_conjugation_elt(self):
-        """
+        r"""
         Returns the complex conjugate of self.gen().
-        """
+        r"""
         if self._complex_conjugation is None:
             self._init_CM_field_data()
         return self._complex_conjugation
 
     def complex_conjugation(self):
-        """
+        r"""
         Returns the complex conjugation automorphism of self.
 
         EXAMPLES::
@@ -351,11 +351,11 @@ class CM_Field_absolute(NumberField_absolute):
             sage: CM_Field([5, 165, 5445]).complex_conjugation()
             Ring endomorphism of CM Number Field in alpha with defining polynomial x^4 + 165*x^2 + 5445
               Defn: alpha |--> -alpha
-        """
+        r"""
         return self.hom(self(self._complex_conjugation_elt()), self)
 
     def embedding(self, codomain=None):
-        """
+        r"""
         Returns the chosen embedding of self into an ambient field or the given codomain.
 
         INPUT: codomain (default:None) - If specified, the output is an embedding of self into codomain.
@@ -473,7 +473,7 @@ class CM_Field_absolute(NumberField_absolute):
             sage: [a(Kr.self_to_real(c)) for c in rec] == [Kr.self_to_real(c) for c in rec_wrong]
             True
 
-        """
+        r"""
         if self._embedding is None:
             return None
         if codomain is None:
@@ -481,7 +481,7 @@ class CM_Field_absolute(NumberField_absolute):
         return self.hom(codomain(self._embedding), codomain, check=False)
 
     def embed(self, embedding=QQbar):
-        """
+        r"""
         Changes the chosen embedding of self into an ambient field.
 
         INPUT:
@@ -509,7 +509,7 @@ class CM_Field_absolute(NumberField_absolute):
               To:   Algebraic Field
               Defn: alpha |--> -2.645751311064591?*I
 
-        """
+        r"""
         if _is_accepted_complex_field(embedding):
             self._embedding = highest_root(self.polynomial(), embedding)
         else:
@@ -520,7 +520,7 @@ class CM_Field_absolute(NumberField_absolute):
             self._embedding = embedding
 
     def _repr_(self):
-        """
+        r"""
         Returns a string representation of `self`.
 
         EXAMPLE::
@@ -531,7 +531,7 @@ class CM_Field_absolute(NumberField_absolute):
             CM Number Field in alpha with defining polynomial x^4 + 8*x^2 + 3
             sage: K.__repr__()
             'CM Number Field in alpha with defining polynomial x^4 + 8*x^2 + 3'
-        """
+        r"""
         # The following lines seem completely natural to me, but don't work:
         # ret = NumberField_absolute._repr_(self)
         # return "CM " + ret
@@ -539,7 +539,7 @@ class CM_Field_absolute(NumberField_absolute):
         return "CM Number Field in %s with defining polynomial %s" %                  (self._names + (self.polynomial(),))
 
     def CM_types(self, L=None, equivalence_classes=False):
-        """
+        r"""
         Returns the CM-types Phi of self with values in L.
 
         Not cached.
@@ -589,7 +589,7 @@ class CM_Field_absolute(NumberField_absolute):
             sage: phi.domain() is K
             True
 
-        """
+        r"""
         if L is None:
             L = QQbar
         if get_verbose():
@@ -634,7 +634,7 @@ class CM_Field_absolute(NumberField_absolute):
         return ret
 
     def is_totally_imaginary_element(self, a):
-        """
+        r"""
         Return True if and only if a is totally imaginary.
         
         EXAMPLES::
@@ -649,12 +649,12 @@ class CM_Field_absolute(NumberField_absolute):
             sage: K.is_totally_imaginary_element(a+1)
             False
 
-        """
+        r"""
         self_to_rel = self.relative_field().structure()[1]
         return self_to_rel(a)[1] != 0 and self_to_rel(a^2)[1] == 0
     
     def is_totally_real_element(self, a):
-        """
+        r"""
         Return True if and only if a is totally real.
 
         EXAMPLES::
@@ -669,14 +669,14 @@ class CM_Field_absolute(NumberField_absolute):
             sage: K.is_totally_real_element(a^2+a)
             False
 
-        """
+        r"""
         self_to_rel = self.relative_field().structure()[1]
         return self_to_rel(a)[1] == 0
     
     def is_totally_positive_real_element(self, a):
-        """
+        r"""
         Return True if and only if a is totally real and totally positive.
-        """
+        r"""
         self_to_rel = self.relative_field().structure()[1]
         a = self_to_rel(a)
         if a[1] != 0:
@@ -684,7 +684,7 @@ class CM_Field_absolute(NumberField_absolute):
         return a[0].is_totally_positive()
 
     def g(self):
-        """
+        r"""
         Returns half the degree of self.
         
         EXAMPLES::
@@ -694,11 +694,11 @@ class CM_Field_absolute(NumberField_absolute):
             1
             sage: CM_Field(x^4+8*x^2+8).g()
             2
-        """
+        r"""
         return self.real_field().degree()
 
     def relative_field(self):
-        """
+        r"""
         Returns self as a relative number field over self.real_field().
 
         EXAMPLE::
@@ -707,11 +707,11 @@ class CM_Field_absolute(NumberField_absolute):
             sage: K = CM_Field(x^4+5*x^2+1)
             sage: K.relative_field()
             Number Field in alpha0 with defining polynomial x^2 - 1/2*alpha1 over its base field
-        """
+        r"""
         return self.relativize(self.real_generator_in_self(), names=self._relative_name)
 
     def rel_to_self(self, x):
-        """
+        r"""
         Given x in self.relative_field(), returns x as an element of self.
 
         EXAMPLE::
@@ -722,11 +722,11 @@ class CM_Field_absolute(NumberField_absolute):
             alpha
             sage: K.rel_to_self('alpha1')
             2*alpha^2
-        """
+        r"""
         return self.relative_field().structure()[0](x)
 
     def self_to_rel(self, x):
-        """
+        r"""
         Given x in self, returns x as an element of self.relative_field().
 
         EXAMPLE::
@@ -736,43 +736,43 @@ class CM_Field_absolute(NumberField_absolute):
             sage: alpha = K.gen()
             sage: K.self_to_rel(alpha)
             alpha0
-        """
+        r"""
         return self.relative_field().structure()[1](x)
 
     def self_to_real(self, x):
-        """
+        r"""
         Given x in self such that x = xbar, returns x as an element of
         self.real_field().
-        """
+        r"""
         (a0, a1) = list(self.self_to_rel(x))
         assert a1 == 0
         return a0
 
     def relative_trace(self, x):
-        """
+        r"""
         Returns x+xbar as an element of self.real_field().
-        """
+        r"""
         y = x + self.complex_conjugation()(x)
         return self.self_to_real(y)
 
     def relative_norm(self, x):
-        """
+        r"""
         Returns x*xbar as an element of self.real_field().
-        """
+        r"""
         y = x * self.complex_conjugation()(x)
         return self.self_to_real(y)
 
     def relative_different(self):
-        """
+        r"""
         Returns the relative different of self over its real field, as an
         ideal of (the maximal order of) self.
-        """
+        r"""
         d = self.relative_field().relative_different()
         return self.ideal([self.rel_to_self(g) for g in d.gens()])
 
     #@cached_method
     def galois_closure(self, names=None, map=False, embed=True):
-        """
+        r"""
         Return a CM number field K that is the Galois closure of self, i.e., is
         generated by all roots of the defining polynomial of self, and
         possibly an embedding of self into K.
@@ -809,7 +809,7 @@ class CM_Field_absolute(NumberField_absolute):
             sage: K.galois_closure()
             CM Number Field in alpha0 with defining polynomial x^48 + 72*x^46 + 80*x^45 + 2692*x^44 + 4612*x^43 + 64124*x^42 + 123852*x^41 + 1028650*x^40 + 1829576*x^39 + 10447880*x^38 + 12019876*x^37 + 50258300*x^36 - 43026036*x^35 - 136889692*x^34 - 1331961552*x^33 - 2963236937*x^32 - 7718599196*x^31 - 7146191020*x^30 + 8504396980*x^29 + 87525433872*x^28 + 282027249844*x^27 + 605609380956*x^26 + 815516286320*x^25 - 88439203430*x^24 - 4254091272044*x^23 - 15185634342676*x^22 - 35530163136508*x^21 - 61057325330100*x^20 - 69796449648272*x^19 - 6160328327104*x^18 + 226759213095652*x^17 + 760552021937945*x^16 + 1718448648945196*x^15 + 3142781220480156*x^14 + 4919956841221648*x^13 + 6743690042716028*x^12 + 8183680911040904*x^11 + 8840183773407848*x^10 + 8531995881160800*x^9 + 7396811998421180*x^8 + 5807303468842192*x^7 + 4187178898937392*x^6 + 2799780355636992*x^5 + 1732733524962960*x^4 + 957303364563328*x^3 + 439000398925408*x^2 + 150222835195840*x + 29629511650768
 
-        """
+        r"""
         if get_verbose():
             t = clock()
             print("Computing Galois closure")
@@ -838,19 +838,19 @@ class CM_Field_absolute(NumberField_absolute):
         return L
 
     def class_group_iter(self):
-        """
+        r"""
         Iterates over the class group, but returns ideals instead
         of ideal classes, and starts with the unit ideal before
         computing the class group. This can save time if the unit
         ideal is all you need.
-        """
+        r"""
         yield self.ideal(1)
         for c in self.class_group():
             if not c.is_principal():
                 yield c.ideal()
 
     def _principally_polarized_ideal_class_representives_iter(self, n=0, special_g2=True):
-        """
+        r"""
         Iterates all pairs (A,xi)
         where A is a fractional ideal
         of the maximal order of K=self and xi is a totally imaginary generator
@@ -897,7 +897,7 @@ class CM_Field_absolute(NumberField_absolute):
              (Fractional ideal (2, 1/8*alpha^5 - 1/2*alpha^4 + 17/8*alpha^3 - 7/2*alpha^2 + 47/8*alpha - 9/2),
               -105/1832*alpha^5 - 469/1832*alpha^3 - 411/1832*alpha)]
 
-        """
+        r"""
         
         if get_verbose():
             t = clock()
@@ -985,7 +985,7 @@ class CM_Field_absolute(NumberField_absolute):
                                 yield (A,torsion_gen**l*xi*u)
     
     def one_period_matrix(self, CM_types=None, reduced=200):
-        """
+        r"""
         Returns one isomorphism class of principally polarized
         abelian varieties with one of the given CM-types, given by a
         period matrix that remembers a triple (Phi, A, xi) as in my thesis.
@@ -1008,7 +1008,7 @@ class CM_Field_absolute(NumberField_absolute):
             Period Matrix
             [3.8092528978903?*I 1.5778442128152?*I]
             [1.5778442128152?*I 6.9649413235207?*I]
-        """
+        r"""
         i = self.period_matrices_iter(CM_types, reduced)
         Z = i.next()
         i.close()
@@ -1019,7 +1019,7 @@ class CM_Field_absolute(NumberField_absolute):
         Returns the unique triple [D,A,B] for this field
         with D the discriminant of the real quadratic subfield
         and self isomorphic to `\QQ[X]/(X^4+AX^2+B)`.
-        """
+        r"""
         D = self.real_field().discriminant()
         a = self.gen()
         cc = self.complex_conjugation()
@@ -1030,7 +1030,7 @@ class CM_Field_absolute(NumberField_absolute):
         return DAB_to_minimal([D,A,B])
     
     def period_matrices_iter(self, CM_types=None, reduced=200):
-        """
+        r"""
         Iterates over the set of isomorphism classes of principally polarized
         abelian varieties with the given CM-types, each given by a
         period matrix that remembers a triple (Phi, A, xi) as in my thesis.
@@ -1055,7 +1055,7 @@ class CM_Field_absolute(NumberField_absolute):
             Period Matrix
             [3.8092528978903?*I 1.5778442128152?*I]
             [1.5778442128152?*I 6.9649413235207?*I]
-        """
+        r"""
         if reduced < 100 and reduced != False:
             reduced = 100
         if CM_types is None:
@@ -1085,7 +1085,7 @@ class CM_Field_absolute(NumberField_absolute):
                     yield Z
 
     def period_matrices(self, *args, **kwargs):
-        """
+        r"""
         Returns the list of isomorphism classes of principally polarized
         abelian varieties with the given CM-types, each given by a
         period matrix that remembers a triple (Phi, A, xi) as in my thesis.
@@ -1106,12 +1106,12 @@ class CM_Field_absolute(NumberField_absolute):
             [Period Matrix
              [-1/2*b + 1/2]]
 
-        """
+        r"""
         return list(self.period_matrices_iter(*args, **kwargs))
 
 
 def CM_Type(embeddings, reflex_field=None, reflex_to_codomain=None, check=True):
-    """
+    r"""
     Create a CM-type using one of the following two possibilities:
     
     INPUT:
@@ -1166,7 +1166,7 @@ def CM_Type(embeddings, reflex_field=None, reflex_to_codomain=None, check=True):
         [0 0 0 1]
 
         
-    """
+    r"""
     if isinstance(embeddings, list):
         return CM_Type_embeddings(embeddings, reflex_field, reflex_to_codomain, check)
     if is_NumberFieldElement(embeddings):
@@ -1186,15 +1186,15 @@ def CM_Type(embeddings, reflex_field=None, reflex_to_codomain=None, check=True):
         return ret[0]
 
 class CM_Type_base(SageObject):
-    """
+    r"""
     Base class for CM-types.
-    """
+    r"""
 
 #    def __init__(self, args1*, args2**) # TODO: hoe werkt dit ookalweer?
 #        SageObject.__init__(self, args1*, args2**)
 
     def _type_norm_ideal(self, A, reflex = True):
-        """
+        r"""
         INPUT:
 
         - ``A`` -- an ideal of self.domain()
@@ -1227,7 +1227,7 @@ class CM_Type_base(SageObject):
             sage: B = l.ideal(5).factor()[0][0]
             sage: Psi.type_norm(B^2)
             Fractional ideal (25, 23/2*alphar^2 - 1/2*alphar + 1063/2)
-        """
+        r"""
         den = A.denominator()
         if den != 1:
             D = den.norm()
@@ -1264,7 +1264,7 @@ class CM_Type_base(SageObject):
         return B
 
     def type_norm(self, x, reflex = True):
-        """
+        r"""
         INPUT:
 
         - ``x`` -- an element or ideal of self.domain()
@@ -1283,7 +1283,7 @@ class CM_Type_base(SageObject):
             sage: Phi = K.CM_types()[0]
             sage: Phi.type_norm(K.gen())
             1/2*alphar^2 + 15/2
-        """
+        r"""
         if x in self.domain():
             return self._type_norm_element(x, reflex)
         if is_NumberFieldFractionalIdeal(x):
@@ -1299,7 +1299,7 @@ class CM_Type_base(SageObject):
         raise TypeError( "x (%s) must be an element or ideal of a number "                           "field, but is of type %s" % (x, type(x)))
 
     def __iter__(self):
-        """
+        r"""
         Returns an iterator that lists the embeddings of which this CM-type
         consists.
         
@@ -1316,7 +1316,7 @@ class CM_Type_base(SageObject):
               From: CM Number Field in alpha with defining polynomial x^4 + 15*x^2 + 7
               To:   Complex Lazy Field
               Defn: alpha |--> 0.694381434221063?*I]
-        """
+        r"""
         return self.embeddings().__iter__()
 
     def domain(self):
@@ -1324,16 +1324,16 @@ class CM_Type_base(SageObject):
 
 
 class CM_Type_xi(CM_Type_base):
-    """
+    r"""
     CM-type specified by an element xi.
-    """
+    r"""
     _xi = None
     _domain = None
     
     def __init__(self, xi, reflex_field=None, reflex_to_codomain=None, check=True):
-        """
+        r"""
         Initializes this CM-type.
-        """
+        r"""
         self._xi = xi
         self._domain = xi.parent()
 
@@ -1358,7 +1358,7 @@ class CM_Type_xi(CM_Type_base):
         raise NotImplementedError()
 
     def reflex_field(self):
-        """
+        r"""
         Returns the reflex field of this CM-type.
         
         EXAMPLES::
@@ -1368,11 +1368,11 @@ class CM_Type_xi(CM_Type_base):
             sage: Phi = K.Phi()
             sage: Phi.reflex_field()
             CM Number Field in alphar with defining polynomial x^4 + 30*x^2 + 197
-        """
+        r"""
         raise NotImplementedError( "Please implement reflex_field for CM types of type " + str(type(self)))
 
     def reflex_to_codomain(self):
-        """
+        r"""
         Returns the embedding of self.reflex_field() into self.codomain()
 
         EXAMPLES::
@@ -1385,11 +1385,11 @@ class CM_Type_xi(CM_Type_base):
               From: CM Number Field in alphar with defining polynomial x^4 + 30*x^2 + 197
               To:   Complex Lazy Field
               Defn: alphar |--> 4.504609042095571?*I
-        """
+        r"""
         raise NotImplementedError( "Please implement reflex_to_codomain for CM types of type " + str(type(self)))
     
     def reflex(self):
-        """
+        r"""
         Returns the reflex type of `self`.
         
         Assumes self is primitive (later versions can be more general).
@@ -1407,11 +1407,11 @@ class CM_Type_xi(CM_Type_base):
             CM-type Phi of CM Number Field in alpha with defining polynomial x^4 + 15*x^2 + 7
             sage: Phi == Psi.reflex()
             True
-        """
+        r"""
         raise NotImplementedError()
     
     def __eq__(self, other):
-        """
+        r"""
         EXAMPLES::
         
             sage: from recip import *
@@ -1421,7 +1421,7 @@ class CM_Type_xi(CM_Type_base):
             sage: CM_Type(K.gen()) == CM_Type(K.gen()^7)
             False
 
-        """
+        r"""
         
         return self.domain() == other.domain() and                 self.domain().is_totally_positive_real_element(self.xi() / other.xi())
 
@@ -1432,7 +1432,7 @@ class CM_Type_xi(CM_Type_base):
         raise TypeError( "CM-type given by xi has not one specified Sage-codomain. The codomain is the field of complex numbers.")
 
     def _type_norm_element(self, x, reflex = True):
-        """
+        r"""
         INPUT:
 
         - ``x`` -- an element of self.domain()
@@ -1451,11 +1451,11 @@ class CM_Type_xi(CM_Type_base):
             sage: Phi = K.CM_types()[0]
             sage: Phi.type_norm(K.gen())
             1/2*alphar^2 + 15/2
-        """
+        r"""
         raise NotImplementedError()
 
     def _repr_(self):
-        """
+        r"""
         _repr_ and _str_ return string representations of self.
 
         EXAMPLE::
@@ -1467,24 +1467,24 @@ class CM_Type_xi(CM_Type_base):
             sage: CM_Type(K.gen()^7)
             CM-type of CM Number Field in alpha with defining polynomial x^6 + 9*x^4 + 23*x^2 + 16 sending -9*alpha^5 - 23*alpha^3 - 16*alpha to the positive imaginary axis
 
-        """
+        r"""
         return "CM-type of " + self.domain().__repr__()                 + " sending " + str(self._xi)                 + " to the positive imaginary axis"
                
     _str_ = _repr_
 
     def is_totally_positive_imaginary(self, xi, check=True):
-        """
+        r"""
         Given a totally imaginary element `xi` and a CM-type ``self``, returns
         true if and only if `phi(xi))` is on the positve imaginary axis
         for all `phi` in ``self``.
-        """
+        r"""
         return self.domain().is_totally_positive_real_element(xi/self._xi)
 
 
 class CM_Type_embeddings(CM_Type_base):
-    """
+    r"""
     An object representing a CM-type.
-    """
+    r"""
     # The following are CM_Field objects:
     _domain = None
     _reflex_field = None
@@ -1498,7 +1498,7 @@ class CM_Type_embeddings(CM_Type_base):
 
     def __init__(self, embeddings, reflex_field=None, reflex_to_codomain=None,
                  check=True):
-        """
+        r"""
         Create a CM_Type object corresponding to ``embeddings```.
 
         INPUT:
@@ -1534,7 +1534,7 @@ class CM_Type_embeddings(CM_Type_base):
             CM-type of CM Number Field in zeta5 with defining polynomial x^4 + x^3 + x^2 + x + 1
               with values in CM Number Field in zeta5 with defining polynomial x^4 + x^3 + x^2 + x + 1
               given by zeta5 |--> [zeta5, zeta5^2]
-        """
+        r"""
         self._embeddings = embeddings
         domain = embeddings[0].domain()
         self._domain = domain
@@ -1591,7 +1591,7 @@ class CM_Type_embeddings(CM_Type_base):
 
 
     def reflex_field(self):
-        """
+        r"""
         Returns the reflex field of this CM-type.
         
         EXAMPLES::
@@ -1601,7 +1601,7 @@ class CM_Type_embeddings(CM_Type_base):
             sage: Phi = K.CM_types()[0]
             sage: Phi.reflex_field()
             CM Number Field in alphar with defining polynomial x^4 + 30*x^2 + 197
-        """
+        r"""
         if self._reflex_field == None:
             L = self._codomain
             # TODO:
@@ -1639,7 +1639,7 @@ class CM_Type_embeddings(CM_Type_base):
         return self._reflex_field
 
     def reflex_to_codomain(self):
-        """
+        r"""
         Returns the embedding of self.reflex_field() into self.codomain()
 
         EXAMPLES::
@@ -1652,7 +1652,7 @@ class CM_Type_embeddings(CM_Type_base):
               From: CM Number Field in alphar with defining polynomial x^4 + 30*x^2 + 197
               To:   Complex Lazy Field
               Defn: alphar |--> 4.504609042095571?*I
-        """
+        r"""
         # The following line makes sure that _reflex_to_codomain is computed
         K = self.reflex_field()
         if self._reflex_to_codomain == None:
@@ -1660,7 +1660,7 @@ class CM_Type_embeddings(CM_Type_base):
         return self._reflex_to_codomain
 
     def reflex(self):
-        """
+        r"""
         Returns the reflex type of `self`.
         
         Assumes self is primitive (later versions can be more general).
@@ -1678,7 +1678,7 @@ class CM_Type_embeddings(CM_Type_base):
             CM-type Phi of CM Number Field in alpha with defining polynomial x^4 + 15*x^2 + 7
             sage: Phi == Psi.reflex()
             True
-        """
+        r"""
         ret = self._reflex
         if not ret is None: # if a weak reference was created
             ret = ret()
@@ -1694,7 +1694,7 @@ class CM_Type_embeddings(CM_Type_base):
         return ret
     
     def _compute_reflex(self):
-        """
+        r"""
         Returns the reflex type of `self`.
         
         Assumes self is primitive (later versions can be more general).
@@ -1710,7 +1710,7 @@ class CM_Type_embeddings(CM_Type_base):
             CM-type Phi of CM Number Field in alpha with defining polynomial x^4 + 15*x^2 + 7
             sage: Phi == Psi.reflex()
             True
-        """
+        r"""
         
         
         L, m = self.domain().galois_closure(map=True)
@@ -1736,7 +1736,7 @@ class CM_Type_embeddings(CM_Type_base):
         return CM_Type(Phipr, reflex_field=K, reflex_to_codomain=m)
     
     def __eq__(self, other):
-        """
+        r"""
         EXAMPLES::
         
             sage: from recip import *
@@ -1748,7 +1748,7 @@ class CM_Type_embeddings(CM_Type_base):
             sage: L = CM_Field(x^4+15*x^2+7)
             sage: any([L.CM_types()[0] == a for a in l])
             False
-        """
+        r"""
         return self.domain() == other.domain() and                 self._prime == other._prime and                 self._conjugate == other._conjugate
     
     def codomain(self):
@@ -1756,7 +1756,7 @@ class CM_Type_embeddings(CM_Type_base):
 
 
     def _type_norm_element(self, x, reflex = True):
-        """
+        r"""
         INPUT:
 
         - ``x`` -- an element of self.domain()
@@ -1775,7 +1775,7 @@ class CM_Type_embeddings(CM_Type_base):
             sage: Phi = K.CM_types()[0]
             sage: Phi.type_norm(K.gen())
             1/2*alphar^2 + 15/2
-        """
+        r"""
         y = prod([e(x) for e in self._embeddings])
         if not y.norm()**x.parent().degree() ==                 (x.norm()**y.parent().degree())**self.g():
             raise RuntimeError( "norm of type norm is incorrect: %s "                                  "instead of %s" % (y.norm(),               (x.norm()**(y.parent().degree()/x.parent().degree()))**self.g()))
@@ -1784,7 +1784,7 @@ class CM_Type_embeddings(CM_Type_base):
         return y
     
     def _repr_(self):
-        """
+        r"""
         _repr_ and _str_ return string representations of self.
 
         EXAMPLE::
@@ -1796,14 +1796,14 @@ class CM_Type_embeddings(CM_Type_base):
             CM-type of CM Number Field in zeta5 with defining polynomial x^4 + x^3 + x^2 + x + 1
               with values in CM Number Field in zeta5 with defining polynomial x^4 + x^3 + x^2 + x + 1
               given by zeta5 |--> [zeta5, zeta5^2]
-        """
+        r"""
         g = self.domain().gen()
         return "CM-type of " + self.domain().__repr__()                 + "\n  with values in " + self.codomain().__repr__()                 + "\n  given by " + g.__repr__() + " |--> "                 + [h(g) for h in self.embeddings()].__repr__()
                
     _str_ = _repr_
 
     def is_totally_positive_imaginary(self, xi, check=True):
-        """
+        r"""
         Given a totally imaginary element `xi`, returns
         true if and only if `phi(xi))` is on the positve imaginary axis
         for all `phi` in the CM-type ``self``.
@@ -1817,7 +1817,7 @@ class CM_Type_embeddings(CM_Type_base):
             imaginary.
             
 
-        """
+        r"""
         if check and not self.domain().complex_conjugation()(xi) == -xi:
             return False
     
@@ -1837,7 +1837,7 @@ class CM_Field_quartic(CM_Field_absolute):
     def __init__(self, DAB, relative_field=None,
                  real_field=None, name=None, latex_name=None,
                  relative_name=None, check=True, embedding=None):
-        """
+        r"""
         This is called by the function CM_Field and initializes a CM_Field_absolute object.
 
         INPUT:
@@ -1866,7 +1866,7 @@ class CM_Field_quartic(CM_Field_absolute):
             sage: from recip import *
             sage: CM_Field([21, 5,1]) # indirect doctest
             CM Number Field in alpha with defining polynomial x^4 + 5*x^2 + 1
-        """
+        r"""
         x = QQ['x'].gen()
         A = DAB[1]
         B = DAB[2]
@@ -1881,7 +1881,7 @@ class CM_Field_quartic(CM_Field_absolute):
 #        self._one_element = self(1)
 
     def CM_types(self, L=None, equivalence_classes=False):
-        """
+        r"""
         Returns the CM-types Phi of self with values in L.
         
         Not cached.
@@ -1908,7 +1908,7 @@ class CM_Field_quartic(CM_Field_absolute):
             sage: K = CM_Field(x^4 + 8*x^2 + 3)
             sage: K.CM_types(equivalence_classes=True)
             [CM-type Phi of CM Number Field in alpha with defining polynomial x^4 + 8*x^2 + 3, CM-type Phi' of CM Number Field in alpha with defining polynomial x^4 + 8*x^2 + 3]
-        """
+        r"""
 #        ret = self._CM_types
 #        if not ret is None: # if a weak reference was created
 #            ret = ret()
@@ -1941,7 +1941,7 @@ class CM_Field_quartic(CM_Field_absolute):
         return self._DAB
     
     def g(self):
-        """
+        r"""
         Returns half the degree of self.
         
         EXAMPLES::
@@ -1949,38 +1949,38 @@ class CM_Field_quartic(CM_Field_absolute):
             sage: from recip import *
             sage: CM_Field(x^4+8*x^2+8).g()
             2
-        """
+        r"""
         return ZZ(2)
 
     def is_D4(self):
-        """
+        r"""
         Returns True if and only if self is quartic non-Galois.
-        """
+        r"""
         return not self.is_galois()
         
     def is_totally_imaginary_element(self, xi):
-        """
+        r"""
         Returns True if and only if ``self`` is totally imaginary.
-        """
+        r"""
         xi = self(xi)
         l = xi.list()
         return l[0] == 0 and l[2] == 0
         
     def is_totally_real(self, xi):
-        """
+        r"""
         Returns True if and only if ``self`` is totally real.
-        """
+        r"""
         xi = self(xi)
         l = xi.list()
         return l[1] == 0 and l[3] == 0
     
     def is_totally_real_positive(self, xi, check_real=True):
-        """
+        r"""
         Returns True if and only if ``self`` is totally real and totally
         positive.
         
         TODO: examples
-        """
+        r"""
         xi = self(xi)
         l = xi.list()
         if check_real and not self.is_totally_real(xi):
@@ -1998,16 +1998,16 @@ class CM_Field_quartic(CM_Field_absolute):
 
 
 class CM_Type_quartic(CM_Type_embeddings):
-    """
+    r"""
     An object representing a CM-type.
-    """
+    r"""
     
     _DAB = None
     _DAB_reflex = None
     
     def __init__(self, DAB, prime=False, conjugate=False, scale_down=False,
                  domain=None, reflex_field=None, check=True):
-        """
+        r"""
         Create a CM_Type object.
         
         Let phi_1 : K.gen() --> i*sqrt((A+sqrt(A^2-4*B))/2)
@@ -2042,7 +2042,7 @@ class CM_Type_quartic(CM_Type_embeddings):
         
             sage: from recip import *
             
-        """
+        r"""
         self._DAB = DAB
         if domain is None:
             domain = CM_Field(DAB)
@@ -2121,7 +2121,7 @@ class CM_Type_quartic(CM_Type_embeddings):
 
 
     def reflex_field(self):
-        """
+        r"""
         Returns the reflex field of this CM-type.
         
         EXAMPLES::
@@ -2131,21 +2131,21 @@ class CM_Type_quartic(CM_Type_embeddings):
             sage: Phi = K.CM_types()[0]
             sage: Phi.reflex_field()
             CM Number Field in alphar with defining polynomial x^4 + 30*x^2 + 197
-        """
+        r"""
         return self._reflex_field
 
 
     def reflex_to_codomain(self):
-        """
+        r"""
         Returns the embedding of self.reflex_field() into self.codomain()
-        """
+        r"""
         ret = self.reflex_field().embedding()
         if ret is None:
             raise NotImplementedError()
         return ret
 
     def _compute_reflex(self):
-        """
+        r"""
         Returns the reflex type of `self`.
         
         EXAMPLES::
@@ -2159,7 +2159,7 @@ class CM_Type_quartic(CM_Type_embeddings):
             CM-type Phi of CM Number Field in alpha with defining polynomial x^4 + 15*x^2 + 7
             sage: Phi == Psi.reflex()
             True
-        """
+        r"""
         return CM_Type_quartic(self._DAB_reflex,                                 scale_down=(not self._scale_down),
                                conjugate=self._conjugate,                                 domain=self._reflex_field, reflex_field=self._domain)
     
@@ -2175,7 +2175,7 @@ class CM_Type_quartic(CM_Type_embeddings):
         return self.embeddings()[0].codomain()
 
     def _type_norm_element(self, x, reflex = True):
-        """
+        r"""
         INPUT:
 
         - ``x`` -- an element of self.domain()
@@ -2236,7 +2236,7 @@ class CM_Type_quartic(CM_Type_embeddings):
             sage: all([n(x)*c(n(x)) == Psi.domain()(x).norm() for x in l])
             True
             
-        """
+        r"""
         if not reflex:
             raise NotImplementedError()
         
@@ -2264,9 +2264,9 @@ class CM_Type_quartic(CM_Type_embeddings):
         return self._reflex_field(y)
 
     def type_trace(x):
-        """
+        r"""
         Returns the type trace of x.
-        """
+        r"""
         [a0,a1,a2,a3] = self._domain.coerce(x).list()
         # The type trace of 1 is 2
         # The type trace of alpha is beta
@@ -2284,7 +2284,7 @@ class CM_Type_quartic(CM_Type_embeddings):
         return self._reflex_field(y)
         
     def _repr_(self):
-        """
+        r"""
         _repr_ and _str_ return string representations of self.
 
         EXAMPLE::
@@ -2296,7 +2296,7 @@ class CM_Type_quartic(CM_Type_embeddings):
             CM-type of CM Number Field in zeta5 with defining polynomial x^4 + x^3 + x^2 + x + 1
               with values in CM Number Field in zeta5 with defining polynomial x^4 + x^3 + x^2 + x + 1
               given by zeta5 |--> [zeta5, zeta5^2]
-        """
+        r"""
         prime = "'" if self._prime else ""
         bar = "bar" if self._conjugate else ""
         return "CM-type Phi%s%s of %s" % (bar, prime, self.domain().__repr__())
@@ -2304,7 +2304,7 @@ class CM_Type_quartic(CM_Type_embeddings):
     _str_ = _repr_
     
     def is_totally_positive_imaginary(self, xi, check=True):
-        """
+        r"""
         Given a totally imaginary element `xi` and a CM-type ``self``, returns
         true if and only if `psi(xi)` is on the positve imaginary axis
         for all `psi` in ``self``.
@@ -2327,7 +2327,7 @@ class CM_Type_quartic(CM_Type_embeddings):
             [0 0 1 0]
             [0 0 0 1]
 
-        """
+        r"""
         K = self.domain()
         if check and not K.is_totally_imaginary_element(xi):
             raise ValueError( "xi=%s is not totally imaginary" % self)
@@ -2365,10 +2365,10 @@ class CM_Type_quartic(CM_Type_embeddings):
 
 
 def _degree_cmp(F1, F2):
-    """
+    r"""
     Returns -1, 0, 1 if the degree of F1[0] is respectively
     larger, equal, or smaller than the degree of F2[0].
-    """
+    r"""
     d1 = F1[0].degree()
     d2 = F2[0].degree()
     if d1 < d2:
@@ -2379,7 +2379,7 @@ def _degree_cmp(F1, F2):
     
     
 def highest_root(poly, field):
-    """
+    r"""
     Returns a root of poly in field that is the highest in
     the upper half plane, i.e., that has the maximal imaginary part.
 
@@ -2391,7 +2391,7 @@ def highest_root(poly, field):
         0.222520933956314 + 0.974927912181824*I
         sage: highest_root(x^6+1, QQbar)
         1*I
-    """
+    r"""
     highest = None
     for r in poly.roots(field):
         if highest == None or highest.imag() < r[0].imag():
@@ -2400,7 +2400,7 @@ def highest_root(poly, field):
 
 
 def _CM_field_data(K, check=True):
-  """
+  r"""
   Internal function which returns a triple (c,K0,m), where c is complex
   conjugation on the CM-field K, K0 is the maximal totally real subfield, and
   m is the embedding K0 --> K
@@ -2409,7 +2409,7 @@ def _CM_field_data(K, check=True):
   
       sage: from recip import *
       sage: K = CM_Field((x^2+10)^2-5) # indirect doctest
-  """
+  r"""
   if check:
         assert K.is_totally_imaginary()
   a = K.automorphisms()
@@ -2425,22 +2425,22 @@ def _CM_field_data(K, check=True):
 
 
 def _is_accepted_complex_field(K):
-    """
+    r"""
     Returns true if ``K`` is a complex field accepted by
     the CM-field code.
-    """
+    r"""
     return K == CC or K == QQbar or is_ComplexField(K) or             K is CLF or is_ComplexIntervalField(K)
 
 
 def _is_numerical_complex_field(K):
-    """
+    r"""
     Returns true if ``K`` is a complex field for doing numerical evaluation.
-    """
+    r"""
     return K == CC or is_ComplexField(K) or                        is_ComplexIntervalField(K)
 
 
 def inverse_field_hom(m, y):
-    """
+    r"""
     Given a field homomorphism m and y in the image of m, returns x such that
     m(x) = y
 
@@ -2452,7 +2452,7 @@ def inverse_field_hom(m, y):
         sage: m = K.hom(b+b^-1, K)
         sage: inverse_field_hom(m, b^3+b^5 + 7)
         -a + 7
-    """
+    r"""
     K = m.domain()
     if K.degree() == 1:
         try:
@@ -2473,14 +2473,14 @@ def inverse_field_hom(m, y):
 
 
 def DAB_to_minimal(DAB, K0=None, m=None, check=False):
-    """
+    r"""
     Given a triple DAB, finds a triple representing the same field, but such
     that A is minimal (and B is minimal with that A).
     
     K0, if given, should be the quadratic field with discriminant D.
 
     m, if given, must be a positive integer satisfying m^2 * D = A^2 - 4B
-    """
+    r"""
     [D,A,B] = DAB
     if K0 is None:
         K0 = QuadraticField(D,'a')

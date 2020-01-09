@@ -33,7 +33,7 @@ See the file README.txt for version information, instructions, and references.
 
 
 def denominator_bound(K, c=2**14, k=2, d=None, Phi=None, bound='default', check=True, safe=True):
-    """
+    r"""
     If ``Phi`` is None, returns a positive integer `D`
     such that `D N(f h_{10}^{-k}(Z))`
     is integral whenever `Z` has CM by `O_K`,
@@ -163,7 +163,7 @@ def denominator_bound(K, c=2**14, k=2, d=None, Phi=None, bound='default', check=
          102098407935836160/11153001631321*x + 1497833452550013478502400/4026233588906881,
          2213545771008000000/92173567201*x - 36646804488714190848000000/33274657759561]
 
-    """
+    r"""
     if K.degree() != 4:
         raise ValueError( "Input field %s is not quartic." % K)
     if len(K.subfields()) > 3:
@@ -219,7 +219,7 @@ def denominator_bound(K, c=2**14, k=2, d=None, Phi=None, bound='default', check=
 
 
 def bruinier_yang_applies(K, proof=True, reason=False):
-    """
+    r"""
     Return ``True`` if and only if the Bruinier-Yang results are proven for
     the input quartic CM field in Yang's preprint.
     
@@ -234,7 +234,7 @@ def bruinier_yang_applies(K, proof=True, reason=False):
         sage: from recip import *
         sage: bruinier_yang_applies(CM_Field([5,5,5]))
         True
-    """
+    r"""
     #1Assumption from page 2: D is a prime that is 1 mod 4
     # Notation: F = QQ(sqrt(D))) is real quadratic subfield of K
     #           Delta is such that K=F(sqrt(Delta))
@@ -366,7 +366,7 @@ def bruinier_yang_applies(K, proof=True, reason=False):
 
 
 def bruinier_yang_bound(K, check=True, proof=True):
-    """
+    r"""
     Returns the Bruinier-Yang bounds. Assumes
     that the input satisfies the hypotheses of the
     Bruinier-Yang conjecture. Bounds are proven
@@ -420,7 +420,7 @@ def bruinier_yang_bound(K, check=True, proof=True):
         [x^2 - 502951680/303601*x - 215457915617280/5768419,
          102098407935836160/11153001631321*x + 1497833452550013478502400/4026233588906881,
          2213545771008000000/92173567201*x - 36646804488714190848000000/33274657759561]
-    """
+    r"""
     if check:
         b, s = bruinier_yang_applies(K, proof=proof, reason=True)
         if not b:
@@ -452,21 +452,21 @@ def bruinier_yang_bound(K, check=True, proof=True):
     O0r = K0r.maximal_order()
     Kr_rel_to_Kr = Kr_rel.structure()[0]
     def cu(u):
-        """
+        r"""
         Given u, which is one of the numbers t in F in the sum in (1.3),
         return exp(sum_{P prime of Ftilde | p} B_t(P) log(p)).
         In other words, if we sum over S, we get exp(2*RHS of (1.11)).
-        """
+        r"""
         if get_recip_verbose()>1:
             print("Computing contribution of\nt = %s\n  = d^-1 * (%s)\n  = (k+(D-n^2)/4*sqrt(Dtilde))/(2D),\nwhere k=%s and (D-n^2)/4=%s and n=%s" % (u, u*d.gens_reduced()[0], (t*D).trace(), (D*t*2-(D*t).trace())/B, sqrt(D-(D*t*2-(D*t).trace())/B*4)))
         f = (u*d).factor()
         def splittype(p):
-            """
+            r"""
             Given a prime P of Ftilde, returns
             0 if P splits in Ktilde/Ftilde
             1 if P is inert in Ktilde/Ftilde
             2 if P ramifies in Ktilde/Ftilde
-            """
+            r"""
             t = Kr_rel_to_Kr(p).factor()
             if len(t) == 2:
                 return 0
@@ -488,11 +488,11 @@ def bruinier_yang_bound(K, check=True, proof=True):
                 print(s + "[%s,%s,%s] to power %s" % (p[0].gens_two()[0], p[0].ramification_index(), p[0].residue_class_degree(), p[1]))
         
         def prerho(k, t):
-            """
+            r"""
             Given an integer k and the output of splittingtype t for a prime
             P of Ftilde, returns the number of ideals of Ktilde of relative
             norm P^k, i.e., returns rho(P^k) as below (1.4).
-            """
+            r"""
             if k < 0:  # not an integral ideal
                 return 0
             if k == 0: # the unit ideal
@@ -507,14 +507,14 @@ def bruinier_yang_bound(K, check=True, proof=True):
             return 0
 
         def rho(k):
-            """
+            r"""
             Given the index k of an entry (P,v,t)=f2[k] of f2, returns
             the number of ideals of Ktilde of relative norm u*d*P^-1,
             i.e., returns rho(u*d*P^-1) as below (1.4).
             
             Actually, it returns this number only if P is not split. If P
             is split, then because of (1.4) the number 0 is returned instead.
-            """
+            r"""
             if f2[k][2] == 0:
                 return 0
             return prod((prerho(f2[l][1], f2[l][2]) for l in range(len(f2)) if k != l))*prerho(f2[k][1]-1,f2[k][2])
@@ -566,7 +566,7 @@ def bruinier_yang_bound(K, check=True, proof=True):
 
 
 def goren_lauter_bound(K, Phi=None):
-    """
+    r"""
     If ``Phi`` is None, returns a positive integer `D`
     such that `c^l D^{dk} N(f h_{10}^{-k}(Z))`
     is integral whenever `Z` has CM by `O_K`,
@@ -590,7 +590,7 @@ def goren_lauter_bound(K, Phi=None):
     of type ``Phi`` and `f` is a modular
     form of weight `k` and level `1` with integral
     Fourier coefficients.
-    """
+    r"""
     if not Phi is None:
         raise NotImplementedError()
     gal = K.is_galois()
@@ -644,7 +644,7 @@ def goren_lauter_bound(K, Phi=None):
 
 
 def lauter_viray_bound(K, safe=True, num_etas=None, implementation="bound", bound_calJ=1, bound_two=2):
-    """
+    r"""
     Returns a denominator bound for Igusa class polynomials based on [LV].
     See below for the output format.
         
@@ -760,7 +760,7 @@ def lauter_viray_bound(K, safe=True, num_etas=None, implementation="bound", boun
     4
     
 
-    """
+    r"""
     if implementation == "bound":
         impl = lauter_viray_bound_given_eta
     elif implementation == "gjlsvw":
@@ -784,7 +784,7 @@ def lauter_viray_bound(K, safe=True, num_etas=None, implementation="bound", boun
 
 
 def lauter_viray_bound_given_eta(K, eta, safe=True, verbose=False, factor_two=True, bound_calJ=1, bound_two=2):
-    """
+    r"""
     Returns a list of pairs (l_i, e_i) such that sum of e_i with l_i=l is
     at least twice the right hand side of Theorem 2.1 or 2.3 of [LV].
     
@@ -801,7 +801,7 @@ def lauter_viray_bound_given_eta(K, eta, safe=True, verbose=False, factor_two=Tr
        of [LV]. If False, use factors two as in Theorem 2.1.
                         
     
-    """
+    r"""
     if get_recip_verbose():
         print("Computing a denominator bound using [LV]")
     ret = []
@@ -969,7 +969,7 @@ def lauter_viray_bound_given_eta(K, eta, safe=True, verbose=False, factor_two=Tr
 
 
 def calJ_conjecture(d1, d2, t, l):
-    """
+    r"""
     Return the right hand side of Conjecture 2.6,
     or None if the hypothesis of the conjecture is not satisfied.
     
@@ -982,7 +982,7 @@ def calJ_conjecture(d1, d2, t, l):
     If counterexamples are found, it is probably a good idea to check the code
     of this function, as not much care was given to it (it is only used as a
     redundant check).
-    """
+    r"""
     if not t in ZZ:
         return None
     d1 = ZZ(d1)
@@ -1026,9 +1026,9 @@ def calJ_conjecture(d1, d2, t, l):
             
 
 def conductor(d):
-    """
+    r"""
     Returns the largest integer f such that d/f^2 is a discriminant.
-    """
+    r"""
     ret = (sqrt(d/fundamental_discriminant(d)))
     if not ret in ZZ:
         raise ValueError( "Non-discriminant %s pretending to be a discriminant" % d)
@@ -1036,12 +1036,12 @@ def conductor(d):
 
 
 def calJ_bound(n, delta, Dtilde, d_u, f_u, d_x, t, l, D, safe=True, bound_calJ=1):
-    """
+    r"""
     Returns the upper bound on calJ of [LV] given in Theorem 2.4 of [LV].
     
     If safe is True, then also checks whether Conjecture 2.6 holds in this case
     and raises an error if it does not.
-    """
+    r"""
     thm24 = calJ_bound_thm24(n=n, delta=delta, Dtilde=Dtilde, d_u=d_u, f_u=f_u, d_x=d_x, t=t, l=l, D=D, safe=safe)
     if safe:
         conj = calJ_conjecture(d_u/f_u**2, d_x, t, l)
@@ -1060,9 +1060,9 @@ def calJ_bound(n, delta, Dtilde, d_u, f_u, d_x, t, l, D, safe=True, bound_calJ=1
 
 
 def calJ_bound_thm24(n, delta, Dtilde, d_u, f_u, d_x, t, l, D, safe=True):
-    """
+    r"""
     Returns the upper bound on calJ from Theorem 2.4.
-    """
+    r"""
     if hilbert_symbol_trivial_outside(d_u, D*(n**2-delta**2*Dtilde), l):
         if safe:
             # Just to be sure, we'll use the other hilbert symbol too, which is supposed to be the same.
@@ -1092,13 +1092,13 @@ def calJ_bound_thm24(n, delta, Dtilde, d_u, f_u, d_x, t, l, D, safe=True):
 
 
 def count_ideals(disc, norm, safe=True):
-    """
+    r"""
     Returns the number of invertible (equivalently: proper) ideals of the given
     norm in the quadratic order of the given discriminant.
     
     If safe=True, then calculates it in a few (possibly slow) ways and checks
     whether the outputs agree.
-    """
+    r"""
     if not norm in ZZ:
         return 0
     norm = ZZ(norm)
@@ -1113,7 +1113,7 @@ def count_ideals(disc, norm, safe=True):
 
 
 def count_ideals1(disc, norm):
-    """
+    r"""
     Returns the number of invertible ideals of the given norm inside the
     quadratic order of the given discriminant.
     
@@ -1131,7 +1131,7 @@ def count_ideals1(disc, norm):
         sage: count_ideals1(-183, 7)
         0
 
-    """
+    r"""
     ret = 1
     for p in norm.prime_divisors():
         if p > 2:
@@ -1161,7 +1161,7 @@ def count_ideals1(disc, norm):
 
 
 def count_ideals2(disc, norm):
-    """
+    r"""
     Returns the number of invertible ideals of the given norm inside the
     quadratic order of the given discriminant.
     
@@ -1186,7 +1186,7 @@ def count_ideals2(disc, norm):
         sage: count_ideals2(-183, 3)
         1
 
-    """
+    r"""
     # The fractional ideals are n*(tau*ZZ+ZZ), A*tau^2 + B*tau + C = 0, A>0,
     # gcd(A, B, C) = 1. Note that aa = 
     # A*(tau*ZZ+ZZ) is an invertible ideal of the order O = A*tau*ZZ+ZZ of
@@ -1221,7 +1221,7 @@ def count_ideals2(disc, norm):
 
 
 def count_ideals3(disc, norm):
-    """
+    r"""
     Returns the number of invertible ideals of the given norm inside the
     quadratic order of the given discriminant.
     
@@ -1244,7 +1244,7 @@ def count_ideals3(disc, norm):
         sage: count_ideals2(-400*27, 32)
         0
 
-    """
+    r"""
     ret = 0
     # The fractional ideals are n*(tau*ZZ+ZZ), A*tau^2 + B*tau + C = 0, A>0
     # (tau*ZZ+ZZ) is the inverse of a proper integral ideal for A*tau*ZZ+ZZ
@@ -1263,12 +1263,12 @@ def count_ideals3(disc, norm):
 
 
 def rhotilde(d, s0, s1, l, part=0):
-    """
+    r"""
     Returns rhotilde_d^(2)(s0, s1) from Theorem 2.4
     
     If part=0, really returns rhotilde, if part equals 1 or 2, only returns
     the first or second factor.
-    """
+    r"""
     if not s0 in ZZ:
         raise RuntimeError()
         # This s0 is t(n,f_u), which is (according to an email by authors of
@@ -1300,13 +1300,13 @@ def rhotilde(d, s0, s1, l, part=0):
 
 
 def hilbert_symbol_trivial_outside(a, b, l, negative=True):
-    """
+    r"""
     Returns True if and only if (a,b)_p != -1 for all primes p not
     equal to l.
     
     If negative=True, then only accepts inputs with a and b negative,
     and performs some additional checks.
-    """
+    r"""
     if negative:
         assert a<0 and b<0
     supp_a = [p for (p,e) in a.factor()]
@@ -1320,9 +1320,9 @@ def hilbert_symbol_trivial_outside(a, b, l, negative=True):
 
 
 def calI(delta, f_u=None, t_w=None, l=None, d_u=None, n_w=None, t_u=None, safe=True):
-    """
+    r"""
     Returns calI(n, f_u) as in Theorem 2.1 of [LV].
-    """
+    r"""
     ret = 1
     for p in delta.prime_divisors():
         if p != l:
@@ -1334,12 +1334,12 @@ def calI(delta, f_u=None, t_w=None, l=None, d_u=None, n_w=None, t_u=None, safe=T
 
 
 def calIp(C, p, a1, a0, safe=True):
-    """
+    r"""
     Returns calI_C^{(p)}(a1, a2) as in [LV, Thm 2.1]
     
     With ``safe=True``, an additional redundant slow step is done to verify
     the result.
-    """
+    r"""
     if not safe:
         return calIp_fast(C, p, a1, a0)
     I1 = calIp_fast(C, p, a1, a0)
@@ -1350,7 +1350,7 @@ def calIp(C, p, a1, a0, safe=True):
 
 
 def calIp_fast(C, p, a1, a0):
-    """
+    r"""
     Returns calI_C^{(p)}(a1, a2) as in [LV, Thm 2.1], complicated but fast
     implementation.
     
@@ -1360,7 +1360,7 @@ def calIp_fast(C, p, a1, a0):
         sage: S = [(C, p, a1, a0) for C in srange(-1, 5) for p in [2,3,5] for a0 in srange(15) for a1 in srange(15)]
         sage: [(C, p, a1, a0) for (C, p, a1, a0) in S if calIp_enumerate(C, p, a1, a0) != calIp_fast(C, p, a1, a0)]
         []
-    """
+    r"""
     if C < 0:
         return 0
     if C == 0:
@@ -1392,10 +1392,10 @@ def calIp_fast(C, p, a1, a0):
 
 
 def calIp_enumerate(C, p, a1, a0):
-    """
+    r"""
     Returns calI_C^{(p)}(a1, a2) as in [LV, Thm 2.1], simple but slow
     implementation.
-    """
+    r"""
     if C < 0:
         return 0
     if C == 0:
@@ -1405,7 +1405,7 @@ def calIp_enumerate(C, p, a1, a0):
     
 
 def find_eta(K, how_many=None, proof=True):
-    """
+    r"""
     Given a primitive quartic CM-field K, returns a list [eta] of one element
     eta such that O_F[eta] = O_K, if it exists.
     
@@ -1426,7 +1426,7 @@ def find_eta(K, how_many=None, proof=True):
         sage: find_eta(F)
         [(-1/4*alpha^3 + 3/4*alpha - 1/2, [37]), (3/4*alpha^3 + 7/4*alpha - 1/2, [43])]
 
-    """
+    r"""
     ret = None
     if K.minimal_DAB() == [5,5,5]:
         # return zeta, as OK = ZZ[zeta] = OF[zeta]
@@ -1506,14 +1506,14 @@ def find_eta_coprime(K, Krel, F, D, rel_diff, prime_bound, proof=True):
 
 
 def next_prime_in_class(a, n, gen=False, allow_one=False):
-    """
+    r"""
     Returns a prime P of prime norm p>n in the same ideal class as a.
     
     If gen is True, also return an element y such that y*a=P.
     
     If allow_one is True, then instead of a prime P, also allow P=1, regardless
     of n, if a is principal.
-    """
+    r"""
     if get_recip_verbose():
         print("Taking the next prime in a class for a=%s, n=%s" % (a, n))
     K = a.number_field()
@@ -1537,7 +1537,7 @@ def next_prime_in_class(a, n, gen=False, allow_one=False):
     
 
 def find_eta_pid_old(K, Krel, F, D, rel_diff):
-    """
+    r"""
     Given a primitive quartic CM-field K, returns an one-element list
     [eta] such that O_F[eta] = O_K, if it exists, and return None otherwise.
     Assumes F is a PID. See the source code of find_eta for what the
@@ -1545,7 +1545,7 @@ def find_eta_pid_old(K, Krel, F, D, rel_diff):
     
     THIS version had bugs and has been deprecated.
     
-    """
+    r"""
     assert rel_diff.is_principal()
     rel_diff0 = rel_diff.gens_reduced()[0]
     # Now for every valid eta, we have
@@ -1584,7 +1584,7 @@ def find_eta_pid_old(K, Krel, F, D, rel_diff):
 
 
 def find_eta_pid(K, Krel, F, rel_diff):
-    """
+    r"""
     Given a primitive quartic CM-field K with no roots of unity
     other than +/- 1, returns an element
     eta of K as a relative field such that O_F[eta] = O_K, if it exists, and
@@ -1599,7 +1599,7 @@ def find_eta_pid(K, Krel, F, rel_diff):
         sage: Krel = K.relative_field()
         sage: find_eta_pid(K, Krel, K.real_field(), Krel.relative_different())
         alpha
-    """
+    r"""
     # Goal: find eta such that O_F[eta] = O_K
     # Suppose such eta exists.
     # Then the relative different is generated by eta - etabar.
@@ -1642,11 +1642,11 @@ def find_eta_pid(K, Krel, F, rel_diff):
 
 
 def win_implementation(alpha0, alpha1, beta0, beta1, D, p, m):
-    """
+    r"""
     Assumes the code from [GJLSVW] has been loaded into the Magma session m
     (requires magma).
     Returns the output of length of the output of ListAllEmb.
-    """
+    r"""
     if get_recip_verbose():
         print("calling [GJLSVW] function with p=%s" % p)
     lst = m.ListAllEmb(m(ZZ(alpha0)), m(ZZ(alpha1)), m(ZZ(beta0)), m(ZZ(beta1)), m(ZZ(D)), m(ZZ(p)), nvals=3)
@@ -1654,7 +1654,7 @@ def win_implementation(alpha0, alpha1, beta0, beta1, D, p, m):
 
 
 def lauter_viray_win(K, eta, safe=True, verbose=False, factor_two=True, m=magma, bound_calJ=1, bound_two=2):
-    """
+    r"""
     Returns a list of pairs (l_i, e_) such that sum of e_i with l_i=l is
     at least twice the right hand side of Theorem 2.1 or 2.3 of [LV].
     
@@ -1681,7 +1681,7 @@ def lauter_viray_win(K, eta, safe=True, verbose=False, factor_two=True, m=magma,
         sage: lauter_viray_bound(CM_Field([8,4,2]), safe=True, implementation="gjlsvw") # indirect doctest, long time 23 minutes, optional - magma gjlsvw
         16
     
-    """
+    r"""
     primes = []
     
     if get_recip_verbose():

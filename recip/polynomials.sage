@@ -36,7 +36,7 @@ from sage.rings.polynomial.polynomial_element import is_Polynomial
 
 def recognize_polynomial(pol_n, K=None, N=None, M=None,
                           emb=None, poly_gen=None, solution=None, check=True):
-    """
+    r"""
     Given a polynomial pol_n over the real or complex numbers,
     guesses a polynomial over number field K close to it.
     Note, K must be embedded into the real or complex numbers.
@@ -109,7 +109,7 @@ def recognize_polynomial(pol_n, K=None, N=None, M=None,
         True
 
 
-    """
+    r"""
     if K == None:
         if emb == None:
             raise ValueError( "K and emb cannot both be None in "                                "recognize_polynomial")
@@ -218,7 +218,7 @@ def recognize_polynomial(pol_n, K=None, N=None, M=None,
 
     
 def short_interpolation(a, b):
-    """
+    r"""
     Given lists a and b of the same lengths, returns
     the polynomial
         P = sum_i b[i] prod_{j!=i} (x-a[j])
@@ -236,7 +236,7 @@ def short_interpolation(a, b):
         5.00000000000000*x - 9.00000000000000
         sage: p.parent()
         Univariate Polynomial Ring in x over Real Field with 53 bits of precision
-    """
+    r"""
     universe = Sequence(a+b).universe()
     if not len(a) == len(b):
         raise ValueError( "non-equal lengths in _short_interpolation")
@@ -246,9 +246,9 @@ def short_interpolation(a, b):
 
 
 def my_round(x):
-    """
+    r"""
     Rounds x to the nearest element in ZZ.
-    """
+    r"""
     if x in ZZ:
         return ZZ(x)
     return ZZ(x.round())

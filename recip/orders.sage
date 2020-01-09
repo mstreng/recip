@@ -34,12 +34,12 @@ See the file README.txt for version information and instructions.
 
 
 def class_polynomials_order(O, F, Phi, prec, include_period_matrices=False):
-    """
+    r"""
     Returns the class polynomials of an order in a cyclic quartic CM-field K.
     
     TODO: more general fields, examples
     
-    """
+    r"""
     Zs = period_matrices(O, F, Phi)
     if len(Zs) == 0:
         P = ZZ['X']
@@ -59,7 +59,7 @@ def class_polynomials_order(O, F, Phi, prec, include_period_matrices=False):
 
 
 def superorders(O):
-    """
+    r"""
     Given an order O in a number field K, returns all orders in K containing O.
     
     NOTE: this implementation is probably not optimal, as it uses all subgroups
@@ -75,7 +75,7 @@ def superorders(O):
         sage: [A.index_in(OK) for A in s]
         [1, 5, 25, 25, 25, 25, 25, 25, 125]
 
-    """
+    r"""
     K = O.number_field()
     t = K.degree()
     OK = K.maximal_order()
@@ -119,7 +119,7 @@ def superorders(O):
 
 
 def superorders_stable_under_complex_conjugation(O, c=None):
-    """
+    r"""
     Given an order O in a number field K, and an automorphism c of K, returns
     all orders of K containing O and fixed under c.
     
@@ -136,7 +136,7 @@ def superorders_stable_under_complex_conjugation(O, c=None):
         sage: [A.index_in(OK) for A in s]
         [1, 5, 25, 25, 125]
 
-    """
+    r"""
     # TODO: By using linear algebra to directly list only subgroups fixed under
     # complex conjugation,
     # we could save an order of magnitude in the complexity compared to what
@@ -152,7 +152,7 @@ def superorders_stable_under_complex_conjugation(O, c=None):
 
 
 def _is_ring(mat, K):
-    """
+    r"""
     INPUT:
     
      - ``mat`` - a square matrix over `\QQ`, the rows of ``mat`` are
@@ -165,7 +165,7 @@ def _is_ring(mat, K):
     
     True or False - whether the given elements of `K` are a basis of an order
     in `K`.
-    """
+    r"""
     mat_inv = mat.inverse()
     for x in range(mat.ncols()):
         for y in range(x+1):
@@ -177,7 +177,7 @@ def _is_ring(mat, K):
           
     
 def proper_ideal_classes(O, F):
-    """
+    r"""
     Input: O an order, F non-zero in ZZ and a multiple of the conductor.
     
     Output: representatives of all classes of proper ideals of O modulo
@@ -207,7 +207,7 @@ def proper_ideal_classes(O, F):
         ([[1/2*alpha^3 + 1/2, 1/2*alpha^3 + 1/2*alpha^2 + 5/2*alpha, alpha^2, alpha^3]], [[1/2*alpha^3 + 1/2, 5/2*alpha^3 + 5/2*alpha^2 + 5/2*alpha, alpha^2, alpha^3]], [[1/2*alpha^3 + 1/2, 1/2*alpha^3 + 1/2*alpha^2 + 5/2*alpha, alpha^2, alpha^3]])
         sage: proper_ideal_classes(s[2], 5) # long time
         ([[1/2*alpha^3 + 1/2, 1/2*alpha^3 + 1/2*alpha^2 + 1/2*alpha, 5*alpha^2, alpha^3], [1/2*alpha^3 + 1/2, 1/2*alpha^3 + 5/2*alpha^2 + 5/2*alpha, 5*alpha^2, alpha^3]], [[1/2*alpha^3 + 1/2, 1/2*alpha^3 + 1/2*alpha^2 + 1/2*alpha, 5*alpha^2, alpha^3], [1/2*alpha^3 + 1/2, 5/2*alpha^3 + 5/2*alpha^2 + 5/2*alpha, 5*alpha^2, alpha^3]], [[1/2*alpha^3 + 1/2, 1/2*alpha^3 + 5/2*alpha^2 + 5/2*alpha, 5*alpha^2, alpha^3]])
-    """
+    r"""
     # We start with the class group of the maximal order:
     K = O.number_field()
     C = K.class_group()
@@ -349,7 +349,7 @@ def proper_ideal_classes(O, F):
 
 
 def polarized_ideal_classes(O, F):
-    """
+    r"""
     On input an order O of a quartic CM-field, returns all principally
     polarized ideal
     classes up to
@@ -397,7 +397,7 @@ def polarized_ideal_classes(O, F):
           -2/25*alpha^3 - 1/5*alpha)]
         sage: polarized_ideal_classes(s[2], 5) # long time
         []
-    """
+    r"""
     a,_,_ = proper_ideal_classes(O,F)
     # we also need a generator of N_{K/K0}(O^*):
     K = O.number_field()
@@ -448,10 +448,10 @@ def polarized_ideal_classes(O, F):
                 
 
 def trace_dual_complex_conjugate(A, cc=None):
-    """
+    r"""
     Given a basis A of a lattice, returns the trace dual of cc(A).
     If cc is not specified and K has a complex_conjugation method, use that.
-    """
+    r"""
     K = A[0].parent()
     if cc is None:
         cc = K.complex_conjugation()
@@ -466,7 +466,7 @@ def trace_dual_complex_conjugate(A, cc=None):
     
 
 def ideal_index(B, A, check_included=True):
-    """
+    r"""
     Given two ideals B and A, assuming B contains A,
     returns the index of A in B.
     
@@ -475,17 +475,17 @@ def ideal_index(B, A, check_included=True):
     
     If check_included is False, then B does not have to contain A, and
     the output is the quotient of the indices in B+A.
-    """
+    r"""
     if check_included and not ideal_contains(B, A):
         raise ValueError()
     return abs(Matrix([a.list() for a in A]).determinant() / Matrix([b.list() for b in B]).determinant())
 
 
 def ideal_contains(B, A):
-    """
+    r"""
     Given bases of two lattices B and A in K, returns true
     if and only if the lattice B contains the lattice A.
-    """
+    r"""
     # s |-> s*Matrix(A) is the map A --> K
     M = Matrix([a.list() for a in A])*Matrix([b.list() for b in B]).inverse()
     for r in M:
@@ -496,10 +496,10 @@ def ideal_contains(B, A):
 
 
 def ideals_equal(A, B, K=None):
-    """
+    r"""
     Given bases of two lattices A and B in K, returns true
     if and only if the lattices are equal.
-    """
+    r"""
     # s |-> s*Matrix(A) is the map A --> K
     if K is None:
         K = Sequence(A+B).universe()
@@ -515,9 +515,9 @@ def ideals_equal(A, B, K=None):
     
     
 def additive_gens_to_basis(gens, K):
-    """
+    r"""
     Given generators of a lattice L in K, returns a basis of L.
-    """
+    r"""
     M = Matrix([K(g).list() for g in gens])
     den = lcm([lcm([c.denominator() for c in r]) for r in M])
     N = Matrix(ZZ, den*M).hermite_form(include_zero_rows=False)
@@ -527,7 +527,7 @@ def additive_gens_to_basis(gens, K):
 
 
 def mult_ideals(basis1, basis2, K):
-    """
+    r"""
     Given bases of lattices in K, returns a basis of their product.
 
     EXAMPLES::
@@ -548,12 +548,12 @@ def mult_ideals(basis1, basis2, K):
         [2, a]
         sage: mult_ideals(basis4, basis4, K) # the square of basis4, generated by 4, 2a and a^2 = 15.
         [1, 2*a]
-    """
+    r"""
     return additive_gens_to_basis([b1*b2 for b1 in basis1 for b2 in basis2], K)
 
 
 def intersect_ideals(basis1, basis2, K):
-    """
+    r"""
     Given bases of lattices in K, returns a basis of their intersection.
 
     EXAMPLES::
@@ -574,7 +574,7 @@ def intersect_ideals(basis1, basis2, K):
         [2, 2*a]
         sage: intersect_ideals(basis4, basis4, K) # intersection with itself
         [2, a]
-    """
+    r"""
     basis1 = [K(b).list() for b in basis1]
     basis2 = [K(b).list() for b in basis2]
     n = K.degree()
@@ -589,7 +589,7 @@ def intersect_ideals(basis1, basis2, K):
 
 
 def ideal_divide(basis1, basis2, K):
-    """
+    r"""
     Given bases of ideals A1 and A2, returns a basis
     of (A1 : A2) = {a in K : a*A2 \subset A1}.
 
@@ -612,7 +612,7 @@ def ideal_divide(basis1, basis2, K):
         sage: ideal_divide(basis4, basis4, K) # endomorphism ring of ideal 4
         [1, 2*a]
 
-    """
+    r"""
     ideals = [[b^-1 * c for c in basis1] for b in basis2]
     ideal = ideals[0]
     for I in ideals[1:]:
@@ -621,7 +621,7 @@ def ideal_divide(basis1, basis2, K):
 
 
 def ideal_order(basis, K):
-    """
+    r"""
     Given a basis of an ideal, returns the endomorphism ring inside K
     of this ideal, as an order.
 
@@ -660,12 +660,12 @@ def ideal_order(basis, K):
         True
 
 
-    """
+    r"""
     return K.order(ideal_divide(basis, basis, K))
 
 
 def ideal_inverse(basis, K, O=None):
-    """
+    r"""
     Given a basis of an ideal A, returns
     a basis of (O : A) = {a in K : a*A \subset O}.
 
@@ -779,7 +779,7 @@ def ideal_inverse(basis, K, O=None):
         sage: O3 == O1
         True
 
-    """
+    r"""
     if O is None:
         O = ideal_order(basis, K)
     try:
@@ -794,7 +794,7 @@ def is_ideal(O, B):
     r"""
     Given a basis B of a lattice L in a field K, and an order O in K,
     return True if and only if `O L \subset L`.
-    """
+    r"""
     K = O.number_field()
     M = Matrix([K(b).list() for b in B])
     
@@ -805,12 +805,12 @@ def is_ideal(O, B):
     
 
 def _is_ideal(mult_by_O, M):
-    """
+    r"""
     Given M: I --> IK and mult_by_O the multiplication by O matrices on IK,
     returns True if and only if I is an O-module.
     
     Here IK can be K itself or a sublattice, with any fixed basis.
-    """
+    r"""
     for a in mult_by_O:
         # I --> IK --> IK --> I by multiplication by a is:
         # s --> s*M*a*M^-1
@@ -835,7 +835,7 @@ def _is_proper_ideal(mult_by_O, minimal_superorder_matrices, M):
 
 
 def ideal_is_invertible(basis, K=None, O=None):
-    """
+    r"""
     Returns True if and only if the ZZ-lattice I spanned by basis is an
     invertible O-ideal.
 
@@ -844,7 +844,7 @@ def ideal_is_invertible(basis, K=None, O=None):
     if and only if it is an invertible ideal of its endomorphism order.
 
     See :func:`ideal_inverse` for examples.
-    """
+    r"""
     if K is None:
         K = Sequence(basis).universe()
     if O is None:
@@ -857,7 +857,7 @@ def ideal_is_invertible(basis, K=None, O=None):
 
 
 def period_matrices(O, F, Phi=None, reduced=True):
-    """
+    r"""
     Returns all isomorphism classes of principally polarized abelian surfaces
     with CM by O of type Phi. Here F is such that F*OK is contained in O.
     
@@ -875,7 +875,7 @@ def period_matrices(O, F, Phi=None, reduced=True):
         sage: len(period_matrices(K.maximal_order(), 1, Phi)) # long time, half a minute
         66
 
-    """
+    r"""
     pl = polarized_ideal_classes(O, F)
     if Phi is None:
         ret = [PeriodMatrix(None, a[0], a[1]) for a in pl]
@@ -889,7 +889,7 @@ def period_matrices(O, F, Phi=None, reduced=True):
 
 
 def are_nn_isogenous(Z1, Z2, n, F1, F2, transformation=False, double_check=False):
-    """
+    r"""
     Given two CM period matrices with the same CM-type, returns True if and
     only if there is an (n,n)-isogeny between them. Assumes the orders Oi of Zi
     to satisfy Fi*OK \subset Oi.
@@ -970,7 +970,7 @@ def are_nn_isogenous(Z1, Z2, n, F1, F2, transformation=False, double_check=False
 
     The 2-part will be dealt with for all fields together.
 
-    """
+    r"""
     if Z1.CM_type() != Z2.CM_type():
         raise NotImplementedError( "are_nn_isogenous is only implemented for period matrices of equal CM type")
     if double_check:
@@ -1061,10 +1061,10 @@ def are_nn_isogenous(Z1, Z2, n, F1, F2, transformation=False, double_check=False
 
 
 def minimal_F(O):
-    """
+    r"""
     Given an order O in a number field K, returns the smallest integer F such
     that F*O_K \subset O.
-    """
+    r"""
     K = O.number_field()
     OK = K.maximal_order()
     MO = Matrix([K(g).list() for g in O.basis()])
@@ -1082,7 +1082,7 @@ def minimal_F(O):
     
 
 def is_trivial_in_shimura_group(A, alpha, O, cc=None):
-    """
+    r"""
     Given an integral ideal A of the maximal order O_K of O coprime to 
     F = [O_K : O] and given an element alpha of O with A*Abar = alpha*O_K,
     returns True if and only if
@@ -1143,7 +1143,7 @@ def is_trivial_in_shimura_group(A, alpha, O, cc=None):
     
     1/6 of ideals maps to a principal ideal, so the image has order 6.
 
-    """
+    r"""
     K = O.number_field()
     if K.degree() != 4:
         raise NotImplementedError()

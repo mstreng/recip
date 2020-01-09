@@ -51,7 +51,7 @@ from sage.rings.fraction_field import is_FractionField
 from sage.structure.element import is_RingElement
 
 def subscript_zero(A):
-    """
+    r"""
     Given A in Mat_g(Z), returns A_0 in Z^g as defined in [BL],
     which is the diagonal of A.
     
@@ -61,12 +61,12 @@ def subscript_zero(A):
         sage: A = Matrix([[1,2],[3,4]])
         sage: subscript_zero(A)
         (1, 4)
-    """
+    r"""
     return vector(diag(A))
 
 
 def is_den_even(den):
-    """
+    r"""
     All code assumes den to be even. This function
     raises an error if den is odd, and returns nothing
     otherwise.
@@ -81,13 +81,13 @@ def is_den_even(den):
         sage: is_den_even(8)
         sage: is_den_even(4)
         
-    """
+    r"""
     if den % 2 == 1:
         raise ValueError( "The integer den (=%s) must be even." % den)
 
 
 def sq_brackets_inverse(M, nu_inv, c):
-    """
+    r"""
     Given M in GSp_2g(Z/NZ) and c in (1/den)ZZ^{2g}, returns d as in my Shimura
     reciprocity article. If M is in Sp_2g, then M[d^1,d^2]^i == c^i in the
     notation of Birkenhake-Lange.
@@ -110,7 +110,7 @@ def sq_brackets_inverse(M, nu_inv, c):
         sage: c = vector([1/2, 1/2, 0, 0])
         sage: sq_brackets_inverse(M, 1, c)
         (-1/2, 1/2, -2, 0)
-    """
+    r"""
     A,B,C,D = ABCD(M)
     g = A.ncols()
     d = M.transpose() * (vector(c) - 1/2 * nu_inv *              vector(Sequence(subscript_zero(C*D.transpose())) +                     Sequence(subscript_zero(A*B.transpose()))))
@@ -118,7 +118,7 @@ def sq_brackets_inverse(M, nu_inv, c):
 
 
 def kappa(M, k = 1):
-    """
+    r"""
     Given M in Sp_2g(Z) and k in ZZ, returns kappa(M)^k in <zeta_8^{gk}>.
     Note that the output is defined only up to sign if k is odd.
 
@@ -135,7 +135,7 @@ def kappa(M, k = 1):
         Traceback (most recent call last):
         ...
         NotImplementedError: sorry, kappa(M, k) only implemented in trivial cases
-    """
+    r"""
     g = ZZ(M.ncols()/2)
     if k*g % 8 == 0:
         return 1
@@ -150,7 +150,7 @@ def kappa(M, k = 1):
 
 
 def theta_trans_k(M, nu_inv, c):
-    """
+    r"""
     Returns k(M,c) in R as in Formula 8.6.1 of BL on page 227.
     Note: if c is in (1/n)ZZ, then k(M,c) is in (1/n^2)ZZ.
     
@@ -163,7 +163,7 @@ def theta_trans_k(M, nu_inv, c):
         sage: d = vector([1/2, 1/2, 0, 0])
         sage: theta_trans_k(M, 1, d)
         -3/2
-    """
+    r"""
     A,B,C,D = ABCD(M)
     g = A.nrows()
     c1 = vector(c[0:g])
@@ -177,7 +177,7 @@ def theta_trans_k(M, nu_inv, c):
 
 
 def theta_c_mod_Z(c):
-    """
+    r"""
     Given c in RR^2g, returns d in [0,1)^2g and
     s in RR such that theta[c](0,Z) = e(s)*theta[d](0,Z).
     
@@ -188,7 +188,7 @@ def theta_c_mod_Z(c):
         sage: from recip import *
         sage: theta_c_mod_Z([7/2, 7/3, 7/4, 7/5, 7/6, 7/7, 7/8, 7/9])
         ([1/2, 1/3, 3/4, 2/5, 1/6, 0, 7/8, 7/9], 35/6)
-    """
+    r"""
     m = [floor(a) for a in c]
     g = ZZ(len(c)/2)
 #    den = LCM([QQ(a).denominator() for a in c])
@@ -206,7 +206,7 @@ gottschling_kappa = _gottschling_kappa_from_list()
 
 
 def _determine_kappa_for_gottschling():
-    """
+    r"""
     Returns the sequence of values of kappa(M) in QQ(zeta_{1/8})
     where M ranges over the Gottschling matrices.
     
@@ -216,19 +216,19 @@ def _determine_kappa_for_gottschling():
         sage: from recip import _determine_kappa_for_gottschling
         sage: gottschling_kappa == _determine_kappa_for_gottschling()
         True
-    """
+    r"""
     return [determine_kappa(M) for M in gottschling_matrices()]
 
 
 def determine_kappa(M, prec=200):
-    """
+    r"""
     Returns the element kappa(M) of QQ(zeta_{1/8}) such that for all c and Z:
 
       theta[M[c]](0, M(Z)) = kappa(M) det(CZ+D)^(1/2) e(k(M,c)/2) theta[c](0,Z).
 
     where the square root is chosen such that det(C*I+D)^(1/2) has argument
     in [0, 2*pi).
-    """
+    r"""
     CIF = ComplexIntervalField(prec)
     i = CIF.gen()
     assert i.imag() > 0
@@ -278,7 +278,7 @@ def determine_kappa(M, prec=200):
 
 
 def theta_action_without_kappa(M, nu_inv, d):
-    """
+    r"""
     Given d in RR^2g and M in Sp_2g(ZZ), returns
     c in [0,1)^2g and s in RR such that
       theta[d](0, M(Z)) = kappa(M)*det(C*Z+D)^(1/2)*e(s)*theta[c](0, Z)
@@ -308,7 +308,7 @@ def theta_action_without_kappa(M, nu_inv, d):
         ([1/2, 1/2, 1/2, 1/2], 1/2)
         sage: theta_action_without_kappa(M, 1, [0, 1/2, 1/2, 0])
         ([1/2, 0, 0, 1/2], 0)
-    """
+    r"""
     cpre = sq_brackets_inverse(M, nu_inv, d)
     # we have theta[d](0,Z) = kappa(M) det(CZ+D)^(1/2) e(k(M,cpre)/2) theta[cpre](0,Z).
     s1 = theta_trans_k(M, nu_inv, cpre)
@@ -318,13 +318,13 @@ def theta_action_without_kappa(M, nu_inv, d):
 
 
 def theta_leading_term_complex(c, C=CC):
-    """
+    r"""
     Returns a pair (a, o), where o is rational and a is an element of C such
     that theta[c] = a*q^o + h.o.t. The output a is in C.
     
     Here c=(c1,c2) is a pair of numbers, and this only works in
     the classical genus-one case.
-    """
+    r"""
     # terms are exp(pi*i*(n+c1)^2*z + 2*pi*i*(n+c1)*c2) for integers n,
     # so we may as well translate c1 to the interval (-1/2, 1/2].
     (c1,c2) = c
@@ -345,7 +345,7 @@ def theta_leading_term_complex(c, C=CC):
 
 
 def theta_leading_term_cyclotomic(c, n=None):
-    """
+    r"""
     Returns a pair (a, o), where o is rational and a is an element of C such
     that theta[c] = a*q^o + h.o.t. The output a is in CyclotomicField(n)
     or ZZ. If n is None, then n is 2 times the product of the denominators
@@ -353,7 +353,7 @@ def theta_leading_term_cyclotomic(c, n=None):
     
     Here c=(c1,c2) is a pair of numbers, and this only works in
     the classical genus-one case.
-    """
+    r"""
     (c1,c2) = c
     if n is None:
         n = c1.denominator()*c2.denominator()*2
@@ -377,15 +377,15 @@ def theta_leading_term_cyclotomic(c, n=None):
 
 
 def theta_lc_complex(c, C=CC):
-    """
+    r"""
     Returns the number a from :func:`theta_leading_term_complex`.
-    """
+    r"""
     return theta_leading_term_complex(c, C)[0]
 
 def theta_lc_cyclotomic(c, n=None):
-    """
+    r"""
     Returns the number a from :func:`theta_leading_term_cyclotomic`.
-    """
+    r"""
     return theta_leading_term_cyclotomic(c, n)[0]
     
 
@@ -396,7 +396,7 @@ except NameError:
 
 
 def make_theta_ring(g, den):
-    """
+    r"""
     See theta_ring.
     
     EXAMPLE::
@@ -405,7 +405,7 @@ def make_theta_ring(g, den):
         sage: make_theta_ring(1,6)[0]
         Multivariate Polynomial Ring in t0d6, t1d6, t2d6, t3d6, t4d6, t5d6, t6d6, t7d6, t8d6, t9d6, t10d6, t11d6, t12d6, t13d6, t14d6, t15d6, t16d6, t17d6, t18d6, t19d6, t20d6, t21d6, t22d6, t23d6, t24d6, t25d6, t26d6, t27d6, t28d6, t29d6, t30d6, t31d6, t32d6, t33d6, t34d6, t35d6 over Cyclotomic Field of order 72 and degree 24
 
-    """
+    r"""
     is_den_even(den)
     n = den**(2*g)
     C = CyclotomicField(2*den**2)
@@ -439,7 +439,7 @@ def make_theta_ring(g, den):
 
 
 def theta_ring(g, den):
-    """
+    r"""
     Returns a triple (P, eval, R),
     where P is a polynomial ring representing polynomials
     in theta[c](0,Z) with c in (1/den)*ZZ^2g
@@ -454,7 +454,7 @@ def theta_ring(g, den):
         3
         sage: tr[0]
         Multivariate Polynomial Ring in t0, t1, t2, t3, t4, t5, t6, t7, t8, t9, t10, t11, t12, t13, t14, t15, t16, t17, t18, t19, t20, t21, t22, t23, t24, t25, t26, t27, t28, t29, t30, t31, t32, t33, t34, t35, t36, t37, t38, t39, t40, t41, t42, t43, t44, t45, t46, t47, t48, t49, t50, t51, t52, t53, t54, t55, t56, t57, t58, t59, t60, t61, t62, t63 over Cyclotomic Field of order 8 and degree 4
-    """
+    r"""
     global theta_rings
     for r in theta_rings:
         if r[0] == g and r[1] == den:
@@ -465,7 +465,7 @@ def theta_ring(g, den):
 
 
 def theta_ring_inclusion(g, den1, den2):
-    """
+    r"""
     Returns the natural map from theta_ring(g, den1) to theta_ring(g, den2)
     as a sequence to evaluate elements of theta_ring(g, den1) in.
     
@@ -475,14 +475,14 @@ def theta_ring_inclusion(g, den1, den2):
         sage: theta_ring_inclusion(2,2,4)
         [t0d4, t2d4, t8d4, t10d4, t32d4, t34d4, t40d4, t42d4, t128d4, t130d4, t136d4, t138d4, t160d4, t162d4, t168d4, t170d4]
 
-    """
+    r"""
     P = theta_ring(g, den2)[0]
     gens = P.gens()
     return [gens[c_to_num(num_to_c(i, g, den1), den2)] for i in range(den1**(2*g))]
 
 
 def c_to_num(c, den):
-    """
+    r"""
     Returns an integer from 0 to den^2g (exclusive), one unique
     number for each c in [0,1)^2g with den*c integral.
     
@@ -493,7 +493,7 @@ def c_to_num(c, den):
         sage: from recip import *
         sage: c_to_num(num_to_c(1234, g = 5, den = 7), den = 7)
         1234
-    """
+    r"""
     
     g = ZZ(len(c)/2)
     d = den*vector(c)
@@ -511,7 +511,7 @@ def c_to_num(c, den):
 
 
 def num_to_c(n, g, den):
-    """
+    r"""
     Inverse of c_to_num.
     
     For g = 2 and den = 2, this is Dupont's notation.
@@ -521,7 +521,7 @@ def num_to_c(n, g, den):
         sage: from recip import *
         sage: num_to_c(c_to_num([0,1/2,2/3,3/4,4/5,5/6],den=60), g=3, den=60)
         [0, 1/2, 2/3, 3/4, 4/5, 5/6]
-    """
+    r"""
     if not (n in ZZ and n >= 0 and n < den**(2*g)):
         raise ValueError( "n (=%s) is not an integer between 0 (inclusive) and den^(2g) for den=%s and g=%s" % (n, den, g))
     n = ZZ(n)
@@ -536,7 +536,7 @@ def num_to_c(n, g, den):
 
 
 def name_to_den(name):
-    """
+    r"""
     Given a string ending in "d?????", returns
     the integer with decimal expansion "?????".
     
@@ -546,7 +546,7 @@ def name_to_den(name):
         sage: name_to_den('t12d034')
         34
 
-    """
+    r"""
     i = name.find('d')
     if i < 0:
         return ZZ(2)
@@ -554,7 +554,7 @@ def name_to_den(name):
 
 
 def name_to_den_c(name, g):
-    """
+    r"""
     Given a string name = "t.....d?????", returns
     (den, num_to_c(.....), g, den))
     for den = ????? (both interpreted as decimal expansions.
@@ -565,7 +565,7 @@ def name_to_den_c(name, g):
         sage: name_to_den_c('t0123d45', 2)
         (45, [0, 0, 11/15, 2/45])
 
-    """
+    r"""
     if not name[0] == 't':
         raise ValueError( "string name (=%s) does not start with 't'" % name)
     i = name.find('d')
@@ -576,7 +576,7 @@ def name_to_den_c(name, g):
 
 
 def cycl_galois_action(alpha, amodb):
-    """
+    r"""
     For alpha in CyclotomicField(b), return alpha with zeta_b raised to the power a
     
     EXAMPLES::
@@ -596,7 +596,7 @@ def cycl_galois_action(alpha, amodb):
         ...
         TypeError: Cannot coerce zeta10 into Cyclotomic Field of order 6 and degree 2
 
-    """
+    r"""
     a = ZZ(amodb)
     b = amodb.modulus()
     C = CyclotomicField(b)
@@ -606,7 +606,7 @@ def cycl_galois_action(alpha, amodb):
 
 
 def cycl_galois_action_on_polynomials(x, amodb):
-    """
+    r"""
     On input a polynomial x and an element amodb of Zmod(b),
     return x where cycl_galois_action is aplied to each coefficient.
     
@@ -622,7 +622,7 @@ def cycl_galois_action_on_polynomials(x, amodb):
         True
         sage: cycl_galois_action_on_polynomials(x, Zmod(72)(3))
         (zeta72^9 + zeta72^6 + zeta72^3)*t1d6 + (2*zeta72^21 - 2*zeta72^9)*t3d6
-    """
+    r"""
     P = x.parent()
     return P(sum([cycl_galois_action(t[0], amodb)*t[1] for t in Sequence(x)]))
 
@@ -637,7 +637,7 @@ def my_sum(s):
 
 
 def ThetaModForm(x, g = None, den = None):
-    """
+    r"""
     Constructs a modular form given as a polynomial in theta series.
 
     EXAMPLES:
@@ -649,7 +649,7 @@ def ThetaModForm(x, g = None, den = None):
         t2 + t3 + t4 + t5 + t6
         sage: t.long_name()
         'th[0,0,0;0,1/2,0] + th[0,0,0;1/2,1/2,0] + th[0,0,0;0,0,1/2] + th[0,0,0;1/2,0,1/2] + th[0,0,0;0,1/2,1/2]'
-    """
+    r"""
     if type(x) == Theta_element_polynomial_ring:
         return x
     if x in ZZ and not (g is None or den is None):
@@ -706,7 +706,7 @@ def ThetaModForm(x, g = None, den = None):
         
 class Theta_element(Element):
     def orbit(self, M, group_elements=False):
-        """
+        r"""
         Returns the orbit of self under M.
         Note: see :meth:`__eq__`
         
@@ -726,7 +726,7 @@ class Theta_element(Element):
             sage: th0 = ThetaModForm(theta_ring(2,2)[0].gens()[0])
             sage: h4 = my_sum((th0^8).orbit(gens)); h4 # long time
             t0^8 + t1^8 + t2^8 + t3^8 + t4^8 + t6^8 + t8^8 + t9^8 + t12^8 + t15^8
-        """
+        r"""
         grp_elements_ret = [[]]
         grp_elements_nw = [[]]
         if not type(M) == list:
@@ -817,11 +817,11 @@ class ThetaSum(CommutativeRingElement, Theta_element):
         CommutativeRingElement.__init__(self, ThetaRing())
 
     def __call__(self, z, use_magma=False, prec=None):
-        """
+        r"""
         For z in H_g, returns self evaluated at z.
         
         WARNING: unreliable if z is not reduced
-        """
+        r"""
         return sum([sc*s(z, use_magma, prec) for (s, sc) in self._sequence])
 
     def _repr_(self, long=None):
@@ -845,7 +845,7 @@ class ThetaSum(CommutativeRingElement, Theta_element):
         r"""
         Let the symplectic matrix M act on self from the right.
         Or if M is an integer, raise to that power.
-        """
+        r"""
         if type(M) is Integer:
             return CommutativeRingElement.__pow__(self, M)
 #        for (s, cs) in self._sequence:
@@ -858,13 +858,13 @@ class ThetaSum(CommutativeRingElement, Theta_element):
         Check whether self and other are the same rational function
         in theta constants.
         This is not equivalent to being the same modular forms.
-        """
+        r"""
         return self._sequence == other._sequence
                
     def _mul_(self, other):
         r"""
         Return the product of self and other.
-        """
+        r"""
         s1 = self._sequence
         s2 = other._sequence
         ret = [(a*b,ca*cb) for (a,ca) in s1 for (b,cb) in s2]
@@ -915,10 +915,10 @@ class ThetaRing(CommutativeRing, UniqueRepresentation):
             return True
     
     def __call__(self, other):
-        """
+        r"""
         I'm probably not supposed to override this, but it wasn't working
         before
-        """
+        r"""
         return ThetaSum(other)
 
    
@@ -956,11 +956,11 @@ class ThetaProduct(MultiplicativeGroupElement, Theta_element):
         MultiplicativeGroupElement.__init__(self, parent=ThetaRing())
     
     def __call__(self, z, use_magma=False, prec=None):
-        """
+        r"""
         For z in H_g, returns self evaluated at z.
         
         WARNING: unreliable if z is not reduced
-        """
+        r"""
         g = self._g
         den = self._d
         if _is_numerical_complex_field(z.base_ring()):
@@ -1040,7 +1040,7 @@ class ThetaProduct(MultiplicativeGroupElement, Theta_element):
         r"""
         Let the symplectic matrix M act on self from the right.
         Or if M is an integer, raise to that power.
-        """
+        r"""
         if type(M) is Integer:
             return MonoidElement.__pow__(self, M)
         ret = []
@@ -1070,20 +1070,20 @@ class ThetaProduct(MultiplicativeGroupElement, Theta_element):
         r"""
         Check whether self and other are the same quotient of theta constants.
         I don't know whether this is equivalent to being the same modular forms.
-        """
+        r"""
         return self._sequence == other._sequence and                 self._unity    == other._unity
                
     def __eq__(self, other):
         r"""
         Check whether self and other are the same quotient of theta constants.
         I don't know whether this is equivalent to being the same modular forms.
-        """
+        r"""
         return self._sequence == other._sequence and                 self._unity    == other._unity
 
     def _mul_(self, other):
         r"""
         Return the product of self and other.
-        """
+        r"""
         ret = self._sequence + other._sequence
         ret.sort()
         for i in range(len(ret)-1):
@@ -1132,9 +1132,9 @@ class ThetaProduct(MultiplicativeGroupElement, Theta_element):
         return self._g
         
     def level(self):
-        """
+        r"""
         Returns a multiple of the level of this function
-        """
+        r"""
         if self._d is None:
             return ZZ(1)
         return self._d**2 * 2
@@ -1180,14 +1180,14 @@ class Theta_element_polynomial_ring(Theta_element):
         return self._call_code(z, use_magma=use_magma, prec=prec, interval=interval)
     
     def __call__(self, z, use_magma=False, prec=None, interval=False):
-        """
+        r"""
         For z in H_g, returns self evaluated at z.
         
         WARNING: unreliable if z is not reduced
         
         Note: there exist faster methods for such evaluations, see the work
         of Dupont and Labrande. This does not use the fast methods.  
-        """
+        r"""
 #        if z.is_mutable():
 #            return self._call_code(z, use_magma=use_magma, prec=prec, interval=interval)
         return self._cached_call(z, use_magma=use_magma, prec=prec, interval=interval)
@@ -1224,7 +1224,7 @@ class Theta_element_polynomial_ring(Theta_element):
         return num_ret / den_ret
         
     def __pow__(self, M):
-        """
+        r"""
         For M an integer, simply raise self to the power M.
         
         For M in Sp_2g(ZZ), returns Z |--> kappa(M)^(-2k) * det(CZ+D)^-k self(M(Z)),
@@ -1257,7 +1257,7 @@ class Theta_element_polynomial_ring(Theta_element):
             sage: Z.set_immutable()
             sage: y(Z)
             -0.698161258723300 + 0.420013875983267*I
-        """
+        r"""
         den = self._den
         g = self._g
         if isinstance(M, sage.rings.finite_rings.integer_mod.IntegerMod_int):
@@ -1289,13 +1289,13 @@ class Theta_element_polynomial_ring(Theta_element):
             return self.__pow__(GSp_element(M))
         
     def __eq__(self, right):
-        """
+        r"""
         Returns True if and only if self is equal to right
         as a rational function in the theta functions.
         
         Note that this may return False even if self and right
         are equal as functions on H_g.
-        """
+        r"""
         g = self._g
         den = self._den
         P, eval, R = theta_ring(g, den)
@@ -1333,9 +1333,9 @@ class Theta_element_polynomial_ring(Theta_element):
         return str(self._num_pol / self._den_pol).replace("d", "_")
         
     def change_den(self, den):
-        """
+        r"""
         Returns a representation of self with denominator den
-        """
+        r"""
         if den == self._den:
             return self
         if get_verbose() > 1:
@@ -1390,10 +1390,10 @@ class Theta_element_polynomial_ring(Theta_element):
     __invert__ = __inv__
     
     def is_fixed_by(self, M):
-        """
+        r"""
         Returns the orbit of self under M.
         Note: see __eq__
-        """
+        r"""
         if not type(M) == list:
             M = [M]
         for A in M:
@@ -1405,13 +1405,13 @@ class Theta_element_polynomial_ring(Theta_element):
         return self._num_pol / self._den_pol
     
     def is_power_of_theta(self, data=False):
-        """
+        r"""
         Returns true if and only if self is a constant times
         a positive power of a non-zero theta constant.
         
         If data is True, then also output a triple (a, n, e)
         such that self = a*theta_n^e.
-        """
+        r"""
         l = list(self._num_pol)
         if not (self._den_pol.is_constant() and len(l) == 1):
             if data:
@@ -1438,7 +1438,7 @@ class Theta_element_polynomial_ring(Theta_element):
         return True
         
     def multiplication_formula(self, n):
-        """
+        r"""
         Gives Z |-> self(nZ)
         
         EXAMPLES::
@@ -1461,7 +1461,7 @@ class Theta_element_polynomial_ring(Theta_element):
             t0^2*t1^2*t2^2*t3^2*t4^2*t6^2*t8^2*t9^2*t12^2*t15^2
             sage: q = i.multiplication_formula(2)/i
 
-        """
+        r"""
         if n != 2:
             raise NotImplementedError( "Sorry, multiplication formula only implemented for n=2 (i.e. duplication formula)")
         if self._den != 2:
@@ -1474,7 +1474,7 @@ _dup_data_cache = []
 
 
 def dup_data(g):
-    """
+    r"""
     Writes out the duplication formula on pages 129 and 130 of Dupont's thesis.
     
     EXAMPLES::
@@ -1491,7 +1491,7 @@ def dup_data(g):
         0.864595401455589 - 0.0220695738100845*I
         sage: [abs(1-ThetaModForm(dup_data(2)[i])(N) / ThetaModForm(P.gens()[i])(M)^2)<10^-10 for i in [0,1,2,3,4,6,8,9,12,15]] # long time
         [True, True, True, True, True, True, True, True, True, True]
-    """
+    r"""
     global _dup_data_cache
     for a in _dup_data_cache:
         if a[0] == g:
@@ -1521,7 +1521,7 @@ def dup_data(g):
 
         
 def dup_formula(pol, g):
-    """
+    r"""
     Applies the duplication formula on pages 129 and 130 of Dupont's thesis.
     
     EXAMPLES::
@@ -1537,7 +1537,7 @@ def dup_formula(pol, g):
         1.14954909189867 + 0.0102975011948174*I
         sage: ThetaModForm(t)(M)
         1.14954909189867 + 0.0102975011948173*I
-    """
+    r"""
     pol = list(pol)
     ret = 0
     dup_dat = dup_data(g)
@@ -1557,7 +1557,7 @@ def dup_formula(pol, g):
 Theta = ThetaProduct
 
 def even_theta_characteristics(dupont=False):
-    """
+    r"""
     Returns the even theta characteristics.
     If ``dupont`` is True returns numbers in Dupont's
     notation instead of theta characteristics.
@@ -1568,7 +1568,7 @@ def even_theta_characteristics(dupont=False):
         sage: even_theta_characteristics()
         [[0, 0, 0, 0], [0, 0, 1/2, 0], [0, 0, 0, 1/2], [0, 0, 1/2, 1/2], [1/2, 0, 0, 0], [1/2, 0, 0, 1/2], [0, 1/2, 0, 0], [0, 1/2, 1/2, 0], [1/2, 1/2, 0, 0], [1/2, 1/2, 1/2, 1/2]]
 
-    """
+    r"""
     ns = [0, 1, 2, 3, 4, 6, 8, 9, 12, 15]
     if dupont:
         return ns

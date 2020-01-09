@@ -377,10 +377,10 @@ contain a square root of 2.
 
 
 def cosets_of_GammaN_iter(p):
-    """
+    r"""
     Returns exactly one representative of every left coset of Gamma_0(N)
     in Sp_4(ZZ).
-    """
+    r"""
     if not p.is_prime():
         raise ValueError()
     F = srange(p)
@@ -396,10 +396,10 @@ def cosets_of_GammaN_iter(p):
 
 
 def nn_isogenous_matrices_iter(Z, p):
-    """
+    r"""
     Returns all Sp_4(ZZ)-classes of period matrices that are (p,p)-isogenous to
     Z.
-    """
+    r"""
     for M in cosets_of_GammaN_iter(p):
 #        print(".")
 #        sys.stdout.flush()
@@ -407,29 +407,29 @@ def nn_isogenous_matrices_iter(Z, p):
 
 
 def nn_isogenous_matrices_iter2(Z, p):
-    """
+    r"""
     Returns all Sp_4(ZZ)-classes of period matrices that are (p,p)-isogenous to
     Z.
-    """
+    r"""
     for M in cosets_of_GammaN_iter(p):
 #        print(".")
 #        sys.stdout.flush()
         yield _reduce(Sp_action(M.matrix(), Z)*p)[0]
 
 def count_nn_endomorphisms(Z, p):
-    """
+    r"""
     Gives a lower bound (hopefully tight) on the number of (p,p)-endomorphisms
     for the input prime p.
-    """
+    r"""
     return len([V for V in nn_isogenous_matrices_iter2(Z, p) if V == Z])
 
 def is_polarized_product(Z, info=False, reduce=True):
-    """
+    r"""
     Returns True or False. If True, then we know Z is a polarized product
     of CM elliptic curves. If False, then likely it is not (no proof!).
     If info is True, then returns information on the elliptic curves.
     If reduce is True, then reduce first (use reduce=False if already reduced).
-    """
+    r"""
     if reduce:
         Z = Z.reduce()
     if Z[0][1] != 0 or Z[1][0] != 0:
@@ -445,11 +445,11 @@ def is_polarized_product(Z, info=False, reduce=True):
 
 
 def recognize_matrix(Z, bound=2):
-    """
+    r"""
     Tries to write Z as a polarized product of CM elliptic curves.
     If that fails, tries this for all (p,p)-isogenous varieties
     for p below the given bound.
-    """
+    r"""
     for p in [1] + prime_range(bound):
         for V in [Z] if p == 1 else nn_isogenous_matrices_iter(Z, p):
             b, i = is_polarized_product(V, info=True, reduce=False)
@@ -459,12 +459,12 @@ def recognize_matrix(Z, bound=2):
 
 
 def recognize_all_from_article(bound=2, print_results=False):
-    """
+    r"""
     Returns a list of pairs ((a1,a2),l).
     Here a1, a2 runs over the numbers a1 and a2 from the article, and each
     l is itself a list.
     The elements of l are triples (Z, o0, o1), where the Z are period matrices.
-    """
+    r"""
     X = polygen(QQ)
     a1a2list = [(0,-7), (0,-6), (0,-5), (1,-5), (0,-3), (0,-2), (2,-2), (3,1)]
     ret = []
@@ -518,10 +518,10 @@ def j_from_Cab(a, b):
 
 
 def ideal_power(I, n):
-    """
+    r"""
     Returns I^n if I is principal.
     (because I**n is too slow in Sage 5.4.1)
-    """
+    r"""
     return I.number_field().ideal(I.gens_reduced()[0]**n)
 
 
@@ -545,13 +545,13 @@ def reduce_ic(ic):
 
 
 def humbert8():
-    """
+    r"""
     Gives an equation for the Humbert surface of discriminant 8, due to
     David Gruenewald.
     
     See also http://echidna.maths.usyd.edu.au/~davidg/thesis.html
     which contains this surface with respect to other invariants.
-    """
+    r"""
     P.<i1,i2,i3> = QQ[]
     return (-12008187649867604184*i1^10 + 46966009581837720*i1^9*i2^2 -
     281796057491026320*i1^9*i2*i3 + 74323144140993953726400*i1^9*i2 +

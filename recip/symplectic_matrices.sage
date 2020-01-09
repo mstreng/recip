@@ -35,7 +35,7 @@ from sage.structure.element import is_Matrix
 
 
 def diag(a):
-    """
+    r"""
     Given a square matrix a, returns the list of diagonal entries of a.
 
     EXAMPLES::
@@ -44,18 +44,18 @@ def diag(a):
         sage: g = Matrix(Zmod(8),[(5,0,7,1),(6,6,0,7),(1,2,2,3),(2,3,5,4)])
         sage: diag(g)
         [5, 6, 2, 4]
-    """
+    r"""
     n = a.ncols()
     assert n == a.nrows()
     return [a[k,k] for k in range(n)]
 
 
 def matrix_from_blocks(A, B, C, D):
-    """
+    r"""
     Given matrices A,B,C,D, returns a single matrix
     ( A B )
     ( C D )
-    """
+    r"""
     m1 = A.nrows()
     m2 = C.nrows()
     if not m1 == B.nrows():
@@ -70,33 +70,33 @@ def matrix_from_blocks(A, B, C, D):
 
 
 def zero_matrix(m, n = None, base_ring = ZZ):
-    """
+    r"""
     Returns the m x n matrix with all zero coefficients over base_ring.
 
     If n is unspecified, then n=m,
     if base_ring is unspecified, then base_ring = ZZ.
-    """
+    r"""
     if n == None:
         n = m
     return Matrix([[base_ring(0) for j in range(n)] for i in range(m)])
 
     
 def Omega(g):
-    """
+    r"""
     Returns the 2g x 2g matrix given in terms of gxg blocks as
     ((0, -1) (1, 0))
-    """
+    r"""
     one = identity_matrix(g)
     zero = zero_matrix(g, g)
     return matrix_from_blocks(zero, -one, one, zero)
 
     
 def nu(m):
-    """
+    r"""
     Given a 2g x 2g matrix m, returns a scalar nu such that
     m.transpose() * Omega(g) * m = nu * Omega(g) if it exists.
     Otherwise returns None.
-    """
+    r"""
     g = ZZ(m.ncols()/2)
     if 2*g != m.nrows():
         raise ValueError( "Non-square matrix in nu: %s" % m)
@@ -108,14 +108,14 @@ def nu(m):
 
 
 def ABCD(M, m = None, n = None):
-    """
+    r"""
     Returns matrices A, B, C, D such that M equals
     ( A B )
     ( C D )
     and A is mxn.
     If m (resp. n) is not specified, then it is half the number
     of rows (resp. columns) of M.
-    """
+    r"""
     if m == None:
         m = M.nrows()
         if m % 2 == 1:
@@ -135,10 +135,10 @@ def ABCD(M, m = None, n = None):
 
 
 def Zmod_to_SL(a):
-    """
+    r"""
     Given a in (ZZ/mu*ZZ)^*, outputs A in SL_2(ZZ) with
     A = ((a 0) (0 a^-1)) mod mu
-    """
+    r"""
     mu = a.parent().order()
     if not a.parent() == Zmod(mu):
         raise ValueError( "a (=%s) not in ZZ/muZZ for mu = a.parent()."                            "order() = %s" % (a, mu))
@@ -153,7 +153,7 @@ def Zmod_to_SL(a):
 
 
 class Sp_group:
-    """
+    r"""
     The group Sp(n, R) for R = Zmod(m).
     
     EXAMPLES::
@@ -163,7 +163,7 @@ class Sp_group:
         sage: len(l) # depends on previous line with long time
         720
 
-    """
+    r"""
     _n = None
     _m = None
     _gens = None
@@ -182,7 +182,7 @@ class Sp_group:
         self._elements_known = [id]
         
     def list(self):
-        """
+        r"""
         Returns a list of all elements of self. Slow!
         
         This uses that Sp_2n(ZZ) maps surjectively to Sp_2n(ZZ/mZZ),
@@ -197,7 +197,7 @@ class Sp_group:
             [0 1], [1 0], [0 1], [1 0], [1 1], [1 1]
             ]
 
-        """
+        r"""
         elements_not_exhausted = self._elements_not_exhausted
         gens = self._gens
         elements_known = self._elements_known
@@ -213,7 +213,7 @@ class Sp_group:
         return elements_known
         
     def order(self):
-        """
+        r"""
         Returns the order of self. Way too slow!!
         
         EXAMPLES::
@@ -221,12 +221,12 @@ class Sp_group:
             sage: from recip import *
             sage: Sp_group(2, 5).order()
             120
-        """
+        r"""
         return len(self.list())
             
 
 class GSp_group:
-    """
+    r"""
     The group GSp(n, R) for R = Zmod(m).
     
     EXAMPLES::
@@ -236,7 +236,7 @@ class GSp_group:
         sage: len(l) # long time
         720
 
-    """
+    r"""
     _n = None
     _m = None
     _S = None
@@ -247,7 +247,7 @@ class GSp_group:
         self._S = Sp_group(n, m)
         
     def list(self):
-        """
+        r"""
         Returns a list of all elements of self. Slow!
         
         EXAMPLES::
@@ -264,7 +264,7 @@ class GSp_group:
             [1 0]            , [1 1]            , [1 1]            
             ]
 
-        """
+        r"""
         ret = []
         m = self._m
         for a in Zmod(m):
@@ -274,7 +274,7 @@ class GSp_group:
         return ret
         
     def order(self):
-        """
+        r"""
         Returns the order of self. Way too slow!!
         
         EXAMPLES::
@@ -282,25 +282,25 @@ class GSp_group:
             sage: from recip import *
             sage: GSp_group(2, 5).order() # long time, 1 second
             480
-        """
+        r"""
         return len(self.list())
 
 
 class GSp_element:
-    """
+    r"""
     A matrix
         M = iota(nu^-1) * S
     where iota(t) = diag(1,1,...,1,t^-1,t^-1,...,t^-1) and S is in Sp_{2g}
     It acts from the right on theta_ring, where iota(t) acts as t on
     coefficients, and S acts via the usual action.
-    """
+    r"""
     _matrix = None
     _Sp_part = None
     _nu = None
     _g = None
 
     def __init__(self, arg1, arg2 = None, ring = None):
-        """
+        r"""
         INPUT:
         
          - `ring` a ring or None (to derive the ring from `arg1`
@@ -309,7 +309,7 @@ class GSp_element:
          
          - `arg1` an Sp-matrix and `arg2` an element of the unit group of `ring`
          
-        """
+        r"""
         if not is_Matrix(arg1):
             arg1 = Matrix(arg1, ring = ring)
         elif ring != None:
@@ -374,7 +374,7 @@ class GSp_element:
 
     @cached_method
     def action_on_theta_generators(self, den):
-        """
+        r"""
         Returns a sequence L such that L[i] is the image of the i-th generator
         of the theta ring under self.
         
@@ -389,7 +389,7 @@ class GSp_element:
             [2 2 0 3]
             sage: M.action_on_theta_generators(2)
             [t0, t1, (zeta8^2)*t2, (-zeta8^2)*t3, (-zeta8^2)*t4, (-zeta8^2)*t5, t6, -t7, t8, t9, (zeta8^2)*t10, (-zeta8^2)*t11, (zeta8^2)*t12, (zeta8^2)*t13, -t14, t15]
-        """
+        r"""
         g = self._g
         M = self.matrix()
         B = M.base_ring()
@@ -412,31 +412,31 @@ class GSp_element:
         return self.matrix().parent()
 
     def __pow__(self, n):
-        """
+        r"""
         Return self to the power n
-        """
+        r"""
         return GSp_element(self.matrix().__pow__(n))
 
     def __eq__(self, rhs):
-        """
+        r"""
         Returns True if self equals rhs as a matrix, and False otherwise.
-        """
+        r"""
         return self._matrix_() == rhs._matrix_(rhs.base_ring())
 
     def __mul__(self, rhs):
-        """
+        r"""
         Returns the product self * rhs.
-        """
+        r"""
         return GSp_element(self._matrix_() * rhs._matrix_(rhs.base_ring()))
 
     def base_ring(self):
-        """
+        r"""
         Returns the base ring of self.
-        """
+        r"""
         return self._matrix_().base_ring()
         
     def transpose(self):
-        """
+        r"""
         Returns the transpose of self.
         
         EXAMPLE::
@@ -450,17 +450,17 @@ class GSp_element:
             [ 1  4  2  1]
             [ 1 -5  1 -1]
 
-        """
+        r"""
         return GSp_element(self._matrix_().transpose())
 
 
 def symplectic_generators(g, subgroup=None, level=None):
-    """
+    r"""
     Returns a set of generators of Sp_2g(ZZ)
     
     WARNING: I doubt the correctness of this function, I don't get all the
     invariants that I expected to get.
-    """
+    r"""
     if g == 1:
         return [GSp_element(Matrix([[0,1],[-1,0]])),
                 GSp_element(Matrix([[1,1],[0,1]]))]
@@ -501,11 +501,11 @@ def symplectic_generators(g, subgroup=None, level=None):
 
 
 def group_generators_to_list(gens, G = None):
-    """
+    r"""
     Given a finite list `gens` of elements of a group `G`,
     assuming `gens` generates a finite subgroup `H` of `G`,
     returns a list of all elements of `H`.
-    """
+    r"""
     if G != None:
         unit_element = G.one()
     else:
@@ -528,7 +528,7 @@ def group_generators_to_list(gens, G = None):
 
 
 def minimal_generating_subset(gens, G=None, order=None, k=0):
-    """
+    r"""
     Given a finite list `gens` of elements of a group `G`,
     assuming `gens` generates a finite subgroup `H` of `G`,
     returns a minimal subset `s` of `gens` that generates `H`.
@@ -537,7 +537,7 @@ def minimal_generating_subset(gens, G=None, order=None, k=0):
     not be the smallest such subset.
 
     `order` is the order of `H`, and `s` must gens[:k]
-    """
+    r"""
     if G == None:
         G = gens[0].parent()
     if order == None:
@@ -550,7 +550,7 @@ def minimal_generating_subset(gens, G=None, order=None, k=0):
     
 
 def random_symplectic_matrix(g, n, subgroup=None, level=None):
-    """
+    r"""
     Returns the product of n random elements of symplectic_generators(g)
     and inverses of such.
     
@@ -568,7 +568,7 @@ def random_symplectic_matrix(g, n, subgroup=None, level=None):
         sage: is_symplectic(M.matrix())
         True
 
-    """
+    r"""
     gens = symplectic_generators(g, subgroup, level)
     gens = gens + [a**-1 for a in gens]
     ret = GSp_element(identity_matrix(2*g))

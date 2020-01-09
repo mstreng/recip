@@ -32,7 +32,7 @@ This file computes proven Igusa class polynomials.
 
 def class_polynomials(K, factor=False, prec=None, D=None,
                       verbose=False):
-    """
+    r"""
     Returns the Igusa class polynomials of K
     (proven!).
     
@@ -104,7 +104,7 @@ def class_polynomials(K, factor=False, prec=None, D=None,
         Denominator: 3^3 * 41^4 out of 2^14 * 3^8 * 5^4 * 41^4
         [x - 88833024/1681, -14055214415872/76295547, 9663676416000000/2825761]
 
-    """
+    r"""
     if factor:
         raise NotImplementedError( "factor=True not yet implemented")
     Zs = list(K.period_matrices_iter())

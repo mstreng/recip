@@ -38,7 +38,7 @@ Main functions:
 """
 
 def igusa_modular_forms_to_absolute(i):
-    """
+    r"""
     Converts igusa modular forms to absolute Igusa invariants.
     
     INPUT:
@@ -56,7 +56,7 @@ def igusa_modular_forms_to_absolute(i):
         sage: from recip import *
         sage: igusa_modular_forms_to_absolute([1,2,3,4])
         [2/3, 4/9, 1/9]
-    """
+    r"""
     [I4, I6prime, I10, h12] = i
     I2 = h12/I10
     i1 = I4*I6prime/I10
@@ -66,7 +66,7 @@ def igusa_modular_forms_to_absolute(i):
 
 
 def igusa_homogeneous_to_absolute(i, prime=True):
-    """
+    r"""
     Given a list a list [I2, I4, I6', I10] or [I2, I4, I6, I10] (depending on
     whether prime is True), returns the list
     [h4*h6/h10, h12*h4^2/h10^2, h4^5/h10^2]
@@ -99,7 +99,7 @@ def igusa_homogeneous_to_absolute(i, prime=True):
         sage: l = [0,0,1]
         sage: igusa_homogeneous_to_absolute(igusa_absolute_to_homogeneous(l))
         [0, 0, 1]
-    """
+    r"""
     if prime:
         [I2, I4, I6prime, I10] = i
     else:
@@ -110,12 +110,12 @@ def igusa_homogeneous_to_absolute(i, prime=True):
     
 
 def igusa_absolute_to_homogeneous(i, prime=True):
-    """
+    r"""
     Given a list [h4*h6/h10, h12*h4^2/h10^2, h4^5/h10^2]
     = [I4*I6'/I10, I2*I4^2/I10, I4^5/I10^2], returns
     a list [I2, I4, I6', I10] or [I2, I4, I6, I10] (depending on whether
     prime is True, and uniquely determined only up to weighted scaling).
-    """
+    r"""
     [i1, i2, i3] = i
     if i3 == 0:
         if not (i1 == 0 and i2 == 0):
@@ -132,7 +132,7 @@ def igusa_absolute_to_homogeneous(i, prime=True):
     return [I2, I4, I6, I10]
 
 def igusa_invariants_absolute():
-    """
+    r"""
     Returns the absolute Igusa invariants according to
     the choices made in the author's thesis.
     
@@ -149,11 +149,11 @@ def igusa_invariants_absolute():
         sage: invs = igusa_invariants_absolute() # long time
         sage: len(invs) # long time
         3
-    """
+    r"""
     return igusa_modular_forms_to_absolute(igusa_modular_forms())
 
 def igusa_modular_forms():
-    """
+    r"""
     Returns the homogeneous Igusa invariants h4=I4, h6=I6', h10=I10, h12=I10*I2.
 
     EXAMPLES:
@@ -170,7 +170,7 @@ def igusa_modular_forms():
         sage: h12 = my_sum(ThetaModForm((th[4]*th[6]*th[8]*th[9]*th[12]*th[15])**4).orbit(gens)) # long time
         sage: igusa_modular_forms() == [h4, h6, h10, h12] # long time
         True
-    """
+    r"""
     gens = symplectic_generators(2)
     th = theta_ring(2,2)[0].gens()
     h4 = ThetaModForm(sum([th[i]**8 for i in [0,1,2,3,4,6,8,9,12,15]]))
@@ -191,7 +191,7 @@ def igusa_modular_forms():
     
 
 def rosenhain_invariants(g):
-    """
+    r"""
     Returns a (2g-1)-tuple of Rosenhain invariants e_1,...,e_{2g-1}.
     
     For g<=2, if the e_i(tau) are distinct from each other and from 0,1,inty,
@@ -207,7 +207,7 @@ def rosenhain_invariants(g):
         Traceback (most recent call last):
         ...
         NotImplementedError: Sorry, Rosenhain invariants currently only implemented for g=2
-    """
+    r"""
     if g!=2:
         raise NotImplementedError( "Sorry, Rosenhain invariants currently only implemented for g=2")
     t1 = ThetaModForm([0,0,0,0], den=2, g=2)
@@ -222,7 +222,7 @@ def rosenhain_invariants(g):
     return [e1,e2,e3]
     
 def h6_thesis():
-    """
+    r"""
     Reconstructs h6 from the formula in the author's thesis.
     For verification of the thesis and testing of the code only.
     
@@ -231,7 +231,7 @@ def h6_thesis():
         sage: from recip import *
         sage: h6_thesis() == igusa_modular_forms()[1]
         True
-    """
+    r"""
     C = cartesian_product_iterator([[0,1/2] for i in range(4)])
     T = [vector(c) for c in C if ZZ(4*(c[0]*c[2]+c[1]*c[3])) % 2 == 0]
     Z = [C for C in subsets(T) if len(C) == 3 and 1/2 *(2*sum(C) % 2) in T and not 1/2*(2*sum(C) % 2) in C]
