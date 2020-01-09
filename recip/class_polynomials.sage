@@ -114,7 +114,7 @@ def class_polynomials(K, factor=False, prec=None, D=None,
     elif type(D) is str:
         D = denominator_bound(K, bound=D)
     elif not D in ZZ:
-        raise ValueError
+        raise ValueError()
     else:
         D = ZZ(D)
         

@@ -477,7 +477,7 @@ def ideal_index(B, A, check_included=True):
     the output is the quotient of the indices in B+A.
     """
     if check_included and not ideal_contains(B, A):
-        raise ValueError
+        raise ValueError()
     return abs(Matrix([a.list() for a in A]).determinant() / Matrix([b.list() for b in B]).determinant())
 
 
@@ -579,7 +579,7 @@ def intersect_ideals(basis1, basis2, K):
     basis2 = [K(b).list() for b in basis2]
     n = K.degree()
     if len(basis1) != n or len(basis2) != n:
-        raise ValueError
+        raise ValueError()
     ideal1 = span(basis1, ZZ)
     ideal2 = span(basis2, ZZ)
     ideal = ideal1.intersection(ideal2)
@@ -850,7 +850,7 @@ def ideal_is_invertible(basis, K=None, O=None):
     if O is None:
         O = ideal_order(basis, K)
     elif O.number_field() != K:
-        raise ValueError
+        raise ValueError()
     Iinv = ideal_inverse(basis, K, O)
     A = mult_ideals(basis, Iinv, K)
     return ideals_equal(A, O.basis(), K)
@@ -989,7 +989,7 @@ def are_nn_isogenous(Z1, Z2, n, F1, F2, transformation=False, double_check=False
     #
     # We list all candidates alpha and check them. So suppose alpha is as above.
     if not is_squarefree(n):
-        raise NotImplementedError
+        raise NotImplementedError()
     rel_norm_alpha = Z1.xi()/Z2.xi()/n # alpha*alphabar as an element of K
     K = Z1.CM_field()
     cc = K.complex_conjugation()
@@ -1146,7 +1146,7 @@ def is_trivial_in_shimura_group(A, alpha, O, cc=None):
     """
     K = O.number_field()
     if K.degree() != 4:
-        raise NotImplementedError
+        raise NotImplementedError()
     OK = K.maximal_order()
     if gcd(O.index_in(OK), A.norm()) != 1:
         raise ValueError( "A is not coprime to F")
@@ -1155,7 +1155,7 @@ def is_trivial_in_shimura_group(A, alpha, O, cc=None):
     if not all([cc(b) in O for b in O.basis()]):
         raise ValueError( "Order is not stable under complex conjugation")
     if not A*cc(A) == K.ideal(alpha):
-        raise ValueError
+        raise ValueError()
     if not cc(alpha) == alpha:
         raise ValueError( "alpha not totally positive")
     if not all([b>0 for b in alpha.minpoly(polygen(QQ)).roots(AA, multiplicities=False)]):
@@ -1177,7 +1177,7 @@ def is_trivial_in_shimura_group(A, alpha, O, cc=None):
         return False
     u0 = u0sq.sqrt()
     if len(K.roots_of_unity())>2:
-        raise NotImplementedError
+        raise NotImplementedError()
     else:
         # z = +/- 1, and is only relevant up to sign, so u=u0*z=u0
         u = u0

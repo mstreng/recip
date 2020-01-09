@@ -1172,10 +1172,10 @@ def CM_Type(embeddings, reflex_field=None, reflex_to_codomain=None, check=True):
     if is_NumberFieldElement(embeddings):
         xi = embeddings
         if not reflex_field is None:
-            raise ValueError
+            raise ValueError()
         if xi.parent().g() > 2:
             if not reflex_to_codomain is None:
-                raise ValueError
+                raise ValueError()
             return CM_Type_xi(xi)
         codomain = reflex_to_codomain
         # TODO: direct implementation for CM_Type_quartic
@@ -1355,7 +1355,7 @@ class CM_Type_xi(CM_Type_base):
         return self.domain().g()
 
     def g_reflex(self):
-        raise NotImplementedError
+        raise NotImplementedError()
 
     def reflex_field(self):
         """
@@ -1408,7 +1408,7 @@ class CM_Type_xi(CM_Type_base):
             sage: Phi == Psi.reflex()
             True
         """
-        raise NotImplementedError
+        raise NotImplementedError()
     
     def __eq__(self, other):
         """
@@ -1452,7 +1452,7 @@ class CM_Type_xi(CM_Type_base):
             sage: Phi.type_norm(K.gen())
             1/2*alphar^2 + 15/2
         """
-        raise NotImplementedError
+        raise NotImplementedError()
 
     def _repr_(self):
         """
@@ -1828,7 +1828,7 @@ class CM_Type_embeddings(CM_Type_base):
             Cemb = C.embedding()
             C = Cemb.codomain()
             if not (C is CLF or is_ComplexField(C) or is_ComplexIntervalField(C) or C is QQbar):
-                raise RuntimeError
+                raise RuntimeError()
         return all([(Cemb(phi(xi))/C.gen()) > 0 for phi in self])
 
 
@@ -2077,7 +2077,7 @@ class CM_Type_quartic(CM_Type_embeddings):
         self._DAB_reflex = DAB_reflex
         if not reflex_field is None:
             if reflex_field.DAB() != DAB_reflex:
-                raise NotImplementedError
+                raise NotImplementedError()
         else:
             name = domain._names[0]
             embedding = 2*RLF(B).sqrt() # embedding of 2sqrt(B)
@@ -2141,7 +2141,7 @@ class CM_Type_quartic(CM_Type_embeddings):
         """
         ret = self.reflex_field().embedding()
         if ret is None:
-            raise NotImplementedError
+            raise NotImplementedError()
         return ret
 
     def _compute_reflex(self):
@@ -2238,7 +2238,7 @@ class CM_Type_quartic(CM_Type_embeddings):
             
         """
         if not reflex:
-            raise NotImplementedError
+            raise NotImplementedError()
         
         [a0,a1,a2,a3] = self._domain.coerce(x).list()
                     

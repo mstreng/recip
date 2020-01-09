@@ -370,7 +370,7 @@ def minimal_order_cl_nr_one_F(Phi, F=None, output_type='order', Ostart=None):
 
     if F is None:
         if Ostart is None:
-            raise ValueError
+            raise ValueError()
         F = Ostart.index_in(OK)
 
     gens = CM_type_to_mus(Phi, F)
@@ -438,7 +438,7 @@ def _order_mod(a, I):
     for i in range(1, I.norm()):
         if a^i-1 in I:
             return i
-    raise RuntimeError
+    raise RuntimeError()
 
     
 def _primes_of_interest(K):

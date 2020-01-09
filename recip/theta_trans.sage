@@ -751,7 +751,7 @@ class Theta_element(Element):
         if group_elements == False:
             return ret
         if len(grp_elements_ret) != len(ret):
-            raise RuntimeError
+            raise RuntimeError()
         if group_elements == "list":
             return ret, grp_elements_ret
         raise NotIMplementedError
@@ -808,11 +808,11 @@ class ThetaSum(CommutativeRingElement, Theta_element):
             if weight is None:
                 weight = s.weight()
             elif weight != s.weight():
-                raise ValueError
+                raise ValueError()
             if g is None:
                 g = s.g()
             elif g != s.g():
-                raise ValueError
+                raise ValueError()
             level = lcm(level, s.level())
         CommutativeRingElement.__init__(self, ThetaRing())
 
@@ -850,7 +850,7 @@ class ThetaSum(CommutativeRingElement, Theta_element):
             return CommutativeRingElement.__pow__(self, M)
 #        for (s, cs) in self._sequence:
 #            if not cs in QQ:
-#                raise NotImplementedError
+#                raise NotImplementedError()
         return ThetaSum([(s**M,cycl_galois_action(cs, M.nu())) for (s, cs) in self._sequence])
     
     def _eq_(self, other):
@@ -877,7 +877,7 @@ class ThetaSum(CommutativeRingElement, Theta_element):
         return ThetaSum(self._sequence + other._sequence)
 
     def _invert_(self):
-        raise NotImplementedError
+        raise NotImplementedError()
 
     def _div_(self, other):
         return self._mul_(other._invert_())
@@ -993,7 +993,7 @@ class ThetaProduct(MultiplicativeGroupElement, Theta_element):
             elif unity == 3/4:
                 ret = "-i*"
             else:
-                raise RuntimeError
+                raise RuntimeError()
         else:
             n = unity.numerator()
             if 2*n < d:
@@ -1262,7 +1262,7 @@ class Theta_element_polynomial_ring(Theta_element):
         g = self._g
         if isinstance(M, sage.rings.finite_rings.integer_mod.IntegerMod_int):
             if not M in Zmod(LCM(2*den**2, 8)):
-                raise ValueError
+                raise ValueError()
             M = Zmod(LCM(2*den**2, 8))(M)
             return ThetaModForm(cycl_galois_action_on_polynomials(self._num_pol, M)/
                                 cycl_galois_action_on_polynomials(self._den_pol, M), g, den)

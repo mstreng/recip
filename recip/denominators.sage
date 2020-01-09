@@ -173,7 +173,7 @@ def denominator_bound(K, c=2**14, k=2, d=None, Phi=None, bound='default', check=
         if Phi is None and not K.is_galois():
             d = d * 2
     if not Phi is None:
-        raise NotImplementedError
+        raise NotImplementedError()
     if bound == 'default':
         if bruinier_yang_applies(K):
             bound = 'by'
@@ -592,7 +592,7 @@ def goren_lauter_bound(K, Phi=None):
     Fourier coefficients.
     """
     if not Phi is None:
-        raise NotImplementedError
+        raise NotImplementedError()
     gal = K.is_galois()
     prime_powers = []
     [D,A,B] = DAB_to_minimal(K.DAB())
@@ -990,7 +990,7 @@ def calJ_conjecture(d1, d2, t, l):
     f1 = conductor(d1)
     f2 = conductor(d2)
     if not (d1 < 0 and d2 < 0):
-        raise ValueError
+        raise ValueError()
     m = ZZ((d1*d2-(d1*d2-2*t)^2)/4)
     if m%2 == 0 and l > 2:
         return None
@@ -1078,7 +1078,7 @@ def calJ_bound_thm24(n, delta, Dtilde, d_u, f_u, d_x, t, l, D, safe=True):
             if not extra_factor1*extra_factor2 == 2**len([p for p in gcd(ZZ(N*f_u**-2), ZZ(d_u*f_u**-2)).prime_divisors() if p != l]):
                 print "Problem with [LV, Remark 2.5], l=%s, factor1=%s, factor2=%s*%s, product should be 2^%s, sets are %s and %s, d_u=%s, f_u=%s, s_0=%s, s_1=%s, N=%s" % (l, extra_factor1.factor(), rhotilde(d_u*f_u**-2,t,d_x,l,part=1), rhotilde(d_u*f_u**-2,t,d_x,l,part=2), len([p for p in gcd(ZZ(N*f_u**-2), ZZ(d_u*f_u**-2)).prime_divisors() if p != l]) , [p for p in ZZ(d_u*f_u**-2).prime_divisors() if p != 2 and p != l and t.valuation(p) >= (d_u*f_u**-2).valuation(p)], [p for p in gcd(ZZ(N*f_u**-2), ZZ(d_u*f_u**-2)).prime_divisors() if p != l], d_u, f_u, t, d_x, N)
                 if l != 2:
-                    raise RuntimeError
+                    raise RuntimeError()
                 else:
                     pass
             else:
@@ -1143,7 +1143,7 @@ def count_ideals1(disc, norm):
         elif disc % 8 == 5: # x^2 + x - c with 1+4*c, so c is odd, so no roots mod 2, inert
             leg = -1
         else:
-            raise RuntimeError
+            raise RuntimeError()
         if leg == -1:
             if norm.valuation(p) % 2 == 1:
                 return 0
@@ -1155,7 +1155,7 @@ def count_ideals1(disc, norm):
             if disc % p**2 == 0:
                 # singular prime, the hardest case
                 return count_ideals3(disc, norm)
-                raise NotImplementedError
+                raise NotImplementedError()
             # ramified prime, does not change ret
     return ret
 
@@ -1270,14 +1270,14 @@ def rhotilde(d, s0, s1, l, part=0):
     the first or second factor.
     """
     if not s0 in ZZ:
-        raise RuntimeError
+        raise RuntimeError()
         # This s0 is t(n,f_u), which is (according to an email by authors of
         # [LV]) an integer whenever (delta^2Dtilde-n^2)/(4Dellf_u^2) is.
         # So by calling the function rhotilde only when count_ideals returns
         # something non-zero, this RuntimeError should not occur.
     
     if not part in [0,1,2]:
-        raise ValueError
+        raise ValueError()
     
     if l == 2:
         return 1 # Addition by email from authors of [LV] (4th May 2013):
@@ -1559,7 +1559,7 @@ def find_eta_pid_old(K, Krel, F, D, rel_diff):
     while not eps**k - 1 in twoK:
         k = k + 1
         if k > (2^4-1)^4:
-            raise RuntimeError
+            raise RuntimeError()
     # The relevant units are 1, eps, ..., eps^(k-1)
     for l in range(k):
         rel_diff = Krel.structure()[1](eps)**k * rel_diff0

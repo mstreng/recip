@@ -235,7 +235,7 @@ def evaluate_theta_interval(c, z, R=None, reduce_first=True):
         Q = exp(RF(-pi*z.imag()))
         if not Q.upper() < 1:
             print Q
-            raise ValueError
+            raise ValueError()
         if R is None:
             R = ZZ(ceil(sqrt((prec+3)*log(2)/-log(Q.upper())).n()))
         for n in srange(-R, R+1):
@@ -243,7 +243,7 @@ def evaluate_theta_interval(c, z, R=None, reduce_first=True):
             s = s + exp(piI * (cp**2 * z + 2*cp*c2))
         # and now to add the error term:
         if not c1 >= 0 and c1 < 1 and c2 >= 0 and c2 < 1:
-            raise ValueError
+            raise ValueError()
         # sum of absolute value of remaining terms:
         # cp is at most -R-1+c1 or at least R+1+c1,
         # |cp| is at least R-c1
@@ -522,7 +522,7 @@ def _reduce(Z, reduction_sequence=False):
         print "Beginning reduction of " + str(Z)
 
     if g > 2:
-        raise NotImplementedError
+        raise NotImplementedError()
 
     if reduction_sequence:
         M = []
@@ -616,9 +616,9 @@ def is_period_matrix(m):
     height = m.nrows()
     width = m.ncols()
     if 2*height == width:
-        raise NotImplementedError
+        raise NotImplementedError()
     elif height != width:
-        raise ValueError
+        raise ValueError()
     if not m.is_symmetric():
         if get_verbose() == 2 != 0:
             print "Matrix %s is not symmetric in is_period_matrix" % m
@@ -838,7 +838,7 @@ class PeriodMatrix_CM():
         if (ideal/idealbar).is_principal():
             gns = (ideal/idealbar).gens_reduced()
             if len(gns)>1:
-                raise RuntimeError
+                raise RuntimeError()
             x = gns[0]
             idealbar = ideal
             basisbar = [x*b for b in basisbar]
@@ -1225,7 +1225,7 @@ class PeriodMatrix_CM():
     
     def __mul__(self, other):
         if not other in ZZ:
-            raise ValueError
+            raise ValueError()
         basis = self._basis
         g = self.g()
         basis = ([basis[i] * other for i in range(g)] +
@@ -1235,7 +1235,7 @@ class PeriodMatrix_CM():
     
     def __div__(self, other):
         if not other in ZZ:
-            raise ValueError
+            raise ValueError()
         basis = self._basis
         g = self.g()
         basis = ([basis[i] / other for i in range(g)] +
@@ -1365,7 +1365,7 @@ def random_period_matrix(prec=53, g=2):
     I = C.gen()
     R = RealField(prec)
     if g != 2:
-        raise NotImplementedError
+        raise NotImplementedError()
     x1 = R.random_element(-1/2, 1/2)
     y1 = R.random_element(0.1, 2)
     x2 = R.random_element(-1/2, 1/2)

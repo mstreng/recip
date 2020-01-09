@@ -399,7 +399,7 @@ class GSp_element:
         elif B != ZZ:
             mu = B.order()
             if not (B == Zmod(mu) and mu % 2*den**2 ==0 and mu % 8 == 0):
-                raise ValueError
+                raise ValueError()
             M = mat_convert(M, lift_small)
         nu_inv = lift_small(self.nu()**-1)
         ds = [theta_action_without_kappa(M, nu_inv, num_to_c(i, g, den))                for i in range(den**(2*g))]
@@ -496,7 +496,7 @@ def symplectic_generators(g, subgroup=None, level=None):
         if subgroup == '':
             return [T1n, T2n, T3n, Tuln, Tuln.transpose(), T1n.transpose(), T2n.transpose(), T3n.transpose()] + [neg for i in range(level<=2)]
             
-        raise ValueError
+        raise ValueError()
                 
     raise NotImplementedError( "symplectic_generators only implemented for g=2, not for g=%s" % g)
 

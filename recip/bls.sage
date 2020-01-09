@@ -382,7 +382,7 @@ def cosets_of_GammaN_iter(p):
     in Sp_4(ZZ).
     """
     if not p.is_prime():
-        raise ValueError
+        raise ValueError()
     F = srange(p)
     for a in F:
         for b in F:
@@ -481,10 +481,10 @@ def recognize_all_from_article(bound=2, print_results=False):
         O = K.order([alpha, alphabar])
         s = superorders_stable_under_complex_conjugation(O)
         if not len(s) <= 2:
-            raise NotImplementedError
+            raise NotImplementedError()
         if len(s) == 2:
             if not s[1].index_in(s[0]) in [2,4,8]:
-                raise NotImplementedError
+                raise NotImplementedError()
         l = []
         for A in s:
             for Z in period_matrices(A, 2, reduced=False):
@@ -541,7 +541,7 @@ def reduce_ic(ic):
         d = ic[0].factor().unit()
         ic = [ic[0]/d, ic[1]/d^2, ic[2]/d^3, ic[3]/d^5]
         return ic
-    raise NotImplementedError
+    raise NotImplementedError()
 
 
 def humbert8():
