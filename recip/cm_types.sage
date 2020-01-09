@@ -44,7 +44,7 @@ from sage.rings.rational_field import QQ
 from sage.rings.polynomial.polynomial_ring_constructor import PolynomialRing
 from sage.rings.number_field.number_field_element import       NumberFieldElement_absolute
 
-from time import time.perf_counter
+from time import perf_counter
 
 
 def CM_Field(field, name=None, relative_name=None, check=True, embedding=None):
