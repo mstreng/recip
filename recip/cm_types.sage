@@ -44,7 +44,7 @@ from sage.rings.rational_field import QQ
 from sage.rings.polynomial.polynomial_ring_constructor import PolynomialRing
 from sage.rings.number_field.number_field_element import       NumberFieldElement_absolute
 
-from time import clock
+from time import time.perf_counter
 
 
 def CM_Field(field, name=None, relative_name=None, check=True, embedding=None):
@@ -132,7 +132,7 @@ def CM_Field(field, name=None, relative_name=None, check=True, embedding=None):
         try:
             poly = PolynomialRing(QQ, 'x')(field)
         except TypeError:
-            raise TypeError, "Incorrect type in CM_Field"
+            raise TypeError( "Incorrect type in CM_Field")
     
     if _is_accepted_complex_field(embedding):
         embedding = highest_root(poly, embedding)
@@ -1296,7 +1296,7 @@ class CM_Type_base(SageObject):
             raise ValueError( "x (=%s) is an element of the codomain of %s, "                                "instead of its domain" % (x, self))
         if is_NumberFieldElement(x):
             raise ValueError( "x (%s) is an element of the codomain of %s, "                                "instead of an element of the domain" % (x, self))
-        raise TypeError, "x (%s) must be an element or ideal of a number "                           "field, but is of type %s" % (x, type(x))
+        raise TypeError( "x (%s) must be an element or ideal of a number "                           "field, but is of type %s" % (x, type(x)))
 
     def __iter__(self):
         """
@@ -1345,7 +1345,7 @@ class CM_Type_xi(CM_Type_base):
             complex_field = ComplexField(complex_field)
         i = complex_field.gen()
         if not i**2 == -1:
-            raise TypeError, "Invalid complex field"
+            raise TypeError( "Invalid complex field")
         ret = [phi for phi in self.xi().parent().embeddings(complex_field) if phi(self.xi())/i > 0]
         if len(ret) != self.g():
             raise ValueError( "Insufficient precision for embeddings of this CM-type")
@@ -1429,7 +1429,7 @@ class CM_Type_xi(CM_Type_base):
         return self._xi
 
     def codomain(self):
-        raise TypeError, "CM-type given by xi has not one specified Sage-codomain. The codomain is the field of complex numbers."
+        raise TypeError( "CM-type given by xi has not one specified Sage-codomain. The codomain is the field of complex numbers.")
 
     def _type_norm_element(self, x, reflex = True):
         """

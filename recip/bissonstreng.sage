@@ -418,8 +418,7 @@ def CM_type_to_mus(Phi, F):
     Kr = Psi.domain()
     Fidl = Kr.ideal(F)
     if not F in ZZ:
-        raise TypeError
-    
+        raise TypeError()    
     gens = []
     for C in Kr.class_group().gens():
         mu = a_to_mu(Psi, lift_ray_class_group_element(C.ideal(), Kr.ideal(1), Fidl))

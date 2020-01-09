@@ -677,7 +677,7 @@ def ThetaModForm(x, g = None, den = None):
             x = P(x)
             y = P(y)
         except TypeError:
-            raise TypeError, "x (=%s) or y (=%s) is not an element of a polynomial ring supplied by theta_ring for g=%s and den=%s" % (x, y, g, den)
+            raise TypeError( "x (=%s) or y (=%s) is not an element of a polynomial ring supplied by theta_ring for g=%s and den=%s" % (x, y, g, den))
         if R(y) == 0:
             if R(x) == 0:
                 raise NotImplementedError( "cannot simplify x/y to something that is not 0/0 for x=%s and y=%s" % (x,y))
@@ -700,7 +700,7 @@ def ThetaModForm(x, g = None, den = None):
     try:
         return ThetaModForm(x.rational_function())
     except AttributeError:
-        raise TypeError, "type %s of x (=%s) not allowed in ThetaModForm" % (type(x), x)
+        raise TypeError( "type %s of x (=%s) not allowed in ThetaModForm" % (type(x), x))
 
 
         
@@ -1218,7 +1218,7 @@ class Theta_element_polynomial_ring(Theta_element):
                 print("Working with a period matrix over a number field")
             vals = z._theta_vals(den, prec=prec, use_magma=use_magma, interval=interval)
         else:
-            raise TypeError, "Period matrix z (=%s) has incorrect type "                               "(%s) or base ring" % (z, type(z))
+            raise TypeError( "Period matrix z (=%s) has incorrect type "                               "(%s) or base ring" % (z, type(z)))
         num_ret = sum([C(a[0])*a[1](vals) for a in Sequence(self._num_pol)])
         den_ret = sum([C(a[0])*a[1](vals) for a in Sequence(self._den_pol)])
         return num_ret / den_ret

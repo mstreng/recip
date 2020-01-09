@@ -1183,11 +1183,11 @@ class PeriodMatrix_CM():
             
         """
         if not (n in ZZ and n > 0):
-            raise TypeError, "n (=%s) must be a positive integer" % n
+            raise TypeError( "n (=%s) must be a positive integer" % n)
         if m == None:
             m = n
         elif not (m in ZZ and n > 0):
-            raise TypeError, "m (=%s) must be a positive integer or None" % m
+            raise TypeError( "m (=%s) must be a positive integer or None" % m)
         
         A = lift_ray_class_group_element(A, m, n)
         (Z, M) = self.galois_action(A, transformation=True, reduce=reduce)
