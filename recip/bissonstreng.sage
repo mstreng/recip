@@ -378,7 +378,7 @@ def minimal_order_cl_nr_one_F(Phi, F=None, output_type='order', Ostart=None):
 
     if K.unit_group().torsion_generator().multiplicative_order() != 2:
         if K.unit_group().torsion_generator().multiplicative_order() != 10:
-            raise RuntimeError, K
+            raise RuntimeError( K)
         gens = [mu**5 for mu in gens]
     
     # explanation of why it is going to work: up to roots of unity,
@@ -405,7 +405,7 @@ def minimal_order_cl_nr_one_F(Phi, F=None, output_type='order', Ostart=None):
     elif output_type == 'magma':
         return magma(gens).Order()
     else:
-        raise ValueError, "Unkown output_type: '%s'" % output_type
+        raise ValueError( "Unkown output_type: '%s'" % output_type)
 
 
 def CM_type_to_mus(Phi, F):
@@ -727,7 +727,7 @@ def all_period_matrices_two(lst):
         if len(m):
             Omin = m[0][3]
             if m[0][0] != 2 or (DAB != [5,5,5] and len(m) > 1):
-                raise RuntimeError, "tests fail!"
+                raise RuntimeError( "tests fail!")
             F = m[0][0]**m[0][1]
         else:
             Omin = K.maximal_order()

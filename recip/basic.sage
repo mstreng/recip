@@ -92,7 +92,7 @@ def lift_small(a):
         return a
     mu = a.parent().order()
     if not mu in ZZ:
-        raise ValueError, "a (=%s) must be in ZZ or ZZ/mu*ZZ for some mu, "                            "but is in %s of order %s" % (a, a.parent(), mu)
+        raise ValueError( "a (=%s) must be in ZZ or ZZ/mu*ZZ for some mu, "                            "but is in %s of order %s" % (a, a.parent(), mu))
     b = ZZ(a) % mu
     if b > mu/2:
         b -= mu

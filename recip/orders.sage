@@ -972,12 +972,12 @@ def are_nn_isogenous(Z1, Z2, n, F1, F2, transformation=False, double_check=False
 
     """
     if Z1.CM_type() != Z2.CM_type():
-        raise NotImplementedError, "are_nn_isogenous is only implemented for period matrices of equal CM type"
+        raise NotImplementedError( "are_nn_isogenous is only implemented for period matrices of equal CM type")
     if double_check:
         b1, alpha = are_nn_isogenous(Z1, Z2, n, F1, F2, transformation=True, double_check=False)
         b2 = are_nn_isogenous(Z2, Z1, n, F2, F1, transformation=False, double_check=False)
         if b1 != b2:
-            raise RuntimeError, "Bug: contradiction with symmetry of being isogenous. Z1 = " + str(Z1) + " Z2 = " + str(Z2) + "(n, F1, F2) = " + str((n, F1, F2))
+            raise RuntimeError( "Bug: contradiction with symmetry of being isogenous. Z1 = " + str(Z1) + " Z2 = " + str(Z2) + "(n, F1, F2) = " + str((n, F1, F2)))
         if transformation:
             return b1, alpha
         return b1
@@ -1149,17 +1149,17 @@ def is_trivial_in_shimura_group(A, alpha, O, cc=None):
         raise NotImplementedError
     OK = K.maximal_order()
     if gcd(O.index_in(OK), A.norm()) != 1:
-        raise ValueError, "A is not coprime to F"
+        raise ValueError( "A is not coprime to F")
     if cc is None:
         cc = K.complex_conjugation()
     if not all([cc(b) in O for b in O.basis()]):
-        raise ValueError, "Order is not stable under complex conjugation"
+        raise ValueError( "Order is not stable under complex conjugation")
     if not A*cc(A) == K.ideal(alpha):
         raise ValueError
     if not cc(alpha) == alpha:
-        raise ValueError, "alpha not totally positive"
+        raise ValueError( "alpha not totally positive")
     if not all([b>0 for b in alpha.minpoly(polygen(QQ)).roots(AA, multiplicities=False)]):
-        raise ValueError, "alpha not totally positive"
+        raise ValueError( "alpha not totally positive")
 
     if not A.is_principal():
         return False

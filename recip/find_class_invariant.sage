@@ -228,7 +228,7 @@ def reciprocity_map_image(Z, level, modulus=None):
     if modulus == None:
         modulus = level
     elif level % modulus != 0:
-        raise ValueError, "modulus (=%s) must divide level (=%s)" %                (modulus, level)
+        raise ValueError( "modulus (=%s) must divide level (=%s)" %                (modulus, level))
     elts = principal_type_norms(Psi, modulus)
     
     gammas = [GSp_element(mat_convert(Z.epsilon(b), Zmod(level))) for b in elts]
@@ -359,9 +359,9 @@ def _permutation(M, den, L=None):
     #g = ZZ(M.ncols()/2)
     g = M.g()
     if not (B == ZZ or (B == Zmod(B.order()) and B.order() % 2*den**2 == 0 and B.order() % 8 == 0)):
-        raise ValueError, "Invalid den (=%s) for element of Sp_(%s)" % (den, B)
+        raise ValueError( "Invalid den (=%s) for element of Sp_(%s)" % (den, B))
 #    if not nu(mat_convert(M, Zmod(2*den**2))) == 1:
-#        raise ValueError, "Not a symplectic matrix"
+#        raise ValueError( "Not a symplectic matrix")
     nu_inv = lift_small(M.nu()**-1)
     M = mat_convert(M.matrix(), ZZ)
     ret = [c_to_num(theta_action_without_kappa(M,nu_inv,num_to_c(k,g,den))[0],den)             for k in range(den**(2*g))]

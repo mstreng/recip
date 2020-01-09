@@ -165,9 +165,9 @@ def denominator_bound(K, c=2**14, k=2, d=None, Phi=None, bound='default', check=
 
     """
     if K.degree() != 4:
-        raise ValueError, "Input field %s is not quartic." % K
+        raise ValueError( "Input field %s is not quartic." % K)
     if len(K.subfields()) > 3:
-        raise ValueError, "Input field %s is biquadratic." % K
+        raise ValueError( "Input field %s is biquadratic." % K)
     if d is None:
         d = K.class_number()
         if Phi is None and not K.is_galois():
@@ -199,7 +199,7 @@ def denominator_bound(K, c=2**14, k=2, d=None, Phi=None, bound='default', check=
     elif bound == 'by':
         b = bruinier_yang_bound(K, check=check)
     else:
-        raise ValueError, "Unkown bound: %s" % bound
+        raise ValueError( "Unkown bound: %s" % bound)
     gal = K.is_galois()
     if not gal:
     #    print c
@@ -424,7 +424,7 @@ def bruinier_yang_bound(K, check=True, proof=True):
     if check:
         b, s = bruinier_yang_applies(K, proof=proof, reason=True)
         if not b:
-            raise ValueError, s
+            raise ValueError( s)
         if get_recip_verbose():
             print s
     if get_recip_verbose():
@@ -1031,7 +1031,7 @@ def conductor(d):
     """
     ret = (sqrt(d/fundamental_discriminant(d)))
     if not ret in ZZ:
-        raise ValueError, "Non-discriminant %s pretending to be a discriminant" % d
+        raise ValueError( "Non-discriminant %s pretending to be a discriminant" % d)
     return ZZ(ret)
 
 
@@ -1108,7 +1108,7 @@ def count_ideals(disc, norm, safe=True):
     c2 = count_ideals2(disc, norm)
     c3 = count_ideals3(disc, norm)
     if c1 != c2 or c2 != c3:
-        raise RuntimeError, "counted ideals incorrectly for disc=%s and norm=%s: %s, %s, %s" % (disc, norm, c1, c2, c3)
+        raise RuntimeError( "counted ideals incorrectly for disc=%s and norm=%s: %s, %s, %s" % (disc, norm, c1, c2, c3))
     return c1
 
 
@@ -1345,7 +1345,7 @@ def calIp(C, p, a1, a0, safe=True):
     I1 = calIp_fast(C, p, a1, a0)
     I2 = calIp_enumerate(C, p, a1, a0)
     if I1 != I2:
-        raise RuntimeError, "%s, %s" % (I1, I2)
+        raise RuntimeError( "%s, %s" % (I1, I2))
     return I1
 
 
@@ -1443,7 +1443,7 @@ def find_eta(K, how_many=None, proof=True):
                 return [eta]
             ret = [eta]
     if F.class_number() == 1 and ret is None:
-        raise RuntimeError, "Is it possible that F has class number one, but eta does not exist? %s" % K
+        raise RuntimeError( "Is it possible that F has class number one, but eta does not exist? %s" % K)
 
     if ret is None:
         ret = []
@@ -1502,7 +1502,7 @@ def find_eta_coprime(K, Krel, F, D, rel_diff, prime_bound, proof=True):
                 return (x-y)/2
     
     # So apparently x is not in OF + 2*OK. We need to do something about this.
-    raise NotImplementedError, "TODO: Sorry, I never needed this case so far, it should still be implemented"
+    raise NotImplementedError( "TODO: Sorry, I never needed this case so far, it should still be implemented")
 
 
 def next_prime_in_class(a, n, gen=False, allow_one=False):

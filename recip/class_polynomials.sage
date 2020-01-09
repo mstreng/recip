@@ -106,7 +106,7 @@ def class_polynomials(K, factor=False, prec=None, D=None,
 
     """
     if factor:
-        raise NotImplementedError, "factor=True not yet implemented"
+        raise NotImplementedError( "factor=True not yet implemented")
     Zs = list(K.period_matrices_iter())
     h = igusa_modular_forms()
     if D is None:
@@ -145,7 +145,7 @@ def class_polynomials(K, factor=False, prec=None, D=None,
             try:
                 pols = [[c.unique_integer() for c in p] for p in pols]
             except ValueError as e:
-                raise RuntimeError, "Incorrect denominator or bug, if you did "                                     "not specify a denominator, please report "                                     "%s" % e
+                raise RuntimeError( "Incorrect denominator or bug, if you did "                                     "not specify a denominator, please report "                                     "%s" % e)
             ret = [QQ['x'](p)/D for p in pols]
             if verbose:
                 print "Denominator: %s out of %s" %                        (lcm([p.denominator() for p in ret]).factor(), D.factor())

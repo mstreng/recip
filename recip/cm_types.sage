@@ -108,7 +108,7 @@ def CM_Field(field, name=None, relative_name=None, check=True, embedding=None):
         A = QQ(field[1])
         B = QQ(field[2]) 
         if not ((A**2-4*B)/D).is_square():
-            raise ValueError, "(A^2-4B)/D must be square in "                                "CM_field([D,A,B]), but [D,A,B] = %s" %                                field
+            raise ValueError( "(A^2-4B)/D must be square in "                                "CM_field([D,A,B]), but [D,A,B] = %s" %                                field)
         poly = x**4 + A*x**2 + B
         if name == None:
             name = 'alpha'
@@ -158,7 +158,7 @@ def CM_Field(field, name=None, relative_name=None, check=True, embedding=None):
             
         return CM_Field_absolute(poly, name=name, relative_name=relative_name,                                  check=check, embedding=embedding)
 
-    raise NotImplementedError, "CM-fields from relative fields not yet "                                 "implemented"
+    raise NotImplementedError( "CM-fields from relative fields not yet "                                 "implemented")
 
     
 #class CM_FieldElement_absolute(NumberFieldElement_absolute):
@@ -227,12 +227,12 @@ class CM_Field_absolute(NumberField_absolute):
 #        self._one_element = self(1)
 
         if check and not self.is_totally_imaginary():
-            raise ValueError, "field defined by %s is not totally "                                "imaginary" % absolute_polynomial
+            raise ValueError( "field defined by %s is not totally "                                "imaginary" % absolute_polynomial)
         self._relative_name = relative_name
         if embedding != None:
             self._embedding = embedding
         if relative_field != None:
-            raise NotImplementedError, "relative_field not yet implemented"
+            raise NotImplementedError( "relative_field not yet implemented")
 
     def _init_CM_field_data(self):
         """
@@ -607,7 +607,7 @@ class CM_Field_absolute(NumberField_absolute):
             aut = [self.hom(self)]
         emb = self.embeddings(N)
         if not len(emb) == self.degree():
-            raise ValueError, "The field L (=%s) does not allow enough "                                "embeddings of self (=%s)" % (L, self)
+            raise ValueError( "The field L (=%s) does not allow enough "                                "embeddings of self (=%s)" % (L, self))
         emb_pairs = []
         g = self.gen()
         embs_done = []
@@ -825,7 +825,7 @@ class CM_Field_absolute(NumberField_absolute):
                     embedding = r[0]
                     break
             if embedding == None:
-                raise ValueError, "Cannot find embedding of galois closure that extends embedding %s."                                    "Possibly due to precision, an incorrect ambient field, or a bug"
+                raise ValueError( "Cannot find embedding of galois closure that extends embedding %s."                                    "Possibly due to precision, an incorrect ambient field, or a bug")
         L = CM_Field(K, name = names, embedding = embedding, check=False)
         if get_verbose():
             print "Finished computing Galois closure in %s seconds" % (clock() - t)
@@ -1068,14 +1068,14 @@ class CM_Field_absolute(NumberField_absolute):
             for Phi in CM_types:
                 if isinstance(Phi, str):
                     if not Phi[:3] == 'Phi':
-                        raise ValueError, "Unknown CM-type given by string: "                                            "'%s'" % Phi
+                        raise ValueError( "Unknown CM-type given by string: "                                            "'%s'" % Phi)
                     Phi = Phi + ' '
                     for Psi in self.CM_types():
                         if Phi in Psi._repr_():
                             Phi = Psi
                             break
                     else:
-                        raise ValueError, "Unknown CM-type given by string: "                                            "'%s'" % Phi
+                        raise ValueError( "Unknown CM-type given by string: "                                            "'%s'" % Phi)
                 # TODO: maybe use some variable precision instead of CC
                 if Phi.is_totally_positive_imaginary(xi):
                     Z = PeriodMatrix(Phi,A,xi)
@@ -1182,7 +1182,7 @@ def CM_Type(embeddings, reflex_field=None, reflex_to_codomain=None, check=True):
         ret = [Phi for Phi in xi.parent().CM_types(L=codomain, equivalence_classes=False)
                    if Phi.is_totally_positive_imaginary(xi, check=check)]
         if len(ret) != 1:
-            raise RuntimeError, "Found %s CM_types instead of 1 for xi=%s, probably due to a precision error" % (len(ret), xi)
+            raise RuntimeError( "Found %s CM_types instead of 1 for xi=%s, probably due to a precision error" % (len(ret), xi))
         return ret[0]
 
 class CM_Type_base(SageObject):
@@ -1245,7 +1245,7 @@ class CM_Type_base(SageObject):
         # a is a rational integer, and A is integral.
         # Sanity check:
         if not a in ZZ:
-            raise RuntimeError, "First element of gens_two is not a "                                  "rational integer for integral ideal %s" % A
+            raise RuntimeError( "First element of gens_two is not a "                                  "rational integer for integral ideal %s" % A)
         z = (b/A).idealcoprime(a.parent().ideal(a))
         # Now z*b/A is an integral (according to the Pari documentation)
         # ideal coprime to a.
@@ -1260,7 +1260,7 @@ class CM_Type_base(SageObject):
         #    and w(a) = 0. For the type norm, we get
         #    v(x) = v(C) = 0 and v(y) >= v(C) = 0, so v(B) = v(A) = 0.
         if not B.norm()**A.number_field().degree() ==                 (A.norm()**B.number_field().degree())**self.g():
-            raise RuntimeError, "Bug in type norm of ideals. Norm of type "                                  "norm is incorrect: %s instead of %s" %                              (B.norm(), (A.norm()**(B.number_field().degree()/                              A.number_field().degree()))**self.g())
+            raise RuntimeError( "Bug in type norm of ideals. Norm of type "                                  "norm is incorrect: %s instead of %s" %                              (B.norm(), (A.norm()**(B.number_field().degree()/                              A.number_field().degree()))**self.g()))
         return B
 
     def type_norm(self, x, reflex = True):
@@ -1290,12 +1290,12 @@ class CM_Type_base(SageObject):
             if x.number_field() == self.domain():
                 return self._type_norm_ideal(x, reflex)
             if x.number_field() == self.reflex_field():
-                raise ValueError, "x (%s) is an ideal of the reflex field "                                    "of %s, instead of an ideal of the "                                    "domain" % (x, self)
-            raise ValueError, "x (=%s) is an ideal of %s instead of %s" %                                (x, x.number_field(), self.domain())
+                raise ValueError( "x (%s) is an ideal of the reflex field "                                    "of %s, instead of an ideal of the "                                    "domain" % (x, self))
+            raise ValueError( "x (=%s) is an ideal of %s instead of %s" %                                (x, x.number_field(), self.domain()))
         if x in self.codomain():
-            raise ValueError, "x (=%s) is an element of the codomain of %s, "                                "instead of its domain" % (x, self)
+            raise ValueError( "x (=%s) is an element of the codomain of %s, "                                "instead of its domain" % (x, self))
         if is_NumberFieldElement(x):
-            raise ValueError, "x (%s) is an element of the codomain of %s, "                                "instead of an element of the domain" % (x, self)
+            raise ValueError( "x (%s) is an element of the codomain of %s, "                                "instead of an element of the domain" % (x, self))
         raise TypeError, "x (%s) must be an element or ideal of a number "                           "field, but is of type %s" % (x, type(x))
 
     def __iter__(self):
@@ -1340,7 +1340,7 @@ class CM_Type_xi(CM_Type_base):
     @cached_method
     def embeddings(self, complex_field=None):
         if complex_field is None:
-            raise ValueError, "Please specify a complex field for the embeddings of this CM-type"
+            raise ValueError( "Please specify a complex field for the embeddings of this CM-type")
         if complex_field in ZZ:
             complex_field = ComplexField(complex_field)
         i = complex_field.gen()
@@ -1348,7 +1348,7 @@ class CM_Type_xi(CM_Type_base):
             raise TypeError, "Invalid complex field"
         ret = [phi for phi in self.xi().parent().embeddings(complex_field) if phi(self.xi())/i > 0]
         if len(ret) != self.g():
-            raise ValueError, "Insufficient precision for embeddings of this CM-type"
+            raise ValueError( "Insufficient precision for embeddings of this CM-type")
         return ret
         
     def g(self):
@@ -1369,7 +1369,7 @@ class CM_Type_xi(CM_Type_base):
             sage: Phi.reflex_field()
             CM Number Field in alphar with defining polynomial x^4 + 30*x^2 + 197
         """
-        raise NotImplementedError, "Please implement reflex_field for CM types of type " + str(type(self))
+        raise NotImplementedError( "Please implement reflex_field for CM types of type " + str(type(self)))
 
     def reflex_to_codomain(self):
         """
@@ -1386,7 +1386,7 @@ class CM_Type_xi(CM_Type_base):
               To:   Complex Lazy Field
               Defn: alphar |--> 4.504609042095571?*I
         """
-        raise NotImplementedError, "Please implement reflex_to_codomain for CM types of type " + str(type(self))
+        raise NotImplementedError( "Please implement reflex_to_codomain for CM types of type " + str(type(self)))
     
     def reflex(self):
         """
@@ -1544,24 +1544,24 @@ class CM_Type_embeddings(CM_Type_base):
         if check:
             for e in embeddings:
                 if e.domain() != domain or e.codomain() != codomain:
-                    raise ValueError, "Different domain or codomain in "                                        "embedding %s and %s" %                                        (embeddings[0], e)
+                    raise ValueError( "Different domain or codomain in "                                        "embedding %s and %s" %                                        (embeddings[0], e))
             if 2*len(embeddings) != domain.degree():
-                raise ValueError, "Incorrect number of embeddings"
+                raise ValueError( "Incorrect number of embeddings")
             c = self._domain.complex_conjugation()
             g = domain.gen()
             for i in range(len(embeddings)):
                 for j in range(i):
                     if embeddings[i](g) == embeddings[j](g) or                         embeddings[i](c(g)) == embeddings[j](g):
-                        raise ValueError, "Embeddings not pairwise distinct "                                            "or not pairwise non-complex-"                                            "conjugate"
+                        raise ValueError( "Embeddings not pairwise distinct "                                            "or not pairwise non-complex-"                                            "conjugate")
         if reflex_field != None:
             if reflex_to_codomain == None:
-                raise ValueError, "reflex_to_codomain must be specified if "                                    "reflex_field is specified"
+                raise ValueError( "reflex_to_codomain must be specified if "                                    "reflex_field is specified")
             if isinstance(reflex_field, CM_Field_absolute):
                 self._reflex_field = reflex_field
             else:
                 self._reflex_field = CM_Field(reflex_field)
             if check and (reflex_to_codomain.domain() != reflex_field or                            reflex_to_codomain.codomain() != codomain):
-                raise ValueError, "reflex_to_codomain (=%s) is not a map "                                    "from reflex (=%s) to codomain (=%s)" %                                    (reflex_to_codomain, reflex, codomain)
+                raise ValueError( "reflex_to_codomain (=%s) is not a map "                                    "from reflex (=%s) to codomain (=%s)" %                                    (reflex_to_codomain, reflex, codomain))
             self._reflex_to_codomain = reflex_to_codomain
             if check:
                 # The next line actually calculates the reflex field, which
@@ -1570,13 +1570,13 @@ class CM_Type_embeddings(CM_Type_base):
                 reflex_field2 = self.reflex_field()
                 reflex_to_codomain2 = self.reflex_to_codomain()
                 if reflex_field2.degree() != reflex_field.degree():
-                    raise ValueError, "Reflex field supplied has incorrect "                                        "degree"
+                    raise ValueError( "Reflex field supplied has incorrect "                                        "degree")
                 try:
                     g = reflex_to_codomain2(reflex_field2.gen())
                     if reflex_to_codomain(inverse_field_hom(                                            reflex_to_codomain, g)) != g:
-                        raise RuntimeError, "inverse field hom computed "                                              "incorrectly, bug in code"
+                        raise RuntimeError( "inverse field hom computed "                                              "incorrectly, bug in code")
                 except ValueError:
-                    raise ValueError, "Incorrect reflex field supplied"
+                    raise ValueError( "Incorrect reflex field supplied")
                 self._reflex_field = reflex_field
                 self._reflex_to_codomain = reflex_to_codomain
 
@@ -1617,7 +1617,7 @@ class CM_Type_embeddings(CM_Type_base):
                 try:
                     for g in reflex_gens:
                         if m(inverse_field_hom(m, g)) != g:
-                            raise RuntimeError, "inverse field hom computed "                                                  "incorrectly, bug in code"
+                            raise RuntimeError( "inverse field hom computed "                                                  "incorrectly, bug in code")
                     #reflex_field = F
                     #reflex_to_codomain = m
                     break
@@ -1656,7 +1656,7 @@ class CM_Type_embeddings(CM_Type_base):
         # The following line makes sure that _reflex_to_codomain is computed
         K = self.reflex_field()
         if self._reflex_to_codomain == None:
-            raise RuntimeError, "_reflex_to_codomain not yet computed, "                                  "which should have happened; bug in code"
+            raise RuntimeError( "_reflex_to_codomain not yet computed, "                                  "which should have happened; bug in code")
         return self._reflex_to_codomain
 
     def reflex(self):
@@ -1719,12 +1719,12 @@ class CM_Type_embeddings(CM_Type_base):
         K = self.domain()
         Kpr = self.reflex_field()
         if not L.degree() == Lpr.degree():
-            raise NotImplementedError, "reflex not implemented for this "                                         "CM-type"
+            raise NotImplementedError( "reflex not implemented for this "                                         "CM-type")
         g = K.gen()
         Phigs = [e(g) for e in self.embeddings()]
         S = [h for h in L.Hom(Lpr) if h(m(g)) in Phigs]
         if not 2*len(S) == L.degree():
-            raise RuntimeError, "bug in reflex"
+            raise RuntimeError( "bug in reflex")
         gpr = mpr(Kpr.gen())
         Phigprs_with_duplicates = [inverse_field_hom(h, gpr) for h in S]
         Phigprs = []
@@ -1778,7 +1778,7 @@ class CM_Type_embeddings(CM_Type_base):
         """
         y = prod([e(x) for e in self._embeddings])
         if not y.norm()**x.parent().degree() ==                 (x.norm()**y.parent().degree())**self.g():
-            raise RuntimeError, "norm of type norm is incorrect: %s "                                  "instead of %s" % (y.norm(),               (x.norm()**(y.parent().degree()/x.parent().degree()))**self.g())
+            raise RuntimeError( "norm of type norm is incorrect: %s "                                  "instead of %s" % (y.norm(),               (x.norm()**(y.parent().degree()/x.parent().degree()))**self.g()))
         if reflex:
             return inverse_field_hom(self.reflex_to_codomain(), y)
         return y
@@ -2048,7 +2048,7 @@ class CM_Type_quartic(CM_Type_embeddings):
             domain = CM_Field(DAB)
         elif check:
             if domain.DAB() != DAB:
-                raise ValueError, "Incorrect domain %s in construction of "                                    "CM-type with DAB = %s" % (domain, DAB)
+                raise ValueError( "Incorrect domain %s in construction of "                                    "CM-type with DAB = %s" % (domain, DAB))
         self._domain = domain
         [D,A,B] = DAB
         
@@ -2330,7 +2330,7 @@ class CM_Type_quartic(CM_Type_embeddings):
         """
         K = self.domain()
         if check and not K.is_totally_imaginary_element(xi):
-            raise ValueError, "xi=%s is not totally imaginary" % self
+            raise ValueError( "xi=%s is not totally imaginary" % self)
         
         xi = K(xi)
         prime = self._prime
@@ -2421,7 +2421,7 @@ def _CM_field_data(K, check=True):
       for c in a:
         if c(g) != g and c(g0) == g0:
           return c, s[0], s[1]
-  raise ValueError, "Not a CM field"
+  raise ValueError( "Not a CM field")
 
 
 def _is_accepted_complex_field(K):
@@ -2458,17 +2458,17 @@ def inverse_field_hom(m, y):
         try:
             return K(QQ(y))
         except TypeError:
-            raise ValueError, "y (=%s) not in the image QQ of m (=%s)" % (y,m)
+            raise ValueError( "y (=%s) not in the image QQ of m (=%s)" % (y,m))
     L = m.codomain()
     Lrel = L.relativize(m(K.gen()), 'c')
     (Lrel_to_L, L_to_Lrel) = Lrel.structure()
     y_in_Lrel_base = L_to_Lrel(y)[0]
     if not Lrel_to_L(y_in_Lrel_base) == y:
-        raise ValueError, "y (=%s) not in the image of m (=%s)" % (y, m)
+        raise ValueError( "y (=%s) not in the image of m (=%s)" % (y, m))
     Lrel_base_to_K = Lrel.base_field().hom(K.gen(), K)
     x = Lrel_base_to_K(y_in_Lrel_base)
     if not m(x) == y:
-        raise RuntimeError, "Assertion m(x) == y failed in "                    "inverse_field_hom for m = %s, y = %s, x = %s" % (m,y,ret)
+        raise RuntimeError( "Assertion m(x) == y failed in "                    "inverse_field_hom for m = %s, y = %s, x = %s" % (m,y,ret))
     return x
 
 
