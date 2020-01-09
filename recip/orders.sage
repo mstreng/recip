@@ -284,7 +284,7 @@ def proper_ideal_classes(O, F):
                [g.list() for g in s.gens()])
         M = Matrix(gns).echelon_form(include_zero_rows=False)
         if M.nrows() != M.ncols():
-            raise RuntimeErorr,  "Matrix M=%s not square, it came from %s" % (M, gens)
+            raise RuntimeError(  "Matrix M=%s not square, it came from %s" % (M, gens) )
         # I --> IK is s --> s*M
         gns = [K(r) for r in M*IK_matrix]
         actual_IK = K.ideal(gns)
