@@ -50,8 +50,7 @@ def mat_convert(M, ring_or_map):
         [2 2]
         [1 0]
     """
-    return Matrix([[ring_or_map(M[i,j]) for j in range(M.ncols())] \
-                    for i in range(M.nrows())])
+    return Matrix([[ring_or_map(M[i,j]) for j in range(M.ncols())]                      for i in range(M.nrows())])
 
 
 def uniformizer(p):
@@ -93,8 +92,7 @@ def lift_small(a):
         return a
     mu = a.parent().order()
     if not mu in ZZ:
-        raise ValueError, "a (=%s) must be in ZZ or ZZ/mu*ZZ for some mu, " \
-                          "but is in %s of order %s" % (a, a.parent(), mu)
+        raise ValueError, "a (=%s) must be in ZZ or ZZ/mu*ZZ for some mu, "                            "but is in %s of order %s" % (a, a.parent(), mu)
     b = ZZ(a) % mu
     if b > mu/2:
         b -= mu

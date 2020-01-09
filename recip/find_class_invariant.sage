@@ -228,8 +228,7 @@ def reciprocity_map_image(Z, level, modulus=None):
     if modulus == None:
         modulus = level
     elif level % modulus != 0:
-        raise ValueError, "modulus (=%s) must divide level (=%s)" % \
-              (modulus, level)
+        raise ValueError, "modulus (=%s) must divide level (=%s)" %                (modulus, level)
     elts = principal_type_norms(Psi, modulus)
     
     gammas = [GSp_element(mat_convert(Z.epsilon(b), Zmod(level))) for b in elts]
@@ -269,8 +268,7 @@ def list_group(gens):
         sage: all([g.matrix() in lst for g in gens]) # long time, not tested, apparently wrong??
         True
     """
-    print "Warning: the function list_group will be removed in a later " \
-          "version, use group_generators_to_list instead"
+    print "Warning: the function list_group will be removed in a later "            "version, use group_generators_to_list instead"
     try:
         gens = [g.matrix() for g in gens]
     except AttributeError:
@@ -366,8 +364,7 @@ def _permutation(M, den, L=None):
 #        raise ValueError, "Not a symplectic matrix"
     nu_inv = lift_small(M.nu()**-1)
     M = mat_convert(M.matrix(), ZZ)
-    ret = [c_to_num(theta_action_without_kappa(M,nu_inv,num_to_c(k,g,den))[0],den) \
-           for k in range(den**(2*g))]
+    ret = [c_to_num(theta_action_without_kappa(M,nu_inv,num_to_c(k,g,den))[0],den)             for k in range(den**(2*g))]
     if not L == None:
         for a in range(den**(2*g)):
             if not a in L:

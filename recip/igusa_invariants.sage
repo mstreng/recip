@@ -250,11 +250,6 @@ def h6_thesis():
         d2 = 2*d[1]
         d3 = 2*d[2]
         # d4 = 2*d[3] doesn't occur in the formula
-        e = b1 + b2 + c1 + c2 + d1 + d2 + b1*c1 + b2*c2 + b4*c2 + b1*c3\
-            - b2*c4+b1*d1 - b3*d1 + c1*d1 + b2*d2 + c2*d2 + c4*d2 + c1*d3\
-            - b2*b3*c1+b2*b4*c2 - b1*b2*c3 - b2*b3*d1 - b3*c1*d1 - b1*c3*d1\
-            - b2*c3*d1 - b2*b4*d2-b4*c2*d2 - b1*b2*d3 - b1*c1*d3 - b2*c1*d3
-        ret = ret + (-1)**ZZ(e) * th[c_to_num(b, 2)]**4 \
-                                * th[c_to_num(c, 2)]**4 \
-                                * th[c_to_num(d, 2)]**4
+        e = b1 + b2 + c1 + c2 + d1 + d2 + b1*c1 + b2*c2 + b4*c2 + b1*c3             - b2*c4+b1*d1 - b3*d1 + c1*d1 + b2*d2 + c2*d2 + c4*d2 + c1*d3             - b2*b3*c1+b2*b4*c2 - b1*b2*c3 - b2*b3*d1 - b3*c1*d1 - b1*c3*d1             - b2*c3*d1 - b2*b4*d2-b4*c2*d2 - b1*b2*d3 - b1*c1*d3 - b2*c1*d3
+        ret = ret + (-1)**ZZ(e) * th[c_to_num(b, 2)]**4                                  * th[c_to_num(c, 2)]**4                                  * th[c_to_num(d, 2)]**4
     return ThetaModForm(ret)

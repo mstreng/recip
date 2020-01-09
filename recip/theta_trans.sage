@@ -113,9 +113,7 @@ def sq_brackets_inverse(M, nu_inv, c):
     """
     A,B,C,D = ABCD(M)
     g = A.ncols()
-    d = M.transpose() * (vector(c) - 1/2 * nu_inv * \
-            vector(Sequence(subscript_zero(C*D.transpose())) + \
-                   Sequence(subscript_zero(A*B.transpose()))))
+    d = M.transpose() * (vector(c) - 1/2 * nu_inv *              vector(Sequence(subscript_zero(C*D.transpose())) +                     Sequence(subscript_zero(A*B.transpose()))))
     return d
 
 
@@ -945,8 +943,7 @@ class ThetaProduct(MultiplicativeGroupElement, Theta_element):
                 self._unity = 0
                 MultiplicativeGroupElement.__init__(self, parent=ThetaRing())
                 return
-            if len(sequence) > 0 and type(sequence[0]) != list and \
-                                     type(sequence[0]) != tuple:
+            if len(sequence) > 0 and type(sequence[0]) != list and                                       type(sequence[0]) != tuple:
                 d = lcm([x.denominator() for x in sequence])
                 sequence = [(sequence, d, 1)]
         self._sequence = sequence
@@ -968,8 +965,7 @@ class ThetaProduct(MultiplicativeGroupElement, Theta_element):
         den = self._d
         if _is_numerical_complex_field(z.base_ring()):
             if prec != None:
-                raise ValueError, "prec!=None cannot be combined with a " \
-                                  "non-exact period matrix"
+                raise ValueError, "prec!=None cannot be combined with a "                                    "non-exact period matrix"
             C = z.base_ring()
         else:
             C = ComplexField(prec)
@@ -1021,8 +1017,7 @@ class ThetaProduct(MultiplicativeGroupElement, Theta_element):
                 r = "t%s" % num
             else:
                 num = c
-                r = "t[" + ",".join(["%s" % (x) for x in c[:self._g]]) + \
-                   ";" + ",".join(["%s" % (x) for x in c[self._g:]]) + "]"
+                r = "t[" + ",".join(["%s" % (x) for x in c[:self._g]]) +                     ";" + ",".join(["%s" % (x) for x in c[self._g:]]) + "]"
             eabs = abs(e)
             if eabs != 1:
                 r = r + "^%s" % eabs
@@ -1076,16 +1071,14 @@ class ThetaProduct(MultiplicativeGroupElement, Theta_element):
         Check whether self and other are the same quotient of theta constants.
         I don't know whether this is equivalent to being the same modular forms.
         """
-        return self._sequence == other._sequence and \
-               self._unity    == other._unity
+        return self._sequence == other._sequence and                 self._unity    == other._unity
                
     def __eq__(self, other):
         r"""
         Check whether self and other are the same quotient of theta constants.
         I don't know whether this is equivalent to being the same modular forms.
         """
-        return self._sequence == other._sequence and \
-               self._unity    == other._unity
+        return self._sequence == other._sequence and                 self._unity    == other._unity
 
     def _mul_(self, other):
         r"""
@@ -1204,8 +1197,7 @@ class Theta_element_polynomial_ring(Theta_element):
         den = self._den
         if _is_numerical_complex_field(z.base_ring()):
             if prec != None:
-                raise ValueError, "prec!=None cannot be combined with a " \
-                                  "non-exact period matrix"
+                raise ValueError, "prec!=None cannot be combined with a "                                    "non-exact period matrix"
             C = z.base_ring()
             if get_verbose() > 1:
                 print "Working with a period matrix over CC"
@@ -1226,8 +1218,7 @@ class Theta_element_polynomial_ring(Theta_element):
                 print "Working with a period matrix over a number field"
             vals = z._theta_vals(den, prec=prec, use_magma=use_magma, interval=interval)
         else:
-            raise TypeError, "Period matrix z (=%s) has incorrect type " \
-                             "(%s) or base ring" % (z, type(z))
+            raise TypeError, "Period matrix z (=%s) has incorrect type "                               "(%s) or base ring" % (z, type(z))
         num_ret = sum([C(a[0])*a[1](vals) for a in Sequence(self._num_pol)])
         den_ret = sum([C(a[0])*a[1](vals) for a in Sequence(self._den_pol)])
         return num_ret / den_ret
@@ -1285,10 +1276,7 @@ class Theta_element_polynomial_ring(Theta_element):
         #       as Zmod(8)^* has exponent 2
             nu_inv = Zmod(2*den**2)(M.nu())**-1
             action = M.action_on_theta_generators(den)
-            return ThetaModForm(cycl_galois_action_on_polynomials( \
-                                    self._num_pol,nu_inv)(action) / \
-                                cycl_galois_action_on_polynomials( \
-                                    self._den_pol, nu_inv)(action), g, den)
+            return ThetaModForm(cycl_galois_action_on_polynomials(                                      self._num_pol,nu_inv)(action) /                                  cycl_galois_action_on_polynomials(                                      self._den_pol, nu_inv)(action), g, den)
         #  The following three lines should be an incorrect older version of
         #  the three lines above. I'm keeping them here just in case.
         #            return ThetaModForm(cycl_galois_action_on_theta(
@@ -1526,9 +1514,7 @@ def dup_data(g):
                     b2.append(1/2)
                 if b1[i] == 1/2 and a[i] == 1/2:
                     sgn = sgn * -1
-            current_formula = current_formula + \
-                sgn*P.gens()[c_to_num([0 for i in range(g)]+list(b1), den=2)] \
-                * P.gens()[c_to_num([0 for i in range(g)] + b2, den=2)]            
+            current_formula = current_formula +                  sgn*P.gens()[c_to_num([0 for i in range(g)]+list(b1), den=2)]                  * P.gens()[c_to_num([0 for i in range(g)] + b2, den=2)]            
         ret.append(current_formula / 2**g)
     _dup_data_cache.append([g, ret])
     return ret
@@ -1558,13 +1544,11 @@ def dup_formula(pol, g):
     for a in pol:
         e = a[1].exponents()
         if not len(e) == 1:
-            raise RuntimeError, "Bug in dup_formula, monomial is not a " \
-                                "monomial? %s" % a
+            raise RuntimeError, "Bug in dup_formula, monomial is not a "                                  "monomial? %s" % a
         e = e[0]
         for i in range(len(e)):
             if not (e[i]/2 in ZZ):
-                raise ValueError, "Duplication formula can only handle even " \
-                                  "powers of theta's"
+                raise ValueError, "Duplication formula can only handle even "                                    "powers of theta's"
         t = prod([dup_dat[i]**(e[i]/2) for i in range(len(e))])
         ret = ret + a[0]*t
     return ret

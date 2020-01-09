@@ -34,8 +34,7 @@ from sage.rings.all import ZZ
 from sage.structure.sequence import Sequence
 from sage.modules.free_module_element import vector
 from sage.functions.other import (imag, floor)
-from sage.rings.number_field.number_field_ideal import \
-                                                is_NumberFieldFractionalIdeal
+from sage.rings.number_field.number_field_ideal import                                                  is_NumberFieldFractionalIdeal
 from sage.matrix.matrix_generic_dense import Matrix_generic_dense
 
 
@@ -82,8 +81,7 @@ def evaluate_theta(c, z, u = None, use_magma=False):
     if get_verbose() == 2:
         print "%s terms up to %s" % ((2*R+1)**2, R)
     if len(c) != 4:
-        raise NotImplementedError, "sorry, evaluate_theta is only " \
-                                   "implemented for g=2"
+        raise NotImplementedError, "sorry, evaluate_theta is only "                                     "implemented for g=2"
     F_extra = ComplexField(prec*extra_prec)
     I = F_extra.gen()
     cpp = vector([c[2],c[3]])
@@ -266,8 +264,7 @@ def evaluate_theta_interval(c, z, R=None, reduce_first=True):
         
 
     if len(c) != 4:
-        raise NotImplementedError, "sorry, evaluate_theta_interval is only " \
-                                   "implemented for g<=2"
+        raise NotImplementedError, "sorry, evaluate_theta_interval is only "                                     "implemented for g<=2"
     if R is None:
         R = ceil((0.4*prec+2.2).sqrt())
 
@@ -424,11 +421,7 @@ def gottschling_matrices():
     global _gottschling
     if _gottschling == None:
         from sage.misc.mrange import cartesian_product_iterator
-        _gottschling = [Matrix([[0,0,-1,0],[0,1,0,0],[1,0,e,0],[0,0,0,1]]) for e in [-1,0,1]] \
-            + [Matrix([[1,0,0,0] ,[0,0,0,-1],[0,0,1,0],[0,1,0,e]]) for e in [-1,0,1]] \
-            + [Matrix([[0,0,-1,0],[0,1,0,0],[1,-1,d,0],[0,0,1,1]]) for d in [-2,-1,0,1,2]] \
-            + [Matrix([[0,0,-1,0],[0,0,0,-1],[1,0,e1,e3],[0,1,e3,e2]]) \
-                 for [e1,e2,e3] in cartesian_product_iterator([[-1,0,1] for k in range(3)])]
+        _gottschling = [Matrix([[0,0,-1,0],[0,1,0,0],[1,0,e,0],[0,0,0,1]]) for e in [-1,0,1]]              + [Matrix([[1,0,0,0] ,[0,0,0,-1],[0,0,1,0],[0,1,0,e]]) for e in [-1,0,1]]              + [Matrix([[0,0,-1,0],[0,1,0,0],[1,-1,d,0],[0,0,1,1]]) for d in [-2,-1,0,1,2]]              + [Matrix([[0,0,-1,0],[0,0,0,-1],[1,0,e1,e3],[0,1,e3,e2]])                   for [e1,e2,e3] in cartesian_product_iterator([[-1,0,1] for k in range(3)])]
     return _gottschling
 
 
@@ -499,8 +492,7 @@ def _gottschling_reduce(Z):
         d = abs(_det_bottom_part(g, Z))
         if d < improvement:
             if get_verbose() == 2:
-                print "The matrix %s would improve the determinant of the " \
-                      "imaginary part by a factor %s" % (g, 1/d)
+                print "The matrix %s would improve the determinant of the "                        "imaginary part by a factor %s" % (g, 1/d)
             gamma = g
             improvement = d
     if improvement == 1:
@@ -509,8 +501,7 @@ def _gottschling_reduce(Z):
         return (Z, identity_matrix(4))
     Z = Sp_action(gamma, Z)
     if get_verbose() == 2:
-        print "Improving the imaginary part by a factor %s using %s to get " \
-              "%s" % (1/improvement, gamma, Z)
+        print "Improving the imaginary part by a factor %s using %s to get "                "%s" % (1/improvement, gamma, Z)
     return (Z, gamma)
 
 
@@ -541,8 +532,7 @@ def _reduce(Z, reduction_sequence=False):
         if g == 2:
             Z, U = _imagred(Z)
             if get_verbose() == 2:
-                print "The imaginary part is made reduced by %s. This yields %s" % \
-                      (U,Z)
+                print "The imaginary part is made reduced by %s. This yields %s" %                        (U,Z)
             Uti = U.transpose().inverse()
             U = Matrix([[U[0,0],U[0,1],0,0],[U[1,0],U[1,1],0,0],[0,0,Uti[0,0],
                          Uti[0,1]],[0,0,Uti[1,0],Uti[1,1]]])
@@ -704,30 +694,21 @@ class PeriodMatrix_CM():
                       "We don't have xi*bar(ideal)*ideal*different = O_K")
             for i in range(len(basis)):
                 if not (ideal is None or basis[i] in ideal):
-                    raise ValueError, "(%s)th basis element %s not in " \
-                                      "ideal %s" % (i, basis[i], ideal)
+                    raise ValueError, "(%s)th basis element %s not in "                                        "ideal %s" % (i, basis[i], ideal)
                 for j in range(i):
                     b = (xi*bar(basis[i])*basis[j]).trace()
                     if j+g == i:
                         if b != -1:
-                            raise ValueError, "Basis %s is not symplectic: " \
-                                              "-1 expected in position " \
-                                              "(%s, %s), but %s found. Matrix:\n %s" % \
-                                              (basis,i,j,b,Matrix([[(xi*bar(basis[i])*basis[j]).trace() for j in range(len(basis))] for i in range(len(basis))]))
+                            raise ValueError, "Basis %s is not symplectic: "                                                "-1 expected in position "                                                "(%s, %s), but %s found. Matrix:\n %s" %                                                (basis,i,j,b,Matrix([[(xi*bar(basis[i])*basis[j]).trace() for j in range(len(basis))] for i in range(len(basis))]))
                     elif b != 0:
-                        raise ValueError, "Basis %s is not symplectic: " \
-                                          "0 expected in position (%s, %s), " \
-                                          "but %s found.\n Matrix: %s" % (basis,i,j,b,Matrix([[(xi*bar(basis[i])*basis[j]).trace() for j in range(len(basis))] for i in range(len(basis))]))
+                        raise ValueError, "Basis %s is not symplectic: "                                            "0 expected in position (%s, %s), "                                            "but %s found.\n Matrix: %s" % (basis,i,j,b,Matrix([[(xi*bar(basis[i])*basis[j]).trace() for j in range(len(basis))] for i in range(len(basis))]))
             
                     
         if matrix == None:
             matrix = _small_period_matrix(CM_type, basis)
         elif check:
-            if Sequence(matrix) != \
-               Sequence(_small_period_matrix(CM_type, basis)):
-                raise ValueError, "Period matrix belonging to basis %s is " \
-                         "%s, but %s was supplied" % \
-                         (basis, _small_period_matrix(CM_type, basis), matrix)
+            if Sequence(matrix) !=                 Sequence(_small_period_matrix(CM_type, basis)):
+                raise ValueError, "Period matrix belonging to basis %s is "                           "%s, but %s was supplied" %                           (basis, _small_period_matrix(CM_type, basis), matrix)
 #        from sage.matrix.matrix_space import MatrixSpace
 #        M = MatrixSpace(CM_type.codomain(), nrows=g, ncols=g, sparse=False)
 #        from sage.misc.flatten import flatten
@@ -946,24 +927,19 @@ class PeriodMatrix_CM():
                 A = self.CM_type().type_norm(B)
                 mu = self.CM_field()(B.norm())
             else:
-                raise NotImplementedError, "Finding A and mu is only " \
-                                           "implemented for g<=2 and for " \
-                                           "ideals that are invariant under " \
-                                           "complex conjugation."
+                raise NotImplementedError, "Finding A and mu is only "                                             "implemented for g<=2 and for "                                             "ideals that are invariant under "                                             "complex conjugation."
         elif not mu in self.CM_field():
             raise ValueError, "mu not in CM-field of self"
         if not rho(mu)*mu in QQ:
             raise ValueError, "mu*mubar not in QQ for mu = %s" % mu
         if not A is None:
             if self.CM_type().reflex().type_norm(A)*rho(B) != mu*B:
-                raise ValueError, "A (=%s) and mu (=%s) do not satisfy the " \
-                                  "hypothesis"
+                raise ValueError, "A (=%s) and mu (=%s) do not satisfy the "                                    "hypothesis"
             A, x = lift_ray_class_group_element(A, 1, level, generator=True)
             x = self.reflex_field()(x)
             mu = mu / self.CM_type().reflex().type_norm(x)
             if self.CM_type().reflex().type_norm(A)*rho(B) != mu*B:
-                raise RuntimeError, "A (=%s) and mu (=%s) do not satisfy the "\
-                                  "hypothesis"
+                raise RuntimeError, "A (=%s) and mu (=%s) do not satisfy the "                                   "hypothesis"
         Ct = Matrix([(mu**-1*rho(b)).vector() for b in self.basis()])
         # C = B Mt, so Ct = M Bt, so M^-1 = Bt Ct^-1
         # U = M^-1 = Bt Ct^-1
@@ -1015,8 +991,7 @@ class PeriodMatrix_CM():
 
     def evaluate_theta(self, c, prec, use_magma=False, interval=False):
         if get_verbose() == 2:
-            print "Evaluating theta constant of characteristic %s at %s" % \
-                  (c, self)
+            print "Evaluating theta constant of characteristic %s at %s" %                    (c, self)
         if interval:
             if use_magma:
                 raise NotImplementedError, "Cannot use both Magma and interval arithmetic"
@@ -1226,8 +1201,7 @@ class PeriodMatrix_CM():
             return (Z, u)
         if transformation:
             return (M, u)
-        raise ValueError, "period_matrix and transformation are not " \
-                          "allowed to be both False"
+        raise ValueError, "period_matrix and transformation are not "                            "allowed to be both False"
     
     def has_real_moduli(self):
         """

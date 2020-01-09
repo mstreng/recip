@@ -59,20 +59,14 @@ def matrix_from_blocks(A, B, C, D):
     m1 = A.nrows()
     m2 = C.nrows()
     if not m1 == B.nrows():
-        raise ValueError, "A and B do not have the same number of rows in " \
-                          "matrix_from_blocks A = %s, B = %s." % (A, B)
+        raise ValueError, "A and B do not have the same number of rows in "                            "matrix_from_blocks A = %s, B = %s." % (A, B)
     if not m2 == D.nrows():
-        raise ValueError, "C and D do not have the same number of rows in " \
-                          "matrix_from_blocks C = %s, D = %s" % (C, D)
+        raise ValueError, "C and D do not have the same number of rows in "                            "matrix_from_blocks C = %s, D = %s" % (C, D)
     if not A.ncols() == C.ncols():
-        raise ValueError, \
-              "A and C do not have the same number of columns in " \
-              "matrix_from_blocks A = %s, C = %s" % (A, C)
+        raise ValueError,                "A and C do not have the same number of columns in "                "matrix_from_blocks A = %s, C = %s" % (A, C)
     if not B.ncols() == D.ncols():
-        raise ValueError, "B and D do not have the same number of columns " \
-                          "in matrix_from_blocks B = %s, D = %s" % (B, D)
-    return Matrix([Sequence(A[i]) + Sequence(B[i]) for i in range(m1)] +\
-                  [Sequence(C[i]) + Sequence(D[i]) for i in range(m2)])
+        raise ValueError, "B and D do not have the same number of columns "                            "in matrix_from_blocks B = %s, D = %s" % (B, D)
+    return Matrix([Sequence(A[i]) + Sequence(B[i]) for i in range(m1)] +                   [Sequence(C[i]) + Sequence(D[i]) for i in range(m2)])
 
 
 def zero_matrix(m, n = None, base_ring = ZZ):
@@ -125,14 +119,12 @@ def ABCD(M, m = None, n = None):
     if m == None:
         m = M.nrows()
         if m % 2 == 1:
-            raise ValueError, "m not specified in ABCD while M (=Matrix(%s))" \
-                              " has an odd number of rows" % Sequence(M)
+            raise ValueError, "m not specified in ABCD while M (=Matrix(%s))"                                " has an odd number of rows" % Sequence(M)
         m = ZZ(m/2)
     if n == None:
         n = M.ncols()
         if n % 2 == 1:
-            raise ValueError, "n not specified in ABCD while M (=Matrix(%s))" \
-                              " has an odd number of columns" % Sequence(M)
+            raise ValueError, "n not specified in ABCD while M (=Matrix(%s))"                                " has an odd number of columns" % Sequence(M)
         n = ZZ(n/2)
     M.subdivide(m,n)
     A = M.subdivision(0,0)
@@ -149,8 +141,7 @@ def Zmod_to_SL(a):
     """
     mu = a.parent().order()
     if not a.parent() == Zmod(mu):
-        raise ValueError, "a (=%s) not in ZZ/muZZ for mu = a.parent()." \
-                          "order() = %s" % (a, mu)
+        raise ValueError, "a (=%s) not in ZZ/muZZ for mu = a.parent()."                            "order() = %s" % (a, mu)
     p = lift_small(a)
     q = lift_small(a**-1)
     e = 1 - p*q
@@ -181,13 +172,11 @@ class Sp_group:
     
     def __init__(self, n, m):
         if not (n in ZZ and n > 0 and m in ZZ and m > 0 and ZZ(n) % 2 == 0):
-            raise ValueError, "n (=%s) and m (=%s) must be positive integers" \
-                              " with n even" % (n, m)
+            raise ValueError, "n (=%s) and m (=%s) must be positive integers"                                " with n even" % (n, m)
         self._n = ZZ(n)
         self._m = ZZ(m)
         R = Zmod(m)
-        self._gens = [g.matrix(R) for g in symplectic_generators(n/2)] + \
-                    [g.matrix(R).inverse() for g in symplectic_generators(n/2)]
+        self._gens = [g.matrix(R) for g in symplectic_generators(n/2)] +                      [g.matrix(R).inverse() for g in symplectic_generators(n/2)]
         id = identity_matrix(ring=Zmod(m), n=n)
         self._elements_not_exhausted = [id]
         self._elements_known = [id]
@@ -413,8 +402,7 @@ class GSp_element:
                 raise ValueError
             M = mat_convert(M, lift_small)
         nu_inv = lift_small(self.nu()**-1)
-        ds = [theta_action_without_kappa(M, nu_inv, num_to_c(i, g, den)) \
-              for i in range(den**(2*g))]
+        ds = [theta_action_without_kappa(M, nu_inv, num_to_c(i, g, den))                for i in range(den**(2*g))]
         P = theta_ring(g, den)[0]
         zeta = P.base_ring().gen()
         k = zeta.multiplicative_order()

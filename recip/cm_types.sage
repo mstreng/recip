@@ -42,8 +42,7 @@ from sage.rings.qqbar import QQbar
 from sage.structure.sage_object import SageObject
 from sage.rings.rational_field import QQ
 from sage.rings.polynomial.polynomial_ring_constructor import PolynomialRing
-from sage.rings.number_field.number_field_element import \
-     NumberFieldElement_absolute
+from sage.rings.number_field.number_field_element import       NumberFieldElement_absolute
 
 from time import clock
 
@@ -109,17 +108,14 @@ def CM_Field(field, name=None, relative_name=None, check=True, embedding=None):
         A = QQ(field[1])
         B = QQ(field[2]) 
         if not ((A**2-4*B)/D).is_square():
-            raise ValueError, "(A^2-4B)/D must be square in " \
-                              "CM_field([D,A,B]), but [D,A,B] = %s" % \
-                              field
+            raise ValueError, "(A^2-4B)/D must be square in "                                "CM_field([D,A,B]), but [D,A,B] = %s" %                                field
         poly = x**4 + A*x**2 + B
         if name == None:
             name = 'alpha'
         if relative_name == None:
             relative_name = name
 
-        return CM_Field_quartic([D,A,B], name=name, check=check, \
-                                    relative_name=relative_name)
+        return CM_Field_quartic([D,A,B], name=name, check=check,                                      relative_name=relative_name)
     
 
     elif is_NumberField(field):
@@ -154,20 +150,15 @@ def CM_Field(field, name=None, relative_name=None, check=True, embedding=None):
     base_ring = poly.parent().base_ring()
     
     if base_ring == QQ or base_ring == ZZ:
-        if poly.degree() == 4 and poly[1]==0 and poly[3]==0 and \
-                poly[0] in ZZ and poly[2] in ZZ and poly[4] == 1 and \
-                not poly[0].is_square():
+        if poly.degree() == 4 and poly[1]==0 and poly[3]==0 and                  poly[0] in ZZ and poly[2] in ZZ and poly[4] == 1 and                  not poly[0].is_square():
             A = ZZ(poly[2])
             B = ZZ(poly[0])
             D = ZZ(QuadraticField(A^2-4*B, 'a').discriminant())
-            return CM_Field_quartic([D,A,B], name=name, check=check, \
-                                    relative_name=relative_name)
+            return CM_Field_quartic([D,A,B], name=name, check=check,                                      relative_name=relative_name)
             
-        return CM_Field_absolute(poly, name=name, relative_name=relative_name,\
-                                 check=check, embedding=embedding)
+        return CM_Field_absolute(poly, name=name, relative_name=relative_name,                                  check=check, embedding=embedding)
 
-    raise NotImplementedError, "CM-fields from relative fields not yet " \
-                               "implemented"
+    raise NotImplementedError, "CM-fields from relative fields not yet "                                 "implemented"
 
     
 #class CM_FieldElement_absolute(NumberFieldElement_absolute):
@@ -236,8 +227,7 @@ class CM_Field_absolute(NumberField_absolute):
 #        self._one_element = self(1)
 
         if check and not self.is_totally_imaginary():
-            raise ValueError, "field defined by %s is not totally " \
-                              "imaginary" % absolute_polynomial
+            raise ValueError, "field defined by %s is not totally "                                "imaginary" % absolute_polynomial
         self._relative_name = relative_name
         if embedding != None:
             self._embedding = embedding
@@ -249,8 +239,7 @@ class CM_Field_absolute(NumberField_absolute):
         Computes the complex conjugation automorphism, the real subfield,
         and the embedding of the real field into self.
         """
-        complex_conjugation_hom, self._real_field, real_to_self_hom = \
-                              _CM_field_data(self, check=True)
+        complex_conjugation_hom, self._real_field, real_to_self_hom =                                _CM_field_data(self, check=True)
         self._complex_conjugation = complex_conjugation_hom.im_gens()[0].list()
         self._real_gen_in_self = real_to_self_hom.im_gens()[0].list()
 
@@ -459,8 +448,7 @@ class CM_Field_absolute(NumberField_absolute):
             sage: H.relative_discriminant()  # unramified
             Fractional ideal (1)
 
-            sage: wrong_emb = [phi for phi in Kr.embeddings(C) \
-                                   if abs(abs(phi(Kr.gen()))-abs(emb(Kr.gen()))) > 1][0]
+            sage: wrong_emb = [phi for phi in Kr.embeddings(C)                                     if abs(abs(phi(Kr.gen()))-abs(emb(Kr.gen()))) > 1][0]
             sage: emb
             Ring morphism:
               From: CM Number Field in alphar with defining polynomial x^4 + 58*x^2 + 661
@@ -547,10 +535,8 @@ class CM_Field_absolute(NumberField_absolute):
         # The following lines seem completely natural to me, but don't work:
         # ret = NumberField_absolute._repr_(self)
         # return "CM " + ret
-        #return "CM Number Field in %s with defining polynomial %s" % \
-        #       (self._names[0], self.polynomial())
-        return "CM Number Field in %s with defining polynomial %s" % \
-                (self._names + (self.polynomial(),))
+        #return "CM Number Field in %s with defining polynomial %s" %          #       (self._names[0], self.polynomial())
+        return "CM Number Field in %s with defining polynomial %s" %                  (self._names + (self.polynomial(),))
 
     def CM_types(self, L=None, equivalence_classes=False):
         """
@@ -621,8 +607,7 @@ class CM_Field_absolute(NumberField_absolute):
             aut = [self.hom(self)]
         emb = self.embeddings(N)
         if not len(emb) == self.degree():
-            raise ValueError, "The field L (=%s) does not allow enough " \
-                              "embeddings of self (=%s)" % (L, self)
+            raise ValueError, "The field L (=%s) does not allow enough "                                "embeddings of self (=%s)" % (L, self)
         emb_pairs = []
         g = self.gen()
         embs_done = []
@@ -634,10 +619,8 @@ class CM_Field_absolute(NumberField_absolute):
         Phis = []
         Phis_done = []
         from sage.misc.mrange import cartesian_product_iterator
-        for i in cartesian_product_iterator([[0,1] for k in \
-                                             range(len(emb_pairs))]):
-            Phi = [self.hom(emb_pairs[k]((c**i[k])(g)),N) for k in \
-                                             range(len(emb_pairs))]
+        for i in cartesian_product_iterator([[0,1] for k in                                               range(len(emb_pairs))]):
+            Phi = [self.hom(emb_pairs[k]((c**i[k])(g)),N) for k in                                               range(len(emb_pairs))]
             from sage.sets.set import Set
             if len(aut) == 1:
                 Phis += [Phi]
@@ -842,8 +825,7 @@ class CM_Field_absolute(NumberField_absolute):
                     embedding = r[0]
                     break
             if embedding == None:
-                raise ValueError, "Cannot find embedding of galois closure that extends embedding %s." \
-                                  "Possibly due to precision, an incorrect ambient field, or a bug"
+                raise ValueError, "Cannot find embedding of galois closure that extends embedding %s."                                    "Possibly due to precision, an incorrect ambient field, or a bug"
         L = CM_Field(K, name = names, embedding = embedding, check=False)
         if get_verbose():
             print "Finished computing Galois closure in %s seconds" % (clock() - t)
@@ -998,8 +980,7 @@ class CM_Field_absolute(NumberField_absolute):
                         # (torsion_gen**l*xi)**2 is totally real.
                         # TODO: improve the algorithm.
                         K0b, mb = self.subfield((torsion_gen**l*xi)**2, 'b')
-                        if K0b.degree() == len(K0b.embeddings(AA)) and \
-                                       (-K0b.gen()).is_totally_positive():
+                        if K0b.degree() == len(K0b.embeddings(AA)) and                                         (-K0b.gen()).is_totally_positive():
                             for u in fu:
                                 yield (A,torsion_gen**l*xi*u)
     
@@ -1087,16 +1068,14 @@ class CM_Field_absolute(NumberField_absolute):
             for Phi in CM_types:
                 if isinstance(Phi, str):
                     if not Phi[:3] == 'Phi':
-                        raise ValueError, "Unknown CM-type given by string: " \
-                                          "'%s'" % Phi
+                        raise ValueError, "Unknown CM-type given by string: "                                            "'%s'" % Phi
                     Phi = Phi + ' '
                     for Psi in self.CM_types():
                         if Phi in Psi._repr_():
                             Phi = Psi
                             break
                     else:
-                        raise ValueError, "Unknown CM-type given by string: " \
-                                          "'%s'" % Phi
+                        raise ValueError, "Unknown CM-type given by string: "                                            "'%s'" % Phi
                 # TODO: maybe use some variable precision instead of CC
                 if Phi.is_totally_positive_imaginary(xi):
                     Z = PeriodMatrix(Phi,A,xi)
@@ -1266,8 +1245,7 @@ class CM_Type_base(SageObject):
         # a is a rational integer, and A is integral.
         # Sanity check:
         if not a in ZZ:
-            raise RuntimeError, "First element of gens_two is not a " \
-                                "rational integer for integral ideal %s" % A
+            raise RuntimeError, "First element of gens_two is not a "                                  "rational integer for integral ideal %s" % A
         z = (b/A).idealcoprime(a.parent().ideal(a))
         # Now z*b/A is an integral (according to the Pari documentation)
         # ideal coprime to a.
@@ -1281,12 +1259,8 @@ class CM_Type_base(SageObject):
         #  * If v(a) = 0, then for any pull-back w of v also w(z*b) >= w(A) = 0
         #    and w(a) = 0. For the type norm, we get
         #    v(x) = v(C) = 0 and v(y) >= v(C) = 0, so v(B) = v(A) = 0.
-        if not B.norm()**A.number_field().degree() == \
-               (A.norm()**B.number_field().degree())**self.g():
-            raise RuntimeError, "Bug in type norm of ideals. Norm of type " \
-                                "norm is incorrect: %s instead of %s" % \
-                            (B.norm(), (A.norm()**(B.number_field().degree()/ \
-                            A.number_field().degree()))**self.g())
+        if not B.norm()**A.number_field().degree() ==                 (A.norm()**B.number_field().degree())**self.g():
+            raise RuntimeError, "Bug in type norm of ideals. Norm of type "                                  "norm is incorrect: %s instead of %s" %                              (B.norm(), (A.norm()**(B.number_field().degree()/                              A.number_field().degree()))**self.g())
         return B
 
     def type_norm(self, x, reflex = True):
@@ -1316,19 +1290,13 @@ class CM_Type_base(SageObject):
             if x.number_field() == self.domain():
                 return self._type_norm_ideal(x, reflex)
             if x.number_field() == self.reflex_field():
-                raise ValueError, "x (%s) is an ideal of the reflex field " \
-                                  "of %s, instead of an ideal of the " \
-                                  "domain" % (x, self)
-            raise ValueError, "x (=%s) is an ideal of %s instead of %s" % \
-                              (x, x.number_field(), self.domain())
+                raise ValueError, "x (%s) is an ideal of the reflex field "                                    "of %s, instead of an ideal of the "                                    "domain" % (x, self)
+            raise ValueError, "x (=%s) is an ideal of %s instead of %s" %                                (x, x.number_field(), self.domain())
         if x in self.codomain():
-            raise ValueError, "x (=%s) is an element of the codomain of %s, " \
-                              "instead of its domain" % (x, self)
+            raise ValueError, "x (=%s) is an element of the codomain of %s, "                                "instead of its domain" % (x, self)
         if is_NumberFieldElement(x):
-            raise ValueError, "x (%s) is an element of the codomain of %s, " \
-                              "instead of an element of the domain" % (x, self)
-        raise TypeError, "x (%s) must be an element or ideal of a number " \
-                         "field, but is of type %s" % (x, type(x))
+            raise ValueError, "x (%s) is an element of the codomain of %s, "                                "instead of an element of the domain" % (x, self)
+        raise TypeError, "x (%s) must be an element or ideal of a number "                           "field, but is of type %s" % (x, type(x))
 
     def __iter__(self):
         """
@@ -1455,8 +1423,7 @@ class CM_Type_xi(CM_Type_base):
 
         """
         
-        return self.domain() == other.domain() and \
-               self.domain().is_totally_positive_real_element(self.xi() / other.xi())
+        return self.domain() == other.domain() and                 self.domain().is_totally_positive_real_element(self.xi() / other.xi())
 
     def xi(self):
         return self._xi
@@ -1501,9 +1468,7 @@ class CM_Type_xi(CM_Type_base):
             CM-type of CM Number Field in alpha with defining polynomial x^6 + 9*x^4 + 23*x^2 + 16 sending -9*alpha^5 - 23*alpha^3 - 16*alpha to the positive imaginary axis
 
         """
-        return "CM-type of " + self.domain().__repr__() \
-               + " sending " + str(self._xi) \
-               + " to the positive imaginary axis"
+        return "CM-type of " + self.domain().__repr__()                 + " sending " + str(self._xi)                 + " to the positive imaginary axis"
                
     _str_ = _repr_
 
@@ -1579,33 +1544,24 @@ class CM_Type_embeddings(CM_Type_base):
         if check:
             for e in embeddings:
                 if e.domain() != domain or e.codomain() != codomain:
-                    raise ValueError, "Different domain or codomain in " \
-                                      "embedding %s and %s" % \
-                                      (embeddings[0], e)
+                    raise ValueError, "Different domain or codomain in "                                        "embedding %s and %s" %                                        (embeddings[0], e)
             if 2*len(embeddings) != domain.degree():
                 raise ValueError, "Incorrect number of embeddings"
             c = self._domain.complex_conjugation()
             g = domain.gen()
             for i in range(len(embeddings)):
                 for j in range(i):
-                    if embeddings[i](g) == embeddings[j](g) or \
-                       embeddings[i](c(g)) == embeddings[j](g):
-                        raise ValueError, "Embeddings not pairwise distinct " \
-                                          "or not pairwise non-complex-" \
-                                          "conjugate"
+                    if embeddings[i](g) == embeddings[j](g) or                         embeddings[i](c(g)) == embeddings[j](g):
+                        raise ValueError, "Embeddings not pairwise distinct "                                            "or not pairwise non-complex-"                                            "conjugate"
         if reflex_field != None:
             if reflex_to_codomain == None:
-                raise ValueError, "reflex_to_codomain must be specified if " \
-                                  "reflex_field is specified"
+                raise ValueError, "reflex_to_codomain must be specified if "                                    "reflex_field is specified"
             if isinstance(reflex_field, CM_Field_absolute):
                 self._reflex_field = reflex_field
             else:
                 self._reflex_field = CM_Field(reflex_field)
-            if check and (reflex_to_codomain.domain() != reflex_field or \
-                          reflex_to_codomain.codomain() != codomain):
-                raise ValueError, "reflex_to_codomain (=%s) is not a map " \
-                                  "from reflex (=%s) to codomain (=%s)" % \
-                                  (reflex_to_codomain, reflex, codomain)
+            if check and (reflex_to_codomain.domain() != reflex_field or                            reflex_to_codomain.codomain() != codomain):
+                raise ValueError, "reflex_to_codomain (=%s) is not a map "                                    "from reflex (=%s) to codomain (=%s)" %                                    (reflex_to_codomain, reflex, codomain)
             self._reflex_to_codomain = reflex_to_codomain
             if check:
                 # The next line actually calculates the reflex field, which
@@ -1614,14 +1570,11 @@ class CM_Type_embeddings(CM_Type_base):
                 reflex_field2 = self.reflex_field()
                 reflex_to_codomain2 = self.reflex_to_codomain()
                 if reflex_field2.degree() != reflex_field.degree():
-                    raise ValueError, "Reflex field supplied has incorrect " \
-                                      "degree"
+                    raise ValueError, "Reflex field supplied has incorrect "                                        "degree"
                 try:
                     g = reflex_to_codomain2(reflex_field2.gen())
-                    if reflex_to_codomain(inverse_field_hom(\
-                                           reflex_to_codomain, g)) != g:
-                        raise RuntimeError, "inverse field hom computed " \
-                                            "incorrectly, bug in code"
+                    if reflex_to_codomain(inverse_field_hom(                                            reflex_to_codomain, g)) != g:
+                        raise RuntimeError, "inverse field hom computed "                                              "incorrectly, bug in code"
                 except ValueError:
                     raise ValueError, "Incorrect reflex field supplied"
                 self._reflex_field = reflex_field
@@ -1664,8 +1617,7 @@ class CM_Type_embeddings(CM_Type_base):
                 try:
                     for g in reflex_gens:
                         if m(inverse_field_hom(m, g)) != g:
-                            raise RuntimeError, "inverse field hom computed " \
-                                                "incorrectly, bug in code"
+                            raise RuntimeError, "inverse field hom computed "                                                  "incorrectly, bug in code"
                     #reflex_field = F
                     #reflex_to_codomain = m
                     break
@@ -1704,8 +1656,7 @@ class CM_Type_embeddings(CM_Type_base):
         # The following line makes sure that _reflex_to_codomain is computed
         K = self.reflex_field()
         if self._reflex_to_codomain == None:
-            raise RuntimeError, "_reflex_to_codomain not yet computed, " \
-                                "which should have happened; bug in code"
+            raise RuntimeError, "_reflex_to_codomain not yet computed, "                                  "which should have happened; bug in code"
         return self._reflex_to_codomain
 
     def reflex(self):
@@ -1768,8 +1719,7 @@ class CM_Type_embeddings(CM_Type_base):
         K = self.domain()
         Kpr = self.reflex_field()
         if not L.degree() == Lpr.degree():
-            raise NotImplementedError, "reflex not implemented for this " \
-                                       "CM-type"
+            raise NotImplementedError, "reflex not implemented for this "                                         "CM-type"
         g = K.gen()
         Phigs = [e(g) for e in self.embeddings()]
         S = [h for h in L.Hom(Lpr) if h(m(g)) in Phigs]
@@ -1799,9 +1749,7 @@ class CM_Type_embeddings(CM_Type_base):
             sage: any([L.CM_types()[0] == a for a in l])
             False
         """
-        return self.domain() == other.domain() and \
-               self._prime == other._prime and \
-               self._conjugate == other._conjugate
+        return self.domain() == other.domain() and                 self._prime == other._prime and                 self._conjugate == other._conjugate
     
     def codomain(self):
         return self._codomain
@@ -1829,11 +1777,8 @@ class CM_Type_embeddings(CM_Type_base):
             1/2*alphar^2 + 15/2
         """
         y = prod([e(x) for e in self._embeddings])
-        if not y.norm()**x.parent().degree() == \
-               (x.norm()**y.parent().degree())**self.g():
-            raise RuntimeError, "norm of type norm is incorrect: %s " \
-                                "instead of %s" % (y.norm(), \
-             (x.norm()**(y.parent().degree()/x.parent().degree()))**self.g())
+        if not y.norm()**x.parent().degree() ==                 (x.norm()**y.parent().degree())**self.g():
+            raise RuntimeError, "norm of type norm is incorrect: %s "                                  "instead of %s" % (y.norm(),               (x.norm()**(y.parent().degree()/x.parent().degree()))**self.g())
         if reflex:
             return inverse_field_hom(self.reflex_to_codomain(), y)
         return y
@@ -1853,10 +1798,7 @@ class CM_Type_embeddings(CM_Type_base):
               given by zeta5 |--> [zeta5, zeta5^2]
         """
         g = self.domain().gen()
-        return "CM-type of " + self.domain().__repr__() \
-               + "\n  with values in " + self.codomain().__repr__() \
-               + "\n  given by " + g.__repr__() + " |--> " \
-               + [h(g) for h in self.embeddings()].__repr__()
+        return "CM-type of " + self.domain().__repr__()                 + "\n  with values in " + self.codomain().__repr__()                 + "\n  given by " + g.__repr__() + " |--> "                 + [h(g) for h in self.embeddings()].__repr__()
                
     _str_ = _repr_
 
@@ -2106,8 +2048,7 @@ class CM_Type_quartic(CM_Type_embeddings):
             domain = CM_Field(DAB)
         elif check:
             if domain.DAB() != DAB:
-                raise ValueError, "Incorrect domain %s in construction of " \
-                                  "CM-type with DAB = %s" % (domain, DAB)
+                raise ValueError, "Incorrect domain %s in construction of "                                    "CM-type with DAB = %s" % (domain, DAB)
         self._domain = domain
         [D,A,B] = DAB
         
@@ -2169,8 +2110,7 @@ class CM_Type_quartic(CM_Type_embeddings):
                 alpha[1] = -alpha[1]
             if self._conjugate:
                 alpha = [-a for a in alpha]
-            self._embeddings = [self._domain.hom(t, CLF, check=False) \
-                                for t in alpha]
+            self._embeddings = [self._domain.hom(t, CLF, check=False)                                  for t in alpha]
         return self._embeddings
         
     def g(self):
@@ -2220,10 +2160,8 @@ class CM_Type_quartic(CM_Type_embeddings):
             sage: Phi == Psi.reflex()
             True
         """
-        return CM_Type_quartic(self._DAB_reflex, \
-                               scale_down=(not self._scale_down),
-                               conjugate=self._conjugate, \
-                               domain=self._reflex_field, reflex_field=self._domain)
+        return CM_Type_quartic(self._DAB_reflex,                                 scale_down=(not self._scale_down),
+                               conjugate=self._conjugate,                                 domain=self._reflex_field, reflex_field=self._domain)
     
     def complex_conjugate(self):
         return CM_Type_quartic(self._DAB, scale_down=self._scale_down,
@@ -2491,16 +2429,14 @@ def _is_accepted_complex_field(K):
     Returns true if ``K`` is a complex field accepted by
     the CM-field code.
     """
-    return K == CC or K == QQbar or is_ComplexField(K) or \
-           K is CLF or is_ComplexIntervalField(K)
+    return K == CC or K == QQbar or is_ComplexField(K) or             K is CLF or is_ComplexIntervalField(K)
 
 
 def _is_numerical_complex_field(K):
     """
     Returns true if ``K`` is a complex field for doing numerical evaluation.
     """
-    return K == CC or is_ComplexField(K) or \
-                      is_ComplexIntervalField(K)
+    return K == CC or is_ComplexField(K) or                        is_ComplexIntervalField(K)
 
 
 def inverse_field_hom(m, y):
@@ -2532,8 +2468,7 @@ def inverse_field_hom(m, y):
     Lrel_base_to_K = Lrel.base_field().hom(K.gen(), K)
     x = Lrel_base_to_K(y_in_Lrel_base)
     if not m(x) == y:
-        raise RuntimeError, "Assertion m(x) == y failed in " \
-                  "inverse_field_hom for m = %s, y = %s, x = %s" % (m,y,ret)
+        raise RuntimeError, "Assertion m(x) == y failed in "                    "inverse_field_hom for m = %s, y = %s, x = %s" % (m,y,ret)
     return x
 
 
@@ -2570,11 +2505,8 @@ def DAB_to_minimal(DAB, K0=None, m=None, check=False):
     
     # Next, we create a matrix such that the square of the Euclidean norm of
     # beta*alpha for beta = x*bas[0]+y*bas[2] is (x,y) M (x,y)^t
-    #M = Matrix([[(beta1*beta2*alphasq).trace() for beta1 in bas] \
-    #             for beta2 in bas])
-    Q = QuadraticForm(ZZ, 2, [-(bas[0]**2*alphasq).trace(),\
-                              -2*(bas[0]*bas[1]*alphasq).trace(),\
-                              -(bas[1]**2*alphasq).trace()])
+    #M = Matrix([[(beta1*beta2*alphasq).trace() for beta1 in bas]      #             for beta2 in bas])
+    Q = QuadraticForm(ZZ, 2, [-(bas[0]**2*alphasq).trace(),                               -2*(bas[0]*bas[1]*alphasq).trace(),                               -(bas[1]**2*alphasq).trace()])
     R, T = Q.reduced_binary_form1()
     (a,b,c) = R.coefficients()
     assert a == Q(T.column(0))

@@ -112,8 +112,7 @@ def recognize_polynomial(pol_n, K=None, N=None, M=None,
     """
     if K == None:
         if emb == None:
-            raise ValueError, "K and emb cannot both be None in " \
-                              "recognize_polynomial"
+            raise ValueError, "K and emb cannot both be None in "                                "recognize_polynomial"
         K = emb.domain()
 
     if K == QQ:
@@ -143,8 +142,7 @@ def recognize_polynomial(pol_n, K=None, N=None, M=None,
         emb = K.hom(A)
     else:
         if not emb.domain() == K:
-            raise ValueError, "Domain of embedding emb (=%s) is not " \
-                              "%s" % (emb, K)
+            raise ValueError, "Domain of embedding emb (=%s) is not "                                "%s" % (emb, K)
         if not emb.codomain() == A:
             emb2 = emb.codomain().hom(A)
             #emb = K.hom(emb2(emb.im_gens()[0]), A)
@@ -214,8 +212,7 @@ def recognize_polynomial(pol_n, K=None, N=None, M=None,
         if i[n*(d+1)] != 0:
             if get_verbose():
                 print i
-            return sum([sum([i[k*n+l]*y**k*bas[l] for k in range(d+1)]) \
-                        for l in range(n)]) / i[n*(d+1)]
+            return sum([sum([i[k*n+l]*y**k*bas[l] for k in range(d+1)])                          for l in range(n)]) / i[n*(d+1)]
     raise RuntimeError, "Failed to recognize polynomial. Bug?"
 
 
@@ -245,8 +242,7 @@ def short_interpolation(a, b):
         raise ValueError, "non-equal lengths in _short_interpolation"
     P = PolynomialRing(universe, 'x')
     x = P.gen()
-    return P(sum([b[i] * prod([x-a[j] for j in range(len(a)) if j != i]) \
-                for i in range(len(a))]))
+    return P(sum([b[i] * prod([x-a[j] for j in range(len(a)) if j != i])                  for i in range(len(a))]))
 
 
 def my_round(x):
