@@ -342,7 +342,7 @@ def _small_period_matrix(Phi, bas):
     Omega1 = bigone.subdivision(0,0)
     Omega2 = bigone.subdivision(0,1)
 #    return Omega2**-1 * Omega1
-    return Omega2.adjoint() * Omega1 / Omega2.det()
+    return Omega2.adjugate() * Omega1 / Omega2.det()
 
 
 def my_ceil(a):
