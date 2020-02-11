@@ -491,7 +491,7 @@ def recognize_all_from_article(bound=2, print_results=False):
                 Z = Z.reduce()
                 o = recognize_matrix(Z, bound)
                 l.append((o[0], o[1], Z))
-        l.sort()
+        l.sort(key=(lambda x : x[0]))
         if print_results:
             for (o0, o1, Z) in l:
                 print((o0, o1))

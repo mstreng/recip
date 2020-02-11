@@ -32,7 +32,7 @@ See the file README.txt for version information, instructions, and references.
 
 EXAMPLE:
 
-Our first example is the example in Section 6.1 of [Streng12]. This is the same
+Our first example is the example in Section 7.1 of [Streng12]. This is the same
 example presented at Geocrypt 2011 and ECC 2011.
 
 We first load the package, and create the CM-field
@@ -41,7 +41,17 @@ We first load the package, and create the CM-field
 
     sage: from recip import *
     sage: K = CM_Field([521,27,52])
-    sage: Z = K.one_period_matrix('Phi'); Z
+    sage: tau = K.one_period_matrix('Phi')
+    sage: tau.ideal()
+    Fractional ideal (1)
+    sage: 2*tau.xi()^-1 # as mentioned in the paper
+    22411531*alpha^3 + 46779315*alpha
+    sage: [4*c for c in tau.basis()] # as mentioned in the paper
+    [653*alpha^3 + 3414*alpha^2 + 1363*alpha + 7126,
+     401*alpha^3 + 2360*alpha^2 + 837*alpha + 4926,
+     -653*alpha^3 + 1306*alpha^2 - 1363*alpha + 2726,
+     2108*alpha^2 + 4400]
+    sage: tau
     Period Matrix
     [ -0.3803191? + 0.9248553?*I   0.4251995? + 0.3851337?*I]
     [0.42519943? + 0.38513368?*I 0.26063818? + 1.36829357?*I]
@@ -55,92 +65,110 @@ field, which is `\QQ(\sqrt{52})`, where the 52 is the same 52 as in
     sage: I = igusa_invariants_absolute()
     sage: Kr0 = QuadraticField(13,'a')
 
-Next, we take the image of a set of generators of `(O_{K^r}/8O_{K^r})^*`
-under the reciprocity map `r` from the article.::
+Next, we take the image of a set of generators of
+`(H(1) \cap I(8)) / H(8)`` under the reciprocity map
+`r` from the article.::
 
-    sage: gammas = reciprocity_map_image(Z, 8)
+    sage: R = reciprocity_map_image(tau, 8)
+    sage: R # output is random
+    [
+    Generalized symplectic matrix  Generalized symplectic matrix
+    [6 6 3 3]                      [5 2 5 6]
+    [7 7 2 5]                      [5 1 5 3]
+    [7 0 5 5]                      [1 0 6 7]
+    [0 6 2 1] with nu = 7        , [0 2 6 7] with nu = 7        ,
 
-We also create the matrix U from Section 2.8 of [1].::
-    
-    sage: U = Z.complex_conjugation_symplectic_matrix(8)
+    Symplectic matrix  Generalized symplectic matrix  Symplectic matrix
+    [7 0 0 2]          [5 4 0 4]                      [7 0 0 2]
+    [0 1 6 0]          [4 5 4 4]                      [0 1 6 0]
+    [0 0 7 0]          [4 0 1 4]                      [0 0 7 0]
+    [0 0 0 1]        , [0 4 4 1] with nu = 5        , [0 0 0 1]        ,
 
-In Section 6.1 of [1], we see first that gamma breaks the 8th powers of the
-ten even theta constants up into 4 orbits, and then that U interchanges two
-of these orbits, which brings it down to 3 orbits. The following command
-gives a visual presentation of these three orbits. The 2 in the command is the
-even number `D` with `8 = N = 2D^2`.::
+    Generalized symplectic matrix
+    [1 4 0 4]
+    [4 1 4 4]
+    [4 0 5 4]
+    [0 4 4 5] with nu = 5
+    ]
 
-    sage: visualize(gammas + [U], 2) # random
+Now consider the action of the elements of R on the 8th powers
+of theta constants and see that there are four orbits.::
+
+    sage: visualize(R, 2)
     On the 8-th powers, the action is (note that 16 means 0):
-    1: (1,6,16)(2,3,4)(8,15,9)
-    2: (1,6,16)(2,3,4)(8,15,9)
-    3: ()
-    4: ()
-    5: ()
-    6: ()
-    7: (1,4)(2,16)(3,6)(8,15)
-    Permutation Group with generators [(), (1,4)(2,16)(3,6)(8,15), (1,6,16)(2,3,4)(8,15,9)] of order 6
-    The action on the orbit [0, 1, 2, 3, 4, 6] is as follows
-    [            0|            1             2             3             4             5             6             7]
-    [-------------+-------------------------------------------------------------------------------------------------]
-    [           t0|(-zeta8^2)*t1 (-zeta8^2)*t1            t0            t0            t0            t0            t2]
-    [           t1| (zeta8^3)*t6  (zeta8^3)*t6           -t1            t1           -t1            t1            t4]
-    [           t2|          -t3           -t3           -t2            t2           -t2            t2            t0]
-    [           t3|   (zeta8)*t4    (zeta8)*t4            t3            t3            t3            t3            t6]
-    [           t4|(-zeta8^2)*t2 (-zeta8^2)*t2            t4            t4            t4            t4            t1]
-    [           t6|           t0            t0           -t6            t6           -t6            t6            t3]
-    [      (zeta8)|   (-zeta8^3)    (-zeta8^3)      (-zeta8)       (zeta8)      (-zeta8)       (zeta8)    (-zeta8^3)]
+    ...
+    The action on the orbit [0, 1, 6] is as follows
+    ...
+    The action on the orbit [2, 3, 4] is as follows
+    ...
     The action on the orbit [8, 9, 15] is as follows
-    [             0|             1              2              3              4              5              6              7]
-    [--------------+--------------------------------------------------------------------------------------------------------]
-    [            t8|   (zeta8)*t15    (zeta8)*t15            -t8             t8            -t8             t8 (-zeta8^3)*t15]
-    [            t9| (-zeta8^2)*t8  (-zeta8^2)*t8             t9             t9             t9             t9     (zeta8)*t9]
-    [           t15| (-zeta8^2)*t9  (-zeta8^2)*t9           -t15            t15           -t15            t15  (-zeta8^3)*t8]
-    [       (zeta8)|    (-zeta8^3)     (-zeta8^3)       (-zeta8)        (zeta8)       (-zeta8)        (zeta8)     (-zeta8^3)]
+    ...
     The action on the orbit [12] is as follows
-    [             0|             1              2              3              4              5              6              7]
-    [--------------+--------------------------------------------------------------------------------------------------------]
-    [           t12|   (zeta8)*t12   (-zeta8)*t12            t12           -t12           -t12           -t12 (-zeta8^3)*t12]
-    [       (zeta8)|    (-zeta8^3)     (-zeta8^3)       (-zeta8)        (zeta8)       (-zeta8)        (zeta8)     (-zeta8^3)]
-    [t12^3/(t8*t9*t15), zeta8*t12^3/(t8*t9*t15), i*t12^3/(t8*t9*t15), zeta8^3*t12^3/(t8*t9*t15)]
+    ...
+
+We also create the matrix U from Section 2.8 of [1] so that we
+get a real value of f(tau). Then two of the orbits collapse.::
+    
+    sage: U = tau.complex_conjugation_symplectic_matrix(8)
+    sage: visualize(R + [U], 2)
+    On the 8-th powers, the action is (note that 16 means 0):
+    ...
+    The action on the orbit [0, 1, 2, 3, 4, 6] is as follows
+    ...
+    The action on the orbit [8, 9, 15] is as follows
+    ...
+    The action on the orbit [12] is as follows
+    ...
 
 Next, we create our modular functions. The 2,2 in the following command stands
 for `g=2` followed by `D=2`. In the current implementation, this really is only
-for `g` and `D` small, as we currently use a dense polynomial ring in `D^{2g}`
-variables.::
+for `g` and `D` small, as we use a dense polynomial ring in `D^{2g}` variables.::
 
     sage: R = theta_ring(2,2)[0]
     sage: zeta8 = R.base_ring().gen()
 
-We create the modular functions
+As explained in the article, we now consider  the modular functions
 `f = \zeta_8^k (\theta_{12}^3/(\theta_8\theta_9\theta_15))^n`
-for `n=1,2` and `k=0,1,2,3` and compute their orbits under U and the image gammas
+for `n=1,2` and `k=0,1,2,3` and compute their orbits under U and the image R
 of the reciprocity map `r`.::
 
     sage: f0 = R.gens()[12]^3 / prod([R.gens()[i] for i in [8,9,15]])
     sage: T = [ThetaModForm(zeta8^k*f0^n) for k in range(4) for n in [1,2]]
-    sage: fs = [t for t in T if t.is_fixed_by(gammas+[U])]; fs
+    sage: fs = [t for t in T if t.is_fixed_by(list(R)+[U])]; fs
     [(zeta8^2)*t12^6/(t8^2*t9^2*t15^2)]
     sage: f = fs[0]
 
-So `k=n=2` yields the smallest `f` that works. Now we need to compute the
-Galois orbit of f(Z) in order to find the minimal polynomial of f(Z).
+So `k=n=2` yields the smallest `f` that works.
+
+To see that even with arbitrary elements of `\QQ(\zeta_8)` we can't do better than `n=2`, we look at
+the cocycle `c : \sigma \mapsto f0^\sigma / f0` in more detail to check that it is not a coboundary::
+
+    sage: [ThetaModForm(f0)^r / f0 for r in R]
+    [(-zeta8^2), (-zeta8^2), -1, -1, -1, -1]
+    sage: [r.nu() for r in R]
+    [7, 7, 1, 5, 1, 5]
+
+So for example the third element r = R[2] of R has `\sigma(r)\not=1`, while `r`
+acts trivially on `QQ(\zeta_N)`. If `c` were a coboundary `\sigma\mapsto x^\sigma/x` for some
+`x\in\QQ(\zeta_N)`, then it would send `r` to `1` instead of `-1`.
+
+Now we compute the minimal polynomial. For this we need to compute the Galois orbit of `f(\tau)`.
 
 We need to iterate over the ideals of the reflex field modulo the ideal group
 of `H_{\Phi,O}(1)` of Theorem 2.2 of [1]. In this example, this group is just
 the group of principal ideals (see Section 6.1 of [1]), so we iterate over the
 ideal class group of the reflex field. ::
 
-    sage: shrecip = [Z.Shimura_reciprocity(A.ideal(), n=8, m=1, transformation=False, period_matrix=True) for A in Z.CM_type().reflex_field().class_group()]
+    sage: shrecip = [tau.Shimura_reciprocity(A.ideal(), n=8, m=1, transformation=False, period_matrix=True) for A in tau.CM_type().reflex_field().class_group()]
     sage: d = len(shrecip); 7
     7
 
-Each of the 7 elements of shrecip is a list consisting of (U, u), where
-`g^u ( U ) = g(Z)^a` for one of the 7 ideal classes `a` and for all g in F_N.
-First, we create a list of functions `g^u` where `g` ranges over `f` and the
+Each of the 7 elements of shrecip is a list consisting of (\tau', U), where
+`g^U ( \tau' ) = g(\tau)^a` for one of the 7 ideal classes `a` and for all g in F_N.
+First, we create a list of functions `g^U` where `g` ranges over `f` and the
 Igusa invariants. ::
     
-    sage: funcs = [[f**u for (U,u) in shrecip]] + [[j for k in range(d)] for j in I]
+    sage: funcs = [[f**U for (tauprime, U) in shrecip]] + [[j for k in range(d)] for j in I]
 
 Next, we evaluate these functions. For this, we use a naive implementation of
 theta constant evaluation (just evaluate their Fourier expansions). Because
@@ -151,7 +179,7 @@ wait a few minutes. ::
 
     sage: rts = [[funcs[j][k](shrecip[k][0], prec=1000) for k in range(d)] for j in range(4)] # long time almost 3 minutes
 
-That's that, we now have all values `g^u(U)` for all `g` under consideration.
+That's that, we now have all values `g^U(\tau')` for all `g` under consideration.
 Putting these together into minimal polynomials and Hecke representations
 ('intpols' below) is quick and easy. ::
     
@@ -165,9 +193,9 @@ Putting these together into minimal polynomials and Hecke representations
     sage: with_clinv = [minpols[0]] + intpols[0]; with_clinv # long time
     [y^7 + (30056912/91809*a - 105080560/91809)*y^6 + (-2510103169664/826281*a + 9050615361664/826281)*y^5 + (-31191346986373120/7436529*a + 112462009885048832/7436529)*y^4 + (-2349120383562514432/66928761*a + 8469874588158623744/66928761)*y^3 + (-26197067707249590272/22309587*a + 94454871140377034752/22309587)*y^2 + (250917334141632512/66928761*a - 904696010264018944/66928761)*y - 499961036800/91809*a + 1800799256576/91809, (155205162116358647755/10201*a - 559600170220938887110/10201)*y^6 + (4293512808155549781824000/10201*a - 15480480581665978617394880/10201)*y^5 + (4796992628983857601067816320/10201*a - 17295802891824100262459263360/10201)*y^4 + (120945583333941400455909591040/30603*a - 436075502251428602426380912640/30603)*y^3 + (1341042908932829083414600581120/10201*a - 4835198970754700340106176593920/10201)*y^2 + (-38533828940561016639837962240/91809*a + 138935696085150872191306301440/91809)*y + 167832146481204715187077120/275427*a - 605127409809396328300544000/275427, (155942160719197448511497600/104060401*a - 562257456480820026589520000/104060401)*y^6 + (-166301726476865527526007193600/312181203*a + 599609402010406725455728179200/312181203)*y^5 + (-2476327951737479042110141713203200/936543609*a + 8928527404854192205498136257740800/936543609)*y^4 + (-552147133863772061563401183356518400/25286677443*a + 1990794802746309324199714339363225600/25286677443)*y^3 + (-56403828236193801907781802283289804800/75860032329*a + 203366894838060336544487139786201497600/75860032329)*y^2 + (20008870365250292462430263758028800/8428892481*a - 72143008066021761377656153466470400/8428892481)*y - 784327759750570090436933294489600/227580096987*a + 2827933954549445333497544074854400/227580096987, (-4012937435827235689317264963498305932800000/104060401*a + 14468851690104080323524823696416410496000000/104060401)*y^6 + (-16711094246362976345862986728316071181619200000/104060401*a + 60252707174372962283239786551247279979110400000/104060401)*y^5 + (-14069073960477216641209061802589478970032128000000/104060401*a + 50726767562795827750926416934161464151375872000000/104060401)*y^4 + (-119107880103422386089716488866303676654026752000000/104060401*a + 429449569024706497123435462920155844683995545600000/104060401)*y^3 + (-11770178875083208903917412174969509904249782272000000/312181203*a + 42437983455495566570747427020049615148124471296000000/312181203)*y^2 + (12526191764620323384312023796102221506858188800000/104060401*a - 45163826693633325731560527040984621868751257600000/104060401)*y - 163671667363475421464773039962382760987852800000/936543609*a + 590126589019696595537103376578535359512576000000/936543609]
 
-As visually very clear, the quadruple of polynomials giving `f(Z)` and
-expressing `i_n(Z)` in it takes up less space than the triple of polynomials
-giving `i_1(Z)` and expressing `i_n(Z)` in it, so this class invariant really
+As visually very clear, the quadruple of polynomials giving `f(\tau)` and
+expressing `i_n(\tau)` in it takes up less space than the triple of polynomials
+giving `i_1(\tau)` and expressing `i_n(\tau)` in it, so this class invariant really
 gives an improvement.
 
 Next, we do another check on the output. It is not proven, but the

@@ -73,8 +73,8 @@ research.
 
 See the file VERSION for the current version.
 
-When using this package in a publication, it is highly likely that it is
-approprate certain publications. Please CITE the relevant JOURNAL publications,
+When using this package in a publication, it is highly likely that it is appropriate
+to cite certain publications. Please cite the relevant journal publications,
 as well as giving the URL of this repository.
 
 Here is a list of functionalities of this repository, together with the
@@ -138,6 +138,11 @@ directory, say "somewhere_on_my_drive/recip", then start SageMath and type::
 
     sage: load_attach_path("somewhere_on_my_drive/recip")
     sage: load("recip.sage")
+	
+Alternatively, download the package and use python import commands.
+For this, it is recommended to add the following to your .sage/sagerc file::
+
+	export PYTHONPATH=$PYTHONPATH:somewhere_on_my_drive/recip/
 
 [ABLPV]  -  Comparing arithmetic intersection formulas for denominators of
             Igusa class polynomials -- Jacqueline Anderson, Jennifer S.

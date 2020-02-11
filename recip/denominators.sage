@@ -121,6 +121,7 @@ def denominator_bound(K, c=2**14, k=2, d=None, Phi=None, bound='default', check=
     
         sage: x = QQ['x'].gen()
         sage: f = -x^5+3*x^4+2*x^3-6*x^2-3*x+1
+        sage: from sage.schemes.hyperelliptic_curves.invariants import igusa_clebsch_invariants
         sage: [I2,I4,I6,I10] = igusa_clebsch_invariants(f)
         sage: (I2^5/I10) == 2^7*3^15
         True

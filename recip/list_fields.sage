@@ -118,7 +118,7 @@ def iterate_DAB_given_DA(D, A, K0):
     if start == 0:
         start = e
     # Now m^2 D = A^2 - 4B < A^2, so m < A/sqrt(D), so m <= floor(A/sqrt(D))
-    for m in range(start, A/sqrt(D)+1, e):
+    for m in range(start, ceil(A/sqrt(D)+1), e):
         DAB = DAm_to_DAB(D, A, m)
         if not DAB[2].is_square(): # equivalent to primitive CM-type
             min_dab = DAB_to_minimal(DAB, K0, m)

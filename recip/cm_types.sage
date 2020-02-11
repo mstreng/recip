@@ -1010,7 +1010,7 @@ class CM_Field_absolute(NumberField_absolute):
             [1.5778442128152?*I 6.9649413235207?*I]
         r"""
         i = self.period_matrices_iter(CM_types, reduced)
-        Z = i.next()
+        Z = next(i)
         i.close()
         return Z
 
@@ -1051,7 +1051,7 @@ class CM_Field_absolute(NumberField_absolute):
             sage: K = CM_Field(x^4+68*x^2+578)
             sage: len(list(K.period_matrices_iter())) # long time, 3 seconds
             8
-            sage: K.period_matrices_iter().next()
+            sage: next(K.period_matrices_iter())
             Period Matrix
             [3.8092528978903?*I 1.5778442128152?*I]
             [1.5778442128152?*I 6.9649413235207?*I]
@@ -1611,7 +1611,7 @@ class CM_Type_embeddings(CM_Type_base):
                    reflex = False) for i in range(2*len(self.embeddings())+1)]
             # TODO: The following is very slow, but can be improved later:
             t = [a for a in L.subfields() if a[0].degree() != 0]
-            t.sort(_degree_cmp)
+            t.sort(key=(lambda x : x.degree()))
             for Fm in t:
                 F = Fm[0]; m = Fm[1]
                 try:
@@ -2364,20 +2364,6 @@ class CM_Type_quartic(CM_Type_embeddings):
         return K.is_totally_real_positive(xi)
 
 
-def _degree_cmp(F1, F2):
-    r"""
-    Returns -1, 0, 1 if the degree of F1[0] is respectively
-    larger, equal, or smaller than the degree of F2[0].
-    r"""
-    d1 = F1[0].degree()
-    d2 = F2[0].degree()
-    if d1 < d2:
-        return int(-1)
-    if d1 == d2:
-        return int(0)
-    return int(1)
-    
-    
 def highest_root(poly, field):
     r"""
     Returns a root of poly in field that is the highest in

@@ -131,7 +131,7 @@ def evaluate_theta_interval(c, z, R=None, reduce_first=True):
         0.93329583569198215423213? + 0.01432499117262351644467?*I
         sage: evaluate_theta_interval(c, Z, 7)
         0.9332958356919821542321268818? + 0.01432499117262351644467161792?*I
-        sage: v = [evaluate_theta_interval(c, Z, k) for k in range(1, 8)+[20]]
+        sage: v = [evaluate_theta_interval(c, Z, k) for k in [1,2,3,4,5,6,7,20]]
         sage: vru = [x.real().upper() for x in v]
         sage: all([vru[k] >= vru[k+1] for k in range(6)])
         True
@@ -788,7 +788,7 @@ class PeriodMatrix_CM():
         EXAMPLES::
         
             sage: from recip import *
-            sage: U = CM_Field(x^4+5*x^2+5).period_matrices_iter().next(); U
+            sage: U = next(CM_Field(x^4+5*x^2+5).period_matrices_iter()); U
             Period Matrix
             [ 0.30901699437...? + 0.95105651629...?*I  0.50000000000...? + 0.36327126400268?*I]
             [ 0.50000000000...? + 0.36327126400268?*I -0.30901699437495? + 0.95105651629...?*I]
@@ -902,7 +902,7 @@ class PeriodMatrix_CM():
             sage: from recip import *
             sage: k = CM_Field((x^2+5)^2-4*5)
             sage: it = k.period_matrices_iter()
-            sage: Z = it.next(); Z
+            sage: Z = next(it); Z
             Period Matrix
             [-0.30901699437495? + 0.95105651629515?*I -0.50000000000000? + 0.36327126400268?*I]
             [-0.50000000000000? + 0.36327126400268?*I  0.30901699437495? + 0.95105651629515?*I]
@@ -927,19 +927,19 @@ class PeriodMatrix_CM():
                 A = self.CM_type().type_norm(B)
                 mu = self.CM_field()(B.norm())
             else:
-                raise NotImplementedError( "Finding A and mu is only "                                             "implemented for g<=2 and for "                                             "ideals that are invariant under "                                             "complex conjugation.")
+                raise NotImplementedError( "Finding A and mu is only implemented for g<=2 and for ideals that are invariant under complex conjugation.")
         elif not mu in self.CM_field():
             raise ValueError( "mu not in CM-field of self")
         if not rho(mu)*mu in QQ:
             raise ValueError( "mu*mubar not in QQ for mu = %s" % mu)
         if not A is None:
             if self.CM_type().reflex().type_norm(A)*rho(B) != mu*B:
-                raise ValueError( "A (=%s) and mu (=%s) do not satisfy the "                                    "hypothesis")
+                raise ValueError( "A (=%s) and mu (=%s) do not satisfy the hypothesis")
             A, x = lift_ray_class_group_element(A, 1, level, generator=True)
             x = self.reflex_field()(x)
             mu = mu / self.CM_type().reflex().type_norm(x)
             if self.CM_type().reflex().type_norm(A)*rho(B) != mu*B:
-                raise RuntimeError( "A (=%s) and mu (=%s) do not satisfy the "                                   "hypothesis")
+                raise RuntimeError( "A (=%s) and mu (=%s) do not satisfy the hypothesis")
         Ct = Matrix([(mu**-1*rho(b)).vector() for b in self.basis()])
         # C = B Mt, so Ct = M Bt, so M^-1 = Bt Ct^-1
         # U = M^-1 = Bt Ct^-1

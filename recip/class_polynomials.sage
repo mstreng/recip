@@ -43,7 +43,7 @@ def class_polynomials(K, factor=False, prec=None, D=None,
                    (currently not supported)
      - `prec` -- starting precision (will be increased until it is enough)
      - `D` -- known multiple of the denominator (if omitted, computes one)
-     - `verbose` -- whether to print(specific verbose output for this function.)
+     - `verbose` -- whether to print specific verbose output for this function.
      
     OUTPUT:
     

@@ -260,12 +260,11 @@ def proper_ideal_classes(O, F):
     # Next, we create matrices for multiplication by generators of O'
     # (with respect to bases of OK) for all superorders O' of O. This
     # will allow us to eliminate non-proper ideals.
-    strict_superorders = [(O.index_in(a), a) for a in superorders(O) if a != O]
-    strict_superorders.sort()
+    strict_superorders = [a for a in superorders(O) if a != O]
+    strict_superorders.sort(key=(lambda a : O.index_in(a)))
     minimal_superorders = []
     minimal_superorder_matrices = []
-    for C in strict_superorders:
-        c = C[1]
+    for c in strict_superorders:
         if all([not b.is_suborder(c) for b in minimal_superorders]):
             minimal_superorders.append(c)
             mult_by_c = []

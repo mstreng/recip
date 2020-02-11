@@ -1,1 +1,1 @@
-sagemath >= 1.2.5
+sage >= 9.0
