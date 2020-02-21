@@ -9,7 +9,7 @@ This file contains functions and classes for CM-fields and CM-types
 See the file README.txt for version information, instructions, and references.
 
 #*****************************************************************************
-# Copyright (C) 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019
+# Copyright (C) 2010 -- 2020
 # Marco Streng <marco.streng@gmail.com>
 #
 # This program is free software; you can redistribute it and/or modify
@@ -1610,14 +1610,14 @@ class CM_Type_embeddings(CM_Type_base):
             reflex_gens = [self.type_norm(self.domain().gen()+i,
                    reflex = False) for i in range(2*len(self.embeddings())+1)]
             # TODO: The following is very slow, but can be improved later:
-            t = [a for a in L.subfields() if a[0].degree() != 0]
-            t.sort(key=(lambda x : x.degree()))
+            t = [a for a in L.subfields() if a[0].degree() % 2 == 0] # degree of a CM field is even
+            t.sort(key=(lambda x : x[0].degree()))
             for Fm in t:
                 F = Fm[0]; m = Fm[1]
                 try:
                     for g in reflex_gens:
                         if m(inverse_field_hom(m, g)) != g:
-                            raise RuntimeError( "inverse field hom computed "                                                  "incorrectly, bug in code")
+                            raise RuntimeError( "inverse field hom computed incorrectly, bug in code")
                     #reflex_field = F
                     #reflex_to_codomain = m
                     break

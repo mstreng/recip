@@ -10,7 +10,7 @@ Examples of how to use this code are in bissonstreng.sage
 See the file README.txt for version information and instructions.
 
 #*****************************************************************************
-# Copyright (C) 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019
+# Copyright (C) 2010 -- 2020
 # Marco Streng <marco.streng@gmail.com>
 #
 # This program is free software; you can redistribute it and/or modify
@@ -633,7 +633,7 @@ def ideal_order(basis, K):
         sage: basis3 = [1, 2*a] # Another order, O
         sage: basis4 = [2, a]   # Fractional ideal. Note: 4*basis4 is an ideal of basis3.
         sage: O1 = ideal_order(basis1, K); O1
-        Order in Number Field in a with defining polynomial x^2 - 15
+        Order in Number Field in a with defining polynomial x^2 - 15 with a = 3.872983346207417?
         sage: O1.basis()
         [1, a]
 

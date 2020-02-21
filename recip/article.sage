@@ -10,7 +10,7 @@ using Shimura's reciprocity law in [Streng12].
 See the file README.txt for version information, instructions, and references.
 
 #*****************************************************************************
-# Copyright (C) 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019
+# Copyright (C) 2010 -- 2020
 # Marco Streng <marco.streng@gmail.com>
 #
 # This program is free software; you can redistribute it and/or modify
@@ -69,8 +69,8 @@ Next, we take the image of a set of generators of
 `(H(1) \cap I(8)) / H(8)`` under the reciprocity map
 `r` from the article.::
 
-    sage: R = reciprocity_map_image(tau, 8)
-    sage: R # output is random
+    sage: r_image = reciprocity_map_image(tau, 8)
+    sage: r_image # output is random
     [
     Generalized symplectic matrix  Generalized symplectic matrix
     [6 6 3 3]                      [5 2 5 6]
@@ -91,10 +91,10 @@ Next, we take the image of a set of generators of
     [0 4 4 5] with nu = 5
     ]
 
-Now consider the action of the elements of R on the 8th powers
+Now consider the action of the elements of r_image on the 8th powers
 of theta constants and see that there are four orbits.::
 
-    sage: visualize(R, 2)
+    sage: visualize(r_image, 2)
     On the 8-th powers, the action is (note that 16 means 0):
     ...
     The action on the orbit [0, 1, 6] is as follows
@@ -110,7 +110,7 @@ We also create the matrix U from Section 2.8 of [1] so that we
 get a real value of f(tau). Then two of the orbits collapse.::
     
     sage: U = tau.complex_conjugation_symplectic_matrix(8)
-    sage: visualize(R + [U], 2)
+    sage: visualize(r_image + [U], 2)
     On the 8-th powers, the action is (note that 16 means 0):
     ...
     The action on the orbit [0, 1, 2, 3, 4, 6] is as follows
@@ -124,17 +124,17 @@ Next, we create our modular functions. The 2,2 in the following command stands
 for `g=2` followed by `D=2`. In the current implementation, this really is only
 for `g` and `D` small, as we use a dense polynomial ring in `D^{2g}` variables.::
 
-    sage: R = theta_ring(2,2)[0]
-    sage: zeta8 = R.base_ring().gen()
+    sage: ThR = theta_ring(2,2)[0]
+    sage: zeta8 = ThR.base_ring().gen()
 
 As explained in the article, we now consider  the modular functions
 `f = \zeta_8^k (\theta_{12}^3/(\theta_8\theta_9\theta_15))^n`
-for `n=1,2` and `k=0,1,2,3` and compute their orbits under U and the image R
-of the reciprocity map `r`.::
+for `n=1,2` and `k=0,1,2,3` and compute their orbits under U and the image
+`r_image` of the reciprocity map `r`.::
 
-    sage: f0 = R.gens()[12]^3 / prod([R.gens()[i] for i in [8,9,15]])
+    sage: f0 = ThR.gens()[12]^3 / prod([ThR.gens()[i] for i in [8,9,15]])
     sage: T = [ThetaModForm(zeta8^k*f0^n) for k in range(4) for n in [1,2]]
-    sage: fs = [t for t in T if t.is_fixed_by(list(R)+[U])]; fs
+    sage: fs = [t for t in T if t.is_fixed_by(list(r_image)+[U])]; fs
     [(zeta8^2)*t12^6/(t8^2*t9^2*t15^2)]
     sage: f = fs[0]
 
@@ -143,12 +143,12 @@ So `k=n=2` yields the smallest `f` that works.
 To see that even with arbitrary elements of `\QQ(\zeta_8)` we can't do better than `n=2`, we look at
 the cocycle `c : \sigma \mapsto f0^\sigma / f0` in more detail to check that it is not a coboundary::
 
-    sage: [ThetaModForm(f0)^r / f0 for r in R]
+    sage: [ThetaModForm(f0)^r / ThetaModForm(f0) for r in r_image]
     [(-zeta8^2), (-zeta8^2), -1, -1, -1, -1]
-    sage: [r.nu() for r in R]
+    sage: [r.nu() for r in r_image]
     [7, 7, 1, 5, 1, 5]
 
-So for example the third element r = R[2] of R has `\sigma(r)\not=1`, while `r`
+So for example the third element r = r_image[2] of r_image has `\sigma(r)\not=1`, while `r`
 acts trivially on `QQ(\zeta_N)`. If `c` were a coboundary `\sigma\mapsto x^\sigma/x` for some
 `x\in\QQ(\zeta_N)`, then it would send `r` to `1` instead of `-1`.
 
@@ -301,17 +301,17 @@ The prime 2 splits sufficiently much that Rosenhain invariants should always wor
     
 Here's a nice other small invariant::
 
-    sage: R = theta_ring(2,2)[0]
-    sage: zeta8 = R.base_ring().gen()    
-    sage: ThetaModForm(R.gens()[4]/R.gens()[12]).orbit(gammas) # long time
+    sage: ThR = theta_ring(2,2)[0]
+    sage: zeta8 = ThR.base_ring().gen()
+    sage: ThetaModForm(ThR.gens()[4]/ThR.gens()[12]).orbit(gammas) # long time
     [t4/t12, (-t4)/t12]
     
 Now the invariants of the talk at Geocrypt and ECC::
 
-    sage: t = ThetaModForm(R.gens()[0]*R.gens()[8]/R.gens()[4]/R.gens()[12])
-    sage: U = ThetaModForm(R.gens()[2]/R.gens()[6])^2
-    sage: V = ThetaModForm(R.gens()[8]/R.gens()[12])^2
-    sage: W = ThetaModForm(R.gens()[0]/R.gens()[4])^2
+    sage: t = ThetaModForm(ThR.gens()[0]*ThR.gens()[8]/ThR.gens()[4]/ThR.gens()[12])
+    sage: U = ThetaModForm(ThR.gens()[2]/ThR.gens()[6])^2
+    sage: V = ThetaModForm(ThR.gens()[8]/ThR.gens()[12])^2
+    sage: W = ThetaModForm(ThR.gens()[0]/ThR.gens()[4])^2
     sage: [a.orbit(gammas+[c]) for a in [t,U,V,W]] # long time
     [[t0*t8/(t4*t12)], [t2^2/t6^2], [t8^2/t12^2], [t0^2/t4^2]]
     sage: u = U*V
@@ -383,12 +383,12 @@ one where 2 is inert in the real quadratic subfield, and then ramifies in K.::
 
 So the orbit lengths are one and two. We try the length one orbits.::
 
-    sage: R = theta_ring(2,2)[0]
-    sage: zeta8 = R.base_ring().gen()    
-    sage: u = ThetaModForm(R.gens()[6]/R.gens()[15]); u.orbit(gammas)
+    sage: ThR = theta_ring(2,2)[0]
+    sage: zeta8 = ThR.base_ring().gen()
+    sage: u = ThetaModForm(ThR.gens()[6]/ThR.gens()[15]); u.orbit(gammas)
     [t6/t15, (-t6)/((-zeta8^2)*t15), t6/(-t15), (-t6)/((zeta8^2)*t15)]
 
-    sage: T = [ThetaModForm(zeta8^j*(R.gens()[6]/R.gens()[15])^k) for j in range(4) for k in range(1,5)]
+    sage: T = [ThetaModForm(zeta8^j*(ThR.gens()[6]/ThR.gens()[15])^k) for j in range(4) for k in range(1,5)]
     sage: [t for t in T if t.is_fixed_by(gammas+[c])] # long time
     [t6^4/t15^4]
 
@@ -472,10 +472,10 @@ map `F_{16}^*\rightarrow F_{4}^*` (in which mu lies) has order 5. That they
 remain of length 5 even when complex conjugation is taken into account is
 useful, as now we can take the quotient of two orbits.::
 
-    sage: R = theta_ring(2,2)[0]
-    sage: zeta8 = R.base_ring().gen()    
+    sage: ThR = theta_ring(2,2)[0]
+    sage: zeta8 = ThR.base_ring().gen()
     sage: e = [-1, 1, -1, 1, 1, 0, -1, 0, 1, 1, 0, 0, -1, 0, 0, -1]
-    sage: f = prod([R.gens()[k]^e[k] for k in range(16)])
+    sage: f = prod([ThR.gens()[k]^e[k] for k in range(16)])
     sage: T = [ThetaModForm(zeta8^j*f^k) for j in range(4) for k in range(1,5)]
     sage: [t for t in T if t.is_fixed_by(gammas+[c])] # long time
     [t1^2*t3^2*t4^2*t8^2*t9^2/(t0^2*t2^2*t6^2*t12^2*t15^2), t1^4*t3^4*t4^4*t8^4*t9^4/(t0^4*t2^4*t6^4*t12^4*t15^4)]
@@ -525,10 +525,10 @@ This example is similar to the previous one, but has a larger class number.::
     ...
     orbit [2, 3, 4, 6, 9]
     ...
-    sage: R = theta_ring(2,2)[0]
-    sage: zeta8 = R.base_ring().gen()    
+    sage: ThR = theta_ring(2,2)[0]
+    sage: zeta8 = ThR.base_ring().gen()
     sage: e = [1, 1, -1, -1, -1, 0, -1, 0, 1, -1, 0, 0, 1, 0, 0, 1]
-    sage: f = prod([R.gens()[k]^e[k] for k in range(16)])
+    sage: f = prod([ThR.gens()[k]^e[k] for k in range(16)])
     sage: T = [ThetaModForm(zeta8^j*f^k) for j in range(4) for k in range(1,5)]
     sage: [t for t in T if t.is_fixed_by(gammas+[c])] # long time
     [t0^2*t1^2*t8^2*t12^2*t15^2/(t2^2*t3^2*t4^2*t6^2*t9^2), t0^4*t1^4*t8^4*t12^4*t15^4/(t2^4*t3^4*t4^4*t6^4*t9^4)]

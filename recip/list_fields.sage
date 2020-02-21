@@ -3,7 +3,7 @@ RECIP -- REpository of Complex multIPlication SageMath code.
 See the file README.txt for version information and instructions.
 
 #*****************************************************************************
-# Copyright (C) 2010,2011,2012,2013 Marco Streng <marco.streng@gmail.com>
+# Copyright (C) 2010 -- 2020 Marco Streng <marco.streng@gmail.com>
 # 
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -95,7 +95,7 @@ def iterate_DAB_given_D(D, stopA, startA=1, K0=None):
             yield DAB
 
 
-def iterate_DAB_given_DA(D, A, K0):
+def iterate_DAB_given_DA(D, A, K0=None):
     r"""
     Given a real quadratic discriminant and a positive integer A,
     returns all minimal triples DAB corresponding to primitive quartic
@@ -118,7 +118,7 @@ def iterate_DAB_given_DA(D, A, K0):
     if start == 0:
         start = e
     # Now m^2 D = A^2 - 4B < A^2, so m < A/sqrt(D), so m <= floor(A/sqrt(D))
-    for m in range(start, ceil(A/sqrt(D)+1), e):
+    for m in range(start, floor(A/sqrt(D)+1), e):
         DAB = DAm_to_DAB(D, A, m)
         if not DAB[2].is_square(): # equivalent to primitive CM-type
             min_dab = DAB_to_minimal(DAB, K0, m)

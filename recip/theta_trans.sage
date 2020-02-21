@@ -4,7 +4,7 @@ RECIP -- REpository of Complex multIPlication SageMath code.
 See the file README.txt for version information and instructions.
 
 #*****************************************************************************
-# Copyright (C) 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019
+# Copyright (C) 2010 -- 2020
 # Marco Streng <marco.streng@gmail.com>
 #
 # This program is free software; you can redistribute it and/or modify
@@ -652,9 +652,6 @@ def ThetaModForm(x, g = None, den = None):
     r"""
     if type(x) == Theta_element_polynomial_ring:
         return x
-    if x in ZZ and not (g is None or den is None):
-        c = num_to_c(x, g=g, den=den)
-        return ThetaProduct(c)
     if is_RingElement(x):
         B = x.parent()
         if is_FractionField(B):

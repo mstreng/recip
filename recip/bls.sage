@@ -9,7 +9,7 @@ This file gives the details of computations for Table 2 of [BLS].
 See the file README.txt for version information, instructions, and references.
 
 #*****************************************************************************
-# Copyright (C) 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019
+# Copyright (C) 2010 -- 2020
 # Marco Streng <marco.streng@gmail.com>
 #
 # This program is free software; you can redistribute it and/or modify
@@ -423,10 +423,12 @@ def count_nn_endomorphisms(Z, p):
     r"""
     return len([V for V in nn_isogenous_matrices_iter2(Z, p) if V == Z])
 
-def is_polarized_product(Z, info=False, reduce=True):
+
+def recognize_period_matrix_as_polarized_product(Z, info=False, reduce=True):
     r"""
-    Returns True or False. If True, then we know Z is a polarized product
-    of CM elliptic curves. If False, then likely it is not (no proof!).
+    Given a 2x2 period matrix Z, returns True or False.
+    If True, then we know Z is a polarized product of CM elliptic curves.
+    If False, then likely it is not (no proof!).
     If info is True, then returns information on the elliptic curves.
     If reduce is True, then reduce first (use reduce=False if already reduced).
     r"""
@@ -440,11 +442,18 @@ def is_polarized_product(Z, info=False, reduce=True):
         pols = [Z[i][i].minpoly() for i in [0,1]]
         pols = [p*p.denominator() for p in pols]
         discs = [p.discriminant() for p in pols]
-        return True, zip(pols, discs)
+        return True, list(zip(pols, discs))
     return True
 
 
-def recognize_matrix(Z, bound=2):
+def is_polarized_product(Z, info=False, reduce=True):
+    print("Warning: the name is_polarized_product is misleading,")
+    print("as `False' is not a proof.")
+    print("Use recognize_period_matrix_as_polarized_product instead.")
+    return recognize_period_matrix_as_product_of_CM_curves(Z, info, reduce)
+
+
+def recognize_period_matrix_isogeny_to_product_of_CM_curves(Z, bound=2):
     r"""
     Tries to write Z as a polarized product of CM elliptic curves.
     If that fails, tries this for all (p,p)-isogenous varieties
@@ -452,10 +461,13 @@ def recognize_matrix(Z, bound=2):
     r"""
     for p in [1] + prime_range(bound):
         for V in [Z] if p == 1 else nn_isogenous_matrices_iter(Z, p):
-            b, i = is_polarized_product(V, info=True, reduce=False)
+            b, i = recognize_period_matrix_as_polarized_product(V, info=True, reduce=False)
             if b:
                 return p, i
     return False, None
+
+
+recognize_matrix = recognize_period_matrix_isogeny_to_product_of_CM_curves # TODO: add deprecation warning
 
 
 def recognize_all_from_article(bound=2, print_results=False):
@@ -489,9 +501,9 @@ def recognize_all_from_article(bound=2, print_results=False):
         for A in s:
             for Z in period_matrices(A, 2, reduced=False):
                 Z = Z.reduce()
-                o = recognize_matrix(Z, bound)
+                o = recognize_period_matrix_isogeny_to_product_of_CM_curves(Z, bound)
                 l.append((o[0], o[1], Z))
-        l.sort(key=(lambda x : x[0]))
+        l.sort(key=(lambda x : (x[0], x[1])))
         if print_results:
             for (o0, o1, Z) in l:
                 print((o0, o1))

@@ -3,7 +3,7 @@ RECIP -- REpository of Complex multIPlication SageMath code.
 See the file README.txt for version information and instructions.
 
 #*****************************************************************************
-# Copyright (C) 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019
+# Copyright (C) 2010 -- 2020
 # Marco Streng <marco.streng@gmail.com>
 #
 # This program is free software; you can redistribute it and/or modify
@@ -77,11 +77,11 @@ def evaluate_theta(c, z, u = None, use_magma=False):
     prec = z.base_ring().precision()
     if get_verbose() == 2:
         print("Precision %s" % prec)
-    R = extra_terms*ceil((0.4*prec+2.2).sqrt())
+    R = ZZ(ceil(extra_terms*(0.4*prec+2.2).sqrt()))
     if get_verbose() == 2:
         print("%s terms up to %s" % ((2*R+1)**2, R))
     if len(c) != 4:
-        raise NotImplementedError( "sorry, evaluate_theta is only "                                     "implemented for g=2")
+        raise NotImplementedError( "sorry, evaluate_theta is only implemented for g=2")
     F_extra = ComplexField(prec*extra_prec)
     I = F_extra.gen()
     cpp = vector([c[2],c[3]])
