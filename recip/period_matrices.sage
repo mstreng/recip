@@ -77,13 +77,13 @@ def evaluate_theta(c, z, u = None, use_magma=False):
     extra_terms = 1.1
     prec = z.base_ring().precision()
     if get_verbose() == 2:
-        print "Precision %s" % prec
+        print("Precision %s" % prec)
     R = extra_terms*ceil((0.4*prec+2.2).sqrt())
     if get_verbose() == 2:
-        print "%s terms up to %s" % ((2*R+1)**2, R)
+        print("%s terms up to %s" % ((2*R+1)**2, R))
     if len(c) != 4:
-        raise NotImplementedError, "sorry, evaluate_theta is only " \
-                                   "implemented for g=2"
+        raise NotImplementedError("sorry, evaluate_theta is only "
+                                   "implemented for g=2")   
     F_extra = ComplexField(prec*extra_prec)
     I = F_extra.gen()
     cpp = vector([c[2],c[3]])
@@ -169,13 +169,13 @@ def evaluate_theta_interval(c, z, R=None, reduce_first=True):
 
     prec = C.precision()
     if get_verbose() == 2:
-        print "Precision %s" % prec
+        print("Precision %s" % prec)
     
     if len(c) == 2:
     
         z = z[0,0]
         if z.imag().lower() < 0:
-            raise ValueError, "z must be in the upper half plane, but is %s" % z
+            raise ValueError("z must be in the upper half plane, but is %s" % z)
         prefactor = 1
         if reduce_first:
             zeta8 = C((I+1)/sqrt(2))
@@ -183,7 +183,7 @@ def evaluate_theta_interval(c, z, R=None, reduce_first=True):
             z_for_reduction = z.center()
             while not reduced:
                 t = (z_for_reduction.real()+1/2).floor()
-#                print evaluate_theta_interval(c, Matrix([[z]]), reduce_first=False)
+#                print(evaluate_theta_interval(c, Matrix([[z]]), reduce_first=False))
                 if t != 0:
                     z_new = z - t
                     N = Matrix([[1, t],[0,1]])
@@ -196,14 +196,14 @@ def evaluate_theta_interval(c, z, R=None, reduce_first=True):
                     lc, e = theta_leading_term_complex(c, C)
                     lcN, eN = theta_leading_term_complex(c_trans, C)
                     factor_for_this_transformation =  lc * exp(2*piI*e*t) / lcN
-#                    print "factor", factor_for_this_transformation
+#                    print("factor", factor_for_this_transformation)
                     prefactor = prefactor * factor_for_this_transformation
                     z = z_new
                     z_for_reduction = z_for_reduction - t
-#                    print "T", z_new, c_trans
+#                    print("T", z_new, c_trans)
                     c = c_trans
-#                    print "T"
-#                    print prefactor*evaluate_theta_interval(c, Matrix([[z]]), reduce_first=False)
+#                    print("T")
+#                    print(prefactor*evaluate_theta_interval(c, Matrix([[z]]), reduce_first=False))
                 
                 if z_for_reduction.abs() < 0.9:
                     z_new = -1/z
@@ -236,7 +236,7 @@ def evaluate_theta_interval(c, z, R=None, reduce_first=True):
         RF = RealIntervalField(prec)
         Q = exp(RF(-pi*z.imag()))
         if not Q.upper() < 1:
-            print Q
+            print(Q)
             raise ValueError
         if R is None:
             R = ZZ(ceil(sqrt((prec+3)*log(2)/-log(Q.upper())).n()))
@@ -266,21 +266,21 @@ def evaluate_theta_interval(c, z, R=None, reduce_first=True):
         
 
     if len(c) != 4:
-        raise NotImplementedError, "sorry, evaluate_theta_interval is only " \
-                                   "implemented for g<=2"
+        raise NotImplementedError("sorry, evaluate_theta_interval is only "
+                                   "implemented for g<=2")
     if R is None:
         R = ceil((0.4*prec+2.2).sqrt())
 
     if get_verbose() == 2:
-        print "%s terms up to %s" % ((2*R+1)**2, R)
+        print("%s terms up to %s" % ((2*R+1)**2, R))
         
     cpp = vector([c[2],c[3]])
     verb = get_recip_verbose()
     if verb:
-        print "Evaluating a theta constant in interval arithmetic, R=%s" % R
+        print("Evaluating a theta constant in interval arithmetic, R=%s" % R)
     for n in range(-R, R+1):
         if verb and R > 40:
-            print "Evaluating a theta constant, R=%s, n=%s, so %s percent" % (R, n, 100*((n+R)/2/R).n())
+            print("Evaluating a theta constant, R=%s, n=%s, so %s percent" % (R, n, 100*((n+R)/2/R).n()))
         for m in range(-R, R+1):
             cp = vector([ZZ(m)+c[0],ZZ(n)+c[1]])
             s = s + exp(piI*(cp*z*cp + 2*cp*cpp))
@@ -499,18 +499,18 @@ def _gottschling_reduce(Z):
         d = abs(_det_bottom_part(g, Z))
         if d < improvement:
             if get_verbose() == 2:
-                print "The matrix %s would improve the determinant of the " \
-                      "imaginary part by a factor %s" % (g, 1/d)
+                print("The matrix %s would improve the determinant of the "
+                      "imaginary part by a factor %s" % (g, 1/d))
             gamma = g
             improvement = d
     if improvement == 1:
         if get_verbose() == 2:
-            print "Cannot increase the imaginary part of %s" % Z
+            print("Cannot increase the imaginary part of %s" % Z)
         return (Z, identity_matrix(4))
     Z = Sp_action(gamma, Z)
     if get_verbose() == 2:
-        print "Improving the imaginary part by a factor %s using %s to get " \
-              "%s" % (1/improvement, gamma, Z)
+        print("Improving the imaginary part by a factor %s using %s to get "
+              "%s" % (1/improvement, gamma, Z))
     return (Z, gamma)
 
 
@@ -528,7 +528,7 @@ def _reduce(Z, reduction_sequence=False):
     """
     g = Z.nrows()
     if get_verbose() == 2:
-        print "Beginning reduction of " + str(Z)
+        print("Beginning reduction of " + str(Z))
 
     if g > 2:
         raise NotImplementedError
@@ -541,8 +541,8 @@ def _reduce(Z, reduction_sequence=False):
         if g == 2:
             Z, U = _imagred(Z)
             if get_verbose() == 2:
-                print "The imaginary part is made reduced by %s. This yields %s" % \
-                      (U,Z)
+                print("The imaginary part is made reduced by %s. This yields %s" %
+                      (U,Z))
             Uti = U.transpose().inverse()
             U = Matrix([[U[0,0],U[0,1],0,0],[U[1,0],U[1,1],0,0],[0,0,Uti[0,0],
                          Uti[0,1]],[0,0,Uti[1,0],Uti[1,1]]])
@@ -556,7 +556,7 @@ def _reduce(Z, reduction_sequence=False):
         # Now it may happen that V is not symmetric (because of rounding),
         # so we use V[0,1] twice and ignore V[1,0].
         if get_verbose() == 2:
-            print "The real part is made reduced by %s. This yields %s" % (V, Z)
+            print("The real part is made reduced by %s. This yields %s" % (V, Z))
         if g == 2:
             V = Matrix([[1,0,V[0,0],V[0,1]],[0,1,V[0,1],V[1,1]],[0,0,1,0],[0,0,0,1]])
         else:
@@ -605,9 +605,9 @@ def is_positive_definite(m):
     B = m.base_ring()
     if m.ncols() == 2 and (B == AA or B == RDF or is_RealField(B)):
         if m.nrows() != 2 or m[1,0] != m[0,1]:
-            raise ValueError, "Matrix m (=%s) is not symmetric"
+            raise ValueError("Matrix m (=%s) is not symmetric")
         return m[0,0] > 0 and m[0,0]*m[1,1] - m[1,0]**2 > 0
-    raise NotImplementedError, "is_positive_definite not implemented for matrices of dimension %s over %s" % (m.ncols(), B)
+    raise NotImplementedError("is_positive_definite not implemented for matrices of dimension %s over %s" % (m.ncols(), B))
 
     
 def is_period_matrix(m):
@@ -631,11 +631,11 @@ def is_period_matrix(m):
         raise ValueError
     if not m.is_symmetric():
         if get_verbose() == 2 != 0:
-            print "Matrix %s is not symmetric in is_period_matrix" % m
+            print("Matrix %s is not symmetric in is_period_matrix" % m)
         return False
     if not is_positive_definite(mat_convert(m, imag)):
         if get_verbose() == 2 != 0:
-            print "Imaginary part of %s is not positive definite" % m
+            print("Imaginary part of %s is not positive definite" % m)
         return False
     return True
     
@@ -667,10 +667,10 @@ def PeriodMatrix(arg1, arg2=None, arg3=None, check=True):
     """
     if arg2 is None and arg3 is None:
         if get_verbose() == 2:
-            print "PeriodMatrix got a single input (%s), interpreting it as a PeriodMatrix_CM and creating a new PeriodMatrix_CM (copy) out of it" % arg1
+            print("PeriodMatrix got a single input (%s), interpreting it as a PeriodMatrix_CM and creating a new PeriodMatrix_CM (copy) out of it" % arg1)
         return PeriodMatrix_CM(arg1.CM_type(), arg1.ideal(), arg1.xi(), arg1.basis(), arg1, check=check)
     if get_verbose() == 2:
-        print "PeriodMatrix got inputs CM_type = %s, ideal = %s, xi = %s" % (arg1, arg2, arg3)
+        print("PeriodMatrix got inputs CM_type = %s, ideal = %s, xi = %s" % (arg1, arg2, arg3))
     return PeriodMatrix_CM(arg1, arg2, arg3, check=check)
 
 
@@ -681,7 +681,7 @@ class PeriodMatrix_CM():
     def __init__(self, CM_type=None, ideal=None, xi=None, basis=None,
                  matrix=None, check=True):
         if xi is None:
-            raise NotImplementedError, "xi must be supplied"
+            raise NotImplementedError("xi must be supplied")
         
         if CM_type is None:
             CM_type = CM_Type(xi, check=False)
@@ -690,7 +690,7 @@ class PeriodMatrix_CM():
         bar = CM_type.domain().complex_conjugation()
         if basis is None:
             if ideal is None:
-                raise ValueError, "Either basis or ideal must be supplied"
+                raise ValueError("Either basis or ideal must be supplied")
             basis = _symplectic_basis(ideal, xi, bar)
         no_ideal_supplied = (ideal is None or type(ideal) is list)
         if no_ideal_supplied:
@@ -704,20 +704,20 @@ class PeriodMatrix_CM():
                       "We don't have xi*bar(ideal)*ideal*different = O_K")
             for i in range(len(basis)):
                 if not (ideal is None or basis[i] in ideal):
-                    raise ValueError, "(%s)th basis element %s not in " \
-                                      "ideal %s" % (i, basis[i], ideal)
+                    raise ValueError("(%s)th basis element %s not in "
+                                      "ideal %s" % (i, basis[i], ideal))
                 for j in range(i):
                     b = (xi*bar(basis[i])*basis[j]).trace()
                     if j+g == i:
                         if b != -1:
-                            raise ValueError, "Basis %s is not symplectic: " \
-                                              "-1 expected in position " \
-                                              "(%s, %s), but %s found. Matrix:\n %s" % \
-                                              (basis,i,j,b,Matrix([[(xi*bar(basis[i])*basis[j]).trace() for j in range(len(basis))] for i in range(len(basis))]))
+                            raise ValueError("Basis %s is not symplectic: "
+                                              "-1 expected in position "
+                                              "(%s, %s), but %s found. Matrix:\n %s" % 
+                                              (basis,i,j,b,Matrix([[(xi*bar(basis[i])*basis[j]).trace() for j in range(len(basis))] for i in range(len(basis))])))
                     elif b != 0:
-                        raise ValueError, "Basis %s is not symplectic: " \
-                                          "0 expected in position (%s, %s), " \
-                                          "but %s found.\n Matrix: %s" % (basis,i,j,b,Matrix([[(xi*bar(basis[i])*basis[j]).trace() for j in range(len(basis))] for i in range(len(basis))]))
+                        raise ValueError("Basis %s is not symplectic: " 
+                                          "0 expected in position (%s, %s), " 
+                                          "but %s found.\n Matrix: %s" % (basis,i,j,b,Matrix([[(xi*bar(basis[i])*basis[j]).trace() for j in range(len(basis))] for i in range(len(basis))])))
             
                     
         if matrix == None:
@@ -725,9 +725,9 @@ class PeriodMatrix_CM():
         elif check:
             if Sequence(matrix) != \
                Sequence(_small_period_matrix(CM_type, basis)):
-                raise ValueError, "Period matrix belonging to basis %s is " \
-                         "%s, but %s was supplied" % \
-                         (basis, _small_period_matrix(CM_type, basis), matrix)
+                raise ValueError("Period matrix belonging to basis %s is " 
+                         "%s, but %s was supplied" % 
+                         (basis, _small_period_matrix(CM_type, basis), matrix))
 #        from sage.matrix.matrix_space import MatrixSpace
 #        M = MatrixSpace(CM_type.codomain(), nrows=g, ncols=g, sparse=False)
 #        from sage.misc.flatten import flatten
@@ -787,7 +787,7 @@ class PeriodMatrix_CM():
                 return self._matrix
             emb = K.embedding()
             if emb is None:
-                raise RuntimeError, "Incorrect period matrix: field not embedded"
+                raise RuntimeError("Incorrect period matrix: field not embedded")
             return mat_convert(self._matrix, emb)
         if prec in ZZ:
             prec = ComplexField(prec)
@@ -868,9 +868,9 @@ class PeriodMatrix_CM():
             return Z
         M = (Z._Bt * self._Bt.inverse())    
         if not M*vector(self.basis()) == vector(Z.basis()):
-            raise RuntimeError, "bug in complex_conjugate, wrong matrix"
+            raise RuntimeError("bug in complex_conjugate, wrong matrix")
         #if not Sp_action(M, self) == Z:
-        #    raise RuntimeError, "bug in complex_conjugate, wrong action"
+        #    raise RuntimeError("bug in complex_conjugate, wrong action")
         try:
             M = mat_convert(M, ZZ)
         except TypeError:
@@ -946,24 +946,24 @@ class PeriodMatrix_CM():
                 A = self.CM_type().type_norm(B)
                 mu = self.CM_field()(B.norm())
             else:
-                raise NotImplementedError, "Finding A and mu is only " \
-                                           "implemented for g<=2 and for " \
-                                           "ideals that are invariant under " \
-                                           "complex conjugation."
+                raise NotImplementedError("Finding A and mu is only " 
+                                           "implemented for g<=2 and for " 
+                                           "ideals that are invariant under " 
+                                           "complex conjugation.")
         elif not mu in self.CM_field():
-            raise ValueError, "mu not in CM-field of self"
+            raise ValueError("mu not in CM-field of self")
         if not rho(mu)*mu in QQ:
-            raise ValueError, "mu*mubar not in QQ for mu = %s" % mu
+            raise ValueError("mu*mubar not in QQ for mu = %s" % mu)
         if not A is None:
             if self.CM_type().reflex().type_norm(A)*rho(B) != mu*B:
-                raise ValueError, "A (=%s) and mu (=%s) do not satisfy the " \
-                                  "hypothesis"
+                raise ValueError("A (=%s) and mu (=%s) do not satisfy the "
+                                  "hypothesis")
             A, x = lift_ray_class_group_element(A, 1, level, generator=True)
             x = self.reflex_field()(x)
             mu = mu / self.CM_type().reflex().type_norm(x)
             if self.CM_type().reflex().type_norm(A)*rho(B) != mu*B:
-                raise RuntimeError, "A (=%s) and mu (=%s) do not satisfy the "\
-                                  "hypothesis"
+                raise RuntimeError("A (=%s) and mu (=%s) do not satisfy the "
+                                  "hypothesis")
         Ct = Matrix([(mu**-1*rho(b)).vector() for b in self.basis()])
         # C = B Mt, so Ct = M Bt, so M^-1 = Bt Ct^-1
         # U = M^-1 = Bt Ct^-1
@@ -992,11 +992,11 @@ class PeriodMatrix_CM():
         self_numerical = self.complex_matrix(prec)
         Z_numerical, M = _reduce(self_numerical)
         if not nu(M) == 1:
-            raise RuntimeError, "M should be a symplectic matrix, but is %s over %s with nu=%s" % (M, M.base_ring(), nu(M))
+            raise RuntimeError("M should be a symplectic matrix, but is %s over %s with nu=%s" % (M, M.base_ring(), nu(M)))
         Z_basis = Sequence(M * vector(self.basis()))
         Z = PeriodMatrix_CM(self.CM_type(), self.ideal(), self.xi(), Z_basis) #, Sp_action(M, self))
         if not M*vector(self.basis()) == vector(Z.basis()):
-            raise RuntimeError, "bug in reduce, wrong matrix"        
+            raise RuntimeError("bug in reduce, wrong matrix")
         if transformation:
             return (Z, M)
         return Z
@@ -1015,11 +1015,11 @@ class PeriodMatrix_CM():
 
     def evaluate_theta(self, c, prec, use_magma=False, interval=False):
         if get_verbose() == 2:
-            print "Evaluating theta constant of characteristic %s at %s" % \
-                  (c, self)
+            print("Evaluating theta constant of characteristic %s at %s" %
+                  (c, self))
         if interval:
             if use_magma:
-                raise NotImplementedError, "Cannot use both Magma and interval arithmetic"
+                raise NotImplementedError("Cannot use both Magma and interval arithmetic")
             return evaluate_theta_interval(c,
                 mat_convert(self, ComplexIntervalField(prec)))
         return evaluate_theta(c, self.complex_matrix(prec),
@@ -1087,14 +1087,14 @@ class PeriodMatrix_CM():
         Z = PeriodMatrix(Phi, ideal, xi)
         M = (self._Bt * Z._Bt.inverse())
         if get_verbose()==2:
-            print "galois action obtained by %s" % M
+            print("galois action obtained by %s" % M)
         if reduce != False:
             Z, M2 = Z.reduce(prec=reduce, transformation=True)
             if get_verbose()==2:
-                print "reduction obtained by the inverse\n %s of\n %s" % (M2.inverse(), M2)
+                print("reduction obtained by the inverse\n %s of\n %s" % (M2.inverse(), M2))
             M = M * M2.inverse()
         if not M*vector(Z.basis()) == vector(self.basis()):
-            raise RuntimeError, "bug in galois_action, wrong matrix"
+            raise RuntimeError("bug in galois_action, wrong matrix")
         if transformation:
             return (Z, M)
         return Z
@@ -1208,11 +1208,11 @@ class PeriodMatrix_CM():
             
         """
         if not (n in ZZ and n > 0):
-            raise TypeError, "n (=%s) must be a positive integer" % n
+            raise TypeError("n (=%s) must be a positive integer" % n)
         if m == None:
             m = n
         elif not (m in ZZ and n > 0):
-            raise TypeError, "m (=%s) must be a positive integer or None" % m
+            raise TypeError("m (=%s) must be a positive integer or None" % m)
         
         A = lift_ray_class_group_element(A, m, n)
         (Z, M) = self.galois_action(A, transformation=True, reduce=reduce)
@@ -1226,8 +1226,8 @@ class PeriodMatrix_CM():
             return (Z, u)
         if transformation:
             return (M, u)
-        raise ValueError, "period_matrix and transformation are not " \
-                          "allowed to be both False"
+        raise ValueError("period_matrix and transformation are not " 
+                          "allowed to be both False")
     
     def has_real_moduli(self):
         """
@@ -1338,9 +1338,9 @@ def lift_ray_class_group_element(A, M, N, generator=False):
     M = K.ideal(M)
     N = K.ideal(N)
     if not (M.is_integral() and (N/M).is_integral()):
-        raise ValueError, "The ideals M (=%s) and N (=%s) must be integral and M must divide N" % (M, N)
+        raise ValueError("The ideals M (=%s) and N (=%s) must be integral and M must divide N" % (M, N))
     if A + M != 1:
-        raise ValueError, "A (=%s) and M (=%s) are not coprime" % (A, M)
+        raise ValueError("A (=%s) and M (=%s) are not coprime" % (A, M))
     if A + N == 1:
         if generator:
             return (A, 1)

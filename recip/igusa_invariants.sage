@@ -119,8 +119,8 @@ def igusa_absolute_to_homogeneous(i, prime=True):
     [i1, i2, i3] = i
     if i3 == 0:
         if not (i1 == 0 and i2 == 0):
-            raise ValueError, "Invalid input: no homogeneous invariants exist for this triple of absolute invariants"
-        raise ValueError, "Invalid input: homogeneous invariants not well-defined as all we know is I4=0"
+            raise ValueError("Invalid input: no homogeneous invariants exist for this triple of absolute invariants")
+        raise ValueError("Invalid input: homogeneous invariants not well-defined as all we know is I4=0")
     # We scale so that I4^2/I10=1
     I2 = i2        # = (I4^2/I10) * I2
     I4 = i3        # = (I4^2/I10)^2*I4
@@ -209,7 +209,7 @@ def rosenhain_invariants(g):
         NotImplementedError: Sorry, Rosenhain invariants currently only implemented for g=2
     """
     if g!=2:
-        raise NotImplementedError, "Sorry, Rosenhain invariants currently only implemented for g=2"
+        raise NotImplementedError("Sorry, Rosenhain invariants currently only implemented for g=2")
     t1 = ThetaModForm([0,0,0,0], den=2, g=2)
     t2 = ThetaModForm([0,0,1/2,1/2], den=2, g=2)
     t3 = ThetaModForm([0,0,1/2,0], den=2, g=2)

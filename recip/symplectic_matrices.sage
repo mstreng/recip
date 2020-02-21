@@ -59,18 +59,18 @@ def matrix_from_blocks(A, B, C, D):
     m1 = A.nrows()
     m2 = C.nrows()
     if not m1 == B.nrows():
-        raise ValueError, "A and B do not have the same number of rows in " \
-                          "matrix_from_blocks A = %s, B = %s." % (A, B)
+        raise ValueError("A and B do not have the same number of rows in "
+                          "matrix_from_blocks A = %s, B = %s." % (A, B))
     if not m2 == D.nrows():
-        raise ValueError, "C and D do not have the same number of rows in " \
-                          "matrix_from_blocks C = %s, D = %s" % (C, D)
+        raise ValueError("C and D do not have the same number of rows in "
+                          "matrix_from_blocks C = %s, D = %s" % (C, D))
     if not A.ncols() == C.ncols():
-        raise ValueError, \
-              "A and C do not have the same number of columns in " \
-              "matrix_from_blocks A = %s, C = %s" % (A, C)
+        raise ValueError(
+              "A and C do not have the same number of columns in "
+              "matrix_from_blocks A = %s, C = %s" % (A, C))
     if not B.ncols() == D.ncols():
-        raise ValueError, "B and D do not have the same number of columns " \
-                          "in matrix_from_blocks B = %s, D = %s" % (B, D)
+        raise ValueError("B and D do not have the same number of columns "
+                          "in matrix_from_blocks B = %s, D = %s" % (B, D))
     return Matrix([Sequence(A[i]) + Sequence(B[i]) for i in range(m1)] +\
                   [Sequence(C[i]) + Sequence(D[i]) for i in range(m2)])
 
@@ -105,7 +105,7 @@ def nu(m):
     """
     g = ZZ(m.ncols()/2)
     if 2*g != m.nrows():
-        raise ValueError, "Non-square matrix in nu: %s" % m
+        raise ValueError("Non-square matrix in nu: %s" % m)
     a = m.transpose()*Omega(g)*m
     n = a[g,0]
     if a != n*Omega(g):
@@ -125,14 +125,14 @@ def ABCD(M, m = None, n = None):
     if m == None:
         m = M.nrows()
         if m % 2 == 1:
-            raise ValueError, "m not specified in ABCD while M (=Matrix(%s))" \
-                              " has an odd number of rows" % Sequence(M)
+            raise ValueError("m not specified in ABCD while M (=Matrix(%s))"
+                              " has an odd number of rows" % Sequence(M))
         m = ZZ(m/2)
     if n == None:
         n = M.ncols()
         if n % 2 == 1:
-            raise ValueError, "n not specified in ABCD while M (=Matrix(%s))" \
-                              " has an odd number of columns" % Sequence(M)
+            raise ValueError("n not specified in ABCD while M (=Matrix(%s))"
+                              " has an odd number of columns" % Sequence(M))
         n = ZZ(n/2)
     M.subdivide(m,n)
     A = M.subdivision(0,0)
@@ -149,8 +149,8 @@ def Zmod_to_SL(a):
     """
     mu = a.parent().order()
     if not a.parent() == Zmod(mu):
-        raise ValueError, "a (=%s) not in ZZ/muZZ for mu = a.parent()." \
-                          "order() = %s" % (a, mu)
+        raise ValueError("a (=%s) not in ZZ/muZZ for mu = a.parent()."
+                          "order() = %s" % (a, mu))
     p = lift_small(a)
     q = lift_small(a**-1)
     e = 1 - p*q
@@ -181,8 +181,8 @@ class Sp_group:
     
     def __init__(self, n, m):
         if not (n in ZZ and n > 0 and m in ZZ and m > 0 and ZZ(n) % 2 == 0):
-            raise ValueError, "n (=%s) and m (=%s) must be positive integers" \
-                              " with n even" % (n, m)
+            raise ValueError("n (=%s) and m (=%s) must be positive integers"
+                              " with n even" % (n, m))
         self._n = ZZ(n)
         self._m = ZZ(m)
         R = Zmod(m)
@@ -220,8 +220,8 @@ class Sp_group:
                     elements_known.append(h)
                     elements_not_exhausted.append(h)
             if get_verbose():
-                print "found: %s, to check: %s" % (len(elements_known),
-                                                   len(elements_not_exhausted))
+                print("found: %s, to check: %s" % (len(elements_known),
+                                                   len(elements_not_exhausted)))
         return elements_known
         
     def order(self):
@@ -328,17 +328,17 @@ class GSp_element:
             arg1 = mat_convert(arg1, ring)
         g = arg1.ncols()/2
         if not g in ZZ:
-            raise ValueError, "Number of columns of arg1 (=%s) must be even in GSp_element" % arg1
+            raise ValueError("Number of columns of arg1 (=%s) must be even in GSp_element" % arg1)
         g = ZZ(g)
         if not arg1.nrows() == 2*g:
-            raise ValueError, "arg1 (=%s) must be a square matrix in GSp_element" % arg1
+            raise ValueError("arg1 (=%s) must be a square matrix in GSp_element" % arg1)
         self._g = g
         assert 2*g == arg1.nrows()
         if arg2 == None:
             self._matrix = arg1
             self._nu = nu(arg1)
             if self._nu == None:
-                raise ValueError, "Input matrix arg1 (= %s) does not satisfy arg1.transpose()*Omega*arg1 = Omega*nu for any nu" % arg1
+                raise ValueError("Input matrix arg1 (= %s) does not satisfy arg1.transpose()*Omega*arg1 = Omega*nu for any nu" % arg1)
             self._Sp_part = diagonal_matrix([1 for i in range(g)] + [self._nu**-1 for i in range(g)]) * arg1
         else:
             if ring != None:
@@ -510,7 +510,7 @@ def symplectic_generators(g, subgroup=None, level=None):
             
         raise ValueError
                 
-    raise NotImplementedError, "symplectic_generators only implemented for g=2, not for g=%s" % g
+    raise NotImplementedError("symplectic_generators only implemented for g=2, not for g=%s" % g)
 
 
 def group_generators_to_list(gens, G = None):
@@ -535,7 +535,7 @@ def group_generators_to_list(gens, G = None):
                         Hthisround += [n]
                         H += [n]
         if get_verbose() == 2:
-            print "Found %s new period matrices in H" % len(Hthisround)
+            print("Found %s new period matrices in H" % len(Hthisround))
         Hpreviousround = Hthisround
     return H
 

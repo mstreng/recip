@@ -83,7 +83,7 @@ def is_den_even(den):
         
     """
     if den % 2 == 1:
-        raise ValueError, "The integer den (=%s) must be even." % den
+        raise ValueError("The integer den (=%s) must be even." % den)
 
 
 def sq_brackets_inverse(M, nu_inv, c):
@@ -144,11 +144,11 @@ def kappa(M, k = 1):
     if M.base_ring() != ZZ:
         mu = M.base_ring().order()
         if not (mu % 8 == 0 and M.base_ring() == Zmod(mu)):
-            raise ValueError, "M (=%s) must be well-defined over Zmod(8), but is defined over %s" % (M, M.base_ring())
+            raise ValueError("M (=%s) must be well-defined over Zmod(8), but is defined over %s" % (M, M.base_ring()))
     A,B,C,D = ABCD(M)
     if C == 0 and k % 2 == 0:
         return A.determinant()^(ZZ(k/2))
-    raise NotImplementedError, "sorry, kappa(M, k) only implemented in trivial cases"
+    raise NotImplementedError("sorry, kappa(M, k) only implemented in trivial cases")
 
 
 def theta_trans_k(M, nu_inv, c):
@@ -174,7 +174,7 @@ def theta_trans_k(M, nu_inv, c):
     if all([a in QQ for a in c]):
         n = LCM([QQ(a).denominator() for a in c])
         if not n**2*ret in ZZ:
-            raise RuntimeError, "n^2 * ret not in ZZ for n=%s and ret=%s" % (n, ret)
+            raise RuntimeError("n^2 * ret not in ZZ for n=%s and ret=%s" % (n, ret))
     return ret
 
 
@@ -254,7 +254,7 @@ def determine_kappa(M, prec=200):
 #            print sqrtdet
 #            print im.upper()
 #            print im.lower()
-            raise ValueError, "M too complicated in determine_kappa"
+            raise ValueError("M too complicated in determine_kappa")
         if im < 0:
             sqrtdet = -sqrtdet
 
@@ -359,7 +359,8 @@ def theta_leading_term_cyclotomic(c, n=None):
     (c1,c2) = c
     if n is None:
         n = c1.denominator()*c2.denominator()*2
-        C.<zeta> = CyclotomicField(n)
+        C = CyclotomicField(n)
+        zeta = C.gen()
     # terms are exp(pi*i*(n+c1)^2*z + 2*pi*i*(n+c1)*c2) for integers n,
     # so we may as well translate c1 to the interval (-1/2, 1/2].
     c1 = c1 + (1/2-c1).floor()
@@ -501,7 +502,7 @@ def c_to_num(c, den):
     d = den*vector(c)
     for a in d:
         if not (a in ZZ and a >= 0 and a < den):
-            raise ValueError, "coordinates of c (=%s) not all in [0, 1) or not all in (1/den)*ZZ for den=%s" % (c,den) 
+            raise ValueError("coordinates of c (=%s) not all in [0, 1) or not all in (1/den)*ZZ for den=%s" % (c,den) )
     ret = 0
     r = c[0:g]
     s = c[g:2*g]
@@ -525,7 +526,7 @@ def num_to_c(n, g, den):
         [0, 1/2, 2/3, 3/4, 4/5, 5/6]
     """
     if not (n in ZZ and n >= 0 and n < den**(2*g)):
-        raise ValueError, "n (=%s) is not an integer between 0 (inclusive) and den^(2g) for den=%s and g=%s" % (n, den, g)
+        raise ValueError("n (=%s) is not an integer between 0 (inclusive) and den^(2g) for den=%s and g=%s" % (n, den, g))
     n = ZZ(n)
     g = ZZ(g)
     den = ZZ(den)
@@ -569,7 +570,7 @@ def name_to_den_c(name, g):
 
     """
     if not name[0] == 't':
-        raise ValueError, "string name (=%s) does not start with 't'" % name
+        raise ValueError("string name (=%s) does not start with 't'" % name)
     i = name.find('d')
     if i < 0:
         return ZZ(2), num_to_c(Integer(name[1:], base=10), g, 2)
@@ -670,7 +671,7 @@ def ThetaModForm(x, g = None, den = None):
             den = name_to_den(B.variable_name())
         if g == None:
             if den == 1:
-                raise ValueError, "g not supplied an cannot be read off from x (=%s) in %s" % (x, x.parent())
+                raise ValueError("g not supplied an cannot be read off from x (=%s) in %s" % (x, x.parent()))
             g = 1
             while den**(2*g) < n:
                 g += 1
@@ -679,21 +680,21 @@ def ThetaModForm(x, g = None, den = None):
             x = P(x)
             y = P(y)
         except TypeError:
-            raise TypeError, "x (=%s) or y (=%s) is not an element of a polynomial ring supplied by theta_ring for g=%s and den=%s" % (x, y, g, den)
+            raise TypeError("x (=%s) or y (=%s) is not an element of a polynomial ring supplied by theta_ring for g=%s and den=%s" % (x, y, g, den))
         if R(y) == 0:
             if R(x) == 0:
-                raise NotImplementedError, "cannot simplify x/y to something that is not 0/0 for x=%s and y=%s" % (x,y)
-            raise ValueError, "denominator must be non-zero in ThetaModForm, but is %s" % y
+                raise NotImplementedError("cannot simplify x/y to something that is not 0/0 for x=%s and y=%s" % (x,y))
+            raise ValueError("denominator must be non-zero in ThetaModForm, but is %s" % y)
         if not x.is_homogeneous():
-            raise ValueError, "numerator %s not homogeneous" % num_pol
+            raise ValueError("numerator %s not homogeneous" % num_pol)
         if not y.is_homogeneous():
-            raise ValueError, "denominator %s not homogeneous" % den_pol
+            raise ValueError("denominator %s not homogeneous" % den_pol)
         x = P(x(eval))
         y = P(y(eval))
         return Theta_element_polynomial_ring(x, y, g, den)
     if type(x) == list or is_Vector(x):
         if len(x) % 2 == 1:
-            raise ValueError, "Length of x (=%s) is odd" % x
+            raise ValueError("Length of x (=%s) is odd" % x)
         g = ZZ(len(x)/2)
         den = LCM([2]+[a.denominator() for a in x])
         n = c_to_num(x, den)
@@ -702,7 +703,7 @@ def ThetaModForm(x, g = None, den = None):
     try:
         return ThetaModForm(x.rational_function())
     except AttributeError:
-        raise TypeError, "type %s of x (=%s) not allowed in ThetaModForm" % (type(x), x)
+        raise TypeError("type %s of x (=%s) not allowed in ThetaModForm" % (type(x), x))
 
 
         
@@ -968,8 +969,8 @@ class ThetaProduct(MultiplicativeGroupElement, Theta_element):
         den = self._d
         if _is_numerical_complex_field(z.base_ring()):
             if prec != None:
-                raise ValueError, "prec!=None cannot be combined with a " \
-                                  "non-exact period matrix"
+                raise ValueError("prec!=None cannot be combined with a "
+                                  "non-exact period matrix")
             C = z.base_ring()
         else:
             C = ComplexField(prec)
@@ -1204,11 +1205,11 @@ class Theta_element_polynomial_ring(Theta_element):
         den = self._den
         if _is_numerical_complex_field(z.base_ring()):
             if prec != None:
-                raise ValueError, "prec!=None cannot be combined with a " \
-                                  "non-exact period matrix"
+                raise ValueError("prec!=None cannot be combined with a "
+                                  "non-exact period matrix")
             C = z.base_ring()
             if get_verbose() > 1:
-                print "Working with a period matrix over CC"
+                print("Working with a period matrix over CC")
             if interval:
                 vals = [evaluate_theta_interval(num_to_c(i, g, den), z)
                              for i in range(den**(2*g))]
@@ -1217,17 +1218,17 @@ class Theta_element_polynomial_ring(Theta_element):
                              use_magma=use_magma) for i in range(den**(2*g))]
         elif hasattr(z, '_theta_vals'):
             if prec is None:
-                raise ValueError, "Please specify the precision for theta function evaluation."
+                raise ValueError("Please specify the precision for theta function evaluation.")
             if interval:
                 C = ComplexIntervalField(prec)
             else:
                 C = ComplexField(prec)
             if get_verbose() > 1:
-                print "Working with a period matrix over a number field"
+                print("Working with a period matrix over a number field")
             vals = z._theta_vals(den, prec=prec, use_magma=use_magma, interval=interval)
         else:
-            raise TypeError, "Period matrix z (=%s) has incorrect type " \
-                             "(%s) or base ring" % (z, type(z))
+            raise TypeError("Period matrix z (=%s) has incorrect type "
+                             "(%s) or base ring" % (z, type(z)))
         num_ret = sum([C(a[0])*a[1](vals) for a in Sequence(self._num_pol)])
         den_ret = sum([C(a[0])*a[1](vals) for a in Sequence(self._den_pol)])
         return num_ret / den_ret
@@ -1351,9 +1352,9 @@ class Theta_element_polynomial_ring(Theta_element):
         if den == self._den:
             return self
         if get_verbose() > 1:
-            print "Changing denominator of theta characteristic from %s to %s" % (self._den, den)
+            print("Changing denominator of theta characteristic from %s to %s" % (self._den, den))
         if not (den % self._den) == 0:
-            raise NotImplementedError, "Lowering den is not implemented: trying to change den from %s to %s" % (self._den, den)
+            raise NotImplementedError("Lowering den is not implemented: trying to change den from %s to %s" % (self._den, den))
         g = self._g
         change = change_theta_ring(g, self._den, den)
         return ThetaModForm(self.rational_function()(change), g, den)
@@ -1370,7 +1371,7 @@ class Theta_element_polynomial_ring(Theta_element):
         right = ThetaModForm(right)
         den2 = right._den
         if not g == right._g:
-            raise ValueError, "self (=%s) and right (=%s) do not have same genus" % (self, right)
+            raise ValueError("self (=%s) and right (=%s) do not have same genus" % (self, right))
         den = LCM(den1, den2)
         left = self.change_den(den).rational_function()
         right = right.change_den(den).rational_function()
@@ -1382,7 +1383,7 @@ class Theta_element_polynomial_ring(Theta_element):
         right = ThetaModForm(right)
         den2 = right._den
         if not g == right._g:
-            raise ValueError, "self (=%s) and right (=%s) do not have same genus" % (self, right)
+            raise ValueError("self (=%s) and right (=%s) do not have same genus" % (self, right))
         den = LCM(den1, den2)
         left = self.change_den(den).rational_function()
         right = right.change_den(den).rational_function()
@@ -1393,7 +1394,7 @@ class Theta_element_polynomial_ring(Theta_element):
         den = self._den
         P, eval, R = theta_ring(g, den)
         if R(self._den_pol) == 0:
-            raise ValueError, "trying to invert zero element %s" % self
+            raise ValueError("trying to invert zero element %s" % self)
         return ThetaModForm(self.rational_function()**-1, g, den)
         
     def __div__(self, right):
@@ -1475,9 +1476,9 @@ class Theta_element_polynomial_ring(Theta_element):
 
         """
         if n != 2:
-            raise NotImplementedError, "Sorry, multiplication formula only implemented for n=2 (i.e. duplication formula)"
+            raise NotImplementedError("Sorry, multiplication formula only implemented for n=2 (i.e. duplication formula)")
         if self._den != 2:
-            raise NotImplementedError, "Sorry, multiplication formula only implemented for den=2"
+            raise NotImplementedError("Sorry, multiplication formula only implemented for den=2")
         g = self._g
         return ThetaModForm(dup_formula(self._num_pol, g)/dup_formula(self._den_pol, g))
 
@@ -1558,17 +1559,17 @@ def dup_formula(pol, g):
     for a in pol:
         e = a[1].exponents()
         if not len(e) == 1:
-            raise RuntimeError, "Bug in dup_formula, monomial is not a " \
-                                "monomial? %s" % a
+            raise RuntimeError("Bug in dup_formula, monomial is not a "
+                                "monomial? %s" % a)
         e = e[0]
         for i in range(len(e)):
             if not (e[i]/2 in ZZ):
-                raise ValueError, "Duplication formula can only handle even " \
-                                  "powers of theta's"
+                raise ValueError("Duplication formula can only handle even "
+                                  "powers of theta's")
         t = prod([dup_dat[i]**(e[i]/2) for i in range(len(e))])
         ret = ret + a[0]*t
     return ret
-    
+
     
 Theta = ThetaProduct
 

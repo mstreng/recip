@@ -112,8 +112,8 @@ def recognize_polynomial(pol_n, K=None, N=None, M=None,
     """
     if K == None:
         if emb == None:
-            raise ValueError, "K and emb cannot both be None in " \
-                              "recognize_polynomial"
+            raise ValueError("K and emb cannot both be None in "
+                              "recognize_polynomial")
         K = emb.domain()
 
     if K == QQ:
@@ -133,18 +133,18 @@ def recognize_polynomial(pol_n, K=None, N=None, M=None,
     if N == None:
         N = 2^ZZ(floor(A.precision()*0.85))
 #       I'm using powers of 10 for readability while debugging
-        N = 10^(floor(log(N).n()/log(10.n())))
+        N = 10^(floor(log(N).n()/log(10.)))
     if M == None:
         M = 2^ZZ(floor(A.precision()*0.05))
-        M = 10^(floor(log(M).n()/log(10.n())))
+        M = 10^(floor(log(M).n()/log(10.)))
 
 
     if emb == None:
         emb = K.hom(A)
     else:
         if not emb.domain() == K:
-            raise ValueError, "Domain of embedding emb (=%s) is not " \
-                              "%s" % (emb, K)
+            raise ValueError("Domain of embedding emb (=%s) is not "
+                              "%s" % (emb, K))
         if not emb.codomain() == A:
             emb2 = emb.codomain().hom(A)
             #emb = K.hom(emb2(emb.im_gens()[0]), A)
@@ -182,9 +182,9 @@ def recognize_polynomial(pol_n, K=None, N=None, M=None,
             X[n*i+j, n*(d+1)+1 + 2*i]     = my_round((N*emb(bas[j])).real())
             X[n*i+j, n*(d+1)+1 + 2*i + 1] = my_round((N*emb(bas[j])).imag())
     if get_verbose():
-        print "recognize_polynomial has constructed a matrix, now doing LLL"
+        print("recognize_polynomial has constructed a matrix, now doing LLL")
         if get_verbose() > 1:
-            print X
+            print(X)
     
     if solution != None:
         (pol, den) = solution
@@ -192,15 +192,15 @@ def recognize_polynomial(pol_n, K=None, N=None, M=None,
             list_solution = flatten([Sequence(a) for a in Sequence(pol)])+[den]
         else:
             list_solution = Sequence(pol)+[den]
-        print list_solution
-        print sum([list_solution[k]*vector(X[k]) for k in range(n*(d+1)+1)])
+        print(list_solution)
+        print(sum([list_solution[k]*vector(X[k]) for k in range(n*(d+1)+1)]))
 
     X = X.LLL()
     
     if get_verbose():
-        print "recognize_polynomial finished LLL"
+        print("recognize_polynomial finished LLL")
         if get_verbose() > 1:
-            print X
+            print(X)
     
     if type(poly_gen) == str:
         y = PolynomialRing(K, poly_gen).gen()
@@ -213,10 +213,10 @@ def recognize_polynomial(pol_n, K=None, N=None, M=None,
     for i in X:
         if i[n*(d+1)] != 0:
             if get_verbose():
-                print i
+                print(i)
             return sum([sum([i[k*n+l]*y**k*bas[l] for k in range(d+1)]) \
                         for l in range(n)]) / i[n*(d+1)]
-    raise RuntimeError, "Failed to recognize polynomial. Bug?"
+    raise RuntimeError("Failed to recognize polynomial. Bug?")
 
 
     
@@ -242,7 +242,7 @@ def short_interpolation(a, b):
     """
     universe = Sequence(a+b).universe()
     if not len(a) == len(b):
-        raise ValueError, "non-equal lengths in _short_interpolation"
+        raise ValueError("non-equal lengths in _short_interpolation")
     P = PolynomialRing(universe, 'x')
     x = P.gen()
     return P(sum([b[i] * prod([x-a[j] for j in range(len(a)) if j != i]) \

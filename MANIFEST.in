@@ -1,6 +1,6 @@
 prune recip
 include VERSION
+include requirements.txt
 include recip/*.py
 include recip/*.pyx
 include recip/*.sage
-

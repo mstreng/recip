@@ -277,14 +277,14 @@ def proper_ideal_classes(O, F):
                 mult_by_c.append(a_matrix_IK)
             minimal_superorder_matrices.append(mult_by_c)
     if get_recip_verbose():
-        print "Number of minimal superorders: %s" % len(minimal_superorder_matrices)
+        print("Number of minimal superorders: %s" % len(minimal_superorder_matrices))
     
     for s in S:
         gns = ([g.list() for g in F*identity_matrix(4)] +
                [g.list() for g in s.gens()])
         M = Matrix(gns).echelon_form(include_zero_rows=False)
         if M.nrows() != M.ncols():
-            raise RuntimeErorr,  "Matrix M=%s not square, it came from %s" % (M, gens)
+            raise RuntimeError("Matrix M=%s not square, it came from %s" % (M, gens))
         # I --> IK is s --> s*M
         gns = [K(r) for r in M*IK_matrix]
         actual_IK = K.ideal(gns)
@@ -336,9 +336,9 @@ def proper_ideal_classes(O, F):
                         times_found[l] = times_found[l] + 1
 
     if not times_found == [1 for f in F_primary_bases]:
-        print times_found
+        print(times_found)
     if not len(lst)*len(unit_reps) == len(F_primary_bases):
-        print len(lst), len(unit_reps), len(F_primary_bases)
+        print(len(lst), len(unit_reps), len(F_primary_bases))
 
     F_primary_bases = lst
 
@@ -416,7 +416,7 @@ def polarized_ideal_classes(O, F):
     # are:
     units_mod_relative_norms = [z**j * u**m for j in range(e) for m in range(2*k)]
     if get_recip_verbose():
-        print "units modulo relative norms: %s" % units_mod_relative_norms
+        print("units modulo relative norms: %s" % units_mod_relative_norms)
     ret = []
     
     for A in a:
@@ -427,23 +427,23 @@ def polarized_ideal_classes(O, F):
         xi_ideal = K.ideal(Abardual) / K.ideal(A)
         if xi_ideal.is_principal():
             if get_recip_verbose() > 2:
-                print "ideal is principal"
+                print("ideal is principal")
             xi = xi_ideal.gens_reduced()[0]
             for u in units_mod_relative_norms:
                 if ideals_equal([xi*u*b for b in A], Abardual):
                     if get_recip_verbose() > 3:
-                        print "found xi generating the correct ideal"
+                        print("found xi generating the correct ideal")
                     if cc(xi*u) == -xi*u:
                         if get_recip_verbose() > 3:
-                            print "xi is totally imaginary"
+                            print("xi is totally imaginary")
                         ret.append((A, xi*u))
                         #print A, xi, u, xi*u
                     elif get_recip_verbose() > 2:
-                        print "xi is not totally imaginary"
+                        print("xi is not totally imaginary")
                 elif get_recip_verbose() > 2:
-                    print "This generator (%s) of AbardualOK / AOK (%s, %s) does not map A to Abardual (%s), but to (%s): " % (xi*u, xi*u*K.ideal(A) == K.ideal(Abardual), ideals_equal([xi*u*b for b in K.ideal(A).basis()], K.ideal(Abardual).basis()), Abardual, [xi*u*b for b in A]) 
+                    print("This generator (%s) of AbardualOK / AOK (%s, %s) does not map A to Abardual (%s), but to (%s): " % (xi*u, xi*u*K.ideal(A) == K.ideal(Abardual), ideals_equal([xi*u*b for b in K.ideal(A).basis()], K.ideal(Abardual).basis()), Abardual, [xi*u*b for b in A]))
         elif get_recip_verbose() > 2:
-            print "ideal is not principal"
+            print("ideal is not principal")
     return ret
                 
 
@@ -522,7 +522,7 @@ def additive_gens_to_basis(gens, K):
     den = lcm([lcm([c.denominator() for c in r]) for r in M])
     N = Matrix(ZZ, den*M).hermite_form(include_zero_rows=False)
     if N.nrows() != N.ncols():
-        print "Matrix %s is not square, so the lattice does not have full rank. The input was %s" % (N, gens)
+        print("Matrix %s is not square, so the lattice does not have full rank. The input was %s" % (N, gens))
     return [K(g)/den for g in N]
 
 
@@ -824,12 +824,12 @@ def _is_ideal(mult_by_O, M):
 def _is_proper_ideal(mult_by_O, minimal_superorder_matrices, M):
     if not _is_ideal(mult_by_O, M):
         if get_recip_verbose() > 2:
-            print "Is not an ideal"
+            print("Is not an ideal")
         return False
     for c in minimal_superorder_matrices:
         if _is_ideal(c, M):
             if get_recip_verbose() > 2:
-                print "Is an ideal of the over-order"
+                print("Is an ideal of the over-order")
             return False
     return True
 
@@ -972,12 +972,12 @@ def are_nn_isogenous(Z1, Z2, n, F1, F2, transformation=False, double_check=False
 
     """
     if Z1.CM_type() != Z2.CM_type():
-        raise NotImplementedError, "are_nn_isogenous is only implemented for period matrices of equal CM type"
+        raise NotImplementedError("are_nn_isogenous is only implemented for period matrices of equal CM type")
     if double_check:
         b1, alpha = are_nn_isogenous(Z1, Z2, n, F1, F2, transformation=True, double_check=False)
         b2 = are_nn_isogenous(Z2, Z1, n, F2, F1, transformation=False, double_check=False)
         if b1 != b2:
-            raise RuntimeError, "Bug: contradiction with symmetry of being isogenous. Z1 = " + str(Z1) + " Z2 = " + str(Z2) + "(n, F1, F2) = " + str((n, F1, F2))
+            raise RuntimeError("Bug: contradiction with symmetry of being isogenous. Z1 = " + str(Z1) + " Z2 = " + str(Z2) + "(n, F1, F2) = " + str((n, F1, F2)))
         if transformation:
             return b1, alpha
         return b1
@@ -1149,17 +1149,17 @@ def is_trivial_in_shimura_group(A, alpha, O, cc=None):
         raise NotImplementedError
     OK = K.maximal_order()
     if gcd(O.index_in(OK), A.norm()) != 1:
-        raise ValueError, "A is not coprime to F"
+        raise ValueError("A is not coprime to F")
     if cc is None:
         cc = K.complex_conjugation()
     if not all([cc(b) in O for b in O.basis()]):
-        raise ValueError, "Order is not stable under complex conjugation"
+        raise ValueError("Order is not stable under complex conjugation")
     if not A*cc(A) == K.ideal(alpha):
         raise ValueError
     if not cc(alpha) == alpha:
-        raise ValueError, "alpha not totally positive"
+        raise ValueError("alpha not totally positive")
     if not all([b>0 for b in alpha.minpoly(polygen(QQ)).roots(AA, multiplicities=False)]):
-        raise ValueError, "alpha not totally positive"
+        raise ValueError("alpha not totally positive")
 
     if not A.is_principal():
         return False

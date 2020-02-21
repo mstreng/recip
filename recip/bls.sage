@@ -470,7 +470,7 @@ def recognize_all_from_article(bound=2, print_results=False):
     ret = []
     for (a1,a2) in a1a2list:
         if print_results:
-            print a1, a2
+            print(a1, a2)
             sys.stdout.flush()
         f = X^4-a1*X^3+(4+a2)*X^2-2*a1*X+4
         K = CM_Field(f)
@@ -494,7 +494,7 @@ def recognize_all_from_article(bound=2, print_results=False):
         l.sort()
         if print_results:
             for (o0, o1, Z) in l:
-                print (o0, o1)
+                print(o0, o1)
                 sys.stdout.flush()
         l = [(Z,o0,o1) for (o0,o1,Z) in l] # restructure for backwards compatibility
         ret.append(((a1,a2),l))
@@ -552,7 +552,7 @@ def humbert8():
     See also http://echidna.maths.usyd.edu.au/~davidg/thesis.html
     which contains this surface with respect to other invariants.
     """
-    P.<i1,i2,i3> = QQ[]
+    i1, i2, i3 = polygens(QQ, 'i1,i2,i3')
     return (-12008187649867604184*i1^10 + 46966009581837720*i1^9*i2^2 -
     281796057491026320*i1^9*i2*i3 + 74323144140993953726400*i1^9*i2 +
     422694086236539480*i1^9*i3^2 - 188308985155317427104000*i1^9*i3 +
