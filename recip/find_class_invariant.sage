@@ -408,7 +408,7 @@ def _permutations(gens, den, L=None):
 #        M = g.Sp_part()
         p = _permutation(g, den, L)
         p = [make_zero_big(k, big) for k in p]
-        p = p[1:] + [0 for k in xrange(big-n)] + [p[0]]
+        p = p[1:] + [0 for k in range(big-n)] + [p[0]]
         l = l + [Permutation(p)]
     H = PermutationGroup([p.cycle_tuples() for p in l])
     return l, H

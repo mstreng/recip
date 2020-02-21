@@ -1029,7 +1029,7 @@ class CM_Field_absolute(NumberField_absolute):
             [1.5778442128152?*I 6.9649413235207?*I]
         """
         i = self.period_matrices_iter(CM_types, reduced)
-        Z = i.next()
+        Z = next(i)
         i.close()
         return Z
 
@@ -1070,7 +1070,7 @@ class CM_Field_absolute(NumberField_absolute):
             sage: K = CM_Field(x^4+68*x^2+578)
             sage: len(list(K.period_matrices_iter())) # long time, 3 seconds
             8
-            sage: K.period_matrices_iter().next()
+            sage: next(K.period_matrices_iter())
             Period Matrix
             [3.8092528978903?*I 1.5778442128152?*I]
             [1.5778442128152?*I 6.9649413235207?*I]

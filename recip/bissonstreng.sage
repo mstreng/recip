@@ -1,7 +1,7 @@
 """
 RECIP -- REpository of Complex multIPlication SageMath code.
 See the file README.txt for version information and instructions.
-
+"""
 #*****************************************************************************
 # Copyright (C) 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019
 # Marco Streng <marco.streng@gmail.com>
@@ -20,7 +20,7 @@ See the file README.txt for version information and instructions.
 # with this program; if not, write to the Free Software Foundation, Inc.,
 # 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 #*****************************************************************************
-
+r"""
 To use this package, start Sage with the .sage files from this package in your
 working directory. Then type::
 
