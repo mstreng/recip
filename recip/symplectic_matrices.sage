@@ -366,7 +366,7 @@ class GSp_element:
         return self.__str__()
 
     def __call__(self, tau):
-        if is_Matrix(tau):
+#        if is_Matrix(tau):
             return Sp_action(self.matrix(), tau)
 #        if tau in theta_ring:
 #            f = cycl_galois_action_on_theta(self.nu()**-1, tau)

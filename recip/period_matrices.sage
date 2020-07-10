@@ -1015,7 +1015,7 @@ class PeriodMatrix_CM():
         except AttributeError:
             pass
         Z_basis = Sequence(M * vector(self.basis()))
-        return PeriodMatrix_CM(self.CM_type(), self.ideal(), self.xi(), Z_basis)
+        return PeriodMatrix_CM(self.CM_type(), basis=Z_basis, xi=self.xi() / nu(M))
         
     def negative_inverse(self):
         r"""

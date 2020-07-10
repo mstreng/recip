@@ -60,9 +60,11 @@ def a_to_mu(Psi, A):
     if not C.is_principal():
         return None
     mu = C.gens_reduced()[0]
+    # This may not be the correct mu yet. But every candidate mu is epsilon*mu
+    # for some unit epsilon, abbreviated eps below.
     K = mu.parent()
     conj = K.complex_conjugation()
-    epsepsbar = A.norm() / mu / conj(mu)
+    epsepsbar = A.norm() / mu / conj(mu)  # eps*mu is correct iff eps*epsbar = epsepsbar
     # So we need to find a unit eps with eps*epsbar = epsepsbar (if it exists)
     # and multiply mu by it.
     # Then eps*mu is the output.
