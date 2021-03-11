@@ -37,6 +37,8 @@ load("denominators.sage")
 load("class_polynomials.sage")
 load("orders.sage")
 load("bissonstreng.sage")
+load("bls.sage")
+
 
 recip_verbose = 0
 

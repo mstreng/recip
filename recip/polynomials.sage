@@ -74,7 +74,7 @@ def recognize_polynomial(pol_n, K=None, N=None, M=None,
       
     EXAMPLES::
     
-        sage: from recip import *
+        sage: load("recip.sage")
         sage: Q.<y> = QQ[]
         sage: K.<a> = NumberField(y^2+y-7)
         sage: P.<x> = K[]
@@ -227,7 +227,7 @@ def short_interpolation(a, b):
     
     EXAMPLES::
 
-        sage: from recip import *
+        sage: load("recip.sage")
         sage: p = short_interpolation([3],[3]); p
         3
         sage: p.parent()

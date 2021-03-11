@@ -40,7 +40,7 @@ def diag(a):
 
     EXAMPLES::
 
-        sage: from recip import *
+        sage: load("recip.sage")
         sage: g = Matrix(Zmod(8),[(5,0,7,1),(6,6,0,7),(1,2,2,3),(2,3,5,4)])
         sage: diag(g)
         [5, 6, 2, 4]
@@ -158,7 +158,7 @@ class Sp_group:
     
     EXAMPLES::
     
-        sage: from recip import *
+        sage: load("recip.sage")
         sage: l = Sp_group(4, 2).list() # long time, 2 seconds
         sage: len(l) # depends on previous line with long time
         720
@@ -190,7 +190,7 @@ class Sp_group:
 
         EXAMPLES::
         
-            sage: from recip import *
+            sage: load("recip.sage")
             sage: Sp_group(2, 2).list()
             [
             [1 0]  [0 1]  [1 1]  [1 1]  [1 0]  [0 1]
@@ -218,7 +218,7 @@ class Sp_group:
         
         EXAMPLES::
         
-            sage: from recip import *
+            sage: load("recip.sage")
             sage: Sp_group(2, 5).order()
             120
         r"""
@@ -231,7 +231,7 @@ class GSp_group:
     
     EXAMPLES::
     
-        sage: from recip import *
+        sage: load("recip.sage")
         sage: l = GSp_group(4, 2).list() # long time, 2 seconds
         sage: len(l) # long time
         720
@@ -252,7 +252,7 @@ class GSp_group:
         
         EXAMPLES::
         
-            sage: from recip import *
+            sage: load("recip.sage")
             sage: GSp_group(2, 2).list()
             [
             Symplectic matrix  Symplectic matrix  Symplectic matrix
@@ -279,7 +279,7 @@ class GSp_group:
         
         EXAMPLES::
         
-            sage: from recip import *
+            sage: load("recip.sage")
             sage: GSp_group(2, 5).order() # long time, 1 second
             480
         r"""
@@ -380,7 +380,7 @@ class GSp_element:
         
         EXAMPLES::
         
-            sage: from recip import *
+            sage: load("recip.sage")
             sage: M = GSp_element([[7,0,2,6],[0,7,6,0],[0,6,5,0],[6,6,0,5]], ring=Zmod(8))
             sage: M.Sp_part()
             [7 0 2 6]
@@ -441,7 +441,7 @@ class GSp_element:
         
         EXAMPLE::
         
-            sage: from recip import *
+            sage: load("recip.sage")
             sage: M = GSp_element([[0,-1,1,1],[5,0,4,-5],[0,-2,2,1],[1,0,1,-1]])
             sage: M.transpose()
             Symplectic matrix
@@ -558,7 +558,7 @@ def random_symplectic_matrix(g, n, subgroup=None, level=None):
     
     EXAMPLE::
     
-        sage: from recip import *
+        sage: load("recip.sage")
         sage: M = random_symplectic_matrix(2, 20)
         sage: M # random output
         [ 0 -1  1  1]

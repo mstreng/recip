@@ -53,7 +53,7 @@ def igusa_modular_forms_to_absolute(i):
     
     EXAMPLES::
     
-        sage: from recip import *
+        sage: load("recip.sage")
         sage: igusa_modular_forms_to_absolute([1,2,3,4])
         [2/3, 4/9, 1/9]
     r"""
@@ -74,7 +74,7 @@ def igusa_homogeneous_to_absolute(i, prime=True):
     
     EXAMPLES::
     
-        sage: from recip import *
+        sage: load("recip.sage")
         sage: k = [1,2,3]
         sage: j = igusa_absolute_to_homogeneous(k); j
         [2, 3, 3, 9]
@@ -145,7 +145,7 @@ def igusa_invariants_absolute():
     
     EXAMPLES::
     
-        sage: from recip import *
+        sage: load("recip.sage")
         sage: invs = igusa_invariants_absolute() # long time
         sage: len(invs) # long time
         3
@@ -161,7 +161,7 @@ def igusa_modular_forms():
     Check that the Igusa invariants are indeed sums over orbits of a product
     of theta series::
     
-        sage: from recip import *
+        sage: load("recip.sage")
         sage: gens = symplectic_generators(2)
         sage: th = theta_ring(2,2)[0].gens()
         sage: h4 = my_sum(ThetaModForm(th[0]**8).orbit(gens)) # long time
@@ -200,7 +200,7 @@ def rosenhain_invariants(g):
     
     EXAMPLES::
 
-        sage: from recip import *
+        sage: load("recip.sage")
         sage: rosenhain_invariants(2)
         [t0^2*t1^2/(t2^2*t3^2), t1^2*t12^2/(t2^2*t15^2), t0^2*t12^2/(t3^2*t15^2)]
         sage: rosenhain_invariants(1)
@@ -228,7 +228,7 @@ def h6_thesis():
     
     EXAMPLE::
     
-        sage: from recip import *
+        sage: load("recip.sage")
         sage: h6_thesis() == igusa_modular_forms()[1]
         True
     r"""

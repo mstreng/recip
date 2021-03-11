@@ -57,7 +57,7 @@ def evaluate_theta(c, z, u = None, use_magma=False):
     
     EXAMPLES::
     
-        sage: from recip import *
+        sage: load("recip.sage")
         sage: I = CC.gen()
         sage: evaluate_theta([0,0,0,0], Matrix(CC, [[I+1, 1/2+I/3], [1/2+I/3, 3/2*I+1/5]]), use_magma=True) # optional - magma
         0.933295835691982 + 0.0143249911726235*I
@@ -113,7 +113,7 @@ def evaluate_theta_interval(c, z, R=None, reduce_first=True):
 
     EXAMPLES::
     
-        sage: from recip import *
+        sage: load("recip.sage")
         sage: I = ComplexIntervalField(100).gen()
         sage: Z = Matrix([[I+1, 1/2+I/3], [1/2+I/3, 3/2*I+1/5]])
         sage: c = [0,0,0,0]
@@ -430,7 +430,7 @@ def _matrix_omega(g):
 
     EXAMPLE::
 
-        sage: from recip import _matrix_omega
+        sage: load("recip.sage") # from recip import _matrix_omega
         sage: _matrix_omega(2) == Matrix([[0,0,1,0],[0,0,0,1],[-1,0,0,0],[0,-1,0,0]])
         True
     r"""
@@ -444,7 +444,7 @@ def is_symplectic(gamma, g=None):
     
     EXAMPLES::
 
-        sage: from recip import *
+        sage: load("recip.sage")
         sage: g = gottschling_matrices()
         sage: all([is_symplectic(gamma) for gamma in g]) and len(g) == 38
         True
@@ -580,7 +580,7 @@ def is_positive_definite(m):
     
     EXAMPLES::
     
-        sage: from recip import *
+        sage: load("recip.sage")
         sage: is_positive_definite(Matrix(AA,[[2,2],[2,4]]))
         True
         sage: is_positive_definite(Matrix(AA,[[1,2],[2,4]]))
@@ -606,7 +606,7 @@ def is_period_matrix(m):
     
     EXAMPLES::
     
-        sage: from recip import *
+        sage: load("recip.sage")
         sage: i = CC.gen()
         sage: is_period_matrix(Matrix([[1+i, 2+i], [2+i, 5*i]]))
         True
@@ -787,7 +787,7 @@ class PeriodMatrix_CM():
         
         EXAMPLES::
         
-            sage: from recip import *
+            sage: load("recip.sage")
             sage: U = next(CM_Field(x^4+5*x^2+5).period_matrices_iter()); U
             Period Matrix
             [ 0.30901699437...? + 0.95105651629...?*I  0.50000000000...? + 0.36327126400268?*I]
@@ -899,7 +899,7 @@ class PeriodMatrix_CM():
         
         EXAMPLES::
         
-            sage: from recip import *
+            sage: load("recip.sage")
             sage: k = CM_Field((x^2+5)^2-4*5)
             sage: it = k.period_matrices_iter()
             sage: Z = next(it); Z
@@ -1135,7 +1135,7 @@ class PeriodMatrix_CM():
         
         EXAMPLES::
         
-            sage: from recip import *
+            sage: load("recip.sage")
             sage: k = CM_Field([5,13,41])
             sage: Z = k.one_period_matrix()
             sage: a = Z.CM_type().reflex_field().gen()
@@ -1210,7 +1210,7 @@ class PeriodMatrix_CM():
         
         EXAMPLES::
 
-            sage: from recip import *
+            sage: load("recip.sage")
             sage: K = CM_Field(x^4+x^3+x^2+x+1, embedding=QQbar) # the embedding is not added afterwards, and the reflex field is taken to be the field itself, so this is necessary for now
             sage: Z = K.one_period_matrix()
             sage: Z.has_real_moduli()
@@ -1274,7 +1274,7 @@ def lift_ray_class_group_element(A, M, N, generator=False):
     
     EXAMPLES::
     
-        sage: from recip import *
+        sage: load("recip.sage")
         sage: P.<x> = QQ[]
         sage: k = NumberField(x^2+5,'a')
         sage: A = k.class_group().gen().ideal()
@@ -1350,7 +1350,7 @@ def random_period_matrix(prec=53, g=2):
     
     EXAMPLE::
 
-        sage: from recip import *
+        sage: load("recip.sage")
         sage: random_period_matrix(200, 2).parent()
         Full MatrixSpace of 2 by 2 dense matrices over Complex Field with 200 bits of precision
         sage: random_period_matrix().parent()

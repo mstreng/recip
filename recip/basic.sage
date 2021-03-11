@@ -23,7 +23,7 @@ See the file README.txt for version information and instructions.
 To use this package, start Sage with the .sage files from this package in your
 working directory. Then type::
 
-    sage: from recip import *
+    sage: load("recip.sage")
 
 This file implements some basic functions: base change for matrices and
 uniformizers of ideals.
@@ -41,7 +41,7 @@ def mat_convert(M, ring_or_map):
     
     EXAMPLES::
     
-        sage: from recip import *
+        sage: load("recip.sage")
         sage: M = Matrix([[1/2, 1/5], [7, 9/2]])
         sage: mat_convert(M, floor)
         [0 0]
@@ -59,7 +59,7 @@ def uniformizer(p):
 
     EXAMPLES::
 
-        sage: from recip import *
+        sage: load("recip.sage")
         sage: P = QuadraticField(-5,'a').ideal(5).factor()[0][0]
         sage: uniformizer(P)
         a
@@ -76,7 +76,7 @@ def lift_small(a):
     
     EXAMPLES::
     
-        sage: from recip import *
+        sage: load("recip.sage")
         sage: lift_small(Zmod(8)(7))
         -1
         sage: lift_small(Zmod(7)(10))

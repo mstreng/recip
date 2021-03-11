@@ -57,7 +57,7 @@ def class_polynomials(K, factor=False, prec=None, D=None,
     check correctness of the table entries. The full list, and more, is
     proven in [BouyerS].::
     
-        sage: from recip import *
+        sage: load("recip.sage")
         sage: K = CM_Field([5,5,5])
         sage: class_polynomials(K) # long time: 6 seconds
         [x, 0, 0]

@@ -39,7 +39,7 @@ We first load the package, and create the CM-field
 `\QQ[X]/(X^2 + 27 X^2 + 52)`, which has real quadratic subfield of discriminant
 521. Then we create one period matrix, corresponding to a CM abelian variety.::
 
-    sage: from recip import *
+    sage: load("recip.sage")
     sage: K = CM_Field([521,27,52])
     sage: tau = K.one_period_matrix('Phi')
     sage: tau.ideal()
@@ -445,7 +445,7 @@ the prime two was never inert. And the inert case is the case that is
 classically not used (as far as I know) for class invariants. Let's be bold and
 try it anyway.::
 
-    sage: from recip import *
+    sage: load("recip.sage")
     sage: K = CM_Field([5, 17, 61])
     sage: Z = K.one_period_matrix('Phi')
     sage: I = igusa_invariants_absolute()

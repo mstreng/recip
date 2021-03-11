@@ -24,7 +24,7 @@ See the file README.txt for version information and instructions.
 To use this package, start Sage with the .sage files from this package in your
 working directory. Then type::
 
-    sage: from recip import *
+    sage: load("recip.sage")
 
 This file gives the details of computations mentioned and used in
 Bisson-Streng -- On polarised class groups of orders in quartic CM fields
@@ -42,7 +42,7 @@ are in the examples section of the documentation of
 Here are the computations for the field `K=\QQ(\zeta_5)`, that is, the second
 halve of Section 6.1.5::
 
-        sage: from recip import *
+        sage: load("recip.sage")
         sage: lst = wamelen_dab_list()
         sage: assert(lst[0]) == [5,5,5]
         sage: K = CM_Field(lst[0])
@@ -80,7 +80,7 @@ power of 5, because the following takes too long for F = 2^2*3*5^3 or even
 F = 5^3::
 
         sage: mu = CM_type_to_mus(Phi, F) # not tested
-        sage: from recip import _order_mod
+        sage: load("recip.sage") # from recip import _order_mod
         sage: [_order_mod(m, K.ideal(F)) for m in mu] # not tested
 
 So let's reduce the power of 5::
@@ -235,7 +235,7 @@ def orders_proven_with_wamelen(latex_output=False):
     
     EXAMPLES::
     
-        sage: from recip import *
+        sage: load("recip.sage")
         sage: for o in orders_proven_with_wamelen(): print(o)
         ([5, 5, 5], 1, 1, 1, 1, 1)
         ([8, 4, 2], 1, x^4 + 4*x^2 + 2, 1, 1, 1)
@@ -329,7 +329,7 @@ def minimal_orders_of_class_number_one(Phi, output_type='order'):
         
     EXAMPLES::
     
-        sage: from recip import *
+        sage: load("recip.sage")
         sage: lst = wamelen_dab_list()
 
         sage: K = CM_Field([5,5,5])
@@ -495,7 +495,7 @@ def all_period_matrices_two(lst):
     
     EXAMPLES::
     
-        sage: from recip import *
+        sage: load("recip.sage")
         sage: lst = wamelen_dab_list() + [[5, 15, 45], [5, 30, 180], [5, 35, 245], [5, 105, 2205], [8, 12, 18], [17, 119, 3332], [17, 255, 15300]]
         sage: Zs = all_period_matrices_two(lst) # long time, 2 minutes
         sage: [len(l) for (K,Phi,F,l,orders) in Zs] # long time
@@ -799,7 +799,7 @@ def is_S_O_equal_S_OK(O):
     
     The same example as in is_trivial_in_shimura_group, but much faster::
     
-        sage: from recip import *
+        sage: load("recip.sage")
         sage: K = CM_Field([149,13,5])
         sage: P.<x> = QQ[]
         sage: [alpha1,alpha2]=(x^4+2*x^3+16*x^2+15*x+19).roots(K, multiplicities=False)
@@ -843,7 +843,7 @@ def is_S_O_equal_S_OK(O):
 
 Some additional tests of orders.sage, made possible by the code in bissonstreng.sage::
 
-        sage: from recip import *
+        sage: load("recip.sage")
         sage: lst = wamelen_dab_list()
         sage: Phi = CM_Field(lst[3]).CM_types()[0]
         sage: m = minimal_orders_of_class_number_one(Phi); m

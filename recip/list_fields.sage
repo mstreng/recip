@@ -23,7 +23,7 @@ See the file README.txt for version information and instructions.
 To use this package, start Sage with the .sage files from this package in your
 working directory. Then type::
 
-    sage: from recip import *
+    sage: load("recip.sage")
 
 This file contains functions for listing quartic CM-fields.
 
@@ -43,7 +43,7 @@ def iterate_DAB(stopD, stopA, startD=5, startA=1, prime_D=False):
     
     EXAMPLES::
     
-        sage: from recip import *
+        sage: load("recip.sage")
         sage: list(iterate_DAB(10, 10))
         [[5, 5, 5], [5, 7, 11], [5, 9, 19], [8, 4, 2], [8, 6, 7], [8, 8, 14]]
         sage: list(iterate_DAB(20, 20, prime_D=True))
@@ -141,7 +141,7 @@ def wamelen_dab_list():
     
     EXAMPLE::
     
-        sage: from recip import *
+        sage: load("recip.sage")
         sage: lst = wamelen_dab_list(); lst
         [[5, 5, 5], [8, 4, 2], [13, 13, 13], [5, 10, 20], [5, 65, 845], [29, 29, 29], [5, 85, 1445], [37, 37, 333], [8, 20, 50], [13, 65, 325], [13, 26, 52], [53, 53, 53], [61, 61, 549]]
     

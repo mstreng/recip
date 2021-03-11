@@ -29,7 +29,7 @@ See the file README.txt for version information, instructions, and references.
 
 ::
 
-    sage: from recip import *
+    sage: load("recip.sage")
     sage: lst = recognize_all_from_article(3, print_results=True)
     0 -7
     (1, [(x^2 - x + 2, -7), (x^2 - x + 2, -7)])
