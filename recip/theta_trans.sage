@@ -1047,6 +1047,7 @@ class ThetaProduct(MultiplicativeGroupElement, Theta_element):
         for (c,d,e) in self._sequence:
             cret, s = theta_action_without_kappa(M, nu_inv, c)
             unity_ret = unity_ret + s*e
+            d = lcm([d] + [i.denominator() for i in c])
             ret.append((cret,d,e))
         n = unity_ret.numerator() % unity_ret.denominator()
         ret.sort()
