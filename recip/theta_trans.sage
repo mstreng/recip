@@ -1037,6 +1037,19 @@ class ThetaProduct(MultiplicativeGroupElement, Theta_element):
         r"""
         Let the symplectic matrix M act on self from the right.
         Or if M is an integer, raise to that power.
+        
+        EXAMPLES::
+        
+            sage: load("recip.sage") # or: from recip import *
+            sage: u = GSp_element(Matrix(Zmod(8), [[0,3,2,1],[0,6,3,2],[2,1,0,4],[7,2,4,0]]))
+            sage: t0 = ThetaProduct(0)
+            sage: t1 = ThetaProduct(1)
+            sage: f = t0/t1
+            sage: g = f^u; g
+            -t8/t0
+            sage: g^(u^3) == f
+            True
+
         r"""
         if type(M) is Integer:
             return MonoidElement.__pow__(self, M)
@@ -1061,22 +1074,42 @@ class ThetaProduct(MultiplicativeGroupElement, Theta_element):
         return self._unity._cmp_(other._unity)
 
     __cmp__ = _cmp_
-    
 
-    
     def _eq_(self, other):
         r"""
         Check whether self and other are the same quotient of theta constants.
         I don't know whether this is equivalent to being the same modular forms.
+        
+        EXAMPLES::
+        
+            sage: load("recip.sage") # or: from recip import *
+            sage: t0 = ThetaProduct(Integer(0))
+            sage: s0 = ThetaProduct([([0,0,0,0],1,1)])
+            sage: r0 = ThetaProduct([([0,0,0,0],2,1)])
+            sage: t1 = ThetaProduct(Integer(1))
+            sage: t0*t0 == t0
+            False
+            sage: t1 == t0
+            False
+            sage: -t0 == t0
+            False
+            sage: t0 == s0 == r0
+            True
+            sage: t0*t1 == t1*t0
+            True
+            sage: t0*t0 == ThetaProduct([([0,0,0,0],1,1),([0,0,0,0],1,1)])
+            True
+            sage: t0*t0 == ThetaProduct([([0,0,0,0],1,2)])
+            True  
         r"""
-        return self._sequence == other._sequence and                 self._unity    == other._unity
-               
-    def __eq__(self, other):
-        r"""
-        Check whether self and other are the same quotient of theta constants.
-        I don't know whether this is equivalent to being the same modular forms.
-        r"""
-        return self._sequence == other._sequence and                 self._unity    == other._unity
+        for (c,d,e) in self._sequence + other._sequence:
+            e_self  = sum([e1 for (c1,d1,e1) in  self._sequence if c1 == c])
+            e_other = sum([e1 for (c1,d1,e1) in other._sequence if c1 == c])
+            if e_self != e_other:
+                return False
+        return self._unity == other._unity
+    
+    __eq__ = _eq_
 
     def _mul_(self, other):
         r"""
