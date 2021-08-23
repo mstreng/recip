@@ -179,9 +179,9 @@ def recognize_polynomial(pol_n, K=None, N=None, M=None,
             # Finally, the terms in N*pol
             X[n*i+j, n*(d+1)+1 + 2*i]     = my_round((N*emb(bas[j])).real())
             X[n*i+j, n*(d+1)+1 + 2*i + 1] = my_round((N*emb(bas[j])).imag())
-    if get_verbose():
+    if get_recip_verbose():
         print("recognize_polynomial has constructed a matrix, now doing LLL")
-        if get_verbose() > 1:
+        if get_recip_verbose() > 1:
             print(X)
     
     if solution != None:
@@ -195,9 +195,9 @@ def recognize_polynomial(pol_n, K=None, N=None, M=None,
 
     X = X.LLL()
     
-    if get_verbose():
+    if get_recip_verbose():
         print("recognize_polynomial finished LLL")
-        if get_verbose() > 1:
+        if get_recip_verbose() > 1:
             print(X)
     
     if type(poly_gen) == str:
@@ -210,7 +210,7 @@ def recognize_polynomial(pol_n, K=None, N=None, M=None,
                 
     for i in X:
         if i[n*(d+1)] != 0:
-            if get_verbose():
+            if get_recip_verbose():
                 print(i)
             return sum([sum([i[k*n+l]*y**k*bas[l] for k in range(d+1)])                          for l in range(n)]) / i[n*(d+1)]
     raise RuntimeError( "Failed to recognize polynomial. Bug?")

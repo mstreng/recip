@@ -27,7 +27,6 @@ them. It contains Shimura's reciprocity law!
 """
 
 from sage.rings.complex_field import ComplexField
-from sage.misc.misc import get_verbose
 from sage.matrix.constructor import (Matrix, identity_matrix)
 from sage.misc.cachefunc import cached_method
 from sage.rings.all import ZZ
@@ -75,10 +74,10 @@ def evaluate_theta(c, z, u = None, use_magma=False):
     # Multiply the required bound on n by the following number, just to be sure.
     extra_terms = 1.1
     prec = z.base_ring().precision()
-    if get_verbose() == 2:
+    if get_recip_verbose() == 2:
         print("Precision %s" % prec)
     R = ZZ(ceil(extra_terms*(0.4*prec+2.2).sqrt()))
-    if get_verbose() == 2:
+    if get_recip_verbose() == 2:
         print("%s terms up to %s" % ((2*R+1)**2, R))
     if len(c) != 4:
         raise NotImplementedError( "sorry, evaluate_theta is only implemented for g=2")
@@ -166,7 +165,7 @@ def evaluate_theta_interval(c, z, R=None, reduce_first=True):
     s = C(0)
 
     prec = C.precision()
-    if get_verbose() == 2:
+    if get_recip_verbose() == 2:
         print("Precision %s" % prec)
     
     if len(c) == 2:
@@ -268,7 +267,7 @@ def evaluate_theta_interval(c, z, R=None, reduce_first=True):
     if R is None:
         R = ceil((0.4*prec+2.2).sqrt())
 
-    if get_verbose() == 2:
+    if get_recip_verbose() == 2:
         print("%s terms up to %s" % ((2*R+1)**2, R))
         
     cpp = vector([c[2],c[3]])
@@ -491,16 +490,16 @@ def _gottschling_reduce(Z):
     for g in gottschling_matrices():
         d = abs(_det_bottom_part(g, Z))
         if d < improvement:
-            if get_verbose() == 2:
+            if get_recip_verbose() == 2:
                 print("The matrix %s would improve the determinant of the "                        "imaginary part by a factor %s" % (g, 1/d))
             gamma = g
             improvement = d
     if improvement == 1:
-        if get_verbose() == 2:
+        if get_recip_verbose() == 2:
             print("Cannot increase the imaginary part of %s" % Z)
         return (Z, identity_matrix(4))
     Z = Sp_action(gamma, Z)
-    if get_verbose() == 2:
+    if get_recip_verbose() == 2:
         print("Improving the imaginary part by a factor %s using %s to get "                "%s" % (1/improvement, gamma, Z))
     return (Z, gamma)
 
@@ -518,7 +517,7 @@ def _reduce(Z, reduction_sequence=False):
     of generators of Sp(2g,ZZ).
     r"""
     g = Z.nrows()
-    if get_verbose() == 2:
+    if get_recip_verbose() == 2:
         print("Beginning reduction of " + str(Z))
 
     if g > 2:
@@ -531,7 +530,7 @@ def _reduce(Z, reduction_sequence=False):
     while True:
         if g == 2:
             Z, U = _imagred(Z)
-            if get_verbose() == 2:
+            if get_recip_verbose() == 2:
                 print("The imaginary part is made reduced by %s. This yields %s" %                        (U,Z))
             Uti = U.transpose().inverse()
             U = Matrix([[U[0,0],U[0,1],0,0],[U[1,0],U[1,1],0,0],[0,0,Uti[0,0],
@@ -545,7 +544,7 @@ def _reduce(Z, reduction_sequence=False):
         Z, V = _realred(Z)
         # Now it may happen that V is not symmetric (because of rounding),
         # so we use V[0,1] twice and ignore V[1,0].
-        if get_verbose() == 2:
+        if get_recip_verbose() == 2:
             print("The real part is made reduced by %s. This yields %s" % (V, Z))
         if g == 2:
             V = Matrix([[1,0,V[0,0],V[0,1]],[0,1,V[0,1],V[1,1]],[0,0,1,0],[0,0,0,1]])
@@ -620,11 +619,11 @@ def is_period_matrix(m):
     elif height != width:
         raise ValueError()
     if not m.is_symmetric():
-        if get_verbose() == 2 != 0:
+        if get_recip_verbose() == 2 != 0:
             print("Matrix %s is not symmetric in is_period_matrix" % m)
         return False
     if not is_positive_definite(mat_convert(m, imag)):
-        if get_verbose() == 2 != 0:
+        if get_recip_verbose() == 2 != 0:
             print("Imaginary part of %s is not positive definite" % m)
         return False
     return True
@@ -656,10 +655,10 @@ def PeriodMatrix(arg1, arg2=None, arg3=None, check=True):
     A period matrix corresponding to some symplectic basis for the input data.
     r"""
     if arg2 is None and arg3 is None:
-        if get_verbose() == 2:
+        if get_recip_verbose() == 2:
             print("PeriodMatrix got a single input (%s), interpreting it as a PeriodMatrix_CM and creating a new PeriodMatrix_CM (copy) out of it" % arg1)
         return PeriodMatrix_CM(arg1.CM_type(), arg1.ideal(), arg1.xi(), arg1.basis(), arg1, check=check)
-    if get_verbose() == 2:
+    if get_recip_verbose() == 2:
         print("PeriodMatrix got inputs CM_type = %s, ideal = %s, xi = %s" % (arg1, arg2, arg3))
     return PeriodMatrix_CM(arg1, arg2, arg3, check=check)
 
@@ -990,7 +989,7 @@ class PeriodMatrix_CM():
         return self._basis
 
     def evaluate_theta(self, c, prec, use_magma=False, interval=False):
-        if get_verbose() == 2:
+        if get_recip_verbose() == 2:
             print("Evaluating theta constant of characteristic %s at %s" %                    (c, self))
         if interval:
             if use_magma:
@@ -1061,11 +1060,11 @@ class PeriodMatrix_CM():
         xi = A.norm() * self.xi()
         Z = PeriodMatrix(Phi, ideal, xi)
         M = (self._Bt * Z._Bt.inverse())
-        if get_verbose()==2:
+        if get_recip_verbose()==2:
             print("galois action obtained by %s" % M)
         if reduce != False:
             Z, M2 = Z.reduce(prec=reduce, transformation=True)
-            if get_verbose()==2:
+            if get_recip_verbose()==2:
                 print("reduction obtained by the inverse\n %s of\n %s" % (M2.inverse(), M2))
             M = M * M2.inverse()
         if not M*vector(Z.basis()) == vector(self.basis()):

@@ -592,7 +592,7 @@ class CM_Field_absolute(NumberField_absolute):
         r"""
         if L is None:
             L = QQbar
-        if get_verbose():
+        if get_recip_verbose():
             print("Computing CM-types")
             t = clock()
         
@@ -629,7 +629,7 @@ class CM_Field_absolute(NumberField_absolute):
                 Phis_done += [Set([phi(a(g)) for phi in Phi]) for a in aut]
         ret = [CM_Type(Phi) for Phi in Phis]
         
-        if get_verbose():
+        if get_recip_verbose():
             print("Finished computing CM-types in %s seconds" % (clock()-t))
         return ret
 
@@ -810,7 +810,7 @@ class CM_Field_absolute(NumberField_absolute):
             CM Number Field in alpha0 with defining polynomial x^48 + 72*x^46 + 80*x^45 + 2692*x^44 + 4612*x^43 + 64124*x^42 + 123852*x^41 + 1028650*x^40 + 1829576*x^39 + 10447880*x^38 + 12019876*x^37 + 50258300*x^36 - 43026036*x^35 - 136889692*x^34 - 1331961552*x^33 - 2963236937*x^32 - 7718599196*x^31 - 7146191020*x^30 + 8504396980*x^29 + 87525433872*x^28 + 282027249844*x^27 + 605609380956*x^26 + 815516286320*x^25 - 88439203430*x^24 - 4254091272044*x^23 - 15185634342676*x^22 - 35530163136508*x^21 - 61057325330100*x^20 - 69796449648272*x^19 - 6160328327104*x^18 + 226759213095652*x^17 + 760552021937945*x^16 + 1718448648945196*x^15 + 3142781220480156*x^14 + 4919956841221648*x^13 + 6743690042716028*x^12 + 8183680911040904*x^11 + 8840183773407848*x^10 + 8531995881160800*x^9 + 7396811998421180*x^8 + 5807303468842192*x^7 + 4187178898937392*x^6 + 2799780355636992*x^5 + 1732733524962960*x^4 + 957303364563328*x^3 + 439000398925408*x^2 + 150222835195840*x + 29629511650768
 
         r"""
-        if get_verbose():
+        if get_recip_verbose():
             t = clock()
             print("Computing Galois closure")
         if names == None:
@@ -827,7 +827,7 @@ class CM_Field_absolute(NumberField_absolute):
             if embedding == None:
                 raise ValueError( "Cannot find embedding of galois closure that extends embedding %s."                                    "Possibly due to precision, an incorrect ambient field, or a bug")
         L = CM_Field(K, name = names, embedding = embedding, check=False)
-        if get_verbose():
+        if get_recip_verbose():
             print("Finished computing Galois closure in %s seconds" % (clock() - t))
         if map:
             #m = self.hom(m(self.gen()), L)
@@ -899,7 +899,7 @@ class CM_Field_absolute(NumberField_absolute):
 
         r"""
         
-        if get_verbose():
+        if get_recip_verbose():
             t = clock()
             print("Computing representatives of all principally polarized ideals")
         if self.g() > 2 or not special_g2:

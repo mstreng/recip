@@ -342,63 +342,37 @@ and in the second example, it splits completely. Here's a third example,
 one where 2 is inert in the real quadratic subfield, and then ramifies in K.::
 
     sage: K = CM_Field([93, 11, 7])
-    sage: Z = K.one_period_matrix('Phi'); Z
-    Period Matrix
-    [ 0.19618739074462? + 1.22627074062326?*I -0.50000000000000? + 0.43440480214564?*I]
-    [-0.50000000000000? + 0.43440480214564?*I  -0.39237478148924? + 2.4525414812466?*I]
+    sage: Z = K.one_period_matrix('Phi')
     sage: I = igusa_invariants_absolute()
     sage: Kr0 = QuadraticField(7,'a')
     sage: gammas = reciprocity_map_image(Z, 8)
     sage: c = Z.complex_conjugation_symplectic_matrix(8)
     sage: visualize(gammas + [c], 2)
     On the 8-th powers, the action is (note that 16 means 0):
-    1: (1,8)(2,3)(4,12)(9,16)
+    1: ...
     2: ()
     3: ()
     4: ()
     5: ()
-    Permutation Group with generators [(), (1,8)(2,3)(4,12)(9,16)] of order 2
-    The action on the orbit [1, 8] is as follows
+    Permutation Group with generators [...] of order 2
+    The action on the orbit [...] is as follows
     [            0|            1             2             3             4             5]
     [-------------+---------------------------------------------------------------------]
-    [           t1|           t8           -t1            t1            t1 (-zeta8^2)*t1]
-    [           t8| (zeta8^2)*t1           -t8            t8            t8           -t8]
-    [      (zeta8)|     (-zeta8)      (-zeta8)       (zeta8)       (zeta8)    (-zeta8^3)]
-    The action on the orbit [2, 3] is as follows
-    [            0|            1             2             3             4             5]
-    [-------------+---------------------------------------------------------------------]
-    [           t2|(-zeta8^3)*t3  (zeta8^2)*t2            t2           -t2            t2]
-    [           t3|  (-zeta8)*t2 (-zeta8^2)*t3            t3           -t3 (-zeta8^2)*t3]
-    [      (zeta8)|     (-zeta8)      (-zeta8)       (zeta8)       (zeta8)    (-zeta8^3)]
-    The action on the orbit [4, 12] is as follows
-    [            0|            1             2             3             4             5]
-    [-------------+---------------------------------------------------------------------]
-    [           t4|(zeta8^3)*t12           -t4           -t4            t4           -t4]
-    [          t12|(-zeta8^3)*t4           t12          -t12           t12          -t12]
-    [      (zeta8)|     (-zeta8)      (-zeta8)       (zeta8)       (zeta8)    (-zeta8^3)]
-    The action on the orbit [6] is as follows
-    [           0|           1            2            3            4            5]
-    [------------+----------------------------------------------------------------]
-    [          t6|         -t6 (zeta8^2)*t6          -t6          -t6          -t6]
-    [     (zeta8)|    (-zeta8)     (-zeta8)      (zeta8)      (zeta8)   (-zeta8^3)]
-    The action on the orbit [0, 9] is as follows
-    [            0|            1             2             3             4             5]
-    [-------------+---------------------------------------------------------------------]
-    [           t0|(-zeta8^2)*t9            t0            t0            t0            t0]
-    [           t9|           t0            t9            t9            t9 (-zeta8^2)*t9]
-    [      (zeta8)|     (-zeta8)      (-zeta8)       (zeta8)       (zeta8)    (-zeta8^3)]
-    The action on the orbit [15] is as follows
-    [             0|             1              2              3              4              5]
-    [--------------+--------------------------------------------------------------------------]
-    [           t15|(-zeta8^2)*t15  (zeta8^2)*t15           -t15           -t15 (-zeta8^2)*t15]
-    [       (zeta8)|      (-zeta8)       (-zeta8)        (zeta8)        (zeta8)     (-zeta8^3)]
+    ...
 
 So the orbit lengths are one and two. We try the length one orbits.::
 
     sage: ThR = theta_ring(2,2)[0]
     sage: zeta8 = ThR.base_ring().gen()
     sage: u = ThetaModForm(ThR.gens()[6]/ThR.gens()[15]); u.orbit(gammas)
-    [t6/t15, (-t6)/((-zeta8^2)*t15), t6/(-t15), (-t6)/((zeta8^2)*t15)]
+    [t6/t15,
+     (zeta8^2)*t3/t2,
+     ((-zeta8^2)*t6)/t15,
+     t6/(-t15),
+     (zeta8^2)*t6/t15,
+     t3/t2,
+     (zeta8^2)*t3/(-t2),
+     (-t3)/t2]
 
     sage: T = [ThetaModForm(zeta8^j*(ThR.gens()[6]/ThR.gens()[15])^k) for j in range(4) for k in range(1,5)]
     sage: [t for t in T if t.is_fixed_by(gammas+[c])] # long time

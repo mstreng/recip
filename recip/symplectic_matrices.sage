@@ -208,7 +208,7 @@ class Sp_group:
                 if not h in elements_known:
                     elements_known.append(h)
                     elements_not_exhausted.append(h)
-            if get_verbose():
+            if get_recip_verbose():
                 print("found: %s, to check: %s" % (len(elements_known), len(elements_not_exhausted)))
         return elements_known
         
@@ -521,7 +521,7 @@ def group_generators_to_list(gens, G = None):
                     if not n in H:
                         Hthisround += [n]
                         H += [n]
-        if get_verbose() == 2:
+        if get_recip_verbose() == 2:
             print("Found %s new period matrices in H" % len(Hthisround))
         Hpreviousround = Hthisround
     return H

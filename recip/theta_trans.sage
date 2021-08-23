@@ -113,7 +113,7 @@ def sq_brackets_inverse(M, nu_inv, c):
     r"""
     A,B,C,D = ABCD(M)
     g = A.ncols()
-    d = M.transpose() * (vector(c) - 1/2 * nu_inv *              vector(Sequence(subscript_zero(C*D.transpose())) +                     Sequence(subscript_zero(A*B.transpose()))))
+    d = M.transpose() * (vector(c) - 1/2 * nu_inv * vector(Sequence(subscript_zero(C*D.transpose())) +                     Sequence(subscript_zero(A*B.transpose()))))
     return d
 
 
@@ -1230,7 +1230,7 @@ class Theta_element_polynomial_ring(Theta_element):
             if prec != None:
                 raise ValueError( "prec!=None cannot be combined with a "                                    "non-exact period matrix")
             C = z.base_ring()
-            if get_verbose() > 1:
+            if get_recip_verbose() > 1:
                 print("Working with a period matrix over CC")
             if interval:
                 vals = [evaluate_theta_interval(num_to_c(i, g, den), z)
@@ -1245,7 +1245,7 @@ class Theta_element_polynomial_ring(Theta_element):
                 C = ComplexIntervalField(prec)
             else:
                 C = ComplexField(prec)
-            if get_verbose() > 1:
+            if get_recip_verbose() > 1:
                 print("Working with a period matrix over a number field")
             vals = z._theta_vals(den, prec=prec, use_magma=use_magma, interval=interval)
         else:
@@ -1369,7 +1369,7 @@ class Theta_element_polynomial_ring(Theta_element):
         r"""
         if den == self._den:
             return self
-        if get_verbose() > 1:
+        if get_recip_verbose() > 1:
             print("Changing denominator of theta characteristic from %s to %s" % (self._den, den))
         if not (den % self._den) == 0:
             raise NotImplementedError( "Lowering den is not implemented: trying to change den from %s to %s" % (self._den, den))
