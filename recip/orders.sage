@@ -178,7 +178,7 @@ def _is_ring(mat, K):
     
 def proper_ideal_classes(O, F):
     r"""
-    Input: O an order, F non-zero in ZZ and a multiple of the conductor.
+    Input: O an order, F positive in ZZ such that F*OK \subset O.
     
     Output: representatives of all classes of proper ideals of O modulo
     principal ideals.
@@ -207,15 +207,29 @@ def proper_ideal_classes(O, F):
         ([[1/2*alpha^3 + 1/2, 1/2*alpha^3 + 1/2*alpha^2 + 5/2*alpha, alpha^2, alpha^3]], [[1/2*alpha^3 + 1/2, 5/2*alpha^3 + 5/2*alpha^2 + 5/2*alpha, alpha^2, alpha^3]], [[1/2*alpha^3 + 1/2, 1/2*alpha^3 + 1/2*alpha^2 + 5/2*alpha, alpha^2, alpha^3]])
         sage: proper_ideal_classes(s[2], 5) # long time
         ([[1/2*alpha^3 + 1/2, 1/2*alpha^3 + 1/2*alpha^2 + 1/2*alpha, 5*alpha^2, alpha^3], [1/2*alpha^3 + 1/2, 1/2*alpha^3 + 5/2*alpha^2 + 5/2*alpha, 5*alpha^2, alpha^3]], [[1/2*alpha^3 + 1/2, 1/2*alpha^3 + 1/2*alpha^2 + 1/2*alpha, 5*alpha^2, alpha^3], [1/2*alpha^3 + 1/2, 5/2*alpha^3 + 5/2*alpha^2 + 5/2*alpha, 5*alpha^2, alpha^3]], [[1/2*alpha^3 + 1/2, 1/2*alpha^3 + 5/2*alpha^2 + 5/2*alpha, 5*alpha^2, alpha^3]])
+        sage: proper_ideal_classes(s[1], 1)
+        Traceback (most recent call last):
+        ...
+        ValueError: Input F must be a multiple of the conductor of input O.
     r"""
-    # We start with the class group of the maximal order:
     K = O.number_field()
+    OK = K.maximal_order()
+
+    # First we verify that the input F is correct:
+    if not all([K(F*b) in O for b in OK.basis()]):
+        raise ValueError("Input F must be a multiple of the conductor of input O.")
+        
+    # We start with the class group of the maximal order and taking
+    # a set g of representative ideals coprime to F:
     C = K.class_group()
     Fidl = K.ideal(F)
     g = [A.ideal() for A in C]
     g = [A*A.idealcoprime(Fidl) for A in g]
+    for A in g:
+        assert A + Fidl == 1
+    
     # So far these are integral ideals of OK that are coprime to F,
-    # we will make them into ideals of O.
+    # we find the corresponding ideals A of O.
     # Given AK = A*OK with A an ideal of O coprime to F, how to find A?
     # AK*F is contained in A, but not coprime to F
     # N := norm(AK), then N*O is coprime to F, and N*OK is contained in AK,
@@ -230,7 +244,6 @@ def proper_ideal_classes(O, F):
     # of the maximal order. Next we want to have every ideal I that tensors
     # to give OK itself back.
 
-    OK = K.maximal_order()
     n = K.degree()
     
     # Note: F*OK = F*(OK*I) = (F*OK)*I \subset O*I = I
@@ -364,7 +377,7 @@ def polarized_ideal_classes(O, F):
     INPUT:
     
      - `O` -- order in a quartic `CM_Field` object
-     - `F` -- positive integer such that F*OK is contained in O (not checked)
+     - `F` -- positive integer such that F*OK is contained in O
     
     EXAMPLES::
     
