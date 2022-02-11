@@ -26,7 +26,6 @@ them. It contains Shimura's reciprocity law!
 
 """
 
-from sage.rings.complex_field import ComplexField
 from sage.matrix.constructor import (Matrix, identity_matrix)
 from sage.misc.cachefunc import cached_method
 from sage.rings.all import ZZ
@@ -903,15 +902,18 @@ class PeriodMatrix_CM():
             sage: it = k.period_matrices_iter()
             sage: Z = next(it); Z
             Period Matrix
-            [-0.30901699437495? + 0.95105651629515?*I -0.50000000000000? + 0.36327126400268?*I]
-            [-0.50000000000000? + 0.36327126400268?*I  0.30901699437495? + 0.95105651629515?*I]
+            [...]
+            [...]
+            sage: Z = Z.reduce(CC); Z
+            Period Matrix
+            [   0.3090169943750? + 0.9510565162952?*I -0.50000000000000? + 0.36327126400268?*I]
+            [-0.50000000000000? + 0.36327126400268?*I   -0.3090169943750? + 0.9510565162952?*I]
             sage: Z.complex_conjugation_symplectic_matrix(8)
             Generalized symplectic matrix
-            [1 0 0 0]
+            [0 1 1 1]
+            [0 0 1 0]
             [0 1 0 0]
-            [0 7 7 0]
-            [7 1 0 7] with nu = 7
-
+            [1 7 7 0] with nu = 7
         r"""
         B = self.ideal()
         rho = self.CM_field().complex_conjugation()
@@ -1174,7 +1176,7 @@ class PeriodMatrix_CM():
         yet in all cases (TODO)::
 
             sage: t^u
-            ((-zeta8)*t6)/((zeta8)*t4)
+            ((-zeta8)*t6)/(zeta8*t4)
             sage: (t^u)(U, prec=100)
             -0.99854006288205177918601876434 + 0.054016134807185886527908776...*I
             sage: P = theta_ring(2,2)[0]

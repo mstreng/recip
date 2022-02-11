@@ -117,7 +117,9 @@ def a_to_mus(Psi, A):
         sage: A = K.ideal([19, K.gen()-2])
         sage: a_to_mus(Phi, A^4)
         []
-        sage: a_to_mus(Phi, A^8)
+        sage: l = a_to_mus(Phi, A^8)
+        sage: l.sort(key=str)
+        sage: l
         [-687/2*alphar^3 + 19177*alphar^2 - 28345*alphar + 536769,
          687/2*alphar^3 - 19177*alphar^2 + 28345*alphar - 536769]
     r"""
@@ -206,8 +208,12 @@ def reciprocity_map_image(Z, level, modulus=None):
         sage: k = CM_Field((x^2+5)^2-4*5)
         sage: Z = k.one_period_matrix(); Z
         Period Matrix
-        [-0.30901699437495? + 0.95105651629515?*I -0.50000000000000? + 0.36327126400268?*I]
-        [-0.50000000000000? + 0.36327126400268?*I  0.30901699437495? + 0.95105651629515?*I]
+        [...]
+        [...]
+        sage: Z.reduce(CC)
+        Period Matrix
+        [   0.3090169943750? + 0.9510565162952?*I -0.50000000000000? + 0.36327126400268?*I]
+        [-0.50000000000000? + 0.36327126400268?*I   -0.3090169943750? + 0.9510565162952?*I]
         sage: reciprocity_map_image(Z, 6) # not tested, is this answer correct?
         [[1 1 4 1]
         [2 4 1 5]
@@ -301,10 +307,10 @@ def table(gens, den, select_rows=None):
         [-------------+-------------]
         [           t0|          -t6]
         [           t1|           t0]
-        [           t4|   (zeta8)*t1]
+        [           t4|     zeta8*t1]
         [           t6|(-zeta8^3)*t8]
         [           t8|(-zeta8^2)*t4]
-        [      (zeta8)|    (zeta8^3)]
+        [        zeta8|    (zeta8^3)]
     r"""
     g = gens[0].g()
     if select_rows == None:
@@ -439,10 +445,10 @@ def visualize(gens, den, select_rows = None):
         [-------------+-------------------------------------------------------]
         [           t0|          -t6            t0            t0            t0]
         [           t1|           t0            t1           -t1            t1]
-        [           t4|   (zeta8)*t1            t4  (zeta8^2)*t4           -t4]
+        [           t4|     zeta8*t1            t4  (zeta8^2)*t4           -t4]
         [           t6|(-zeta8^3)*t8            t6           -t6            t6]
         [           t8|(-zeta8^2)*t4            t8 (-zeta8^2)*t8           -t8]
-        [      (zeta8)|    (zeta8^3)       (zeta8)    (-zeta8^3)      (-zeta8)]
+        [        zeta8|    (zeta8^3)         zeta8    (-zeta8^3)      (-zeta8)]
         The action on the orbit [2, 3, 9, 12, 15] is as follows
         [            0|            1             2             3             4]
         [-------------+-------------------------------------------------------]
@@ -451,7 +457,7 @@ def visualize(gens, den, select_rows = None):
         [           t9|(-zeta8^2)*t2           -t9 (-zeta8^2)*t9           -t9]
         [          t12| (zeta8^3)*t3          -t12           t12           t12]
         [          t15|(zeta8^3)*t12          -t15 (zeta8^2)*t15          -t15]
-        [      (zeta8)|    (zeta8^3)       (zeta8)    (-zeta8^3)      (-zeta8)]
+        [        zeta8|    (zeta8^3)         zeta8    (-zeta8^3)      (-zeta8)]
     r"""
     g = gens[0].g()
     if select_rows == None:

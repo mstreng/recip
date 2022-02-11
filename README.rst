@@ -10,7 +10,7 @@ The documentation for the package can be found at https://mstreng.github.io/reci
 Installation
 ------------
 
-This package was last tested with SageMath 9.0.
+This package was last tested with SageMath 9.5.
 
 Local install from source
 ^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -147,36 +147,47 @@ For this, it is recommended to add the following to your .sage/sagerc file::
 [ABLPV]  -  Comparing arithmetic intersection formulas for denominators of
             Igusa class polynomials -- Jacqueline Anderson, Jennifer S.
             Balakrishnan, Kristin Lauter, Jennifer Park, and Bianca Viray
+            Women in numbers 2: research directions in number theory, 65–82,
+            Contemp. Math., 606, Centre Rech. Math. Proc., Amer. Math. Soc.,
+            Providence, RI, 2013
 
 [BissonS] - On polarised class groups of orders in quartic CM fields --
             Gaetan Bisson and Marco Streng
+            Math. Res. Lett., Vol. 24 (2017), number 2, pp 247 - 270
             http://arxiv.org/abs/1302.3756
 
 [BLS]    -  Abelian surfaces admitting an (l,l)-endomorphism -- Reinier Broker,
             Kristin Lauter, and Marco Streng
-            accepted for publication by Journal of Algebra, 2013
+            Journal of Algebra, Vol. 394 (2013), pp 374--396
             http://arxiv.org/abs/1106.1884
 
 [BouyerS] - Examples of CM curves of genus 2 defined over the reflex field --
             Florian Bouyer and Marco Streng
             http://arxiv.org/abs/1307.0486
+            LMS Journal of Computation and Mathematics, Vol. 18 (2015),
+            issue 01, pp 507-538
 
 [GJLSVW] -  Igusa class polynomials, embeddings of quartic CM fields, and
             arithmetic intersection theory -- Helen Grundman, Jennifer
             Johnson-Leung, Kristin Lauter, Adriana Salerno, Bianca Viray, and
             Erika Wittenborn
             http://arxiv.org/abs/1006.0208
+            WIN—women in numbers, 35–60, Fields Inst. Commun., 60,
+            Amer. Math. Soc., Providence, RI, 2011
 
 [GL]     -  Genus 2 curves with complex multiplication -- Eyal Goren and
             Kristin Lauter
+            Int. Math. Res. Not. IMRN 2012, no. 5, 1068–1142.
 
 [LV]     -  An arithmetic intersection formula for denominators of Igusa class
             polynomials -- Kristin Lauter and Bianca Viray
             arXiv:1210.7841v1
+            Amer. J. Math. 137 (2015), no. 2, 497–533
 
-[Yang]   -  Arithmetic interseciton on a Hilbert modular surface and the
+[Yang]   -  Arithmetic intersection on a Hilbert modular surface and the
             Faltings height -- Tonghai Yang
             http://www.math.wisc.edu/~thyang/general4L.pdf
+            Asian J. Math. 17 (2013), no. 2, 335–381
 
 [recip]  -  recip, SageMath package for explicit complex multiplication -- Marco
             Streng

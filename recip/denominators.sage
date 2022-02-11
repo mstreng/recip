@@ -1312,7 +1312,7 @@ def hilbert_symbol_trivial_outside(a, b, l, negative=True):
         assert a<0 and b<0
     supp_a = [p for (p,e) in a.factor()]
     supp_b = [p for (p,e) in b.factor()]
-    for p in union([2], union(supp_a, supp_b)):
+    for p in set([2]).union(supp_a).union(supp_b):
         if p != l and hilbert_symbol(a, b, p) == -1:
             return False
     if negative:
@@ -1422,10 +1422,11 @@ def find_eta(K, how_many=None, proof=True):
         sage: load("recip.sage")
         sage: K = CM_Field((x^2+2)^2-3) # a biquadratic field
         sage: find_eta(K)
-        [alpha]
+        [-alpha]
         sage: F = CM_Field([145, 15, 20])
         sage: find_eta(F)
-        [(-1/4*alpha^3 + 3/4*alpha - 1/2, [37]), (3/4*alpha^3 + 7/4*alpha - 1/2, [43])]
+        [(-1/4*alpha^3 + 3/4*alpha - 1/2, [37]),
+         (-3/4*alpha^3 - 7/4*alpha - 1/2, [43])]
 
     r"""
     ret = None
@@ -1599,7 +1600,7 @@ def find_eta_pid(K, Krel, F, rel_diff):
         sage: K = CM_Field((x^2+2)^2-3) # a biquadratic field
         sage: Krel = K.relative_field()
         sage: find_eta_pid(K, Krel, K.real_field(), Krel.relative_different())
-        alpha
+        -alpha
     r"""
     # Goal: find eta such that O_F[eta] = O_K
     # Suppose such eta exists.

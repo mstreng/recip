@@ -1274,7 +1274,7 @@ class Theta_element_polynomial_ring(Theta_element):
             sage: t = ThetaModForm(x, g = 2, den = 2)
             sage: M = Matrix(Zmod(8), [(5, 0, 7, 1), (6, 6, 0, 7), (1, 2, 2, 3), (2, 3, 5, 4)])
             sage: t^M
-            (zeta8)*t1 + (zeta8^2)*t9 + t15
+            zeta8*t1 + (zeta8^2)*t9 + t15
             sage: P = theta_ring(2,2)[0]
             sage: x = ThetaModForm(P.gens()[0] / P.gens()[1])
             sage: x.long_name()

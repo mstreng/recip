@@ -34,8 +34,6 @@ from sage.rings.number_field.number_field_element import is_NumberFieldElement
 from sage.rings.number_field.number_field import NumberField_absolute
 from sage.rings.polynomial.polynomial_element import is_Polynomial
 from sage.rings.all import (CC, ZZ, AA)
-from sage.rings.complex_field import is_ComplexField
-from sage.rings.complex_interval_field import is_ComplexIntervalField
 from sage.structure.element import is_RingElement
 from sage.rings.qqbar import QQbar
 #from sage.misc.cachefunc import cached_method
@@ -865,37 +863,41 @@ class CM_Field_absolute(NumberField_absolute):
             [(Fractional ideal (1), -1/71*alpha), (Fractional ideal (1), 1/71*alpha), (Fractional ideal (2, 1/2*alpha - 1/2), -1/142*alpha), (Fractional ideal (2, 1/2*alpha - 1/2), 1/142*alpha), (Fractional ideal (4, 1/2*alpha + 3/2), -1/284*alpha), (Fractional ideal (4, 1/2*alpha + 3/2), 1/284*alpha), (Fractional ideal (3, 1/2*alpha - 1/2), -1/213*alpha), (Fractional ideal (3, 1/2*alpha - 1/2), 1/213*alpha), (Fractional ideal (3, 1/2*alpha + 1/2), -1/213*alpha), (Fractional ideal (3, 1/2*alpha + 1/2), 1/213*alpha), (Fractional ideal (4, 1/2*alpha + 5/2), -1/284*alpha), (Fractional ideal (4, 1/2*alpha + 5/2), 1/284*alpha), (Fractional ideal (2, 1/2*alpha + 1/2), -1/142*alpha), (Fractional ideal (2, 1/2*alpha + 1/2), 1/142*alpha)]
 
             sage: K = CM_Field(x^4 + 8*x^2 + 3)
-            sage: list(K._principally_polarized_ideal_class_representives_iter())
+            sage: l = list(K._principally_polarized_ideal_class_representives_iter())
+            sage: l.sort(key=str)
+            sage: l
             [(Fractional ideal (1), -1/156*alpha^3 - 17/156*alpha),
-             (Fractional ideal (1), 5/156*alpha^3 + 7/156*alpha),
-             (Fractional ideal (1), 1/156*alpha^3 + 17/156*alpha),
              (Fractional ideal (1), -5/156*alpha^3 - 7/156*alpha),
-             (Fractional ideal (3, 1/2*alpha^3 + 7/2*alpha + 1),
-              1/52*alpha^3 + 25/156*alpha),
-             (Fractional ideal (3, 1/2*alpha^3 + 7/2*alpha + 1),
-              -1/78*alpha^3 - 2/39*alpha),
-             (Fractional ideal (3, 1/2*alpha^3 + 7/2*alpha + 1),
+             (Fractional ideal (1), 1/156*alpha^3 + 17/156*alpha),
+             (Fractional ideal (1), 5/156*alpha^3 + 7/156*alpha),
+             (Fractional ideal (3, 1/2*alpha^3 + 7/2*alpha - 1),
               -1/52*alpha^3 - 25/156*alpha),
-             (Fractional ideal (3, 1/2*alpha^3 + 7/2*alpha + 1),
+             (Fractional ideal (3, 1/2*alpha^3 + 7/2*alpha - 1),
+              -1/78*alpha^3 - 2/39*alpha),
+             (Fractional ideal (3, 1/2*alpha^3 + 7/2*alpha - 1),
+              1/52*alpha^3 + 25/156*alpha),
+             (Fractional ideal (3, 1/2*alpha^3 + 7/2*alpha - 1),
               1/78*alpha^3 + 2/39*alpha)]
 
             
         And in genus three::
         
             sage: K = CM_Field((x^2+1)*(x^2+3)*(x^2+5)+1)
-            sage: list(K._principally_polarized_ideal_class_representives_iter())
-            [(Fractional ideal (1), 1/916*alpha^5 + 35/916*alpha^3 + 17/916*alpha),
-             (Fractional ideal (1), 29/916*alpha^5 + 99/916*alpha^3 + 35/916*alpha),
-             (Fractional ideal (1), 27/916*alpha^5 + 29/916*alpha^3 + 1/916*alpha),
-             (Fractional ideal (1), -133/916*alpha^5 - 533/916*alpha^3 - 429/916*alpha),
-             (Fractional ideal (2, 1/8*alpha^5 - 1/2*alpha^4 + 17/8*alpha^3 - 7/2*alpha^2 + 47/8*alpha - 9/2),
-              49/1832*alpha^5 + 341/1832*alpha^3 + 375/1832*alpha),
-             (Fractional ideal (2, 1/8*alpha^5 - 1/2*alpha^4 + 17/8*alpha^3 - 7/2*alpha^2 + 47/8*alpha - 9/2),
-              47/1832*alpha^5 + 271/1832*alpha^3 + 341/1832*alpha),
-             (Fractional ideal (2, 1/8*alpha^5 - 1/2*alpha^4 + 17/8*alpha^3 - 7/2*alpha^2 + 47/8*alpha - 9/2),
-              -51/1832*alpha^5 - 411/1832*alpha^3 - 409/1832*alpha),
-             (Fractional ideal (2, 1/8*alpha^5 - 1/2*alpha^4 + 17/8*alpha^3 - 7/2*alpha^2 + 47/8*alpha - 9/2),
-              -105/1832*alpha^5 - 469/1832*alpha^3 - 411/1832*alpha)]
+            sage: l = list(K._principally_polarized_ideal_class_representives_iter())
+            sage: l.sort(key=str)
+            sage: l
+            [(Fractional ideal (1), -1/916*alpha^5 - 35/916*alpha^3 - 17/916*alpha),
+             (Fractional ideal (1), -27/916*alpha^5 - 29/916*alpha^3 - 1/916*alpha),
+             (Fractional ideal (1), -29/916*alpha^5 - 99/916*alpha^3 - 35/916*alpha),
+             (Fractional ideal (1), 133/916*alpha^5 + 533/916*alpha^3 + 429/916*alpha),
+             (Fractional ideal (2, alpha^2 + alpha + 3),
+              -6/229*alpha^5 - 153/916*alpha^3 - 179/916*alpha),
+             (Fractional ideal (2, alpha^2 + alpha + 3),
+              -7/458*alpha^5 - 8/229*alpha^3 - 9/916*alpha),
+             (Fractional ideal (2, alpha^2 + alpha + 3),
+              -9/916*alpha^5 - 43/458*alpha^3 - 153/916*alpha),
+             (Fractional ideal (2, alpha^2 + alpha + 3),
+              39/916*alpha^5 + 55/229*alpha^3 + 205/916*alpha)]
 
         r"""
         
@@ -1822,12 +1824,12 @@ class CM_Type_embeddings(CM_Type_base):
             return False
     
         C = self.codomain()
-        if C is CLF or is_ComplexField(C) or is_ComplexIntervalField(C) or C is QQbar:
+        if C is CLF or isinstance(C, (sage.rings.abc.ComplexField, sage.rings.abc.ComplexIntervalField)) or C is QQbar:
             Cemb = C
         else:
             Cemb = C.embedding()
             C = Cemb.codomain()
-            if not (C is CLF or is_ComplexField(C) or is_ComplexIntervalField(C) or C is QQbar):
+            if not (C is CLF or isinstance(C, (sage.rings.abc.ComplexField, sage.rings.abc.ComplexIntervalField)) or C is QQbar):
                 raise RuntimeError()
         return all([(Cemb(phi(xi))/C.gen()) > 0 for phi in self])
 
@@ -2415,14 +2417,14 @@ def _is_accepted_complex_field(K):
     Returns true if ``K`` is a complex field accepted by
     the CM-field code.
     r"""
-    return K == CC or K == QQbar or is_ComplexField(K) or             K is CLF or is_ComplexIntervalField(K)
+    return K == CC or K == QQbar or isinstance(K, (sage.rings.abc.ComplexField, sage.rings.abc.ComplexIntervalField)) or K is CLF
 
 
 def _is_numerical_complex_field(K):
     r"""
     Returns true if ``K`` is a complex field for doing numerical evaluation.
     r"""
-    return K == CC or is_ComplexField(K) or                        is_ComplexIntervalField(K)
+    return K == CC or isinstance(K, (sage.rings.abc.ComplexField, sage.rings.abc.ComplexIntervalField))
 
 
 def inverse_field_hom(m, y):

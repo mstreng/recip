@@ -382,7 +382,7 @@ def polarized_ideal_classes(O, F):
         sage: F = 5
         sage: [ideal_contains(A.basis(), [F*b for b in OK.basis()]) for A in s]
         [True, True, True]
-        sage: polarized_ideal_classes(s[0], 1)
+        sage: polarized_ideal_classes(s[0], 1) # output is random
         [([1/2*alpha^3 + 1/2, 1/2*alpha^3 + 1/2*alpha^2 + 1/2*alpha, alpha^2, alpha^3],
           1/5*alpha),
          ([1/2*alpha^3 + 1/2, 1/2*alpha^3 + 1/2*alpha^2 + 1/2*alpha, alpha^2, alpha^3],
@@ -391,9 +391,9 @@ def polarized_ideal_classes(O, F):
         True
         sage: polarized_ideal_classes(s[1], 5) # long time
         [([1/2*alpha^3 + 1/2, 1/2*alpha^3 + 1/2*alpha^2 + 5/2*alpha, alpha^2, alpha^3],
-          1/25*alpha^3 + 1/5*alpha),
+          1/25*alpha^3),
          ([1/2*alpha^3 + 1/2, 1/2*alpha^3 + 1/2*alpha^2 + 5/2*alpha, alpha^2, alpha^3],
-          -2/25*alpha^3 - 1/5*alpha)]
+          2/25*alpha^3 + 1/5*alpha)]
         sage: polarized_ideal_classes(s[2], 5) # long time
         []
     r"""
@@ -923,7 +923,7 @@ def are_nn_isogenous(Z1, Z2, n, F1, F2, transformation=False, double_check=False
         True
         sage: Zother = Zs[1][0] # long time
         sage: are_nn_isogenous(Zmax, Zother, 5, 1, F, transformation=True) # long time
-        (True, 1/10*alpha^3 + 1/2*alpha^2 + 1/2*alpha + 1)
+        (True, ...)
         sage: b, t = _ # long time
         sage: ideal_index([b*t for b in Zmax.basis()], Zother.basis()) # long time
         25
@@ -934,7 +934,7 @@ def are_nn_isogenous(Z1, Z2, n, F1, F2, transformation=False, double_check=False
     Some checks for the are_nn_isogenous function::
     
         sage: are_nn_isogenous(Zmax, Zmax, 5, 5, 5, transformation=True) # long time
-        (True, 1/10*alpha^3 - 1/10*alpha^2 + 1/2*alpha)
+        (True, ...)
         sage: are_nn_isogenous(Zmax, Zmax, 1, 1, 1, transformation=True) # long time
         (True, 1)
         sage: are_nn_isogenous(Zother, Zother, 1, F, F, transformation=True) # long time
@@ -1131,9 +1131,6 @@ def is_trivial_in_shimura_group(A, alpha, O, cc=None):
     Here we test the current function::
     
         sage: all([is_trivial_in_shimura_group(A, alpha, OK) for (A, alpha) in type_norms]) # long time, 30 seconds
-          ***   Warning: precision too low for generators, not given.
-          ...
-          ***   Warning: precision too low for generators, not given.
         True
         sage: len([A for (A, alpha) in type_norms if is_trivial_in_shimura_group(A, alpha, O)]) # long time, 25 seconds
         384

@@ -27,8 +27,10 @@ working directory. Then type::
     sage: load("recip.sage")
 
 This file gives the details of computations mentioned and used in
-Bisson-Streng -- On polarised class groups of orders in quartic CM fields
-http://arxiv.org/abs/1302.3756
+
+[BissonS] Bisson-Streng -- On polarised class groups of orders in quartic CM fields
+          Math. Res. Lett., Vol. 24 (2017), number 2, pp 247 - 270
+          http://arxiv.org/abs/1302.3756
 
 #----------------------------------------------------------------------------
 
@@ -55,7 +57,7 @@ We start by computing the orders `O = \ZZ[\mu_i^5 : i] + p^k O_K`, where ``mu*mu
 is in `\QQ`, `(mu) = N_{\Phi^r}(A)` and A ranges over the ray class group of
 `K^r` mod `p^k`. We let `k=1,2,3,...` and notice that the sequences stabilize::
 
-        sage: minorders = minimal_orders_of_class_number_one(Phi); minorders
+        sage: minorders = minimal_prime_power_index_orders_of_class_number_one(Phi); minorders
         [(2,
           2,
           16,
@@ -175,7 +177,7 @@ is (5,5)-isogenous to the one for the maximal order::
         sage: [Zmax] = period_matrices(s5[0], 1, Phi) # long time
         sage: [Zother] = period_matrices(s5[1], 5, Phi) # long time
         sage: are_nn_isogenous(Zmax, Zother, 5, 1, 5, transformation=True) # long time
-        (True, 1/10*alpha^3 + 1/2*alpha^2 + 1/2*alpha + 1)
+        (True, -1/5*alpha^3 - 1/2*alpha^2 - 1/2*alpha - 3/2)
 
 Next, we prove that the period matrices for the order of index a power of 3
 is (3,3)-isogenous to the one for the maximal order::
@@ -229,9 +231,27 @@ are correct and not defined over `\QQ`.
 
 def orders_proven_with_wamelen(latex_output=False):
     r"""
-    Compute the orders O''' in the article, and prove that the non-maximal
-    O''' have index 2 in the maximal order and no proper polarized ideal
-    classes. Then output Table 1 of the article.
+    This function is used in the [BS, proof of Theorem 16, Section 6.1.4],
+    which proves that the curves of Van Wamelen have CM by the maximal
+    order, and not by any other order.
+    
+    This function outputs a table, now published as [BS, Table 1],
+    consisting of the following data.
+    
+    Take the 12 CM fields K other than QQ(zeta5) ([D,A,B]=[5,5,5]) that
+    feature in Van Wamelen's list of CM fields.
+    
+    - The first column is the [D,A,B] of K.
+    - The second column is the number n of QQbar isomorphism classes of
+      curves of genus 2 with CM by the maximal order OK of K.
+    - The third column is a polynomial chi for which Van Wamelen proved
+      that his curves have CM by an order containing R' = ZZ[x]/(chi)
+    - i1, i2, i3 are the index of R', R''=R'+R'bar, and R''' in OK,
+      where R''' is defined in [BS, Section 6.1.4].
+      
+    In the cases where i3 > 1, this function verifies that every polarized
+    ideal for R''' is actually an OK-ideal, which proves that every one
+    of Van Wamelen's curves has CM by OK.
     
     EXAMPLES::
     
@@ -315,17 +335,46 @@ def orders_proven_with_wamelen(latex_output=False):
 
 def minimal_orders_of_class_number_one(Phi, output_type='order'):
     r"""
-    Let K be the domain of the input CM-type Phi. If K is not `\QQ(\zeta_5)`,
-    returns the list of tuples (p, k, i, O), where p ranges over all primes
-    such that there is an order that is not p-maximal, but does have
-    Shimura class
-    number one. Here O is the smallest such order of index a power i of p, and
-    `p^k` is the exponent of the additive group OK/O.
+    See minimal_prime_power_index_orders_of_class_number_one.
+    """
+    ret = minimal_prime_power_index_orders_of_class_number_one(Phi, output_type=output_type)
+    if len(ret) <= 1 and Phi.domain().unit_group().torsion_generator().multiplicative_order() == 2:
+        return ret
+    else:
+        # If there are only two roots of unity, then the intersection of the elements of ret
+        # is the minimal order of class number one.
+        # Otherwise, the intersection of the elements of ret is an inclusion-lower bound.
+        raise NotImplementedError("Actually returning all minimal orders is not implemented. Use minimal_prime_power_index_orders_of_class_number_one")
     
-    If K is `\QQ(\zeta_5)`, then the output is as above, except that the list
-    may contain too many primes p, and the orders O may be too small
-    (in other words, for a classification, the output will be on the safe
-    side).
+
+def minimal_prime_power_index_orders_of_class_number_one(Phi, output_type='order'):
+    r"""
+    Returns orders of prime power index > 1 such that every order of CM class number one containss
+    the intersection of these orders.
+    
+    INPUT:
+    
+        * CM type Phi of a primitive quartic CM field K
+        * output_type - 'gens', 'direct_from_gens', 'order', or 'magma'
+          If 'gens', then return generators of the order.
+          If 'order' (the default) or 'direct_from_gens', then return a SageMath order,
+          where 'order' does some preprocessing to give nicer elements to
+          SageMath's K.order() method.
+          If 'magma', then return a Magma order (requires Magma to be installed).
+    
+    OUTPUT:
+    
+        * If K is not `\QQ(\zeta_5)`, returns the list of tuples (p, k, i, O),
+          where p ranges over all primes such that there is an order that is
+          not p-maximal, but does have CM class number one. Here O is the minimal
+          order of index a power of p that has CM class number one,
+          and i is that index, and `p^k` is the exponent of
+          the additive group OK/O.
+    
+        * If K is `\QQ(\zeta_5)`, then the output is as above, except that the list
+          may contain too many primes p, and the orders O may not be minimal,
+          but will contain every minimal order (in other words, for a classification,
+          the output will be on the safe side).
         
     EXAMPLES::
     
@@ -334,11 +383,11 @@ def minimal_orders_of_class_number_one(Phi, output_type='order'):
 
         sage: K = CM_Field([5,5,5])
         sage: Phi = K.CM_types()[0]
-        sage: minorders = minimal_orders_of_class_number_one(Phi); minorders # long time 1 second
+        sage: minorders = minimal_prime_power_index_orders_of_class_number_one(Phi); minorders # long time 1 second
         [(2, 2, 16, Order in CM Number Field in alpha with defining polynomial x^4 + 5*x^2 + 5), (3, 1, 9, Order in CM Number Field in alpha with defining polynomial x^4 + 5*x^2 + 5), (5, 3, 15625, Order in CM Number Field in alpha with defining polynomial x^4 + 5*x^2 + 5)]
 
         sage: Phi = CM_Field(lst[1]).CM_types()[0]
-        sage: m = minimal_orders_of_class_number_one(Phi); m
+        sage: m = minimal_prime_power_index_orders_of_class_number_one(Phi); m
         [(2, 1, 4, Order in CM Number Field in alpha with defining polynomial x^4 + 4*x^2 + 2)]
     r"""
     K = Phi.domain()
@@ -360,21 +409,40 @@ def minimal_orders_of_class_number_one(Phi, output_type='order'):
             k = k + 1
             previous = O
     return ret
-
+    
 
 def minimal_order_cl_nr_one_F(Phi, F=None, output_type='order', Ostart=None):
     r"""
-    Returns an order O in the domain K of Phi such that for any order O' in K
-    containing ZZ+F*OK,
-    if the image of I_Kr(F) in CCC(O) is trivial,
-    then O contains O'.
+    Assuming #(OK^*)^tors = 2, returns the inclusion-minimal order of class number one
+    among those that contain ZZ+F*OK.
     
-    Returns None every O' satisfies this property, i.e., if O does not exist.
+    In general (that is, without the assumption #(OK^*)^tors = 2), this function
+    returns an order O in the domain K of Phi such that for every order O' in K
+    containing ZZ+F*OK:
+       O' has CM class number one  ===>  O' contains O
     
-    If K is not QQ(zeta_5), then actually the "if" in the first paragraph
-    is an "if and only if".
+    ["CM class number one" means that the image of I_Kr(F) in CCC(O') is trivial.]
     
-    Here F is an integer.
+    Raises an error if K does not have CM class number one.
+    
+    INPUT:
+    
+        * CM type Phi of a primitive quartic CM field K
+        * F (default: None) -- a positive integer. If None, then use
+          the index of Ostart. At least one of Ostart and F must be given as input.
+        * output_type - 'gens', 'direct_from_gens', 'order', or 'magma'
+          If 'gens', then return generators of the order.
+          If 'order' (the default) or 'direct_from_gens', then return a SageMath order,
+          where 'order' is faster.
+          If 'magma', then return a Magma order (requires Magma to be installed).
+        * Ostart (default: None) -- Only consider orders O' containing Ostart.
+          The output will then contain Ostart.
+          Using Ostart=None is the same as using Ostart = F*OK + ZZ.
+          At least one of Ostart and F must be given as input.
+
+    OUTPUT:
+    
+        An O as defined above, or (depending on output_type) generators of such an order.
     r"""
     K = Phi.domain()
 
@@ -386,16 +454,36 @@ def minimal_order_cl_nr_one_F(Phi, F=None, output_type='order', Ostart=None):
         F = Ostart.index_in(OK)
 
     gens = CM_type_to_mus(Phi, F)
+    if gens is None:
+        raise ValueError("K should have CM class number one, but does not.")
 
+    # Lemma.
+    # O' has CM class number one <===> for every element g of gens there is a root of
+    #                                  unity u in K with u * g in O'.
+    # Proof.
+    # "===>" By definition of gens we have g*OK = N_{Phi^r}(b) for some ideal b
+    #        coprime to F, and g*gbar in QQ.
+    #        By definition of CM class number one, we have
+    #        N_{Phi^r}(b) = f*OK for some element f of O' coprime to F*O' with f*fbar = N(b) in QQ.
+    #        Then u := f/g in OK^* satisfies u*ubar in QQ, hence is a root of unity.
+    # "<===" It suffices to show that the image of a set of generators of I_{K^r}(F) in CCC(O')
+    #        is trivial. For every such generator b, there are g and u be as in the lemma.
+    #        Let f = u * g. We get f*OK = N_{Phi^r}(b) and f*fbar in QQ, hence f*fbar = N(b).
+    #        Moreover, we have f in O', and #(O'/fO') = N(f) = #(OK/fOK) is coprime to F,
+    #        hence the of b is [(fO', f*fbar)] = 1. QED
 
-    if K.unit_group().torsion_generator().multiplicative_order() != 2:
-        if K.unit_group().torsion_generator().multiplicative_order() != 10:
-            raise RuntimeError( K)
-        gens = [mu**5 for mu in gens]
+    e = ZZ(K.unit_group().torsion_generator().multiplicative_order() / 2)
+
+    # Corollary.
+    # O' has CM class number one ===> for every element g of gens, we have g^e in O'
+    # Moreover, if e = 1, then we have "<===>".
+    # Proof.
+    # If (u*g) in O', then (+/-)g^e = (u*g)^e in O', hence g^e in O'.
+    # And if e=1, then the converse holds. QED
     
-    # explanation of why it is going to work: up to roots of unity,
-    # these elements are in every O', and since "-a in O' <=> a in O'",
-    # we know that the element to the power e is in O'.
+    gens = [mu**e for mu in gens]
+    
+    # Now O is the order generated by gens and F*OK and/or Ostart (depending on which is/are given).
     
     gens = [F*b for b in OK.basis()] + gens
     if not Ostart is None:
@@ -422,8 +510,21 @@ def minimal_order_cl_nr_one_F(Phi, F=None, output_type='order', Ostart=None):
 
 def CM_type_to_mus(Phi, F):
     r"""
-    Returns mu generating N_Phir(aaa) with mu*mubar in QQ for aaa ranging
-    over generators of the ray class group mod F of the reflex field of Phi.
+    Returns a generator mu of N_Phir(aaa) with mu*mubar in QQ for
+    every aaa in a list of generators of the ray class group mod F
+    of the reflex field of Phi.
+    
+    INPUT:
+    
+        * Phi - a CM type
+        * F - a positive integer
+        
+    OUTPUT:
+    
+        If K has CM class number one, then returns a list of
+        elements mu of the domain K of Phi, as above.
+        If K does not have CM class number one, then such
+        a list does not exist, and the output is None.
     r"""
     K = Phi.domain()
     Psi = Phi.reflex()
@@ -454,22 +555,53 @@ def _order_mod(a, I):
     
 def _primes_of_interest(K):
     r"""
-    Returns a set of primes, containing all primes dividing the index of the
-    minimal order of Shimura class number one.
+    Given a primitive quartic CM field K, returns a set X of primes such that
+    for every order O in K of CM class number 1, every prime dividing
+    [OK : O] is in X.
     
-    Assumes that the input is a primitive quartic CM-field and that the maximal
-    order has Shimura class number one. Uses results from
-    Bisson-Streng.
+    If K is not `\QQ(\zeta_5)`, then the output
+    `{2, 3} \cup \{p : p \mid N_{K_0/\QQ}(\Delta_{K/K_0})`
+    suffices by [BissonS, Theorem 4].
     
-    More precisely, if K is not `\QQ(\zeta_5)`, then Theorem 5.1 can be used
-    directly, as it does not depend on the computations that we did with this
-    Sage file. It is equivalent to combining Theorem 4.3 with Corollary 5.3.
+    If K is `\QQ(\zeta_5)`, then the output prime_range(19)
+    suffices by [BissonS, Propositions 9 and 12 and Lemma 13].
     
-    If K is `\QQ(zeta_5)`, then part of the purpose of this Sage file is to
-    prove Theorem 5.1, so we cannot use that theorem. Instead, we use
-    Proposition 4.2, and Corollary 5.3, together with the fact that the
-    discriminant of K is a power of 5.
+    EXAMPLES:
+    
+        sage: load("recip.sage")
+        sage: K = CM_Field(x^4 + 46*x^2 + 102)
+        sage: _primes_of_interest(K)
+        [2, 3, 17]
+        sage: Kr = K.Phi().reflex_field()
+        sage: _primes_of_interest(Kr)
+        [2, 3, 7, 61]        
+    
+    Details:
+    
+        If K is not `\QQ(\zeta_5)`, then the output
+        `{2, 3} \cup \{p : p \mid N_{K_0/\QQ}(\Delta_{K/K_0})`
+        suffices by [BissonS, Theorem 4].
+        The proof of that result does not use this SageMath file.
+        In fact, it is obtained (on page 257)
+        by combining the following results of [BissonS]:
+        * Lemma 13, which says that
+                [OK0 : S0]^4 | N_{K0/QQ}(Delta_{K/K0}) [OK : S]^2
+        * Theorem 5, which says that
+                [OK:S] / [OK0 : S0] divides 2^10*3^4 if K is not QQ(zeta5)
+    
+        If K is `\QQ(\zeta_5)`, then the output prime_range(19) suffices.
+        Indeed, by Lemma 13, we still have
+                [OK0 : S0]^4 | N_{K0/QQ}(Delta_{K/K0}) [OK : S]^2 = 5 [OK : S]^2.
+        But instead of Theorem 5, we have to use its ingredients,
+        Proposition 9 and 12, which together say that
+                [OK:S] / [OK0 : S0] has no prime factors p > 19.
+        So now let p > 19 be a prime and let
+              e = ord_p([OK:S])
+         and e0 = ord_p([OK0:S0]).
+        Then the two results are 4e0 <= 2e and e0=e, hence e = e0 = 0.
+        This proves that prime_range(19) suffices.
     r"""
+
     if K.minimal_DAB() == [5,5,5]:
         return prime_range(19)
     return prime_divisors(2*3*
@@ -598,8 +730,8 @@ def all_period_matrices_two(lst):
         ....:  [[0, 0], [0, 0]],
         ....:  [[0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0]]]
         sage: matrL = [Matrix(c) for c in L]
-        sage: matr == matrL # exact equality, was False at latest Sage version, long time
-        False
+        sage: matr == matrL # exact equality does not have to be true, so output is random, long time
+        True
         sage: t = [(Graph(matrL[c]).is_isomorphic(Graph(matr[c]), certificate=True), matr[c]) for c in range(len(L))] # long time
         sage: all([a[0] for (a,b) in t]) # here is what matters, long time
         True
@@ -734,8 +866,8 @@ def all_period_matrices_two(lst):
 #        print(DAB)
         K = CM_Field(DAB)
         Phi = K.CM_types()[0]
-        m = minimal_orders_of_class_number_one(Phi)
-        if len(m):
+        m = minimal_prime_power_index_orders_of_class_number_one(Phi)
+        if len(m) > 0:
             Omin = m[0][3]
             if m[0][0] != 2 or (DAB != [5,5,5] and len(m) > 1):
                 raise RuntimeError( "tests fail!")
@@ -790,10 +922,11 @@ def visualize_orders(orders):
     return A
     
 
-def is_S_O_equal_S_OK(O):
+def is_Omega_equal_Omega_max(R):
     r"""
-    Given an order O in a non-biquadratic quartic CM-field O, returns True if
-    and only if S_O = S_{O_K}, in the notation of Bisson-Streng.
+    Given an order R in a non-biquadratic quartic CM-field K, returns True if
+    and only if Omega_R = Omega_{ZZ_K}, in the notation of Bisson-Streng,
+    where ZZ_K is the maximal order.
     
     EXAMPLES:
     
@@ -804,13 +937,13 @@ def is_S_O_equal_S_OK(O):
         sage: P.<x> = QQ[]
         sage: [alpha1,alpha2]=(x^4+2*x^3+16*x^2+15*x+19).roots(K, multiplicities=False)
         sage: O = K.order(alpha1)
-        sage: is_S_O_equal_S_OK(O)
+        sage: is_Omega_equal_Omega_max(O)
         False
         
     r"""
-    K = O.number_field()
+    K = R.number_field()
     OK = K.maximal_order()
-    F = minimal_F(O)
+    F = minimal_F(R)
     Phi = K.CM_types()[0]
     Kr = Phi.reflex_field()
     Psi = Phi.reflex()
@@ -818,11 +951,11 @@ def is_S_O_equal_S_OK(O):
         g = Kr.ideal(Kr(g))
         A = Psi.type_norm(g)
         alpha = g.norm()
-        if not is_trivial_in_shimura_group(A, alpha, O):
-            # These are all in S_OK, since they are obviously principal
+        if not is_trivial_in_shimura_group(A, alpha, R):
+            # These are all in Omega_{ZZ_K}, since they are obviously principal
             return False
-    # Now we know that both S_O and S_OK contain the principal ideals,
-    # so we can look at S_O/P_Kr \subset S_OK/P_Kr \subset Kr.class_group()
+    # Now we know that both Omega_R and Omega_{ZZ_K} contain the principal ideals,
+    # so we can look at Omega_R/P_Kr \subset Omega_{ZZ_K}/P_Kr \subset Kr.class_group()
     # TODO: with linear algebra on the group Kr.class_group(), the following
     # can be made faster.
     idF = Kr.ideal(F)
@@ -832,13 +965,15 @@ def is_S_O_equal_S_OK(O):
         A = Psi.type_norm(I)
         alpha = I.norm()
         if (is_trivial_in_shimura_group(A, alpha, OK) and not
-                is_trivial_in_shimura_group(A, alpha, O)
+                is_trivial_in_shimura_group(A, alpha, R)
                 ):
             return False
-    # Now S_O/P_Kr = S_OK/P_Kr.
+    # Now Omega_R/P_Kr = Omega_{ZZ_K}/P_Kr.
     return True
                 
-                
+
+is_S_O_equal_S_OK = is_Omega_equal_Omega_max
+              
 """
 
 Some additional tests of orders.sage, made possible by the code in bissonstreng.sage::
@@ -846,7 +981,7 @@ Some additional tests of orders.sage, made possible by the code in bissonstreng.
         sage: load("recip.sage")
         sage: lst = wamelen_dab_list()
         sage: Phi = CM_Field(lst[3]).CM_types()[0]
-        sage: m = minimal_orders_of_class_number_one(Phi); m
+        sage: m = minimal_prime_power_index_orders_of_class_number_one(Phi); m
         [(2, 1, 4, Order in CM Number Field in alpha with defining polynomial x^4 + 10*x^2 + 20)]
         sage: O = m[0][3]
         sage: polarized_ideal_classes(O, 2)

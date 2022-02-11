@@ -149,11 +149,11 @@ For the next field (0, -3), we have already done one curve. The other
 is a pair of curves, which may be the most difficult.
 
     sage: Z1 = lst[4][1][1][0]
-    sage: j_val1 = j(Z1.complex_matrix().base_extend(CIF), interval=True); j_val1 # the following was + in an older version of Sage, and should be different from the one after, so something is wrong.
+    sage: j_val1 = j(Z1.complex_matrix().base_extend(CIF), interval=True); j_val1
     8.1894000000?e7 + 1.50920000000?e7*I
     sage: Z2 = lst[4][1][2][0]
     sage: j_val2 = j(Z2.complex_matrix().base_extend(CIF), interval=True); j_val2
-    8.1894000000?e7 + 1.50920000000?e7*I
+    8.1894000000?e7 - 1.50920000000?e7*I
     sage: K.<sqrt5>=QuadraticField(5)
     sage: [j1, j2] = hilbert_class_polynomial(-20).roots(K, multiplicities=False)
     sage: P.<x> = K[]

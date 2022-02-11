@@ -144,7 +144,7 @@ To see that even with arbitrary elements of `\QQ(\zeta_8)` we can't do better th
 the cocycle `c : \sigma \mapsto f0^\sigma / f0` in more detail to check that it is not a coboundary::
 
     sage: [ThetaModForm(f0)^r / ThetaModForm(f0) for r in r_image]
-    [(-zeta8^2), (-zeta8^2), -1, -1, -1, -1]
+    [(zeta8^2), (zeta8^2), -1, -1, -1, -1]
     sage: [r.nu() for r in r_image]
     [7, 7, 1, 5, 1, 5]
 
@@ -256,55 +256,56 @@ We repeat more or less the same steps, but in less detail. ::
     11: ()
     Permutation Group with generators [()] of order 1
     The action on the orbit [1] is as follows
-    [           0|           1            2            3            4            5            6            7            8            9           10           11]
-    [------------+----------------------------------------------------------------------------------------------------------------------------------------------]
-    [          t1|          t1           t1 (zeta8^2)*t1 (zeta8^2)*t1           t1           t1           t1           t1           t1           t1           t1]
-    [     (zeta8)|    (-zeta8)      (zeta8)      (zeta8)      (zeta8)     (-zeta8)     (-zeta8)      (zeta8)      (zeta8)      (zeta8)      (zeta8)   (-zeta8^3)]
+    [            0|            1             2             3             4             5             6             7             8             9            10            11]
+    [-------------+---------------------------------------------------------------------------------------------------------------------------------------------------------]
+    [           t1|           t1            t1 (-zeta8^2)*t1  (zeta8^2)*t1            t1            t1            t1            t1            t1            t1            t1]
+    [        zeta8|     (-zeta8)         zeta8         zeta8         zeta8         zeta8         zeta8      (-zeta8)      (-zeta8)      (-zeta8)      (-zeta8)    (-zeta8^3)]
     The action on the orbit [2] is as follows
     [            0|            1             2             3             4             5             6             7             8             9            10            11]
     [-------------+---------------------------------------------------------------------------------------------------------------------------------------------------------]
     [           t2|           t2 (-zeta8^2)*t2            t2           -t2            t2            t2            t2            t2            t2            t2            t2]
-    [      (zeta8)|     (-zeta8)       (zeta8)       (zeta8)       (zeta8)      (-zeta8)      (-zeta8)       (zeta8)       (zeta8)       (zeta8)       (zeta8)    (-zeta8^3)]
+    [        zeta8|     (-zeta8)         zeta8         zeta8         zeta8         zeta8         zeta8      (-zeta8)      (-zeta8)      (-zeta8)      (-zeta8)    (-zeta8^3)]
     The action on the orbit [3] is as follows
-    [            0|            1             2             3             4             5             6             7             8             9            10            11]
-    [-------------+---------------------------------------------------------------------------------------------------------------------------------------------------------]
-    [           t3|           t3  (zeta8^2)*t3 (-zeta8^2)*t3  (zeta8^2)*t3            t3            t3            t3            t3            t3            t3            t3]
-    [      (zeta8)|     (-zeta8)       (zeta8)       (zeta8)       (zeta8)      (-zeta8)      (-zeta8)       (zeta8)       (zeta8)       (zeta8)       (zeta8)    (-zeta8^3)]
+    [           0|           1            2            3            4            5            6            7            8            9           10           11]
+    [------------+----------------------------------------------------------------------------------------------------------------------------------------------]
+    [          t3|          t3 (zeta8^2)*t3 (zeta8^2)*t3 (zeta8^2)*t3           t3           t3           t3           t3           t3           t3           t3]
+    [       zeta8|    (-zeta8)        zeta8        zeta8        zeta8        zeta8        zeta8     (-zeta8)     (-zeta8)     (-zeta8)     (-zeta8)   (-zeta8^3)]
     The action on the orbit [4] is as follows
     [         0|         1          2          3          4          5          6          7          8          9         10         11]
     [----------+------------------------------------------------------------------------------------------------------------------------]
     [        t4|        t4        -t4         t4         t4         t4         t4         t4         t4         t4         t4         t4]
-    [   (zeta8)|  (-zeta8)    (zeta8)    (zeta8)    (zeta8)   (-zeta8)   (-zeta8)    (zeta8)    (zeta8)    (zeta8)    (zeta8) (-zeta8^3)]
+    [     zeta8|  (-zeta8)      zeta8      zeta8      zeta8      zeta8      zeta8   (-zeta8)   (-zeta8)   (-zeta8)   (-zeta8) (-zeta8^3)]
     The action on the orbit [6] is as follows
     [           0|           1            2            3            4            5            6            7            8            9           10           11]
     [------------+----------------------------------------------------------------------------------------------------------------------------------------------]
-    [          t6|         -t6 (zeta8^2)*t6           t6          -t6          -t6          -t6           t6           t6           t6           t6           t6]
-    [     (zeta8)|    (-zeta8)      (zeta8)      (zeta8)      (zeta8)     (-zeta8)     (-zeta8)      (zeta8)      (zeta8)      (zeta8)      (zeta8)   (-zeta8^3)]
+    [          t6|         -t6 (zeta8^2)*t6           t6          -t6           t6           t6          -t6          -t6          -t6          -t6           t6]
+    [       zeta8|    (-zeta8)        zeta8        zeta8        zeta8        zeta8        zeta8     (-zeta8)     (-zeta8)     (-zeta8)     (-zeta8)   (-zeta8^3)]
     The action on the orbit [8] is as follows
     [         0|         1          2          3          4          5          6          7          8          9         10         11]
     [----------+------------------------------------------------------------------------------------------------------------------------]
     [        t8|        t8        -t8        -t8        -t8         t8         t8         t8         t8         t8         t8         t8]
-    [   (zeta8)|  (-zeta8)    (zeta8)    (zeta8)    (zeta8)   (-zeta8)   (-zeta8)    (zeta8)    (zeta8)    (zeta8)    (zeta8) (-zeta8^3)]
+    [     zeta8|  (-zeta8)      zeta8      zeta8      zeta8      zeta8      zeta8   (-zeta8)   (-zeta8)   (-zeta8)   (-zeta8) (-zeta8^3)]
     The action on the orbit [9] is as follows
     [            0|            1             2             3             4             5             6             7             8             9            10            11]
     [-------------+---------------------------------------------------------------------------------------------------------------------------------------------------------]
-    [           t9|          -t9           -t9 (-zeta8^2)*t9 (-zeta8^2)*t9           -t9           -t9            t9            t9            t9            t9            t9]
-    [      (zeta8)|     (-zeta8)       (zeta8)       (zeta8)       (zeta8)      (-zeta8)      (-zeta8)       (zeta8)       (zeta8)       (zeta8)       (zeta8)    (-zeta8^3)]
+    [           t9|          -t9           -t9  (zeta8^2)*t9 (-zeta8^2)*t9            t9            t9           -t9           -t9           -t9           -t9            t9]
+    [        zeta8|     (-zeta8)         zeta8         zeta8         zeta8         zeta8         zeta8      (-zeta8)      (-zeta8)      (-zeta8)      (-zeta8)    (-zeta8^3)]
     The action on the orbit [12] is as follows
     [         0|         1          2          3          4          5          6          7          8          9         10         11]
     [----------+------------------------------------------------------------------------------------------------------------------------]
     [       t12|       t12        t12       -t12       -t12        t12        t12        t12        t12        t12        t12        t12]
-    [   (zeta8)|  (-zeta8)    (zeta8)    (zeta8)    (zeta8)   (-zeta8)   (-zeta8)    (zeta8)    (zeta8)    (zeta8)    (zeta8) (-zeta8^3)]
+    [     zeta8|  (-zeta8)      zeta8      zeta8      zeta8      zeta8      zeta8   (-zeta8)   (-zeta8)   (-zeta8)   (-zeta8) (-zeta8^3)]
     The action on the orbit [15] is as follows
     [             0|             1              2              3              4              5              6              7              8              9             10             11]
     [--------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------]
-    [           t15|          -t15  (zeta8^2)*t15  (zeta8^2)*t15 (-zeta8^2)*t15           -t15           -t15            t15            t15            t15            t15            t15]
-    [       (zeta8)|      (-zeta8)        (zeta8)        (zeta8)        (zeta8)       (-zeta8)       (-zeta8)        (zeta8)        (zeta8)        (zeta8)        (zeta8)     (-zeta8^3)]
+    [           t15|          -t15  (zeta8^2)*t15 (-zeta8^2)*t15 (-zeta8^2)*t15            t15            t15           -t15           -t15           -t15           -t15            t15]
+    [         zeta8|      (-zeta8)          zeta8          zeta8          zeta8          zeta8          zeta8       (-zeta8)       (-zeta8)       (-zeta8)       (-zeta8)     (-zeta8^3)]
     The action on the orbit [0] is as follows
     [         0|         1          2          3          4          5          6          7          8          9         10         11]
     [----------+------------------------------------------------------------------------------------------------------------------------]
     [        t0|        t0         t0         t0         t0         t0         t0         t0         t0         t0         t0         t0]
-    [   (zeta8)|  (-zeta8)    (zeta8)    (zeta8)    (zeta8)   (-zeta8)   (-zeta8)    (zeta8)    (zeta8)    (zeta8)    (zeta8) (-zeta8^3)]
+    [     zeta8|  (-zeta8)      zeta8      zeta8      zeta8      zeta8      zeta8   (-zeta8)   (-zeta8)   (-zeta8)   (-zeta8) (-zeta8^3)]
+    
 
 The prime 2 splits sufficiently much that Rosenhain invariants should always work.::
 
@@ -352,12 +353,11 @@ one where 2 is inert in the real quadratic subfield, and then ramifies in K.::
     1: ...
     2: ()
     3: ()
-    4: ()
-    5: ()
+    ...
     Permutation Group with generators [...] of order 2
     The action on the orbit [...] is as follows
-    [            0|            1             2             3             4             5]
-    [-------------+---------------------------------------------------------------------]
+    [            0|            1             2             3...]
+    [-------------+-----------------------------------------...]
     ...
 
 So the orbit lengths are one and two. We try the length one orbits.::
@@ -365,14 +365,7 @@ So the orbit lengths are one and two. We try the length one orbits.::
     sage: ThR = theta_ring(2,2)[0]
     sage: zeta8 = ThR.base_ring().gen()
     sage: u = ThetaModForm(ThR.gens()[6]/ThR.gens()[15]); u.orbit(gammas)
-    [t6/t15,
-     (zeta8^2)*t3/t2,
-     ((-zeta8^2)*t6)/t15,
-     t6/(-t15),
-     (zeta8^2)*t6/t15,
-     t3/t2,
-     (zeta8^2)*t3/(-t2),
-     (-t3)/t2]
+    [t6/t15, (-t6)/((-zeta8^2)*t15), t6/(-t15), (-t6)/((zeta8^2)*t15)]
 
     sage: T = [ThetaModForm(zeta8^j*(ThR.gens()[6]/ThR.gens()[15])^k) for j in range(4) for k in range(1,5)]
     sage: [t for t in T if t.is_fixed_by(gammas+[c])] # long time
