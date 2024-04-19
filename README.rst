@@ -10,7 +10,7 @@ The documentation for the package can be found at https://mstreng.github.io/reci
 Installation
 ------------
 
-This package was last tested with SageMath 9.5.
+This package was last tested with SageMath 10.2.
 
 Local install from source
 ^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -47,7 +47,7 @@ If your copy of SageMath is built with ssh support, then whenever you have an in
     CM Number Field in alpha with defining polynomial x^4 + 5*x^2 + 5
 	
 #*****************************************************************************
-# Copyright (C) 2010 -- 2020 Marco Streng
+# Copyright (C) 2010 -- 2024 Marco Streng
 #                                                  <marco.streng@gmail.com>
 #
 # This program is free software; you can redistribute it and/or modify

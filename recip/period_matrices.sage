@@ -3,7 +3,7 @@ RECIP -- REpository of Complex multIPlication SageMath code.
 See the file README.txt for version information and instructions.
 
 #*****************************************************************************
-# Copyright (C) 2010 -- 2020
+# Copyright (C) 2010 -- 2024
 # Marco Streng <marco.streng@gmail.com>
 #
 # This program is free software; you can redistribute it and/or modify
@@ -866,7 +866,8 @@ class PeriodMatrix_CM():
     @cached_method
     def complex_conjugation_symplectic_matrix(self, level, mu=None, A=None):
         r"""
-        Returns the matrix U of Proposition 2.7.
+        Returns a matrix V such that f(self) is in M_0 if and only if
+        f^V(self) = f(self), under the conditions of Proposition 2.14 of [1].
         
         INPUT:
         
@@ -892,8 +893,7 @@ class PeriodMatrix_CM():
         
         OUTPUT:
         
-        Matrix U in GSp(ZZ/level*ZZ) such that, if f(self) is a class
-        invariant, then f^U(self) = f(self) if and only if f(self) is in M_0.
+        Matrix V as in Proposition 2.14 of [1].
         
         EXAMPLES::
         
@@ -1146,29 +1146,31 @@ class PeriodMatrix_CM():
         really 100. This should be corrected (TODO)::
         
             sage: i(Z, prec=100)
-            6464.1219280862927825807751509 + 1.4177571165844968616946581863e-26*I
+            7868.1319781637072174192248493 - 6.1974439674228400482025283547e-26*I
             sage: (U, M, u) = Z.Shimura_reciprocity(a.parent().ideal(a), m=1, n=8, period_matrix=True)
-            sage: M
-            [ 1 -2 -1 -1]
-            [-2 -1 -1 -2]
-            [ 0  0  1 -2]
-            [ 0  0 -2 -1]
-            sage: u
+            sage: M # output is random
+            [-1  2 -1  2]
+            [ 2  1  0  0]
+            [ 0  0 -1  2]
+            [ 0  0  2  1]
+            sage: u # output is random
             Generalized symplectic matrix
-            [1 6 7 7]
-            [6 7 7 6]
-            [0 0 1 6]
-            [0 0 6 7] with nu = 5
-            sage: (i^u)(U, prec=100)
-            6464.12192808629278258077515...
+            [7 2 7 2]
+            [2 1 0 0]
+            [0 0 7 2]
+            [0 0 2 1] with nu = 5
+            sage: u.nu()
+            5
+            sage: (i^u)(U, prec=100) # output is random
+            7868.1319781637072174192248491 + 1.3457171078885862990859552840e-25*I
 
         The following sign error points out a bug, or not? a is not 1 mod 8,
         so it is allowed to have a non-trivial effect::
 
             sage: P = theta_ring(2, 2)[0]
             sage: t = ThetaModForm(P.gens()[4]/P.gens()[6])
-            sage: t(Z, prec=100)
-            0.99854006288205177918601876434 - 0.054016134807185886527908776...*I
+            sage: t(Z, prec=100) # output is random
+            0.99980077513799256466685524679 - 0.019960211258131232129944267307*I
             sage: t
             t4/t6
             
@@ -1176,9 +1178,9 @@ class PeriodMatrix_CM():
         yet in all cases (TODO)::
 
             sage: t^u
-            ((-zeta8)*t6)/(zeta8*t4)
+            ((-zeta8)*t4)/(zeta8*t6)
             sage: (t^u)(U, prec=100)
-            -0.99854006288205177918601876434 + 0.054016134807185886527908776...*I
+            -0.99980077513799256466685524680 + 0.019960211258131232129944267306*I
             sage: P = theta_ring(2,2)[0]
 
             

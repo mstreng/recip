@@ -410,7 +410,7 @@ def polarized_ideal_classes(O, F):
         sage: polarized_ideal_classes(s[2], 5) # long time
         []
     r"""
-    a,_,_ = proper_ideal_classes(O,F)
+    a = proper_ideal_classes(O,F)[0]
     # we also need a generator of N_{K/K0}(O^*):
     K = O.number_field()
     cc = K.complex_conjugation()
@@ -1181,16 +1181,26 @@ def is_trivial_in_shimura_group(A, alpha, O, cc=None):
     # alpha / ( mu0*mu0bar ) = u0^2
     u0sq = alpha / mu0 / cc(mu0)
     if not K.ideal(u0sq) == 1:
-        return False
+        raise ValueError("alpha does not generate A*Abar")
     if not u0sq.is_square():
         return False
     u0 = u0sq.sqrt()
+    if cc(u0) != u0:
+        return False
     if len(K.roots_of_unity())>2:
-        raise NotImplementedError()
-    else:
-        # z = +/- 1, and is only relevant up to sign, so u=u0*z=u0
-        u = u0
+        for z in K.roots_of_unity():
+            u = u0*z
+            mu = u*mu0
+            assert mu*cc(mu) == alpha
+            if mu in O:
+                # Now we know mu*mubar = alpha is coprime to F
+                # and mu and mubar are in O, hence mu is coprime to F.
+                return True
+        return False
+    # z = +/- 1, and is only relevant up to sign, so wlog u=u0
+    u = u0
     mu = u*mu0
+    assert mu*cc(mu) == alpha
     # Now we know mu satisfies (and is unique with) mu*O_K = A and
     # mu*mubar = alpha. So we only need to check mu*O is coprime to F*O.
     if not mu in O:

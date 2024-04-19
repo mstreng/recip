@@ -4,7 +4,7 @@ RECIP -- REpository of Complex multIPlication SageMath code.
 See the file README.txt for version information and instructions.
 
 #*****************************************************************************
-# Copyright (C) 2010 -- 2020
+# Copyright (C) 2010 -- 2024
 # Marco Streng <marco.streng@gmail.com>
 #
 # This program is free software; you can redistribute it and/or modify
@@ -594,7 +594,7 @@ def cycl_galois_action(alpha, amodb):
         sage: cycl_galois_action(z, f)
         Traceback (most recent call last):
         ...
-        TypeError: Cannot coerce zeta10 into Cyclotomic Field of order 6 and degree 2
+        TypeError: cannot coerce zeta10 into Cyclotomic Field of order 6 and degree 2
 
     r"""
     a = ZZ(amodb)
@@ -1284,7 +1284,7 @@ class Theta_element_polynomial_ring(Theta_element):
             sage: y = x^M; y
             (zeta8^2)*t6/t0
             sage: x(Sp_action(M,Z), use_magma=True) # optional - magma
-            -0.69816125872... + 0.42001387598...*I
+            -0.6981612587... + 0.42001387598...*I
             sage: Z.set_immutable()
             sage: y(Z)
             -0.698161258723300 + 0.420013875983267*I

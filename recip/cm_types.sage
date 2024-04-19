@@ -9,7 +9,7 @@ This file contains functions and classes for CM-fields and CM-types
 See the file README.txt for version information, instructions, and references.
 
 #*****************************************************************************
-# Copyright (C) 2010 -- 2020
+# Copyright (C) 2010 -- 2024
 # Marco Streng <marco.streng@gmail.com>
 #
 # This program is free software; you can redistribute it and/or modify
@@ -805,7 +805,7 @@ class CM_Field_absolute(NumberField_absolute):
         
             sage: K = CM_Field((x^2+1)*(x^2+3)*(x^2+5)+1)
             sage: K.galois_closure()
-            CM Number Field in alpha0 with defining polynomial x^48 + 72*x^46 + 80*x^45 + 2692*x^44 + 4612*x^43 + 64124*x^42 + 123852*x^41 + 1028650*x^40 + 1829576*x^39 + 10447880*x^38 + 12019876*x^37 + 50258300*x^36 - 43026036*x^35 - 136889692*x^34 - 1331961552*x^33 - 2963236937*x^32 - 7718599196*x^31 - 7146191020*x^30 + 8504396980*x^29 + 87525433872*x^28 + 282027249844*x^27 + 605609380956*x^26 + 815516286320*x^25 - 88439203430*x^24 - 4254091272044*x^23 - 15185634342676*x^22 - 35530163136508*x^21 - 61057325330100*x^20 - 69796449648272*x^19 - 6160328327104*x^18 + 226759213095652*x^17 + 760552021937945*x^16 + 1718448648945196*x^15 + 3142781220480156*x^14 + 4919956841221648*x^13 + 6743690042716028*x^12 + 8183680911040904*x^11 + 8840183773407848*x^10 + 8531995881160800*x^9 + 7396811998421180*x^8 + 5807303468842192*x^7 + 4187178898937392*x^6 + 2799780355636992*x^5 + 1732733524962960*x^4 + 957303364563328*x^3 + 439000398925408*x^2 + 150222835195840*x + 29629511650768
+            CM Number Field in alpha0 with defining polynomial x^48 + 24*x^47 + 360*x^46 + 3912*x^45 + 34284*x^44 + 252544*x^43 + 1616784*x^42 + 9168536*x^41 + 46767168*x^40 + 216818832*x^39 + 921320836*x^38 + 3610966064*x^37 + 13120785820*x^36 + 44380668592*x^35 + 140207331264*x^34 + 414820520320*x^33 + 1151863367688*x^32 + 3006953912256*x^31 + 7389028068688*x^30 + 17106253516592*x^29 + 37327575646104*x^28 + 76777095616536*x^27 + 148792031944596*x^26 + 271428282432688*x^25 + 465294818360018*x^24 + 747549607988840*x^23 + 1120954205346888*x^22 + 1558613997601672*x^21 + 1988244713610316*x^20 + 2283847262278448*x^19 + 2276086093673856*x^18 + 1791485841514184*x^17 + 723050222971600*x^16 - 883875295907008*x^15 - 2766413101729876*x^14 - 4453286114867232*x^13 - 5383802211744924*x^12 - 5128546369746800*x^11 - 3621031064664304*x^10 - 1268646117864272*x^9 + 1168852144095568*x^8 + 2907368386570704*x^7 + 3512592169733920*x^6 + 3073519678656112*x^5 + 2082542356554248*x^4 + 1090849114050776*x^3 + 425758773653596*x^2 + 112460901388992*x + 15935253461597
 
         r"""
         if get_recip_verbose():
@@ -885,19 +885,19 @@ class CM_Field_absolute(NumberField_absolute):
             sage: K = CM_Field((x^2+1)*(x^2+3)*(x^2+5)+1)
             sage: l = list(K._principally_polarized_ideal_class_representives_iter())
             sage: l.sort(key=str)
-            sage: l
+            sage: l # output is random
             [(Fractional ideal (1), -1/916*alpha^5 - 35/916*alpha^3 - 17/916*alpha),
+             (Fractional ideal (1), -133/916*alpha^5 - 533/916*alpha^3 - 429/916*alpha),
              (Fractional ideal (1), -27/916*alpha^5 - 29/916*alpha^3 - 1/916*alpha),
-             (Fractional ideal (1), -29/916*alpha^5 - 99/916*alpha^3 - 35/916*alpha),
-             (Fractional ideal (1), 133/916*alpha^5 + 533/916*alpha^3 + 429/916*alpha),
+             (Fractional ideal (1), 29/916*alpha^5 + 99/916*alpha^3 + 35/916*alpha),
              (Fractional ideal (2, alpha^2 + alpha + 3),
               -6/229*alpha^5 - 153/916*alpha^3 - 179/916*alpha),
              (Fractional ideal (2, alpha^2 + alpha + 3),
-              -7/458*alpha^5 - 8/229*alpha^3 - 9/916*alpha),
+              39/916*alpha^5 + 55/229*alpha^3 + 205/916*alpha),
              (Fractional ideal (2, alpha^2 + alpha + 3),
-              -9/916*alpha^5 - 43/458*alpha^3 - 153/916*alpha),
+              7/458*alpha^5 + 8/229*alpha^3 + 9/916*alpha),
              (Fractional ideal (2, alpha^2 + alpha + 3),
-              39/916*alpha^5 + 55/229*alpha^3 + 205/916*alpha)]
+              9/916*alpha^5 + 43/458*alpha^3 + 153/916*alpha)]
 
         r"""
         
@@ -1227,8 +1227,10 @@ class CM_Type_base(SageObject):
             sage: l = CM_Field(x^4+186*x^2+5)
             sage: Psi = l.CM_types()[0]
             sage: B = l.ideal(5).factor()[0][0]
-            sage: Psi.type_norm(B^2)
-            Fractional ideal (25, 23/2*alphar^2 - 1/2*alphar + 1063/2)
+            sage: C = Psi.type_norm(B^2); C # output is random
+            Fractional ideal (25, -23/2*alphar^2 + 1/2*alphar - 1063/2)
+            sage: C.norm()
+            625
         r"""
         den = A.denominator()
         if den != 1:

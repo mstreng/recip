@@ -3,7 +3,7 @@ RECIP -- REpository of Complex multIPlication SageMath code.
 See the file README.txt for version information and instructions.
 
 #*****************************************************************************
-# Copyright (C) 2010 -- 2020
+# Copyright (C) 2010 -- 2024
 # Marco Streng <marco.streng@gmail.com>
 #
 # This program is free software; you can redistribute it and/or modify
@@ -98,9 +98,9 @@ def class_polynomials(K, factor=False, prec=None, D=None,
         True
         sage: class_polynomials(CM_Field((x^2+61)^2-6^2*61), verbose=True) # long time: 11 seconds
         starting with precision 50
-        output has 54.2... too few bits of precision
-        increasing precision to 109
-        output has 4.5... more bits of precision than needed
+        output has ... too few bits of precision
+        increasing precision to ...
+        output has ... more bits of precision than needed
         Denominator: 3^3 * 41^4 out of 2^14 * 3^8 * 5^4 * 41^4
         [x - 88833024/1681, -14055214415872/76295547, 9663676416000000/2825761]
 

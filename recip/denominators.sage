@@ -11,7 +11,7 @@ additional original work.
 See the file README.txt for version information, instructions, and references.
 
 #*****************************************************************************
-# Copyright (C) # Copyright (C) 2010 -- 2020
+# Copyright (C) # Copyright (C) 2010 -- 2024
 # Marco Streng <marco.streng@gmail.com>
 #
 # This program is free software; you can redistribute it and/or modify
@@ -414,9 +414,9 @@ def bruinier_yang_bound(K, check=True, proof=True):
         sage: K = CM_Field([389, 37, 245])
         sage: class_polynomials(K, verbose=True)
         starting with precision 50
-        output has 120.772235075431 too few bits of precision
-        increasing precision to 175
-        output has 4.22059275336305 more bits of precision than needed
+        output has 115.431630222814 too few bits of precision
+        increasing precision to 170
+        output has 4.22948047026222 more bits of precision than needed
         Denominator: 11^2 * 19^6 * 29^4 out of 2^14 * 5^4 * 11^8 * 19^8 * 29^4
         [x^2 - 502951680/303601*x - 215457915617280/5768419,
          102098407935836160/11153001631321*x + 1497833452550013478502400/4026233588906881,

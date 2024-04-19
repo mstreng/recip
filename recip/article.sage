@@ -10,7 +10,7 @@ using Shimura's reciprocity law in [Streng12].
 See the file README.txt for version information, instructions, and references.
 
 #*****************************************************************************
-# Copyright (C) 2010 -- 2020
+# Copyright (C) 2010 -- 2024
 # Marco Streng <marco.streng@gmail.com>
 #
 # This program is free software; you can redistribute it and/or modify
@@ -32,8 +32,7 @@ See the file README.txt for version information, instructions, and references.
 
 EXAMPLE:
 
-Our first example is the example in Section 7.1 of [Streng12]. This is the same
-example presented at Geocrypt 2011 and ECC 2011.
+Our first example is the example in Section 7.1 of [Streng12].
 
 We first load the package, and create the CM-field
 `\QQ[X]/(X^2 + 27 X^2 + 52)`, which has real quadratic subfield of discriminant
@@ -106,11 +105,11 @@ of theta constants and see that there are four orbits.::
     The action on the orbit [12] is as follows
     ...
 
-We also create the matrix U from Section 2.8 of [1] so that we
+We also create the matrix V from Proposition 2.14 of [1] so that we
 get a real value of f(tau). Then two of the orbits collapse.::
     
-    sage: U = tau.complex_conjugation_symplectic_matrix(8)
-    sage: visualize(r_image + [U], 2)
+    sage: V = tau.complex_conjugation_symplectic_matrix(8)
+    sage: visualize(r_image + [V], 2)
     On the 8-th powers, the action is (note that 16 means 0):
     ...
     The action on the orbit [0, 1, 2, 3, 4, 6] is as follows
@@ -129,46 +128,46 @@ for `g` and `D` small, as we use a dense polynomial ring in `D^{2g}` variables.:
 
 As explained in the article, we now consider  the modular functions
 `f = \zeta_8^k (\theta_{12}^3/(\theta_8\theta_9\theta_15))^n`
-for `n=1,2` and `k=0,1,2,3` and compute their orbits under U and the image
+for `n=1,2` and `k=0,1,2,3` and compute their orbits under V and the image
 `r_image` of the reciprocity map `r`.::
 
     sage: f0 = ThR.gens()[12]^3 / prod([ThR.gens()[i] for i in [8,9,15]])
     sage: T = [ThetaModForm(zeta8^k*f0^n) for k in range(4) for n in [1,2]]
-    sage: fs = [t for t in T if t.is_fixed_by(list(r_image)+[U])]; fs
+    sage: fs = [t for t in T if t.is_fixed_by(list(r_image)+[V])]; fs
     [(zeta8^2)*t12^6/(t8^2*t9^2*t15^2)]
     sage: f = fs[0]
 
 So `k=n=2` yields the smallest `f` that works.
 
-To see that even with arbitrary elements of `\QQ(\zeta_8)` we can't do better than `n=2`, we look at
-the cocycle `c : \sigma \mapsto f0^\sigma / f0` in more detail to check that it is not a coboundary::
+To see that even with arbitrary elements of `\QQ(\zeta_8)` we can't do better than `n=2`, we
+Proposition 7.1::
 
     sage: [ThetaModForm(f0)^r / ThetaModForm(f0) for r in r_image]
     [(zeta8^2), (zeta8^2), -1, -1, -1, -1]
     sage: [r.nu() for r in r_image]
-    [7, 7, 1, 5, 1, 5]
+    [3, 3, 1, 5, 1, 5]
 
-So for example the third element r = r_image[2] of r_image has `\sigma(r)\not=1`, while `r`
-acts trivially on `QQ(\zeta_N)`. If `c` were a coboundary `\sigma\mapsto x^\sigma/x` for some
-`x\in\QQ(\zeta_N)`, then it would send `r` to `1` instead of `-1`.
+The third element r = r_image[2] of r_image has nu=1, while acting non-trivially.
+In particular by Proposition 7.1 no function of the form x*f for a constant x
+yields a class invariant.
 
 Now we compute the minimal polynomial. For this we need to compute the Galois orbit of `f(\tau)`.
 
 We need to iterate over the ideals of the reflex field modulo the ideal group
-of `H_{\Phi,O}(1)` of Theorem 2.2 of [1]. In this example, this group is just
-the group of principal ideals (see Section 6.1 of [1]), so we iterate over the
+of `H_{\Phi,O}(1)` of Theorem 2.5 of [1]. In this example, this group is just
+the group of principal ideals (see Section 7.2 of [1]), so we iterate over the
 ideal class group of the reflex field. ::
 
     sage: shrecip = [tau.Shimura_reciprocity(A.ideal(), n=8, m=1, transformation=False, period_matrix=True) for A in tau.CM_type().reflex_field().class_group()]
     sage: d = len(shrecip); 7
     7
 
-Each of the 7 elements of shrecip is a list consisting of (\tau', U), where
-`g^U ( \tau' ) = g(\tau)^a` for one of the 7 ideal classes `a` and for all g in F_N.
-First, we create a list of functions `g^U` where `g` ranges over `f` and the
+Each of the 7 elements of shrecip is a list consisting of (\tau', V), where
+`g^V ( \tau' ) = g(\tau)^a` for one of the 7 ideal classes `a` and for all g in F_N.
+First, we create a list of functions `g^V` where `g` ranges over `f` and the
 Igusa invariants. ::
     
-    sage: funcs = [[f**U for (tauprime, U) in shrecip]] + [[j for k in range(d)] for j in I]
+    sage: funcs = [[f**V for (tauprime, V) in shrecip]] + [[j for k in range(d)] for j in I]
 
 Next, we evaluate these functions. For this, we use a naive implementation of
 theta constant evaluation (just evaluate their Fourier expansions). Because
@@ -179,15 +178,16 @@ wait a few minutes. ::
 
     sage: rts = [[funcs[j][k](shrecip[k][0], prec=1000) for k in range(d)] for j in range(4)] # long time almost 3 minutes
 
-That's that, we now have all values `g^U(\tau')` for all `g` under consideration.
+That's that, we now have all values `g^V(\tau')` for all `g` under consideration.
 Putting these together into minimal polynomials and Hecke representations
 ('intpols' below) is quick and easy. ::
     
-    sage: X = PolynomialRing(rts[0][0].parent(), 'X').gen() # long time (not really, the only thing that takes time is the previous one)
-    sage: minpols_num = [prod([X-r for r in rts[k]]) for k in [0,1]] # long time
-    sage: minpols = [recognize_polynomial(p, Kr0, N=None, emb=None) for p in minpols_num] # long time
-    sage: intpols_num = [[short_interpolation(rts[k], rts[j]) for j in range(k+1,4)] for k in [0,1]] # long time
-    sage: intpols = [[recognize_polynomial(p, Kr0, N=None, emb=None) for p in s] for s in intpols_num] # long time
+    sage: # long time (not really, the thing that takes time is the previous one)
+    sage: X = PolynomialRing(rts[0][0].parent(), 'X').gen()
+    sage: minpols_num = [prod([X-r for r in rts[k]]) for k in [0,1]]
+    sage: minpols = [recognize_polynomial(p, Kr0, N=None, emb=None) for p in minpols_num]
+    sage: intpols_num = [[short_interpolation(rts[k], rts[j]) for j in range(k+1,4)] for k in [0,1]]
+    sage: intpols = [[recognize_polynomial(p, Kr0, N=None, emb=None) for p in s] for s in intpols_num]
 
 We print some of these polynomials. Here are the polynomials H_{i1},
 Hhat_{i1,i2} and Hhat_{i1,i3} that one would use for constructing curves of
@@ -228,7 +228,7 @@ invariant did introduce quite a large power of 2. ::
 EXAMPLE:
 
 Our second example concerns the record field of Enge and Thom{\'e}. It is
-mentioned in Section 6.2 of [1] and was presented also at Geocrypt and ECC.
+mentioned in Section 7.3 of [1] and was presented also at Geocrypt and ECC.
 We repeat more or less the same steps, but in less detail. ::
 
     sage: K = CM_Field([709, 310, 17644])
@@ -336,10 +336,103 @@ Now the invariants of the talk at Geocrypt and ECC::
     sage: [t,U,V] # maybe these are smaller?
     [t0*t8/(t4*t12), t2^2/t6^2, t8^2/t12^2]
 
+Now we compute the complete set of quotients of products of two theta
+constants that is fixed by G. At the same time, we also follow
+Sotáková's approach and get additional functions that
+are a constant times one of the functions above::
+
+    sage: s = [ThetaModForm(ThR.gens()[i]/ThR.gens()[0]) for i in [1,2,3,4,6,8,9,12,15]]
+    sage: [len((f^8).orbit(gammas+[c])) for f in s] # long time
+    [1, 1, 1, 1, 1, 1, 1, 1, 1]
+
+So all these functions satisfy f^A/f in Q(zetaN) for all A in G. Here's
+an ad hoc way to compute a set of generators of
+H = ker(G --> Zmod8*). We start by deduplicating::
+    
+    sage: # long time
+    sage: Ggens = []
+    sage: for gamma in gammas + [c]:
+    ....:     if not gamma in Ggens:
+    ....:         Ggens.append(gamma)
+    ....: 
+    sage: len(gammas)
+    10
+    sage: len(Ggens)
+    8
+    
+    sage: # long time
+    sage: [gamma.nu() for gamma in Ggens]
+    [5, 1, 1, 1, 1, 5, 5, 7]
+    sage: Hgens0 = [Ggens[0]^2, Ggens[0]*Ggens[5]] + Ggens[1:5]
+    sage: Hgens = []
+    sage: for gamma in Hgens0:
+    ....:     if not gamma in Hgens:
+    ....:         Hgens.append(gamma)
+    sage: len(Hgens)
+    6
+    sage: len(Hgens0)
+    6
+    sage: [gamma.nu() for gamma in Hgens]
+    [1, 1, 1, 1, 1, 1]
+
+Proof: we're looking at a semidirect product of a subgroup of (O/NO)* with complex
+conjugation. So we write any element as an element of (O/NO)* times
+at most one complex conjugation. In the kernel, this complex conjugation is
+trivial as 7 is independent of 5. So we only need to look at the (O/NO)* part,
+which is commutative and generated by -1 and gammas. 
+We replace gammas[i] by gammas[i]*gammas[0] as generators for i=6,7,8,9. Then
+by commutativity we put gammas[0] first, and observe that it appears an even
+number of times. QED.
+
+Then we need to find subgroup that is fixed by Hgens. This is linear algebra
+over ZZ, followed by finding a short basis. Alternatively, here is a brute
+force approach focused on finding simple quotients::
+
+    sage: def is_fixed(f, G):
+    ....:     for h in G:
+    ....:         if not f^h / f == 1: # somehow != always gives True
+    ....:             return False
+    ....:     return True
+
+    sage: # long time
+    sage: ev = [0,1,2,3,4,6,8,9,12,15]
+    sage: fs1 = [ThetaModForm(ThR.gens()[i]/ThR.gens()[j]) for i in ev for j in ev if j < i]
+    sage: good_fs1 = [f for f in fs1 if is_fixed(f, Hgens)]
+    sage: len(good_fs1)
+    0
+    sage: qua = [(i,j,k,l) for i in ev for j in ev for k in ev for l in ev if i <= j and i < k and k <= l]
+    sage: len(qua)
+    1320
+    sage: fs2 = [ThetaModForm(ThR.gens()[i]*ThR.gens()[j]/ThR.gens()[k]/ThR.gens()[l]) for (i,j,k,l) in qua]
+    sage: good_fs2 = [f for f in fs2 if is_fixed(f, Hgens)]
+    sage: len(good_fs2)
+    73
+    sage: perfect_fs2 = [f for f in good_fs2 if is_fixed(f, Ggens)]
+    sage: len(perfect_fs2)
+    37
+    sage: extra_fs2 = [f for f in good_fs2 if not f in perfect_fs2]
+    sage: f = extra_fs2[0]
+    sage: [(f^gamma, gamma.nu()) for gamma in Ggens]
+    [(t0^2/(-t2*t6), 5),
+     (t0^2/(t2*t6), 1),
+     (t0^2/(t2*t6), 1),
+     (t0^2/(t2*t6), 1),
+     (t0^2/(t2*t6), 1),
+     (t0^2/(-t2*t6), 5),
+     (t0^2/(-t2*t6), 5),
+     (t0^2/(t2*t6), 7)]
+    sage: x = (zeta8-zeta8^3-zeta8^5+zeta8^7)/2
+    sage: x^2 == 2
+    True
+    sage: fn = ThetaModForm(x, g=2)*f
+    sage: [fn^gamma/fn for gamma in Ggens]
+    [1, 1, 1, 1, 1, 1, 1, 1]
+    
 EXAMPLE:
 
 In the first example, the prime 2 splits as a product of 3 ideals in K,
-and in the second example, it splits completely. Here's a third example,
+and in the second example, it is ramified in the real quadratic field
+and then splits. Here's a third example,
 one where 2 is inert in the real quadratic subfield, and then ramifies in K.::
 
     sage: K = CM_Field([93, 11, 7])
@@ -348,9 +441,9 @@ one where 2 is inert in the real quadratic subfield, and then ramifies in K.::
     sage: Kr0 = QuadraticField(7,'a')
     sage: gammas = reciprocity_map_image(Z, 8)
     sage: c = Z.complex_conjugation_symplectic_matrix(8)
-    sage: visualize(gammas + [c], 2)
+    sage: visualize(gammas + [c], 2) # output is random
     On the 8-th powers, the action is (note that 16 means 0):
-    1: ...
+    1: (1,8)(2,3)(4,12)(9,16)
     2: ()
     3: ()
     ...
@@ -360,19 +453,20 @@ one where 2 is inert in the real quadratic subfield, and then ramifies in K.::
     [-------------+-----------------------------------------...]
     ...
 
-So the orbit lengths are one and two. We try the length one orbits.::
+So the orbit lengths are one and two. We try the two orbits of length one.::
 
     sage: ThR = theta_ring(2,2)[0]
     sage: zeta8 = ThR.base_ring().gen()
     sage: u = ThetaModForm(ThR.gens()[6]/ThR.gens()[15]); u.orbit(gammas)
-    [t6/t15, (-t6)/((-zeta8^2)*t15), t6/(-t15), (-t6)/((zeta8^2)*t15)]
+    [t6/t15, (zeta8^2)*t6/t15, (-t6)/t15, ((-zeta8^2)*t6)/t15]
 
     sage: T = [ThetaModForm(zeta8^j*(ThR.gens()[6]/ThR.gens()[15])^k) for j in range(4) for k in range(1,5)]
     sage: [t for t in T if t.is_fixed_by(gammas+[c])] # long time
     [t6^4/t15^4]
 
-So we get a fourth power only, which does not sound very appealing. We compute
-class polynomials anyway.::
+So using only roots of unity times powers of theta_6/theta_{15} we get a fourth
+power only, which does not sound very appealing. We compute class polynomials
+anyway.::
 
     sage: i = u^4
     sage: shrecip = [Z.Shimura_reciprocity(A.ideal(), n=8, m=1, transformation=True, period_matrix=True) for A in Z.CM_type().reflex_field().class_group()]
@@ -393,8 +487,39 @@ class polynomials anyway.::
     sage: [[(7^2*37^6*p).denominator() for p in s] for s in intpols] # long time
     [[1, 1, 1], [1, 1]]
 
-So even this class invariant gives an improvement. We could also use the
-orbits of length two. There are so many of them, we have a 5-dimensional
+So even this class invariant gives an improvement. Now let's use the
+group cohomology approach to see whether other constants work.
+
+    sage: Ggens = []
+    sage: for gamma in gammas + [c]:
+    ....:     if not gamma in Ggens:
+    ....:         Ggens.append(gamma)
+    ....: 
+    sage: len(gammas)
+    3
+    sage: len(Ggens)
+    4
+    
+    sage: [gamma.nu() for gamma in Ggens]
+    [5, 5, 1, 7]
+    sage: Hgens0 = [Ggens[0]^2, Ggens[0]*Ggens[1], Ggens[2]]
+    sage: Hgens = []
+    sage: for gamma in Hgens0:
+    ....:     if not gamma in Hgens:
+    ....:         Hgens.append(gamma)
+    sage: len(Hgens)
+    3
+    sage: len(Hgens0)
+    3
+    sage: [gamma.nu() for gamma in Hgens]
+    [1, 1, 1]
+    sage: [u^gamma/u for gamma in Hgens]
+    [-1, (zeta8^2), 1]
+
+So we still need a 4th power in order to get something that is fixed
+by H. So here general constants do not give an improvement.
+
+We could also use the orbits of length two. There are many of them, we have a 5-dimensional
 lattice P of functions whose 8th powers are class invariants, and some
 sublattice C of actual class invariants. This sublattice  C is the fixed
 sublattice of a group of order 64::
@@ -403,13 +528,34 @@ sublattice of a group of order 64::
     64
 
 So we can compute this sublattice, and put an L1 norm on it, given by the
-height. Then the shortest vector is a good class invariant.
+height. Then the shortest vector is a good candidate for a class invariant.
+As in the previous example, we'll use a more ad hoc approach::
+
+    sage: orbits = [(1,8), (2,3), (4,12), (9,0)]
+    sage: pairs = [(orbits[i], orbits[j]) for i in range(4) for j in range(i)]
+    sage: fs = [ThetaModForm(ThR.gens()[a]*ThR.gens()[b]/ThR.gens()[c]/ThR.gens()[d]) for ((a,b),(c,d)) in pairs]
+    sage: list_fs = [f for f in fs if is_fixed(f, Hgens)]; list_fs
+    [t0*t9/(t4*t12)]
+    sage: f = list_fs[0]
+    sage: [(gamma.nu(), f^gamma/f) for gamma in Ggens]
+    [(5, -1), (5, -1), (1, 1), (7, (-zeta8^2))]
+    sage: xgens = [z + zeta8^2 * z^3 - z^5 - zeta8^2 * z^7 for z in [1, zeta8, zeta8^2, zeta8^3]]
+    sage: xgens
+    [0, 0, 0, 4*zeta8^3]
+    sage: f = ThetaModForm(zeta8^3, g=2)*f
+    sage: [f^gamma/f for gamma in Ggens]
+    [1, 1, 1, 1]
+    sage: f
+    (zeta8^3)*t0*t9/(t4*t12)
+
+That looks like a good function too. The constant happens to be a root of unity here,
+so it would have been found without the group cohomology method as well.
 
 EXAMPLE:
 
 The three fields above were arbitrary fields, but it happened to be so that
-the prime two was never inert. And the inert case is the case that is
-classically not used (as far as I know) for class invariants. Let's be bold and
+the prime two was never inert. And the inert case is the case that is can't
+be used with Schertz's approach for class invariants with Gamma0. Let's
 try it anyway.::
 
     sage: load("recip.sage")
@@ -534,14 +680,15 @@ So the total output size increases a bit (in terms of the number of characters)
 with this class invariant, but let's look at the largest coefficient, which
 determines the precision for the theta constants::
 
-    sage: h1 = max([max([a.global_height() for a in p]) for p in with_clinv]) # long time
-    sage: h1 # long time
+    sage: # long time
+    sage: h1 = max([max([a.global_height() for a in p]) for p in with_clinv])
+    sage: h1
     76.4813952507977
-    sage: h2 = max([max([a.global_height() for a in p]) for p in without_clinv]) # long time
-    sage: h2 # long time
+    sage: h2 = max([max([a.global_height() for a in p]) for p in without_clinv])
+    sage: h2
     114.465280863815
-    sage: h1/h2 # long time
+    sage: h1/h2
     0.66816...
 
-So we get an improvement in size of over 30%, even in the inert case!  
+So we get an improvement in size of over 30%, even in the inert case!
 """

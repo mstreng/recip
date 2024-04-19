@@ -3,7 +3,7 @@ RECIP -- REpository of Complex multIPlication SageMath code.
 See the file README.txt for version information and instructions.
 
 #*****************************************************************************
-# Copyright (C) 2010 -- 2020
+# Copyright (C) 2010 -- 2024
 # Marco Streng <marco.streng@gmail.com>
 #
 # This program is free software; you can redistribute it and/or modify
@@ -147,21 +147,22 @@ Now let's compute class polynomials for all six orders. The actual coefficients
 of these polynomials are only numerically correct, but the degrees for all
 orders are exactly correct.::
     
-        sage: s5 = superorders_stable_under_complex_conjugation(orders[0]) # long time
-        sage: pols5 = [class_polynomials_order(O, 5, Phi, 300) for O in s5] # long time, about a minute
-        sage: pols5 # long time
+        sage: # long time (10 minutes?)
+        sage: s5 = superorders_stable_under_complex_conjugation(orders[0])
+        sage: pols5 = [class_polynomials_order(O, 5, Phi, 300) for O in s5]
+        sage: pols5
         [[y, 0, 0], [y - 816480, 0, 2418647040000], [1, 0, 0]]
-        sage: s2 = superorders_stable_under_complex_conjugation(orders[1]) # long time
-        sage: pols2 = [class_polynomials_order(O, 4, Phi, 300) for O in s2] # long time, 3 minutes
-        sage: pols2 # long time
+        sage: s2 = superorders_stable_under_complex_conjugation(orders[1])
+        sage: pols2 = [class_polynomials_order(O, 4, Phi, 300) for O in s2]
+        sage: pols2
         [[y, 0, 0], [y - 637875/4, 4556250, 576650390625/4], [y^2 - 4005855/4*y + 47003299245/16, 8901090*y - 67147570350, 15699911214375/4*y - 183904605019209375/16], [y^2 + 21381570*y - 21353299380, 715703040*y - 428554022400, 5986604920320000*y - 5978328612480000000]]
-        sage: [len(p[0].factor()) for p in pols2] # long time
+        sage: [len(p[0].factor()) for p in pols2]
         [1, 1, 1, 1]
-        sage: s3 = superorders_stable_under_complex_conjugation(orders[2]) # long time
-        sage: pols3 = [class_polynomials_order(O, 3, Phi, 300) for O in s3] # long time, half a minute
-        sage: pols3 # long time
+        sage: s3 = superorders_stable_under_complex_conjugation(orders[2])
+        sage: pols3 = [class_polynomials_order(O, 3, Phi, 300) for O in s3]
+        sage: pols3
         [[y, 0, 0], [y^2 - 238369068000/361*y + 67885776000000/361, 335606284800000/130321*y - 58147891200000000/130321, 226410725508480000000000/130321*y - 64480155909120000000000000/130321]]
-        sage: [len(p[0].factor()) for p in pols3] # long time
+        sage: [len(p[0].factor()) for p in pols3]
         [1, 1]
 
 If we were to believe these numerical coefficients, then the quadratic
@@ -182,11 +183,12 @@ is (5,5)-isogenous to the one for the maximal order::
 Next, we prove that the period matrices for the order of index a power of 3
 is (3,3)-isogenous to the one for the maximal order::
 
-        sage: [Zmax] = period_matrices(s3[0], 1, Phi) # long time
-        sage: Zothers = period_matrices(s3[1], 3, Phi) # long time
-        sage: are_nn_isogenous(Zmax, Zothers[0], 3, 1, 3, transformation=True) # long time
+        sage: # long time
+        sage: [Zmax] = period_matrices(s3[0], 1, Phi)
+        sage: Zothers = period_matrices(s3[1], 3, Phi)
+        sage: are_nn_isogenous(Zmax, Zothers[0], 3, 1, 3, transformation=True)
         (True, 1)
-        sage: are_nn_isogenous(Zmax, Zothers[1], 3, 1, 3, transformation=True) # long time
+        sage: are_nn_isogenous(Zmax, Zothers[1], 3, 1, 3, transformation=True)
         (True, 1)
 
 A calculation modulo 23 using AVIsogenies as in the article shows that there
