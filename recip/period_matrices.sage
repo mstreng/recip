@@ -36,7 +36,6 @@ from sage.rings.number_field.number_field_ideal import                          
 from sage.matrix.matrix_generic_dense import Matrix_generic_dense
 
 
-
 def evaluate_theta(c, z, u = None, use_magma=False):
     r"""
     Numerically evaluate `\theta[c](z,u) =
@@ -92,23 +91,33 @@ def evaluate_theta(c, z, u = None, use_magma=False):
     return ComplexField(prec)(s)
 
 
-def evaluate_theta_interval(c, z, R=None, reduce_first=True):
+def evaluate_theta_interval(c, z, R=None, reduce_first=False):
     r"""
     Numerically evaluate `\theta[c](z) =
     \sum_{n \in \ZZ^2}\exp(\pi i (n+c')^t z (n+c') + 2\pi i (n+c')^t (z+c''))`,
     where `c = (c',c'')`.
     
-    `R` specifies the square over which to sum for n. It is automatically
-    determined if not specified.
-
-    TODO: Make a more sensible choice for `R` in case g=2:
-    one that is different for
-    the two coordinates m and n in the code below, and which depends on Z.
+    INPUT:
     
-    TODO: It turns out that sometimes `R` is the limiting factor, and
-    increasing precision by 100 bits has no effect as `R` is not raised.
-    Check that `R` is large enough, especially in the non-interval setting!
-
+    - `c` -- the theta characteristic. A list of 2g elements of `QQ`
+    - `z` -- the period matrix. A gxg matrix over a complex interval field
+    - `R` -- evaluate the terms where n=(n1,...,ng) is such that
+             max{|ni| : i in [1,...,g]} <= R
+             (and compute an upper bound on the remaining terms).
+             The choice of `R` does not affect the validity of the output,
+             but only affects the size of the output interval.
+             If R is not specified, then a choice is made that is reasonable
+             for reduced period matrices, but gives relatively large intervals
+             for non-reduced period matrices.
+    - `reduce_first` (default: False) -- first reduce the period matrix.
+             Only implemented for g=1.
+             
+    TODO: This code is non-optimal in various ways (e.g. the region
+    over which to sum, how to sum, and actually the fact that we sum
+    using the definition instead of AGM-like approaches). If anyone
+    intends to use it in large-scale computations, then time and
+    energy can be saved by optimising.
+    
     EXAMPLES::
     
         sage: load("recip.sage")
@@ -116,17 +125,17 @@ def evaluate_theta_interval(c, z, R=None, reduce_first=True):
         sage: Z = Matrix([[I+1, 1/2+I/3], [1/2+I/3, 3/2*I+1/5]])
         sage: c = [0,0,0,0]
         sage: evaluate_theta_interval(c, Z, 1)
-        0.?e1 + 0.?e1*I
+        1.? + 0.?*I
         sage: evaluate_theta_interval(c, Z, 2)
-        1.0? + 0.1?*I
+        1.? + 0.?*I
         sage: evaluate_theta_interval(c, Z, 3)
-        0.93330? + 0.0144?*I
+        0.9333? + 0.0143?*I
         sage: evaluate_theta_interval(c, Z, 4)
-        0.9332958357? + 0.014324992?*I
+        0.933295836? + 0.014324992?*I
         sage: evaluate_theta_interval(c, Z, 5)
-        0.933295835691983? + 0.0143249911726235?*I
+        0.93329583569198216? + 0.01432499117262352?*I
         sage: evaluate_theta_interval(c, Z, 6)
-        0.93329583569198215423213? + 0.01432499117262351644467?*I
+        0.933295835691982154232126882? + 0.0143249911726235164446716179?*I
         sage: evaluate_theta_interval(c, Z, 7)
         0.9332958356919821542321268818? + 0.01432499117262351644467161792?*I
         sage: v = [evaluate_theta_interval(c, Z, k) for k in [1,2,3,4,5,6,7,20]]
@@ -137,7 +146,14 @@ def evaluate_theta_interval(c, z, R=None, reduce_first=True):
         sage: all([vrl[k] <= vrl[k+1] for k in range(6)])
         True
         sage: [RR(x.diameter()) for x in v]
-        [4.38675115849014, 1.97112678302085, 0.000734124840204993, 1.23050838590045e-8, 8.92050564190827e-15, 2.79460042829428e-22, 1.53160261406578e-28, 9.18961568439468e-28]
+        [0.358272105909467,
+         0.358272105909467,
+         0.00805461069568494,
+         1.55996321143636e-8,
+         1.64635514603246e-16,
+         9.48991305086038e-27,
+         1.53160261406578e-28,
+         9.18961568439468e-28]
 
     TESTS::
     
@@ -157,29 +173,49 @@ def evaluate_theta_interval(c, z, R=None, reduce_first=True):
         sage: [i for i in range(len(pairs)) if (quotients[i]-1).abs().upper() > 10^-7]
         []
 
+    Check that the precision bug is fixed::
+    
+        sage: CFs = [ComplexIntervalField(prec) for prec in [53, 100, 150, 200, 300, 400, 500, 600]]
+        sage: zs = [Matrix(CF,[[0.8360985, 1.7547901], [1.7547901, 4.2630857]])*CF.gen() for CF in CFs]
+        sage: c = [0,0,0,0]
+        sage: vs = [evaluate_theta_interval(c, z) for z in zs]
+        sage: vs
+        [2.? + 0.?*I,
+         1.513? + 0.000?*I,
+         1.51309? + 0.00000?*I,
+         1.513092581? + 0.?e-9*I,
+         1.51309258064994? + 0.?e-14*I,
+         1.51309258064993908? + 0.?e-17*I,
+         1.513092580649939079450972? + 0.?e-24*I,
+         1.5130925806499390794509714789? + 0.?e-28*I]
+        sage: all([all([v.real().lower() < w.real().upper() and v.imag().lower() < w.imag().upper() for v in vs]) for w in vs])
+        True
+    
+        sage: evaluate_theta_interval(c, zs[0], reduce_first=True)
+        Warning: reduce_first not yet implemented for interval theta evaluation with g=2, expect bad low output precision if the period matrix is not reduced
+        2.? + 0.?*I
     r"""
-    C = z.base_ring()
-    I = C.gen()
-    piI = C(pi*I)
-    s = C(0)
+    CF = z.base_ring()
+    I = CF.gen()
+    piI = CF(pi*I)
+    s = CF(0)
 
-    prec = C.precision()
+    prec = CF.precision()
     if get_recip_verbose() == 2:
         print("Precision %s" % prec)
-    
+
     if len(c) == 2:
-    
+
         z = z[0,0]
         if z.imag().lower() < 0:
             raise ValueError( "z must be in the upper half plane, but is %s" % z)
         prefactor = 1
         if reduce_first:
-            zeta8 = C((I+1)/sqrt(2))
+            zeta8 = CF((I+1)/sqrt(2))
             reduced = False
             z_for_reduction = z.center()
             while not reduced:
                 t = (z_for_reduction.real()+1/2).floor()
-#                print(evaluate_theta_interval(c, Matrix([[z]]), reduce_first=False))
                 if t != 0:
                     z_new = z - t
                     N = Matrix([[1, t],[0,1]])
@@ -189,18 +225,14 @@ def evaluate_theta_interval(c, z, R=None, reduce_first=True):
                     # f(N*u) = f(u+t) = lc * exp(2*pi*i*e*t) * q^{e} + h.o.t.
                     # f|N(u) = lcN * q^{eN} + h.o.t.
                     c_trans, e = theta_action_without_kappa(N, 1, c)
-                    lc, e = theta_leading_term_complex(c, C)
-                    lcN, eN = theta_leading_term_complex(c_trans, C)
+                    lc, e = theta_leading_term_complex(c, CF)
+                    lcN, eN = theta_leading_term_complex(c_trans, CF)
                     factor_for_this_transformation =  lc * exp(2*piI*e*t) / lcN
-#                    print("factor", factor_for_this_transformation)
                     prefactor = prefactor * factor_for_this_transformation
                     z = z_new
                     z_for_reduction = z_for_reduction - t
-#                    print("T", z_new, c_trans)
                     c = c_trans
-#                    print("T")
-#                    print(prefactor*evaluate_theta_interval(c, Matrix([[z]]), reduce_first=False))
-                
+
                 if z_for_reduction.abs() < 0.9:
                     z_new = -1/z
                     N = Matrix([[0, -1], [1, 0]])
@@ -212,21 +244,14 @@ def evaluate_theta_interval(c, z, R=None, reduce_first=True):
                     if sqrt_z_new.real() < 0:
                         sqrt_z_new = -sqrt_z_new
                     assert sqrt_z_new.imag() > 0
-#                    print(c, c_trans, e)
-#                    print(prefactor)
                     factor_for_this_transformation =  sqrt_z_new * evaluate_theta_interval(c, Matrix([[I]])) / zeta8 / evaluate_theta_interval(c_trans, Matrix([[I]]))
-#                    print(factor_for_this_transformation)
                     prefactor = prefactor * factor_for_this_transformation
-#                    print(prefactor)
                     z = z_new
                     z_for_reduction = -1/z_for_reduction
                     c = c_trans
-#                    print("S", z_new, c_trans)
-#                    print("S")
-#                    print(prefactor*evaluate_theta_interval(c, Matrix([[z]]), reduce_first=False))
                 else:
                     reduced=True
-        
+
         c1 = c[0]
         c2 = c[1]
         RF = RealIntervalField(prec)
@@ -256,20 +281,61 @@ def evaluate_theta_interval(c, z, R=None, reduce_first=True):
         #      = 2 * Q^{R^2} / (1 - Q^{2*R}) 
         error_term_bound = (2*Q**(R**2) / (1-Q**(2*R))).upper()
         error_term_bound = RF(-error_term_bound, error_term_bound)
-        s = s + C(error_term_bound, error_term_bound)
-#        print(s)
+        s = s + CF(error_term_bound, error_term_bound)
         return prefactor * s
-        
 
     if len(c) != 4:
-        raise NotImplementedError( "sorry, evaluate_theta_interval is only "                                     "implemented for g<=2")
+        raise NotImplementedError( "sorry, evaluate_theta_interval is only "
+                                   "implemented for g<=2")
+
+    if reduce_first:
+        print("Warning: reduce_first not yet implemented for interval theta evaluation with g=2, "
+                      "expect bad low output precision if the period matrix is not reduced")
+
     if R is None:
         R = ceil((0.4*prec+2.2).sqrt())
 
     if get_recip_verbose() == 2:
         print("%s terms up to %s" % ((2*R+1)**2, R))
-        
+
+    Y = Matrix([[c.imag() for c in d] for d in z])
+    [C, B, A] = Y.characteristic_polynomial().list()
+    assert A == 1
+    RF = RealIntervalField(prec)
+    upper_bound_sqrtD = RF((B^2 - 4*A*C).real().upper()).sqrt()
+    #eigenvalues = [(-B + sqrtD)/(2*A), (-B - sqrtD) / (2*A)]
+    l = (-B - upper_bound_sqrtD) / (2*A) # lower bound on the smallest eigenvalue
+    
+    assert l > 0
+    
+    # Y = CDC^-1 for D = diagonal_matrix(eigenvalues) and an orthogonal real matrix C
+    # (so C^-1 = C^t)
+    # In particular v^t Y v = w^t D w with w = C^t v = C^-1 v of the same norm as v.
+    # but w^t D w = w[0]^2 D[0,0] + w[1]^2 D[1,1] >= l * norm(w)^2
+    # now we sum terms of absolute value exp(-pi*(m+cp)*Y*(m+cp)) <= exp(-pi*l*norm(m+cp)^2).
+    # In the tail, m is on the square with max abs value of components r+1 for r from R to infinity,
+    # and there are 8(r+1) of them, with norm(m+cp)^2 > r^2.
+    # We get that the tail is of absolute value at most
+    # sum_{r=R}^{oo} 8(r+1) exp(-pi*l*r^2) <= cst * sum_{r=R}^{oo} f(r),
+    # where f(r) = r * exp(-pi*l*r^2),
+    # and cst = 8 * (1+1/R).
+    #
+
+    minimal_R = ceil(sqrt(1/(2*RF(pi)*l)) + 1)
+    R = ZZ(max(R, minimal_R))
+
+    # We have f'(r) = (1 - 2*pi*l*r^2) exp(-pi*l*r^2), hence for r >= minimal_R-1 we have f'(r) >= 0
+    # Therefore sum_{r=R}^{oo} f(r) <= int_{r=R-1}^{oo} f(r) = [F(r)]_{R-1}^{oo}
+    # with F(r) = -1/(2*pi*l)*exp(-pi*l*r^2).
+    # So the error term is at most -cst*F(R-1) = 4 * (1 + 1/R) / (pi*l)*exp(-pi*l*(R-1)^2)
+
+    error_term_bound = (RF(4 * (1+1/R) / pi) / l * exp(-RF(pi)*l*(R-1)^2)).upper()
+
     cpp = vector([c[2],c[3]])
+    
+    if c[0] > 1 or c[0] < -1 or c[1] > 1 or c[1] < -1:
+        raise ValueError("Evaluation of theta constants only implemented for characteristic in [-1,1]^{2g}")
+    
     verb = get_recip_verbose()
     if verb:
         print("Evaluating a theta constant in interval arithmetic, R=%s" % R)
@@ -281,14 +347,12 @@ def evaluate_theta_interval(c, z, R=None, reduce_first=True):
             s = s + exp(piI*(cp*z*cp + 2*cp*cpp))
 
     # and now to add the error term:
-    RF = RealIntervalField(prec)
-    error_term_bound = (RF(7.247)*sum([exp(RF(-1/2*pi*R**2)*z[k,k].imag()) for k in [0,1]])).upper()
     error_term_bound = RF(-error_term_bound, error_term_bound)
-    s = s + C(error_term_bound, error_term_bound)
+    s = s + CF(error_term_bound, error_term_bound)
 
     return s
-    
-    
+
+
 def _riemann_form(basis, xi, bar):
     r"""
     Returns a matrix for the Riemann form (x,y) --> trace(xi*bar(x)*y)

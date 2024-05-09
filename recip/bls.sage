@@ -68,7 +68,7 @@ numerical things: how about degrees of fields of moduli?
     sage: Z = lst[1][1][1][0]
     sage: j = igusa_invariants_absolute()[2]
     sage: j_val = j(Z.complex_matrix().base_extend(CIF), interval=True); j_val
-    -50000.000000? + 0.?e-6*I
+    -50000.0? + 0.0?*I
     sage: K.<sqrt2>=QuadraticField(2)
     sage: a = (j_from_a()-8000).numerator().roots(K)[0][0]
     sage: a
@@ -92,7 +92,7 @@ The next is a bit more complicated, and appears for two fields::
 
     sage: Z = lst[2][1][3][0]
     sage: j_val = j(Z.complex_matrix().base_extend(CIF), interval=True); j_val
-    3.9106607...?e6 + 0.00000?*I
+    3.9106607437?e6 + 0.0000?*I
     sage: Z2 = lst[4][1][3][0]
     sage: Z.complex_matrix(QQbar) == Z2.complex_matrix(QQbar)
     True
@@ -128,7 +128,7 @@ There is another one for this field.::
     sage: Z = lst[2][1][2][0]
     sage: j = igusa_invariants_absolute()[2]
     sage: j_val = j(Z.complex_matrix().base_extend(CIF), interval=True); j_val
-    5.12578125000?e6 + 0.?e-7*I
+    5.125781250?e6 + 0.000?*I
     sage: K.<zeta> = CyclotomicField(6)
     sage: j_from_a()(zeta) == 0
     True

@@ -414,7 +414,7 @@ def bruinier_yang_bound(K, check=True, proof=True):
         sage: K = CM_Field([389, 37, 245])
         sage: class_polynomials(K, verbose=True)
         starting with precision 50
-        output has 115.431630222814 too few bits of precision
+        output has 115.431562894917 too few bits of precision
         increasing precision to 170
         output has 4.22948047026222 more bits of precision than needed
         Denominator: 11^2 * 19^6 * 29^4 out of 2^14 * 5^4 * 11^8 * 19^8 * 29^4

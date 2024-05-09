@@ -72,7 +72,7 @@ def class_polynomials(K, factor=False, prec=None, D=None,
 
         sage: class_polynomials(CM_Field((x^2+13)^2-2^2*13), verbose=True) # long time: 10 seconds
         starting with precision 50
-        output has 8.62029143144967 too few bits of precision
+        output has 8.61997633871636 too few bits of precision
         increasing precision to 63
         output has 4.68096300785080 more bits of precision than needed
         Denominator: 1 out of 2^14

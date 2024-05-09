@@ -35,7 +35,8 @@ See the file README.txt for version information and instructions.
 
 def class_polynomials_order(O, F, Phi, prec, include_period_matrices=False):
     r"""
-    Returns the class polynomials of an order in a cyclic quartic CM-field K.
+    Returns the class polynomials of an order in a cyclic quartic CM-field K,
+    assuming the input precision is sufficiently large.
     
     TODO: more general fields, examples
     
