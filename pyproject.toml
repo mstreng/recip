@@ -1,0 +1,7 @@
+[build-system]
+requires = [
+    "setuptools",
+    "Cython",
+    "passagemath-environment",
+]
+build-backend = "setuptools.build_meta"

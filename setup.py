@@ -84,6 +84,17 @@ if __name__ == "__main__":
         ], # classifiers list: https://pypi.python.org/pypi?%3Aaction=list_classifiers
         keywords = "SageMath, CM, Complex Multiplication, Siegel modular forms, elliptic curve, hyperelliptic curve, isogeny",
         install_requires = REQUIREMENTS, # This ensures that Sage is installed
+        extras_require={
+            "passagemath": [
+                "passagemath-flint",
+                "passagemath-groups",
+                "passagemath-modules",
+                "passagemath-pari",
+                "passagemath-repl",
+                "passagemath-schemes",
+                "passagemath-symbolics",
+            ],
+        },
         packages = ['recip'],
         ext_modules = cythonize(ext_modules), # This line is only needed if there are cython files present
         include_package_data = True,

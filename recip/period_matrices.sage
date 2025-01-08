@@ -28,7 +28,7 @@ them. It contains Shimura's reciprocity law!
 
 from sage.matrix.constructor import (Matrix, identity_matrix)
 from sage.misc.cachefunc import cached_method
-from sage.rings.all import ZZ
+from sage.rings.integer_ring import ZZ
 from sage.structure.sequence import Sequence
 from sage.modules.free_module_element import vector
 from sage.functions.other import (imag, floor)
