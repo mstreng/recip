@@ -33,7 +33,9 @@ from sage.rings.number_field.number_field_base import is_NumberField
 from sage.rings.number_field.number_field_element import is_NumberFieldElement
 from sage.rings.number_field.number_field import NumberField_absolute
 from sage.rings.polynomial.polynomial_element import is_Polynomial
-from sage.rings.all import (CC, ZZ, AA)
+from sage.rings.cc import CC
+from sage.rings.integer_ring import ZZ
+from sage.rings.qqbar import AA
 from sage.structure.element import is_RingElement
 from sage.rings.qqbar import QQbar
 #from sage.misc.cachefunc import cached_method
