@@ -45,7 +45,7 @@ We first load the package, and create the CM-field
     Fractional ideal (1)
     sage: 2*tau.xi()^-1 # as mentioned in the paper
     22411531*alpha^3 + 46779315*alpha
-    sage: [4*c for c in tau.basis()] # as mentioned in the paper
+    sage: [-4*c for c in tau.basis()] # as mentioned in the paper
     [653*alpha^3 + 3414*alpha^2 + 1363*alpha + 7126,
      401*alpha^3 + 2360*alpha^2 + 837*alpha + 4926,
      -653*alpha^3 + 1306*alpha^2 - 1363*alpha + 2726,
@@ -238,7 +238,7 @@ We repeat more or less the same steps, but in less detail. ::
     sage: xi = d^-1
     sage: [phi(xi) for phi in Phi]
     [0.00122524459004800?*I, 0.00216656865333580?*I]
-    sage: Z = PeriodMatrix(Phi, 1*O, xi)
+    sage: Z = PeriodMatrix(Phi, K.ideal(1), xi)
     sage: gammas = reciprocity_map_image(Z, 8) # long time, less than 7 minutes, note: requires sage-4.7.1 or higher, see trac ticket 11234
     sage: c = Z.complex_conjugation_symplectic_matrix(8) # long time
     sage: visualize(gammas + [c], 2) # long time
@@ -319,22 +319,23 @@ Here's a nice other small invariant::
     sage: ThetaModForm(ThR.gens()[4]/ThR.gens()[12]).orbit(gammas) # long time
     [t4/t12, (-t4)/t12]
     
-Now the invariants of the talk at Geocrypt and ECC::
+Now the invariants of the talk at Geocrypt and ECC. What is called t,u,v, here
+and in the article was called t^-1,u^-1,v^-1 in the talk.::
 
-    sage: t = ThetaModForm(ThR.gens()[0]*ThR.gens()[8]/ThR.gens()[4]/ThR.gens()[12])
-    sage: U = ThetaModForm(ThR.gens()[2]/ThR.gens()[6])^2
-    sage: V = ThetaModForm(ThR.gens()[8]/ThR.gens()[12])^2
-    sage: W = ThetaModForm(ThR.gens()[0]/ThR.gens()[4])^2
+    sage: t = ThetaModForm(ThR.gens()[4]*ThR.gens()[12]/ThR.gens()[0]/ThR.gens()[8])
+    sage: U = ThetaModForm(ThR.gens()[6]/ThR.gens()[2])^2
+    sage: V = ThetaModForm(ThR.gens()[12]/ThR.gens()[8])^2
+    sage: W = ThetaModForm(ThR.gens()[4]/ThR.gens()[0])^2
     sage: [a.orbit(gammas+[c]) for a in [t,U,V,W]] # long time
-    [[t0*t8/(t4*t12)], [t2^2/t6^2], [t8^2/t12^2], [t0^2/t4^2]]
+    [[t4*t12/(t0*t8)], [t6^2/t2^2], [t12^2/t8^2], [t4^2/t0^2]]
     sage: u = U*V
     sage: v = U*W
-    sage: t^2/V*U == v
+    sage: t^2*U/V == v
     True
     sage: [t,u,v] # these were presented first
-    [t0*t8/(t4*t12), t2^2*t8^2/(t6^2*t12^2), t0^2*t2^2/(t4^2*t6^2)]
+    [t4*t12/(t0*t8), t6^2*t12^2/(t2^2*t8^2), t4^2*t6^2/(t0^2*t2^2)]
     sage: [t,U,V] # maybe these are smaller?
-    [t0*t8/(t4*t12), t2^2/t6^2, t8^2/t12^2]
+    [t4*t12/(t0*t8), t6^2/t2^2, t12^2/t8^2]
 
 Now we compute the complete set of quotients of products of two theta
 constants that is fixed by G. At the same time, we also follow
@@ -369,11 +370,11 @@ H = ker(G --> Zmod8*). We start by deduplicating::
     ....:     if not gamma in Hgens:
     ....:         Hgens.append(gamma)
     sage: len(Hgens)
-    6
+    5
     sage: len(Hgens0)
     6
     sage: [gamma.nu() for gamma in Hgens]
-    [1, 1, 1, 1, 1, 1]
+    [1, 1, 1, 1, 1]
 
 Proof: we're looking at a semidirect product of a subgroup of (O/NO)* with complex
 conjugation. So we write any element as an element of (O/NO)* times
@@ -457,8 +458,9 @@ So the orbit lengths are one and two. We try the two orbits of length one.::
 
     sage: ThR = theta_ring(2,2)[0]
     sage: zeta8 = ThR.base_ring().gen()
-    sage: u = ThetaModForm(ThR.gens()[6]/ThR.gens()[15]); u.orbit(gammas)
-    [t6/t15, (zeta8^2)*t6/t15, (-t6)/t15, ((-zeta8^2)*t6)/t15]
+    sage: u = ThetaModForm(ThR.gens()[6]/ThR.gens()[15])
+    sage: u.orbit(gammas)
+    [t6/t15, (zeta8^2)*t6/(-t15), (-t6)/t15, ((-zeta8^2)*t6)/(-t15)]
 
     sage: T = [ThetaModForm(zeta8^j*(ThR.gens()[6]/ThR.gens()[15])^k) for j in range(4) for k in range(1,5)]
     sage: [t for t in T if t.is_fixed_by(gammas+[c])] # long time
@@ -491,30 +493,30 @@ So even this class invariant gives an improvement. Now let's use the
 group cohomology approach to see whether other constants work.
 
     sage: Ggens = []
-    sage: for gamma in gammas + [c]:
+    sage: for gamma in gammas + [c]: # Ideally we'd take a minimal set of generators, instead we simply deduplicate
     ....:     if not gamma in Ggens:
     ....:         Ggens.append(gamma)
     ....: 
     sage: len(gammas)
-    3
-    sage: len(Ggens)
-    4
+    5
+    sage: len(Ggens) # Apparently there already were no duplicates
+    5
     
     sage: [gamma.nu() for gamma in Ggens]
-    [5, 5, 1, 7]
-    sage: Hgens0 = [Ggens[0]^2, Ggens[0]*Ggens[1], Ggens[2]]
+    [1, 1, 5, 1, 7]
+    sage: Hgens0 = [Ggens[0], Ggens[1], Ggens[3]] # we choose generators of the kernel of the nu map, manually for now
     sage: Hgens = []
-    sage: for gamma in Hgens0:
+    sage: for gamma in Hgens0: # Ideally we'd take a minimal set of generators, instead we simply deduplicate
     ....:     if not gamma in Hgens:
     ....:         Hgens.append(gamma)
     sage: len(Hgens)
     3
-    sage: len(Hgens0)
+    sage: len(Hgens0) # Apparently there already were no duplicates
     3
     sage: [gamma.nu() for gamma in Hgens]
     [1, 1, 1]
     sage: [u^gamma/u for gamma in Hgens]
-    [-1, (zeta8^2), 1]
+    [(-zeta8^2), 1, 1]
 
 So we still need a 4th power in order to get something that is fixed
 by H. So here general constants do not give an improvement.
@@ -537,14 +539,14 @@ As in the previous example, we'll use a more ad hoc approach::
     sage: list_fs = [f for f in fs if is_fixed(f, Hgens)]; list_fs
     [t0*t9/(t4*t12)]
     sage: f = list_fs[0]
-    sage: [(gamma.nu(), f^gamma/f) for gamma in Ggens]
-    [(5, -1), (5, -1), (1, 1), (7, (-zeta8^2))]
+    sage: Set([(gamma.nu(), (f^gamma/f).rational_function()) for gamma in Ggens])
+    {(5, -1), (1, 1), (7, (-zeta8^2))}
     sage: xgens = [z + zeta8^2 * z^3 - z^5 - zeta8^2 * z^7 for z in [1, zeta8, zeta8^2, zeta8^3]]
     sage: xgens
     [0, 0, 0, 4*zeta8^3]
     sage: f = ThetaModForm(zeta8^3, g=2)*f
-    sage: [f^gamma/f for gamma in Ggens]
-    [1, 1, 1, 1]
+    sage: Set([(f^gamma/f).rational_function() for gamma in Ggens])
+    {1}
     sage: f
     (zeta8^3)*t0*t9/(t4*t12)
 

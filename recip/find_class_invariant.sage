@@ -11,7 +11,7 @@ from it.
   modular functions. arXiv:1201.0020
 
 #*****************************************************************************
-# Copyright (C) 2010 -- 2020 Marco Streng <marco.streng@gmail.com>
+# Copyright (C) 2010 -- 2025 Marco Streng <marco.streng@gmail.com>
 # 
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -145,8 +145,7 @@ def principal_type_norms(Psi, modulus):
     Or is the maximal order of the reflex field.
     r"""
     K = Psi.domain()
-    O = K.maximal_order()
-    M = modulus * O
+    M = K.ideal(modulus)
     
     gens = [Psi.type_norm(K(g)) for g in M.idealstar(2).gens()]
     
@@ -210,10 +209,10 @@ def reciprocity_map_image(Z, level, modulus=None):
         Period Matrix
         [...]
         [...]
-        sage: Z.reduce(CC)
+        sage: Z.reduce(CC) # random
         Period Matrix
-        [   0.3090169943750? + 0.9510565162952?*I -0.50000000000000? + 0.36327126400268?*I]
-        [-0.50000000000000? + 0.36327126400268?*I   -0.3090169943750? + 0.9510565162952?*I]
+        [-0.50000000000000? + 0.6881909602356?*I -1.50000000000000? + 0.1624598481165?*I]
+        [-1.50000000000000? + 0.1624598481165?*I           0.?e-14 + 0.85065080835204?*I]
         sage: reciprocity_map_image(Z, 6) # not tested, is this answer correct?
         [[1 1 4 1]
         [2 4 1 5]

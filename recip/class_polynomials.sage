@@ -64,17 +64,17 @@ def class_polynomials(K, factor=False, prec=None, D=None,
 
         sage: class_polynomials(CM_Field((x^2+2)^2-2), verbose=True) # long time: 10 seconds
         starting with precision 50
-        output has 40.8562309773420 too few bits of precision
+        output has 40.8... too few bits of precision
         increasing precision to 95
-        output has 3.47594808128218 more bits of precision than needed
+        output has 3.4... more bits of precision than needed
         Denominator: 1 out of 2^46
         [x + 7290, 437400, 2952450000]
 
         sage: class_polynomials(CM_Field((x^2+13)^2-2^2*13), verbose=True) # long time: 10 seconds
         starting with precision 50
-        output has 8.61997633871636 too few bits of precision
+        output has 8.6... too few bits of precision
         increasing precision to 63
-        output has 4.68096300785080 more bits of precision than needed
+        output has 4.6... more bits of precision than needed
         Denominator: 1 out of 2^14
         [x + 7840, 102400, -204800000]
 
@@ -90,7 +90,7 @@ def class_polynomials(K, factor=False, prec=None, D=None,
         starting with precision 50
         output has 35.4... too few bits of precision
         increasing precision to 90
-        output has 4.5... more bits of precision than needed
+        output has 4... more bits of precision than needed
         Denominator: 1 out of 2^14 * 5^4
         [x + 2589408, 131383296, -60466176000000]
         

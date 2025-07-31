@@ -3,7 +3,7 @@ RECIP -- REpository of Complex multIPlication SageMath code.
 See the file README.txt for version information and instructions.
 
 #*****************************************************************************
-# Copyright (C) 2010 -- 2024
+# Copyright (C) 2010 -- 2025
 # Marco Streng <marco.streng@gmail.com>
 #
 # This program is free software; you can redistribute it and/or modify
@@ -968,16 +968,17 @@ class PeriodMatrix_CM():
             Period Matrix
             [...]
             [...]
-            sage: Z = Z.reduce(CC); Z
+            sage: Z = Z.reduce(CC); Z # random
             Period Matrix
-            [   0.3090169943750? + 0.9510565162952?*I -0.50000000000000? + 0.36327126400268?*I]
-            [-0.50000000000000? + 0.36327126400268?*I   -0.3090169943750? + 0.9510565162952?*I]
+            [-0.50000000000000? + 0.6881909602356?*I -1.50000000000000? + 0.1624598481165?*I]
+            [-1.50000000000000? + 0.1624598481165?*I           0.?e-14 + 0.85065080835204?*I]
             sage: Z.complex_conjugation_symplectic_matrix(8)
             Generalized symplectic matrix
-            [0 1 1 1]
-            [0 0 1 0]
-            [0 1 0 0]
-            [1 7 7 0] with nu = 7
+            [1 1 3 2]
+            [7 2 2 7]
+            [1 7 7 1]
+            [7 0 7 6] with nu = 7
+            
         r"""
         B = self.ideal()
         rho = self.CM_field().complex_conjugation()
@@ -1210,7 +1211,7 @@ class PeriodMatrix_CM():
         really 100. This should be corrected (TODO)::
         
             sage: i(Z, prec=100)
-            7868.1319781637072174192248493 - 6.1974439674228400482025283547e-26*I
+            6464.1219280862927825807751509 + 1.4177571165844968616946581863e-26*I
             sage: (U, M, u) = Z.Shimura_reciprocity(a.parent().ideal(a), m=1, n=8, period_matrix=True)
             sage: M # output is random
             [-1  2 -1  2]
@@ -1239,12 +1240,12 @@ class PeriodMatrix_CM():
             t4/t6
             
         Simplification of theta quotient expressions does not wcompletely work
-        yet in all cases (TODO)::
+        yet in all cases, and the precision is off here (TODO)::
 
             sage: t^u
-            ((-zeta8)*t4)/(zeta8*t6)
+            ((-zeta8)*t6)/(zeta8*t4)
             sage: (t^u)(U, prec=100)
-            -0.99980077513799256466685524680 + 0.019960211258131232129944267306*I
+            -0.99854006288205177918601876434 + 0.054016134807185886527908776898*I
             sage: P = theta_ring(2,2)[0]
 
             

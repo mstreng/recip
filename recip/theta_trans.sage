@@ -4,7 +4,7 @@ RECIP -- REpository of Complex multIPlication SageMath code.
 See the file README.txt for version information and instructions.
 
 #*****************************************************************************
-# Copyright (C) 2010 -- 2024
+# Copyright (C) 2010 -- 2025
 # Marco Streng <marco.streng@gmail.com>
 #
 # This program is free software; you can redistribute it and/or modify
@@ -212,6 +212,7 @@ def _determine_kappa_for_gottschling():
     
     EXAMPLES::
     
+        sage: # long time
         sage: load("recip.sage")
         sage: load("recip.sage") # from recip import _determine_kappa_for_gottschling
         sage: gottschling_kappa == _determine_kappa_for_gottschling()

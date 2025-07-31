@@ -9,7 +9,7 @@ This file gives the details of computations for Table 2 of [BLS].
 See the file README.txt for version information, instructions, and references.
 
 #*****************************************************************************
-# Copyright (C) 2010 -- 2020
+# Copyright (C) 2010 -- 2025
 # Marco Streng <marco.streng@gmail.com>
 #
 # This program is free software; you can redistribute it and/or modify
@@ -29,6 +29,7 @@ See the file README.txt for version information, instructions, and references.
 
 ::
 
+    sage: # long time
     sage: load("recip.sage")
     sage: lst = recognize_all_from_article(3, print_results=True)
     0 -7
@@ -65,6 +66,7 @@ or are (2,2)-isogenous to such. In the latter case, we can list the
 possibilities and do numerical things. And maybe sometimes better than
 numerical things: how about degrees of fields of moduli?
 
+    sage: # long time
     sage: Z = lst[1][1][1][0]
     sage: j = igusa_invariants_absolute()[2]
     sage: j_val = j(Z.complex_matrix().base_extend(CIF), interval=True); j_val
@@ -80,8 +82,8 @@ numerical things: how about degrees of fields of moduli?
     sage: [out] = [(b, ic_from_Cab(a,b)) for b in l if (j_val-CIF(j_from_Cab(a, b))).contains_zero()]
     sage: out
     (-2*sqrt2 + 3, (716800*sqrt2 - 1013760, 72666316800*sqrt2 - 102765690880, -14732865254195200*sqrt2 + 20835417855098880, 30280661510083082557849600*sqrt2 - 42823322185188459983929344))
-    sage: mult_ic(reduce_ic(out[1]),sqrt2)
-    [20, -20, -40, 8]
+    sage: mult_ic(reduce_ic(out[1]),sqrt2) # random signs
+    [-20, -20, 40, -8]
     sage: ic_on_humb8(_)
     True
 
@@ -90,6 +92,7 @@ like "C_{-8}, C(3+2*sqrt2, 3-2*sqrt2), (20: -20: -40: 8)".
 
 The next is a bit more complicated, and appears for two fields::
 
+    sage: # long time
     sage: Z = lst[2][1][3][0]
     sage: j_val = j(Z.complex_matrix().base_extend(CIF), interval=True); j_val
     3.9106607437?e6 + 0.0000?*I
@@ -125,6 +128,7 @@ for the fields (0, -3) and (3, 1).
 
 There is another one for this field.::
 
+    sage: # long time
     sage: Z = lst[2][1][2][0]
     sage: j = igusa_invariants_absolute()[2]
     sage: j_val = j(Z.complex_matrix().base_extend(CIF), interval=True); j_val
@@ -148,12 +152,17 @@ field (0, -5).
 For the next field (0, -3), we have already done one curve. The other
 is a pair of curves, which may be the most difficult.
 
+    sage: # long time
     sage: Z1 = lst[4][1][1][0]
-    sage: j_val1 = j(Z1.complex_matrix().base_extend(CIF), interval=True); j_val1
+    sage: j_val1 = j(Z1.complex_matrix().base_extend(CIF), interval=True)
+    sage: if j_val1.imag() < 0: j_val1 = j_val1.conjgate() # The CM types were listed only up to complex conjugation
+    sage: j_val1
     8.1894000000?e7 + 1.50920000000?e7*I
     sage: Z2 = lst[4][1][2][0]
-    sage: j_val2 = j(Z2.complex_matrix().base_extend(CIF), interval=True); j_val2
-    8.1894000000?e7 - 1.50920000000?e7*I
+    sage: j_val2 = j(Z2.complex_matrix().base_extend(CIF), interval=True)
+    sage: if j_val2.imag() < 0: j_val2 = j_val2.conjgate() # The CM types were listed only up to complex conjugation
+    sage: j_val2
+    8.1894000000?e7 + 1.50920000000?e7*I
     sage: K.<sqrt5>=QuadraticField(5)
     sage: [j1, j2] = hilbert_class_polynomial(-20).roots(K, multiplicities=False)
     sage: P.<x> = K[]
@@ -211,6 +220,7 @@ can now be fixed.
 
 Now only for the field (0, -2), something needs to be computed.
 
+    sage: # long time
     sage: Z1 = lst[5][1][3][0]
     sage: j_val1 = j(Z1.complex_matrix().base_extend(CIF), interval=True); j_val1
     1.76433163200?e9 + 0.00000?*I
@@ -234,8 +244,8 @@ Now only for the field (0, -2), something needs to be computed.
     sage: all([c == c[0] for c in ic_from_Cab(a, b)])
     True
     sage: ic = [c[0] for c in ic_from_Cab(a, b)]
-    sage: mult_ic(reduce_ic(ic), sqrt2)
-    [76, 252, 5160, 24]
+    sage: mult_ic(reduce_ic(ic), sqrt2) # random signs
+    [-76, 252, -5160, -24]
     sage: ic_on_humb8(_)
     True
     sage: b.minpoly()
@@ -251,6 +261,7 @@ to be very careful about signs.
 
 As for the other one::
 
+    sage: # long time
     sage: p = (P.fraction_field()(j_from_a())-j1).numerator()
     sage: l = [b for b in p.roots(L, multiplicities=False) if b != a]
     sage: len(l) == 5 # so we have found all candidate b's
@@ -261,8 +272,8 @@ As for the other one::
     sage: all([c == c[0] for c in ic_from_Cab(a, b)])
     True
     sage: ic = [c[0] for c in ic_from_Cab(a, b)]
-    sage: mult_ic(reduce_ic(ic), sqrt2)
-    [-92, 108, -4104, -24]
+    sage: [c.abs() for c in mult_ic(reduce_ic(ic), sqrt2)]
+    [92, 108, 4104, 24]
     sage: ic_on_humb8(_)
     True
     sage: b.minpoly()
@@ -280,6 +291,7 @@ models at some stage. For some curves, we forgot the models:
 C_{-7}, C_{-4, -7}, C_{-4, -8}, but the proof went via computing such a model,
 and we can recompute it easily using the methods above.
 
+    sage: # long time
     sage: K.<sqrtmin7> = QuadraticField(-7)
     sage: l = (j_from_a()+3375).numerator().roots(K, multiplicities=False)
     sage: l.sort()
@@ -295,6 +307,7 @@ one for which we proved b=1/a)
 %2 = 0.96875000000000000000000000000000000003 - 0.24803918541230536785952647690368066482*I
 So here they are::
 
+    sage: # long time
     sage: a = l[4]
     sage: b = 1/a
     sage: b in l
@@ -325,6 +338,7 @@ Similarly for Z[i] and Z[sqrt-2], we do
 ? algdep(a(beta2),2)
 %19 = x^2 + 4*x - 4
 
+    sage: # long time
     sage: (j_from_a()-1728).numerator().factor()
     (256) * (x - 2)^2 * (x - 1/2)^2 * (x + 1)^2
     sage: hilbert_class_polynomial(-8)
@@ -334,6 +348,7 @@ Similarly for Z[i] and Z[sqrt-2], we do
 
 So we take a=2 and take b to be a root of x^2+4x-4 and get
 
+    sage: # long time
     sage: x = polygen(QQ)
     sage: K.<b> = NumberField(x^2+4*x-4)
     sage: reduce_ic(ic_from_Cab(2, b))
@@ -346,6 +361,7 @@ This proves C_{-4, -8}, and the final curve C_{-4, -7} comes from a
 
 As for whether the points are on the Humbert surface::
 
+    sage: # long time
     sage: ic_on_humb8([40,45,555,6])
     True
     sage: ic_on_humb8([92,108,4104,24])
@@ -545,8 +561,7 @@ def mult_ic(ic, d):
 
 def reduce_ic(ic):
     K = ic[0].parent()
-    O = K.maximal_order()
-    id = lower_root(ic[0]*O, 1)+lower_root(ic[1]*O,2)+lower_root(ic[2]*O,3)+lower_root(ic[3]*O,5)
+    id = lower_root(K.ideal(ic[0]), 1)+lower_root(K.ideal(ic[1]),2)+lower_root(K.ideal(ic[2]),3)+lower_root(K.ideal(ic[3]),5)
     if id.is_principal():
         d = id.gens_reduced()[0]
         ic = [ic[0]/d, ic[1]/d^2, ic[2]/d^3, ic[3]/d^5]

@@ -11,7 +11,7 @@ additional original work.
 See the file README.txt for version information, instructions, and references.
 
 #*****************************************************************************
-# Copyright (C) # Copyright (C) 2010 -- 2024
+# Copyright (C) # Copyright (C) 2010 -- 2025
 # Marco Streng <marco.streng@gmail.com>
 #
 # This program is free software; you can redistribute it and/or modify
@@ -98,7 +98,7 @@ def denominator_bound(K, c=2**14, k=2, d=None, Phi=None, bound='default', check=
         sage: w = igusa_modular_forms_to_absolute(v); w
         [-7290.0000000000000000000000? + 0.?e-23*I, 437400.00000000000000000000? + 0.?e-21*I, 2.9524500000000000000000000?e9 + 0.?e-17*I]
         sage: [(log((gl*y).real().absolute_diameter())/log(2)).n() for y in w]
-        [240.728133100306, 246.473959365695, 259.180686194823]
+        [240.7..., 246.4..., 259.1...]
 
     These numbers are very recognizable, but we need 346 more bits of output
     precision to prove they are correct.::
@@ -107,7 +107,7 @@ def denominator_bound(K, c=2**14, k=2, d=None, Phi=None, bound='default', check=
         sage: w = igusa_modular_forms_to_absolute(v)
         sage: x = [gl*y.real() for y in w]
         sage: [(log(y.absolute_diameter())/log(2)).n() for y in x]
-        [-107.565143763258, -101.889231246203, -89.1476167961862]
+        [-107.5..., -101.8..., -89.1...]
 
     So now we have more than enough precision and can simply round::
     
@@ -159,7 +159,7 @@ def denominator_bound(K, c=2**14, k=2, d=None, Phi=None, bound='default', check=
         [x^2 - 502951680/303601*x - 215457915617280/5768419,
          102098407935836160/11153001631321*x + 1497833452550013478502400/4026233588906881,
          2213545771008000000/92173567201*x - 36646804488714190848000000/33274657759561]
-        sage: class_polynomials(K, D=D2) # still a long time, but only 26 seconds
+        sage: class_polynomials(K, D=D2) # long time: 26 seconds
         [x^2 - 502951680/303601*x - 215457915617280/5768419,
          102098407935836160/11153001631321*x + 1497833452550013478502400/4026233588906881,
          2213545771008000000/92173567201*x - 36646804488714190848000000/33274657759561]
@@ -316,9 +316,10 @@ def bruinier_yang_applies(K, proof=True, reason=False):
     # ((w+sqrt(Delta))/2)^2 = w^2/4 + w*sqrt(Delta)/2 + Delta/4
     # = w * (w+sqrt(Delta))/2 - w^2/4 + Delta/4, so 
     # Delta is w^2 modulo 4 if and only if the number is an algebraic integer.
-    OF = K.real_field().maximal_order()
-    for w in (4*OF).residues():
-        if (4*OF).divides(Delta-w^2):
+    F = K.real_field()
+    #OF = K.real_field().maximal_order()
+    for w in F.ideal(4).residues():
+        if F.ideal(4).divides(Delta-w^2):
             # 4 (and hence 3) is satisfied
             break
     else: # this "else" belongs to the "for"
@@ -412,11 +413,11 @@ def bruinier_yang_bound(K, check=True, proof=True):
     Here is the final curve in the author's preprint with Florian Bouyer::
     
         sage: K = CM_Field([389, 37, 245])
-        sage: class_polynomials(K, verbose=True)
+        sage: class_polynomials(K, verbose=True) # long time
         starting with precision 50
-        output has 115.431562894917 too few bits of precision
+        output has 115.4... too few bits of precision
         increasing precision to 170
-        output has 4.22948047026222 more bits of precision than needed
+        output has 4.2... more bits of precision than needed
         Denominator: 11^2 * 19^6 * 29^4 out of 2^14 * 5^4 * 11^8 * 19^8 * 29^4
         [x^2 - 502951680/303601*x - 215457915617280/5768419,
          102098407935836160/11153001631321*x + 1497833452550013478502400/4026233588906881,
@@ -733,7 +734,7 @@ def lauter_viray_bound(K, safe=True, num_etas=None, implementation="bound", boun
         5^376 * 11^556 * 19^88 * 31^88 * 41^208 * 71^76 * 79^48 * 89^8 * 139^48 * 149^20 * 179^32 * 241^8
         sage: lauter_viray_bound(F, num_etas=4).factor()
         5^376 * 11^556 * 19^88 * 31^56 * 41^80 * 71^76 * 79^12 * 89^8 * 139^24 * 149^20 * 179^32 * 241^8
-        sage: lauter_viray_bound(F, num_etas=5).factor()
+        sage: lauter_viray_bound(F, num_etas=5).factor() # long time
         5^376 * 11^556 * 19^88 * 31^56 * 41^80 * 71^76 * 79^12 * 89^8 * 139^24 * 149^20 * 179^32 * 241^8
 
 
@@ -829,7 +830,7 @@ def lauter_viray_bound_given_eta(K, eta, safe=True, verbose=False, factor_two=Tr
 
     c_K = (alpha0^2 + alpha0*alpha1*D + 1/4*alpha1^2*(D^2-D)-4*beta0-2*beta1*D)
     
-    OF = F.maximal_order()
+    #OF = F.maximal_order()
     
     D_rel_of_eta = K.self_to_real((eta-cc(eta))^2)
     Dtilde = ZZ(D_rel_of_eta.norm())
@@ -1425,8 +1426,7 @@ def find_eta(K, how_many=None, proof=True):
         [-alpha]
         sage: F = CM_Field([145, 15, 20])
         sage: find_eta(F)
-        [(-1/4*alpha^3 + 3/4*alpha - 1/2, [37]),
-         (-3/4*alpha^3 - 7/4*alpha - 1/2, [43])]
+        [(-1/4*alpha^3 + 3/4*alpha - 1/2, [37]), (3/4*alpha^3 + 7/4*alpha - 1/2, [43])]
 
     r"""
     ret = None
@@ -1573,8 +1573,8 @@ def find_eta_pid_old(K, Krel, F, D, rel_diff):
             # Goal: find A in O_F, which is rel_diff mod 2*O_K.
             OKrel = Krel.maximal_order()
             qK = OKrel.quotient_ring(twoKrel, 'a')
-            OF = F.maximal_order()
-            bas = OF.basis()
+            #OF = F.maximal_order()
+            bas = F.maximal_order().basis()
             for b in cartesian_product_iterator([[0,1], [0,1]]):
                 A = sum([bas[i]*b[i] for i in range(2)])
                 if Krel(A) - rel_diff in twoKrel:
@@ -1711,7 +1711,7 @@ def lauter_viray_win(K, eta, safe=True, verbose=False, factor_two=True, m=magma,
 
     c_K = (alpha0^2 + alpha0*alpha1*D + 1/4*alpha1^2*(D^2-D)-4*beta0-2*beta1*D)
     
-    OF = F.maximal_order()
+    #OF = F.maximal_order()
     
     D_rel_of_eta = K.self_to_real((eta-cc(eta))^2)
     Dtilde = ZZ(D_rel_of_eta.norm())

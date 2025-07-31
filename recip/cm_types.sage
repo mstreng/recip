@@ -9,7 +9,7 @@ This file contains functions and classes for CM-fields and CM-types
 See the file README.txt for version information, instructions, and references.
 
 #*****************************************************************************
-# Copyright (C) 2010 -- 2024
+# Copyright (C) 2010 -- 2025
 # Marco Streng <marco.streng@gmail.com>
 #
 # This program is free software; you can redistribute it and/or modify
@@ -428,25 +428,25 @@ class CM_Field_absolute(NumberField_absolute):
             sage: h6 = h[1]
             sage: h10 = h[2]
             sage: prec = 300
-            sage: vals = [h4(Z,prec=prec)*h6(Z,prec=prec)/h10(Z,prec=prec) for Z in Zs]
+            sage: vals = [h4(Z,prec=prec)*h6(Z,prec=prec)/h10(Z,prec=prec) for Z in Zs] # long time
             sage: C = ComplexField(prec)
             sage: x = polygen(C)
-            sage: p = prod([x-v for v in vals])
-            sage: p.degree()
+            sage: p = prod([x-v for v in vals]) # long time
+            sage: p.degree() # long time
             3
             sage: Kr = Phi.reflex_field()
             sage: emb = Kr.embedding(C)
-            sage: p = prod([x-v for v in vals])
-            sage: rec = recognize_polynomial(p, Kr, emb=emb)
-            sage: rec
+            sage: p = prod([x-v for v in vals]) # long time
+            sage: rec = recognize_polynomial(p, Kr, emb=emb) # long time
+            sage: rec # long time
             y^3 + (-35066459955240/841*alphar^2 - 1487392805457720/841)*y^2 + (597493296539484231514360320/841*alphar^2 + 25343519362621477629659712000/841)*y - 71865977015979239777634263040/841*alphar^2 - 3048296592726424575499072757760/841
-            sage: H = NumberField(rec, 'beta')
-            sage: H.is_galois_relative()     # C_3 extension
+            sage: H = NumberField(rec, 'beta') # long time
+            sage: H.is_galois_relative() # long time, C_3 extension
             True
-            sage: H.relative_discriminant()  # unramified
+            sage: H.relative_discriminant()  # long time, unramified
             Fractional ideal (1)
 
-            sage: wrong_emb = [phi for phi in Kr.embeddings(C)                                     if abs(abs(phi(Kr.gen()))-abs(emb(Kr.gen()))) > 1][0]
+            sage: wrong_emb = [phi for phi in Kr.embeddings(C) if abs(abs(phi(Kr.gen()))-abs(emb(Kr.gen()))) > 1][0]
             sage: emb
             Ring morphism:
               From: CM Number Field in alphar with defining polynomial x^4 + 58*x^2 + 661
@@ -457,18 +457,18 @@ class CM_Field_absolute(NumberField_absolute):
               From: CM Number Field in alphar with defining polynomial x^4 + 58*x^2 + 661
               To:   Complex Field with 300 bits of precision
               Defn: alphar |--> -3.94760587381785896307942602760979688120927892548204030675719951858721000896415640033478443*I
-            sage: rec_wrong = recognize_polynomial(p, Kr, emb=wrong_emb)
-            sage: H_wrong = NumberField(rec_wrong, 'beta')
-            sage: H_wrong.is_galois_relative()    # not Galois
+            sage: rec_wrong = recognize_polynomial(p, Kr, emb=wrong_emb) # long time
+            sage: H_wrong = NumberField(rec_wrong, 'beta') # long time
+            sage: H_wrong.is_galois_relative() # long time, not Galois
             False
-            sage: H_wrong.relative_discriminant() # ramified
+            sage: H_wrong.relative_discriminant()  # long time, ramified
             Fractional ideal (661, 1/12*alphar^2 + 719/12)
 
         In fact, the two polynomials above are real and are conjugate::
 
             sage: Kr0 = Kr.relative_field().base_field()
             sage: a = [a for a in Kr0.automorphisms() if a(Kr0.gen()) != Kr0.gen()][0]
-            sage: [a(Kr.self_to_real(c)) for c in rec] == [Kr.self_to_real(c) for c in rec_wrong]
+            sage: [a(Kr.self_to_real(c)) for c in rec] == [Kr.self_to_real(c) for c in rec_wrong] # long time
             True
 
         r"""
@@ -860,8 +860,21 @@ class CM_Field_absolute(NumberField_absolute):
             sage: load("recip.sage")
             sage: K = CM_Field(-71)
             sage: list(K._principally_polarized_ideal_class_representives_iter())
-            [(Fractional ideal (1), -1/71*alpha), (Fractional ideal (1), 1/71*alpha), (Fractional ideal (2, 1/2*alpha - 1/2), -1/142*alpha), (Fractional ideal (2, 1/2*alpha - 1/2), 1/142*alpha), (Fractional ideal (4, 1/2*alpha + 3/2), -1/284*alpha), (Fractional ideal (4, 1/2*alpha + 3/2), 1/284*alpha), (Fractional ideal (3, 1/2*alpha - 1/2), -1/213*alpha), (Fractional ideal (3, 1/2*alpha - 1/2), 1/213*alpha), (Fractional ideal (3, 1/2*alpha + 1/2), -1/213*alpha), (Fractional ideal (3, 1/2*alpha + 1/2), 1/213*alpha), (Fractional ideal (4, 1/2*alpha + 5/2), -1/284*alpha), (Fractional ideal (4, 1/2*alpha + 5/2), 1/284*alpha), (Fractional ideal (2, 1/2*alpha + 1/2), -1/142*alpha), (Fractional ideal (2, 1/2*alpha + 1/2), 1/142*alpha)]
-
+            [(Fractional ideal (1), 1/71*alpha),
+             (Fractional ideal (1), -1/71*alpha),
+             (Fractional ideal (2, 1/2*alpha - 1/2), 1/142*alpha),
+             (Fractional ideal (2, 1/2*alpha - 1/2), -1/142*alpha),
+             (Fractional ideal (4, 1/2*alpha + 3/2), 1/284*alpha),
+             (Fractional ideal (4, 1/2*alpha + 3/2), -1/284*alpha),
+             (Fractional ideal (3, 1/2*alpha - 1/2), 1/213*alpha),
+             (Fractional ideal (3, 1/2*alpha - 1/2), -1/213*alpha),
+             (Fractional ideal (3, 1/2*alpha + 1/2), 1/213*alpha),
+             (Fractional ideal (3, 1/2*alpha + 1/2), -1/213*alpha),
+             (Fractional ideal (4, 1/2*alpha + 5/2), 1/284*alpha),
+             (Fractional ideal (4, 1/2*alpha + 5/2), -1/284*alpha),
+             (Fractional ideal (2, 1/2*alpha + 1/2), 1/142*alpha),
+             (Fractional ideal (2, 1/2*alpha + 1/2), -1/142*alpha)]
+            
             sage: K = CM_Field(x^4 + 8*x^2 + 3)
             sage: l = list(K._principally_polarized_ideal_class_representives_iter())
             sage: l.sort(key=str)
