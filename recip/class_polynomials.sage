@@ -3,7 +3,7 @@ RECIP -- REpository of Complex multIPlication SageMath code.
 See the file README.txt for version information and instructions.
 
 #*****************************************************************************
-# Copyright (C) 2010 -- 2024
+# Copyright (C) 2010 -- 2025
 # Marco Streng <marco.streng@gmail.com>
 #
 # This program is free software; you can redistribute it and/or modify

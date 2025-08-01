@@ -687,7 +687,7 @@ def ThetaModForm(x, g = None, den = None):
         x = P(x(eval))
         y = P(y(eval))
         return Theta_element_polynomial_ring(x, y, g, den)
-    if type(x) == list or is_Vector(x):
+    if type(x) == list or sage.structure.element.is_Vector(x):
         if len(x) % 2 == 1:
             raise ValueError( "Length of x (=%s) is odd" % x)
         g = ZZ(len(x)/2)
@@ -1289,36 +1289,50 @@ class Theta_element_polynomial_ring(Theta_element):
             sage: Z.set_immutable()
             sage: y(Z)
             -0.698161258723300 + 0.420013875983267*I
+
+        And an example where ZZ/NZZ is of exponent > 2::
+
+            sage: D = 10
+            sage: P = theta_ring(1, D)[0]
+            sage: N = 2*D^2
+            sage: [u,v] = P.gens()[20:22]
+            sage: f = ThetaModForm(u/v)
+            sage: T = Matrix(Zmod(N),[[1,1],[0,1]])
+            sage: S = Matrix(Zmod(N),[[0,1],[-1,0]])
+            sage: M = S*T
+            sage: V = Matrix(Zmod(N),[[1,0],[0,3]])
+            sage: (f^M)^V
+            t1_10/((-zeta200^79 + zeta200^59 - zeta200^39 + zeta200^19)*t12_10)
+            sage: f^(M*V) # check that the action is a right action
+            t1_10/((-zeta200^79 + zeta200^59 - zeta200^39 + zeta200^19)*t12_10)
+            sage: (f^M)^(V^-1) # and that it isn't if we let V act as its inverse
+            t1_10/((zeta200^51)*t18_10)
+            sage: g = ThetaModForm(P.gens()[3]/P.gens()[14])
+            sage: c = (f^M)/g
+            sage: c
+            (zeta200^7)
+            sage: c^3
+            (zeta200^21)
+            sage: c^V # it is indeed implemented as in the paper
+            (zeta200^21)
+            sage: c^(V^-1)
+            (zeta200^69)
+
         r"""
         den = self._den
         g = self._g
-        if isinstance(M, sage.rings.finite_rings.integer_mod.IntegerMod_int):
-            if not M in Zmod(LCM(2*den**2, 8)):
-                raise ValueError()
-            M = Zmod(LCM(2*den**2, 8))(M)
-            return ThetaModForm(cycl_galois_action_on_polynomials(self._num_pol, M)/
-                                cycl_galois_action_on_polynomials(self._den_pol, M), g, den)
         if M in ZZ:
             return ThetaModForm(self._num_pol**M / self._den_pol**M, g, den)
 
         try:
-        # TODO: be absolutely sure the following line should have nu^-1
-        #       and not nu^-1?
-        #       Check this in paper, note: no problem for den=2,
-        #       as Zmod(8)^* has exponent 2
-            nu_inv = Zmod(2*den**2)(M.nu())**-1
+            nu = Zmod(lcm(8, 2 * den**2))(M.nu())
             action = M.action_on_theta_generators(den)
-            return ThetaModForm(cycl_galois_action_on_polynomials(                                      self._num_pol,nu_inv)(action) /                                  cycl_galois_action_on_polynomials(                                      self._den_pol, nu_inv)(action), g, den)
-        #  The following three lines should be an incorrect older version of
-        #  the three lines above. I'm keeping them here just in case.
-        #            return ThetaModForm(cycl_galois_action_on_theta(
-        #            self._num_pol(Sp_action), nu_inv)/
-        #            cycl_galois_action_on_theta(self._den_pol(
-        #            Sp_action), nu_inv), g, den)
+            return ThetaModForm(cycl_galois_action_on_polynomials(self._num_pol, nu)(action) / cycl_galois_action_on_polynomials(self._den_pol, nu)(action), g, den)
         except AttributeError:
             pass
         if is_Matrix(M):
             return self.__pow__(GSp_element(M))
+        raise NotImplementedError("Taking exponents of theta quotients for this exponent is not implemented: " + str(M))
         
     def __eq__(self, right):
         r"""
